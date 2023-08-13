@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Noticia+Text&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
+
+:root {
+    --font-header: 'Noticia Text', serif;
+    --font-text: 'Crimson Text', serif;
+}
+
+.OverlayDoctorPharmacist {
+    position: absolute;
+    width: calc(30% - 20px);
+    height: 90%;
+    display: none;
+    left: calc(70%/2);
+    top: calc(10%/2);
+    background-color: white;
+    padding: 0 10px;
+    overflow-y: scroll;
+    border-radius: 20px;
+}
+
+.OverlayDoctorPharmacist.show {
+    display: block;
+}
+
+.OverlayDoctorPharmacist-top {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background-color: white;
+    border-bottom: 1px solid gray;
+}
+
+.OverlayDoctorPharmacist-top div {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 6px;
+}
+
+.OverlayDoctorPharmacist::-webkit-scrollbar {
+    width: 0px;
+}
+
+.OverlayDoctorPharmacist h3 {
+    font-family: var(--font-header);
+    font-size: 24px;
+    margin: 0 0;
+}
+
+/* .OverlayDoctorPharmacist h3 span {
+    font-size: 20px;
+    padding: 2px;
+    border-radius: 10px;
+}  */
+
+.OverlayDoctorPharmacist-p {
+    font-family: var(--font-text);
+}
+
+.OverlayDoctorPharmacist-p1 {
+    font-family: var(--font-header);
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.OverlayDoctorPharmacist h3, 
+.OverlayDoctorPharmacist-p {
+    width: max-content;
+    margin-left: calc(100%/2);
+    transform: translateX(-50%);
+}
+
+.OverlayDoctorPharmacist img {
+    width: 100%;
+    height: 300px;
+}
+
+.OverlayDoctorPharmacist iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    overflow: hidden;
+    background-color: rgb(174, 246, 255);
+    border-radius: 10px;
+}
+
+.OverlayDoctorPharmacist-bottom {
+    position: sticky;
+    position: -webkit-sticky;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    bottom: 0;
+    border-top: 1px solid gray;
+    background-color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.OverlayDoctorPharmacist-bottom div {
+    width: 180px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.OverlayDoctorPharmacist-bottom div button {
+    border-radius: 8px;
+    height: 30px;
+    width: 80px;
+    background-color: #ff0d0d;
+    color: white;
+    cursor: pointer;
+    box-shadow: 5px 5px 2px #ff9f9f;
+}
+
+.OverlayDoctorPharmacist-bottom div button a {
+    color: white;
+    text-decoration: none;
+}
+
+.OverlayDoctorPharmacist-bottom div button:hover, .OverlayDoctorPharmacist-bottom div button a:hover {
+    background-color: white;
+    color: #ff0d0d;
+}
+
+.OverlayDoctorPharmacist::-webkit-scrollbar {
+    width: 0px;
+}
+
+@media screen and (max-width: 1200px) { 
+    .OverlayDoctorPharmacist {
+        width: calc(40% - 20px);
+        left: calc(60%/2);
+    }
+}
+
+@media screen and (max-width: 1000px) { 
+    .OverlayDoctorPharmacist {
+        width: calc(50% - 20px);
+        left: calc(50%/2);
+    }
+}
+
+@media screen and (max-width: 800px) { 
+    .OverlayDoctorPharmacist {
+        width: calc(60% - 20px);
+        left: calc(40%/2);
+    }
+}   
+
+@media screen and (max-width: 650px) { 
+    .OverlayDoctorPharmacist {
+        width: calc(80% - 20px);
+        left: calc(20%/2);
+    }
+}
+
+@media screen and (max-width: 430px) { 
+    .OverlayDoctorPharmacist {
+        width: calc(100% - 20px);
+        left: 0;
+    }
+}

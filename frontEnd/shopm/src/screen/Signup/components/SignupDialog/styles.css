@@ -1,0 +1,49 @@
+.SignupDialog {
+    position: fixed;
+    width: 300px;
+    background-color: white;
+    left: 100%;
+    top: 50%;
+    transform: translate(0%, -50%);
+    border-radius: 20px;
+    aspect-ratio: 2 / 1;
+    border: 1px solid black;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+
+    transition: left 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.SignupDialog.show {
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.SignupDialog-msg {
+    height: 75%;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.SignupDialog-btn {
+    height: 25%;
+    width: 100%;
+    background-color: aqua;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.SignupDialog-btn button {
+    outline: none;
+    height: 100%;
+    width: 50%;
+    box-sizing: border-box;
+}

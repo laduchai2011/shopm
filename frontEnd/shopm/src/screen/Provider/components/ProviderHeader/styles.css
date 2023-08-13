@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani&display=swap');
+
+:root {
+    --ProviderHeader-font-text: 'Rajdhani', sans-serif;
+}
+
+.ProviderHeader {
+    background-color: white;
+    height: 14px;
+    border-bottom: 1px solid gray;
+    display: flex;
+}
+
+.ProviderHeader div {
+    cursor: pointer;
+    font-size: 13px;
+    font-family: var(--ProviderHeader-font-text);
+    margin: 0 5px;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.ProviderHeader div a {
+    text-decoration: none;
+}
+
+.ProviderHeader div:hover {
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+}

@@ -1,0 +1,22 @@
+.HomeBottom {
+    margin-top: 5px;
+}
+
+.HomeBottom-header {
+    display: flex; 
+    margin: 10px 0;
+    align-items: center;
+}
+
+.HomeBottom-header span {
+    margin-left: 15px;
+    font-size: 11px;
+}
+
+.HomeBottom-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    box-sizing: border-box;
+    background-color: #eee;
+}

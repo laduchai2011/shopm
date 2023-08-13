@@ -1,0 +1,8 @@
+.BodyProviderSetting {
+    animation: BodyProviderSettingInit 1s ease-in-out;
+}
+
+@keyframes BodyProviderSettingInit {
+    from{opacity: 0;}
+    to{opacity: 1;}
+}

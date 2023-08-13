@@ -1,0 +1,98 @@
+.MedicationAddToastMessage {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    background-color: white;
+    height: 30px;
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+
+    transition: transform 0.3s ease-in-out;
+}
+
+.MedicationAddToastMessage.active {
+    transform: translateX(-50%) translateY(-25%);
+}
+
+.MedicationAddToastMessage-iconContainer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/1;
+    height: 100%;
+} 
+
+.MedicationAddToastMessage-iconContainer svg {
+    position: absolute;
+    opacity: 0;
+
+    transition: opacity 0.5s linear;
+}
+
+.MedicationAddToastMessage-loading.MedicationAddToastMessage {
+    border-left: 5px solid greenyellow; 
+    border-right: 5px solid greenyellow; 
+}
+
+.MedicationAddToastMessage-loading .MedicationAddToastMessage-iconContainer svg:nth-child(2) {
+    opacity: 1;
+    animation: MedicationAddToastMessageLoading 0.8s ease-in-out infinite;
+}
+@keyframes MedicationAddToastMessageLoading {
+    0% {transform: rotate(0);} 
+    25% {transform: rotate(90deg);}
+    50% {transform: rotate(180deg);}
+    75% {transform: rotate(270deg);}
+    100% {transform: rotate(360deg);} 
+}
+
+.MedicationAddToastMessage-loading .MedicationAddToastMessage-text::after {
+    color: greenyellow;
+    content: 'Loading ...';
+    font-size: 1.3em;
+}
+
+.MedicationAddToastMessage-failure.MedicationAddToastMessage {
+    border-left: 5px solid red; 
+    border-right: 5px solid red; 
+}
+
+.MedicationAddToastMessage-failure .MedicationAddToastMessage-iconContainer svg:nth-child(1) {
+    opacity: 1;
+}
+
+.MedicationAddToastMessage-failure .MedicationAddToastMessage-text::after {
+    color: red;
+    content: 'Failure !';
+    font-size: 1.3em;
+}
+
+.MedicationAddToastMessage-success.MedicationAddToastMessage {
+    border-left: 5px solid blue; 
+    border-right: 5px solid blue; 
+}
+
+.MedicationAddToastMessage-success .MedicationAddToastMessage-iconContainer svg:nth-child(3) {
+    opacity: 1;
+}
+
+.MedicationAddToastMessage-success .MedicationAddToastMessage-text::after {
+    color: blue;
+    content: 'Successly !';
+    font-size: 1.3em;
+}
+
+.MedicationAddToastMessage-text {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.3em;
+}

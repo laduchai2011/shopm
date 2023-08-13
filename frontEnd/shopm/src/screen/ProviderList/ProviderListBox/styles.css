@@ -1,0 +1,125 @@
+.ProviderListBox {
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 15px;
+    aspect-ratio: 6/4;
+    box-shadow: 5px 5px 5px #eee;
+    border: 1px solid rgb(233, 233, 233);
+    overflow: hidden;
+}
+
+.ProviderListBox-bannerContainer {
+    box-sizing: border-box;
+    width: 100%;
+    height: 70%;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+}
+
+.ProviderListBox-bannerContainer:hover {
+    .ProviderListBox-bannerOverlay {
+        opacity: 1;
+    }
+}
+
+.ProviderListBox-bannerContainer img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* aspect-ratio: 1270/350; */
+    object-fit: cover;
+    z-index: 2;
+}
+
+.ProviderListBox-bannerOverlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+
+    transition: opacity 0.3s ease-in-out;
+}
+
+.ProviderListBox-bannerOverlay div {
+    background: white;
+    padding: 5px;
+    border-radius: 10px;
+    font-style: oblique;
+    font-size: 1.1em;
+}
+
+.ProviderListBox-infor {
+    padding: 0px 5px;
+    height: 30%;
+    display: flex;
+    align-items: center;
+}
+
+.ProviderListBox-infor img {
+    aspect-ratio: 1/1;
+    height: 80%;
+    border-radius: 50%;
+    border: 1px solid rgb(233, 233, 233);
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.ProviderListBox-infor1 {
+    width: 70%;
+    flex-grow: 1;
+}
+
+.ProviderListBox-name {
+    width: 100%;
+    font-size: 1.2em;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.ProviderListBox-infor1 div {
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.ProviderListBox-infor1 span {
+    font-size: 0.8em;
+}
+
+.ProviderListBox-listStar {
+    display: flex;
+    margin: 2px 0;
+}
+
+.ProviderListBox-infor2 {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0, 255, 0);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.ProviderListBox-infor2:hover {
+    background-color: rgb(0, 207, 0);
+    color: white;
+}
+
+.ProviderListBox-infor2:active {
+    background-color: rgb(0, 255, 0);
+}
+
+.ProviderListBox-infor2 div {
+    padding: 3px;
+}

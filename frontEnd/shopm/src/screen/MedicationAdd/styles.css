@@ -1,0 +1,262 @@
+.MedicationAdd {
+    background-color: rgb(211, 211, 211);
+}
+
+.MedicationAdd-main {
+    background-color: white;
+    width: calc(1200px - 20px);
+    padding: 10px;
+    margin-left: calc((100% - 1200px)/2);
+}
+
+.MedicationAdd-inputBlock {
+    margin: 20px 0;
+}
+
+.MedicationAdd-inputBlock div {
+    display: flex;
+    align-items: center;
+}
+
+.MedicationAdd-inputBlock div div {
+    width: 100px;
+}
+
+.MedicationAdd-inputBlock div:nth-child(2) {
+    margin-left: 100px;
+}
+
+.MedicationAdd-inputBlock div:nth-child(2).showEmptyName::after {
+    color: red;
+    content: 'Name must is a string not empty !';
+}
+
+.MedicationAdd-inputBlock div:nth-child(2).showErrorPrice::after {
+    color: red;
+    content: 'Price must is a number !';
+}
+
+.MedicationAdd-inputBlock div:nth-child(2).showErrorAmount::after {
+    color: red;
+    content: 'Amount must is a number !';
+}
+
+.MedicationAdd-inputBlock div:nth-child(2).showErrorDiscount::after {
+    color: red;
+    content: 'Must is a number about (0 - 100) !';
+}
+
+.MedicationAdd-inputBlock div input {
+    border: none;
+    outline: none;
+    background-color: rgb(241, 241, 241);
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 1rem;
+}
+
+.MedicationAdd-inputBlock div span {
+    margin: 0 10px;
+    font-size: 0.8rem;
+}
+
+.MedicationAdd-imageBlock {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.MedicationAdd-imageBlock-imageContainer {
+    background-color: #eee;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    overflow: hidden;
+}
+
+.MedicationAdd-imageBlock-imageContainer div {
+    border: 1px solid black;
+    padding: 10px;
+    width: 100%;
+    border-radius: 20px;
+    background-color: rgb(202, 202, 202);
+    overflow: hidden;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.MedicationAdd-imageBlock-imageContainer div img {
+    object-fit: contain;
+    aspect-ratio: 4/3;
+    width: 100%;
+}
+
+.MedicationAdd-imageBlock-imageContainer div svg {
+    padding: 2px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+}
+
+.MedicationAdd-imageBlock-imageContainer div svg:hover {
+    background-color: rgb(255, 255, 255);
+}
+
+.MedicationAdd-imageIcon {
+    background-color: rgb(133, 255, 149);
+    width: 100px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    border-radius: 15px;
+    font-size: 1.3rem;
+    cursor: default;
+}
+
+.MedicationAdd-imageIcon:hover {
+    background-color: rgb(70, 255, 95);
+}
+
+.MedicationAdd-catalogBlock {
+    display: flex;
+}
+
+.MedicationAdd-catalogContainer {
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #eee;
+    margin-left: 40px;
+}
+
+.MedicationAdd-catalogBox {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(190, 190, 190);
+    border-radius: 20px;
+    margin: 5px 0;
+    height: 0;
+    overflow: hidden;
+
+    animation: catalogBoxAnimation 0.3s linear forwards;
+}
+@keyframes catalogBoxAnimation {
+    from {
+        height: 0; 
+        opacity: 0; 
+        padding: 0;
+        margin: 0px;
+    }
+    to {
+        height: max-content; 
+        opacity: 1; 
+        padding: 5px;
+        margin: 5px 0;
+    }
+}
+
+.MedicationAdd-catalogBox div {
+    display: flex;
+    align-items: center;
+}
+
+.MedicationAdd-catalogBox div input {
+    border: none;
+    outline: none;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 15px;
+}
+
+.MedicationAdd-catalogBtn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.MedicationAdd-catalogBtn svg {
+    margin: 0 5px;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 50px;
+}
+
+.MedicationAdd-catalogBtn svg:hover {
+    background-color: rgb(204, 204, 204);
+}
+
+.MedicationAdd-inforBlock {
+    border-bottom: 1px solid gray;
+    padding: 10px 0;
+}
+
+.MedicationAdd-inforBlock-title {
+    margin-bottom: 10px;
+}
+
+.MedicationAdd-checkbox {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.MedicationAdd-checkbox div {
+    margin-right: 15px;
+    color: blue;
+}
+
+.MedicationAdd-submit {
+    margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.MedicationAdd-submitBtn {
+    width: 100px;
+    height: 100px;
+    margin-left: calc((100% - 100px)/2);
+    font-size: 1.5rem;
+    border: 1px solid red;
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+
+    transition: border-radius 0.5s;
+}
+
+.MedicationAdd-submitBtn:hover {
+    background-color: white;
+    color: red;
+}
+
+.MedicationAdd-submitBtn:active {
+    background-color: red;
+    color: white;
+}
+
+@media screen and (max-width: 1200px) {
+    .MedicationAdd-main {
+        width: calc(100% - 20px);
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .MedicationAdd {
+        font-size: 14px;
+    }
+
+    .MedicationAdd-inputBlock div div {
+        width: 80px;
+    }
+
+    .MedicationAdd-inputBlock div:nth-child(2) {
+        margin-left: 80px;
+    }
+}

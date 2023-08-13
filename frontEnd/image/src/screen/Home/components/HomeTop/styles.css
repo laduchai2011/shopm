@@ -1,0 +1,49 @@
+.HomeTop {
+    background: #eee;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.serachContainer {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-radius: 20px;
+    background-color: white;
+    width: clamp(360px, 30%, 800px);
+}
+
+.serachContainer input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 1.2rem;
+}
+
+.serachContainer svg {
+    padding: 2px;
+    border-radius: 50%;
+}
+
+.serachContainer svg:hover {
+    background-color: rgb(221, 221, 221);
+}
+
+.serachContainer-id,
+.serachContainer-tag  {
+    margin-top: 10px;
+    padding: 5px;
+    background-color: white;
+    width: min-content;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.serachContainer-id select,
+.serachContainer-id input,
+.serachContainer-tag select,
+.serachContainer-tag input {
+    border: none;
+    outline: none;
+}

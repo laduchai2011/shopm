@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+.DoctorPharmacistReadyService {
+    --font-header: 'Anton', sans-serif;
+}
+
+.DoctorPharmacistReadyService {
+    background-color: white;
+    margin-top: 10px;
+    padding: 5px;
+    width: calc(100% - 10px);
+    border-radius: 10px;
+}
+
+.DoctorPharmacistReadyService-headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.DoctorPharmacistReadyService-headerContainer div svg {
+    padding: 3px;
+    border-radius: 50%;
+}
+
+.DoctorPharmacistReadyService-headerContainer div svg:hover {
+    background-color: rgb(221, 220, 220);
+}
+
+.DoctorPharmacistReadyService-header {
+    font-family: var(--font-header);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.DoctorPharmacistReadyService-center {
+    background-color: rgb(236, 235, 235);
+    display: grid;
+    grid-template-columns: repeat(3, calc((100% - 20px)/3));
+    border-radius: 10px;
+    gap: 10px 10px;
+    margin-top: 10px;
+}
+
+.DoctorPharmacistReadyService-center {
+    padding: 5px;
+}
+
+.DoctorPharmacistReadyService-dialogContainer {
+    background-color: aliceblue;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.DoctorPharmacistReadyService-custom {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.DoctorPharmacistReadyService-custom svg {
+    margin: 0 5px;
+}
+
+.DoctorPharmacistReadyService-dialog {
+    background-color: white;
+    width: calc(100% - 3px);
+    height: 80px;
+    animation: DoctorPharmacistReadyService-dialog-animation 10s infinite;
+}
+
+.DoctorPharmacistReadyService-dialog-active {
+    background-color: red;
+    color: white;
+}
+
+@keyframes DoctorPharmacistReadyService-dialog-animation {
+    0% {border-left: 3px solid red;}
+    25%{border-left: 3px solid yellow;}
+    50%{border-left: 3px solid green;}
+    75%{border-left: 3px solid brown;}
+    100% {border-left: 3px solid red;}
+}
+
+.DoctorPharmacistReadyService-smallDialog {
+    display: flex;
+    /* background-color: gold; */
+    height: calc(100% - 10px);
+    align-items: center;
+    padding: 5px 0;
+}
+
+.DoctorPharmacistReadyService-iconContainer {
+    padding: 0 5PX;
+    width: min-content;
+    height: 25px;
+}
+
+.DoctorPharmacistReadyService-iconContainer svg {
+    height: 0;
+    opacity: 0;
+    display: none;
+}
+
+.DoctorPharmacistReadyService-activeIcon {
+    display: block !important;
+    animation: DoctorPharmacistReadyService-activeIcon-animation 1s ease forwards;
+}
+
+@keyframes DoctorPharmacistReadyService-activeIcon-animation {
+    from {
+        height: 0px;
+        opacity: 0;
+    }
+    to {
+        height: 25px;
+        opacity: 1;
+    }
+}
+
+.DoctorPharmacistReadyService-contentContainer {
+    flex-grow: 1;
+    padding: 0 5px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: flex-start; */
+    align-items: flex-start;
+    height: 100%;
+}
+
+.DoctorPharmacistReadyService-contentContainer h4 {
+    margin: 0 0;
+    font-size: 17px;
+    cursor: default;
+}
+
+.DoctorPharmacistReadyService-contentContainer p {
+    margin: 0 0;
+    font-size: 15px;
+    line-height: 25px;
+}
+
+.DoctorPharmacistReadyService-check {
+    cursor: cell;
+}
+
+.DoctorPharmacistReadyService-pre {
+    padding: 3px;
+    word-break: break-all;
+    width: calc(100% - 6px);
+}
+
+.DoctorPharmacistReadyService-pre pre {
+    word-wrap: break-word; 
+    white-space: pre-wrap;
+}
+
+.DoctorPharmacistReadyService-price {
+    background-color: white;
+    padding: 3px 15px;
+    width: calc(100% - 30px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid gray;
+}
+
+.DoctorPharmacistReadyService-viewCustom {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 5px;
+    width: calc(100% - 10px);
+}
+
+.DoctorPharmacistReadyService-viewCustom span {
+    margin-right: 15px;
+}
+
+.DoctorPharmacistReadyService-viewCustom button {
+    margin: 2px 3px;
+    width: 80px;
+    border: 1px solid red;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgb(255, 152, 152);
+}
+
+.DoctorPharmacistReadyService-bottom {
+    margin-top: 5px;
+    padding: 5px;
+    width: calc(100% - 10px);
+}
+
+.DoctorPharmacistReadyService-bottom-list {
+    display: grid;
+    grid-template-columns: calc((100% - 1px)*0.05) calc((100% - 1px)/5) calc((100% - 1px)/2) calc((100% - 1px)/10) calc((100% - 1px)/10) calc((100% - 1px)*0.05);
+}
+
+.DoctorPharmacistReadyService-bottom-list-active,
+.DoctorPharmacistReadyService-bottom-list:hover {
+    background-color: rgb(134, 134, 134);
+    color: white;
+}
+    
+.DoctorPharmacistReadyService-bottom-list div {
+    border: 0.1px solid gray;
+    text-align: center;
+}
+
+.DoctorPharmacistReadyService-bottom-list div svg {
+    width: 100%;
+}
+
+.DoctorPharmacistReadyService-bottom-btn {
+    margin-top: 3px;
+    padding: 5px;
+    width: calc(100% - 10px);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.DoctorPharmacistReadyService-bottom-btn button {
+    border: 1px solid red;
+    width: 100px;
+    height: 40px;
+    box-shadow: 5px 5px 5px rgb(255,185,185);
+}
+
+.DoctorPharmacistReadyService-bottom-btn span {
+    margin-right: 25px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+@media screen and (max-width: 850px) { 
+    .DoctorPharmacistReadyService-center {
+        grid-template-columns: repeat(2, calc((100% - 10px)/2));
+    }
+}
+
+@media screen and (max-width: 550px) { 
+    .DoctorPharmacistReadyService-center {
+        grid-template-columns: repeat(1, calc((100% - 0px)/1));
+    }
+}
+
+@media screen and (max-width: 430px) { 
+    .DoctorPharmacistReadyService-bottom-list div {
+        font-size: 12px;
+    }
+}

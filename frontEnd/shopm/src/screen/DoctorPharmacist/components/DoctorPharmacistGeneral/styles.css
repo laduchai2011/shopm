@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
+
+/* :root {
+    --font-name: 'Oswald', sans-serif;
+    --font-smallText: 'Rajdhani', sans-serif;
+    --font-text: 'Crimson Text', serif;
+} */
+
+.DoctorPharmacistGeneral{
+    --font-name: 'Oswald', sans-serif;
+    --font-smallText: 'Rajdhani', sans-serif;
+    --font-text: 'Crimson Text', serif;
+}
+
+.DoctorPharmacistGeneral {
+    background-color: white;
+    width: calc(100% - 10px);
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.DoctorPharmacistGeneral-infors {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 10px;
+    max-height: 200px;
+    min-height: 160px;
+}
+
+.DoctorPharmacistGeneral-avatarContainer {
+    display: flex;
+}
+
+.DoctorPharmacistGeneral-nameContainer {
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.DoctorPharmacistGeneral-name {
+    font-family: var(--font-name);
+    font-size: 24px;
+}
+
+.DoctorPharmacistGeneral-follow {
+    font-family: var(--font-smallText);
+}
+
+.DoctorPharmacistGeneral-btn {
+    display: flex;
+    justify-content: space-between;
+    width: 165px;
+}
+
+.DoctorPharmacistGeneral-btn div {
+    background-color: rgb(255,8,0);
+    height: 70px;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+    text-align: center;
+}
+
+.DoctorPharmacistGeneral-infor {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+.DoctorPharmacistGeneral-inforObj {
+    font-weight: 700;
+}
+
+.DoctorPharmacistGeneral-infor span {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-text);
+    font-size: 18px;
+}
+
+@media screen and (max-width: 1050px) {
+    .DoctorPharmacistGeneral-infor span {
+        font-size: 16px;
+    }
+    
+    .DoctorPharmacistGeneral-btn div {
+        height: 60px;
+        width: 70px;
+    }
+
+    .DoctorPharmacistGeneral-avatarContainer img {
+        height: 160px;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .DoctorPharmacistGeneral-infor span {
+        font-size: 16px;
+    }
+    
+    .DoctorPharmacistGeneral-btn div {
+        height: 60px;
+        width: 70px;
+    }
+
+    .DoctorPharmacistGeneral-infors {
+        max-height: 180px;
+        min-height: 140px;
+    }
+
+    .DoctorPharmacistGeneral-avatarContainer img {
+        height: 160px;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .DoctorPharmacistGeneral-name {
+        font-size: 20px;
+    }
+
+    .DoctorPharmacistGeneral-infor span {
+        font-size: 14px;
+    }
+    
+    .DoctorPharmacistGeneral-btn div {
+        height: 50px;
+        width: 60px;
+    }
+
+    .DoctorPharmacistGeneral-infors {
+        max-height: 160px;
+        min-height: 120px;
+    }
+
+    .DoctorPharmacistGeneral-avatarContainer img {
+        height: 120px;
+    }
+
+    .DoctorPharmacistGeneral-btn {
+        width: 125px;
+    }
+
+    .DoctorPharmacistGeneral-btn div {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 850px) { 
+    .DoctorPharmacistGeneral-btn div {
+        height: 40px;
+        width: 50px;
+    }
+
+    .DoctorPharmacistGeneral-infors {
+        max-height: 120px;
+        min-height: 100px;
+    }
+
+    .DoctorPharmacistGeneral-avatarContainer img {
+        height: 100px;
+    }
+
+    .DoctorPharmacistGeneral-btn {
+        width: 105px;
+    }
+}
+
+@media screen and (max-width: 650px) { 
+    .DoctorPharmacistGeneral-infors {
+        max-height: 260px;
+        min-height: 100px;
+    }
+
+    .DoctorPharmacistGeneral-infors {
+        grid-template-columns: repeat(1, 1fr);
+        row-gap: 15px;
+    }
+
+    .DoctorPharmacistGeneral-btn {
+        width: 125px;
+    }
+
+    .DoctorPharmacistGeneral-btn div {
+        height: 40px;
+        width: 60px;
+    }
+} 

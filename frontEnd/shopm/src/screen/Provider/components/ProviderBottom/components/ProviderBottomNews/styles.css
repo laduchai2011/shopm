@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+
+.ProviderBottomNews {
+    --font-header: 'Anton', sans-serif;
+    --font-pageText: 'Anton', sans-serif;
+}
+
+.ProviderBottomNews {
+    background-color: white;
+    margin: 15px 0;
+    width: calc(100% - 10px);
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.ProviderBottomNews-headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ProviderBottomNews-header {
+    font-family: var(--font-header);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.ProviderBottomNews-headerContainer div svg {
+    padding: 3px;
+    border-radius: 50%;
+}
+
+.ProviderBottomNews-headerContainer div svg:hover {
+    background-color: rgb(221, 220, 220);
+}
+
+.ProviderBottomNews-optionsContainer {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ProviderBottomNews-options {
+    width: 150px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    position: absolute;
+    top: 30px;
+    line-height: 30px;
+    background-color: white;
+    display: none;
+    z-index: 10;
+}
+
+.ProviderBottomNews-options div {
+    padding: 0 10px;
+    border-radius: 10px;
+    cursor: default;
+}
+
+.ProviderBottomNews-options div:hover {
+    background-color: rgb(233, 233, 233);
+}
+
+.ProviderBottomNews-options.show {
+    display: block;
+}
+
+.ProviderBottomNews-pagination {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.ProviderBottomNews-pages, .ProviderBottomNews-pageAll {
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 15px;
+}
+
+.ProviderBottomNews-page {
+    width: 40px;
+    text-align: center;
+    font-family: var(--font-pageText);
+    cursor: pointer;
+}
+
+.ProviderBottomNews-page.active,
+.ProviderBottomNews-page:hover {
+    background-color: grey;
+    color: white;
+}
+
+
+@media screen and (max-width: 430px) { 
+    .ProviderBottomNews-pages, .ProviderBottomNews-pageAll {
+        width: 110px;
+        display: flex;
+        justify-content: space-between;
+        margin: 0 10px;
+    }
+}

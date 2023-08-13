@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+.DoctorPharmacistInfor {
+    --font-header: 'Anton', sans-serif;
+}
+
+.DoctorPharmacistInfor {
+    background-color: white;
+    margin-top: 10px;
+    padding: 5px;
+    width: calc(100% - 10px);
+    border-radius: 10px;
+}
+
+.DoctorPharmacistInfor span {
+    font-family: var(--font-header);
+    font-size: 20px;
+    font-weight: 500;
+}

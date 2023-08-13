@@ -1,0 +1,83 @@
+.ProductsFromProviderTop {
+    background-color: white;
+    padding: 5px;
+    width: calc(100% - 10px);
+    border-bottom: 1px solid gray;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 35;
+}
+
+.ProductsFromProviderTop-searchContainer {
+    display: flex;
+    align-items: center;
+}
+
+.ProductsFromProviderTop-input {
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    background-color: rgb(236, 236, 236);
+    width: 250px;
+
+    transition: width 1.3s ease;
+
+}
+
+.ProductsFromProviderTop-input.show,
+.ProductsFromProviderTop-input:hover {
+    width: 380px;
+}
+
+.ProductsFromProviderTop-searchContainer svg {
+    padding: 5px;
+    border-radius: 50px;
+}
+
+.ProductsFromProviderTop-searchContainer svg:hover {
+    background-color: rgb(202, 202, 202);
+}
+
+.ProductsFromProviderTop-subjectContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    padding: 10px 5px;
+    overflow-x: scroll;
+    width: 100%;
+}
+
+.ProductsFromProviderTop-subjectContainer::-webkit-scrollbar {
+    height: 3px;
+}
+
+.ProductsFromProviderTop-subjectContainer::-webkit-scrollbar-thumb {
+    background-color: rgb(219, 219, 219);
+}
+
+.ProductsFromProviderTop-subjectContainer span {
+    margin: 0 5px;
+    padding: 0px 5px;
+    border-radius: 10px;
+    background-color: rgb(226, 226, 226);
+    cursor: default;
+    min-width: min-content;
+    white-space: nowrap; 
+    color: black;
+}
+
+.ProductsFromProviderTop-subjectContainer span:hover,
+.ProductsFromProviderTop-subject.active {
+    background-color: gray;
+    color: white;
+}
+
+@media screen and (max-width: 450px) {
+    .ProductsFromProviderTop-input.show,
+    .ProductsFromProviderTop-input:hover {
+        width: 275px;
+    }
+}

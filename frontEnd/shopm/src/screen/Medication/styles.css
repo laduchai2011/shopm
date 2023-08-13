@@ -1,0 +1,17 @@
+.Medication {
+    width: 100%;
+    background-color: #eee;
+}
+
+.Medication-main {
+    box-sizing: border-box;
+    width: 1200px;
+    margin-left: calc((100% - 1200px)/2);
+}
+
+@media screen and (max-width: 1200px) {
+    .Medication-main {
+        width: 100%;
+        margin-left: 0;
+    }
+}

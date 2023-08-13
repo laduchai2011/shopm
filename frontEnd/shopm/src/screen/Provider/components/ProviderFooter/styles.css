@@ -1,0 +1,62 @@
+.ProviderFooter {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.ProviderFooter-main {
+    width: calc(1280px - 20px);
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, calc(100%/4));
+}
+
+.ProviderFooter-child {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.ProviderFooter-child span {
+    width: max-content;
+    cursor: pointer;
+    padding: 2px 0;
+    word-wrap: break-word;
+}
+
+.ProviderFooter-child span:hover {
+    background-color: gray;
+    color: white;
+    border-radius: 5px;
+}
+
+.ProviderFooter-child img {
+    width: 40px;
+    height: 25px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.ProviderFooter-qr {
+    height: 200px;
+    width: 200px;
+}
+
+@media screen and (max-width: 1000px) {
+    .ProviderFooter-main {
+        grid-template-columns: repeat(3, calc(100%/3));
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .ProviderFooter-main {
+        grid-template-columns: repeat(2, calc(100%/2));
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .ProviderFooter-main {
+        width: calc(100% - 20px);
+        grid-template-columns: repeat(1, calc(100%/1));
+    }
+}

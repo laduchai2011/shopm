@@ -1,0 +1,10 @@
+.RegisterProvider-main {
+    display: flex;
+
+    animation: RegisterProvider-mainInit 1s ease-in-out;
+}
+
+@keyframes RegisterProvider-mainInit {
+    from{opacity: 0;}
+    to{opacity: 1;}
+}

@@ -1,0 +1,36 @@
+.ManageMedicationSearch {
+    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 50px;
+}
+
+.ManageMedicationSearch-inputContainer {
+    display: flex;
+    align-items: center;
+    border: 2px solid black;
+    width: min-content;
+    padding: 0px 10px;
+    border-radius: 25px;
+}
+
+.ManageMedicationSearch-inputContainer:active {
+    box-shadow: 10px 5px 5px rgb(219, 219, 219);
+}
+
+.ManageMedicationSearch-inputContainer input {
+    padding: 5px;
+    width: 300px;
+    border: none;
+    outline: none;
+    font-size: 1.2em;
+}
+
+.ManageMedicationSearch-inputContainer svg {
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.ManageMedicationSearch-inputContainer svg:hover {
+    background-color: rgb(219, 219, 219);
+}

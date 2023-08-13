@@ -1,0 +1,87 @@
+.ProviderAboutHeader {
+    height: 100vh;
+    display: flex;
+    z-index: 10;
+}
+
+.ProviderAboutHeader-optionContainer {
+    width: 200px;
+    height: 100%;
+    background-color: rgb(255,250,250);
+    box-sizing: border-box;
+    padding: 10px;
+    margin-left: -200px;
+
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.ProviderAboutHeader-optionContainer.show {
+    margin-left: 0;
+}
+
+.ProviderAboutHeader-option {
+    display: flex;
+    font-size: 1.1em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    padding: 5px;
+    border-radius: 15px;
+}
+
+.ProviderAboutHeader-option svg {
+    margin-right: 5px;
+}
+
+.ProviderAboutHeader-option.add {
+    color: green;
+}
+.ProviderAboutHeader-option.add.active {
+    background-color: rgb(174, 255, 174);
+    color: black;
+}
+.ProviderAboutHeader-option.add:hover {
+    background-color: green;
+    color: white;
+}
+
+.ProviderAboutHeader-option.change {
+    color: blue;
+}
+.ProviderAboutHeader-option.change.active {
+    background-color: rgb(135,206,250);
+    color: black;
+}
+.ProviderAboutHeader-option.change:hover {
+    background-color: blue;
+    color: white;
+}
+
+.ProviderAboutHeader-option.delete {
+    color: red;
+}
+.ProviderAboutHeader-option.delete.active {
+    background-color: rgb(255, 176, 176);
+    color: black;
+}
+.ProviderAboutHeader-option.delete:hover {
+    background-color: red;
+    color: white;
+}
+
+.ProviderAboutHeader-showOptions {
+    padding: 2px;
+    margin: 5px 0;
+    border-radius: 50%;
+}
+
+.ProviderAboutHeader-showOptions:hover {
+    background-color: rgb(206, 206, 206);
+}
+
+@media screen and (max-width: 600px) {
+    .ProviderAboutHeader {
+        position: absolute;
+    }
+}

@@ -1,0 +1,136 @@
+.ManageMedicationTableTop {
+    box-sizing: border-box;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ManageMedicationTableTop-left {
+    display: flex;
+    align-items: center;
+}
+
+.ManageMedicationTableTop-left button {
+    margin: 0 3px;
+    padding: 7px;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    border-radius: 15px;
+}
+
+.ManageMedicationTableTop-left button:nth-child(1) {
+    background-color: greenyellow;
+}
+
+.ManageMedicationTableTop-left button:nth-child(1):hover:active {
+    background-color: greenyellow;
+}
+
+.ManageMedicationTableTop-left button:nth-child(1):hover {
+    background-color: rgb(221, 255, 171);
+}
+
+.ManageMedicationTableTop-left button:not(:first-child):hover:active {
+    background-color: rgb(189, 189, 189);
+}
+
+.ManageMedicationTableTop-left button:not(:first-child):hover {
+    background-color: rgb(207, 207, 207);
+}
+
+.ManageMedicationTableTop-left-optionsContainer {
+    background-color: rgb(226, 226, 226);
+    margin: 0 5px;
+    border-radius: 15px;
+    position: relative;
+    z-index: 0;
+}
+
+.ManageMedicationTableTop-left-btn {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.ManageMedicationTableTop-left-optionsContainer:hover {
+    background-color: rgb(214, 214, 214);
+}
+
+.ManageMedicationTableTop-left-optionsContainer span {
+    padding: 5px;
+}
+
+.ManageMedicationTableTop-left-options {
+    position: absolute;
+    padding: 0;
+    border-radius: 15px;
+    background-color: white;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+
+    transition: opacity 0.3s linear;
+}
+
+.ManageMedicationTableTop-left-options.show {
+    height: max-content;
+    padding: 3px;
+    border: 0.5px solid gray;
+    opacity: 1;
+}
+
+.ManageMedicationTableTop-left-options div {
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 10px;
+}
+
+.ManageMedicationTableTop-left-options div:hover {
+    background-color: rgb(207, 207, 207);
+}
+
+.ManageMedicationTableTop-left-options-icon {
+    display: none;
+}
+
+.ManageMedicationTableTop-left-options-icon.active {
+    display: block;
+}
+
+.ManageMedicationTableTop-right {
+    display: flex;
+    align-items: center;
+}
+
+.ManageMedicationTableTop-right button {
+    margin: 0 5px;
+    padding: 7px;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    border-radius: 15px;
+}
+
+.ManageMedicationTableTop-right button:hover:active {
+    background-color: rgb(160, 160, 160);
+}
+
+.ManageMedicationTableTop-right button:hover {
+    background-color: rgb(207, 207, 207);
+}
+
+.ManageMedicationTableTop-right svg {
+    padding: 3px;
+    border-radius: 50%;
+}
+
+.ManageMedicationTableTop-right svg:hover {
+    background-color: rgb(207, 207, 207);
+    transform: scale(1.2);
+}
+
+.ManageMedicationTableTop-right svg:hover:active {
+    background-color: rgb(173, 173, 173);
+    transform: scale(1.2);
+}

@@ -1,0 +1,115 @@
+.ManageMedicationTableBottomToastMessage {
+    background-color: white;
+    position: fixed;
+    right: 0px;
+    height: 50px;
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    transform: translateX(100%);
+    opacity: 0;
+}
+@keyframes ManageMedicationTableBottomToastMessageAnimation {
+    0% {
+        opacity: 0;
+        right: 0px;
+        transform: translateX(100%);
+    }
+    10% {
+        opacity: 1;
+        right: 20px;
+        transform: translateX(0);
+    }
+    80% {
+        opacity: 1;
+        right: 20px;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        right: 0px;
+        transform: translateX(100%);
+    }
+}
+
+/* Register */
+.ManageMedicationTableBottomToastMessage-registerSelling.ManageMedicationTableBottomToastMessage {
+    border-left: 5px solid rgb(0,255,0);
+    border-right: 5px solid rgb(0,255,0);
+    top: 100px;
+    animation: ManageMedicationTableBottomToastMessageAnimation 5s ease-in-out;
+}
+
+.ManageMedicationTableBottomToastMessage-registerSelling.ManageMedicationTableBottomToastMessage::after {
+    content: 'Register selling !';
+    color: rgb(0,255,0);
+    font-size: 1.2em;
+}
+
+.ManageMedicationTableBottomToastMessage-registerSellingSuccessly.ManageMedicationTableBottomToastMessage {
+    border-left: 5px solid blue;
+    border-right: 5px solid blue;
+    top: 175px;
+    animation: ManageMedicationTableBottomToastMessageAnimation 5s ease-in-out;
+}
+
+.ManageMedicationTableBottomToastMessage-registerSellingSuccessly.ManageMedicationTableBottomToastMessage::after {
+    content: 'Register selling successly !';
+    color: blue;
+    font-size: 1.2em;
+}
+
+.ManageMedicationTableBottomToastMessage-registerSellingFailure.ManageMedicationTableBottomToastMessage {
+    border-left: 5px solid red;
+    border-right: 5px solid red;
+    top: 250px;
+    animation: ManageMedicationTableBottomToastMessageAnimation 5s ease-in-out;
+}
+
+.ManageMedicationTableBottomToastMessage-registerSellingFailure.ManageMedicationTableBottomToastMessage::after {
+    content: 'Register selling failure !';
+    color: red;
+    font-size: 1.2em;
+}
+
+/* Cancle */
+.ManageMedicationTableBottomToastMessage-stopSelling.ManageMedicationTableBottomToastMessage {
+    border-left: 5px solid rgb(0,255,0);
+    border-right: 5px solid rgb(0,255,0);
+    top: 100px;
+    animation: ManageMedicationTableBottomToastMessageAnimation 5s ease-in-out;
+}
+
+.ManageMedicationTableBottomToastMessage-stopSelling.ManageMedicationTableBottomToastMessage::after {
+    content: 'Stop selling !';
+    color: rgb(0,255,0);
+    font-size: 1.2em;
+}
+
+.ManageMedicationTableBottomToastMessage-stopSellingSuccessly.ManageMedicationTableBottomToastMessage {
+    border-left: 5px solid blue;
+    border-right: 5px solid blue;
+    top: 175px;
+    animation: ManageMedicationTableBottomToastMessageAnimation 5s ease-in-out;
+}
+
+.ManageMedicationTableBottomToastMessage-stopSellingSuccessly.ManageMedicationTableBottomToastMessage::after {
+    content: 'Stop selling successly !';
+    color: blue;
+    font-size: 1.2em;
+}
+
+.ManageMedicationTableBottomToastMessage-stopSellingFailure.ManageMedicationTableBottomToastMessage {
+    border-left: 5px solid red;
+    border-right: 5px solid red;
+    top: 250px;
+    animation: ManageMedicationTableBottomToastMessageAnimation 5s ease-in-out;
+}
+
+.ManageMedicationTableBottomToastMessage-stopSellingFailure.ManageMedicationTableBottomToastMessage::after {
+    content: 'Stop selling failure !';
+    color: red;
+    font-size: 1.2em;
+}

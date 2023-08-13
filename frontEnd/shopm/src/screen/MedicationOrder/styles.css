@@ -1,0 +1,145 @@
+.MedicationOrder {
+    background-color: #eee;
+}
+
+.MedicationOrder-main {
+    width: 1000px;
+    background-color: white;
+    margin-left: calc((100% - 1000px)/2);
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 15px;
+}
+
+.MedicationOrder-History-header,
+.MedicationOrder-MedicateList-header,
+.MedicationOrder-Support-header,
+.MedicationOrder-Note-header,
+.MedicationOrder-Pay-header {
+    background-color: rgb(216, 216, 216);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-size: 1.1em;
+    font-weight: 500;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.MedicationOrder-History-list,
+.MedicationOrder-MedicateList-list,
+.MedicationOrder-Support-list,
+.MedicationOrder-Note-list,
+.MedicationOrder-Pay-list {
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.MedicationOrder-History-step,
+.MedicationOrder-Pay-step {
+    display: flex;
+    align-items: center;
+}
+
+.MedicationOrder-History-step div:nth-child(1),
+.MedicationOrder-Pay-step div:nth-child(1) {
+    background-color: blue;
+    color: white;
+    border-radius: 50%;
+    padding: 3px;
+    height: 15px;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.MedicationOrder-History-step div:nth-child(2),
+.MedicationOrder-Pay-step div:nth-child(2) {
+    margin: 0 10px;
+    font-weight: 500;
+}
+
+.MedicationOrder-History-step div:nth-child(2) span {
+    font-weight: 400;
+    font-style: italic;
+}
+
+.MedicationOrder-medicateList-medicate {
+    display: grid;
+    grid-template-columns: 2fr 4fr 1fr;
+    border: 1px solid #eee;
+    box-shadow: 3px 3px 3px #eee;
+    margin: 5px 0;
+}
+
+.MedicationOrder-medicateList-medicate div {
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.MedicationOrder-medicateList-medicate div:nth-child(3) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+
+.MedicationOrder-medicateList-medicate div:nth-child(3) button {
+    border: none;
+    padding: 5px 10px;
+    background-color: rgb(221, 221, 221);
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.MedicationOrder-Support-list div:nth-child(1) {
+    font-style: italic;
+}
+
+.MedicationOrder-Support-list div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+}
+
+.MedicationOrder-Support-list div:nth-child(2) button {
+    width: max-content;
+    margin: 3px 0;
+    cursor: pointer;
+}
+
+.MedicationOrder-Report {
+    margin-top: 30px;
+}
+
+.MedicationOrder-Report div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 0;
+}
+
+.MedicationOrder-Report div input {
+    border: none;
+    outline: none;
+    background-color: rgb(214, 214, 214);
+    padding: 5px;
+    border-radius: 10px;
+    width: 60%;
+}
+
+.MedicationOrder-Report div button {
+    background-color: red;
+    border: none;
+    padding: 10px;
+    color: white;
+    font-size: 1.1em;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+    .MedicationOrder-main {
+        width: 100%;
+        margin-left: 0;
+    }
+}

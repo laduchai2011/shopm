@@ -1,0 +1,10 @@
+.RegisterProviderDelete-main {
+    display: flex;
+
+    animation: RegisterProviderDelete-mainInit 1s ease-in-out;
+}
+
+@keyframes RegisterProviderDelete-mainInit {
+    from{opacity: 0;}
+    to{opacity: 1;}
+}

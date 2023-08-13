@@ -1,0 +1,10 @@
+.ProviderAbout-main {
+    display: flex;
+
+    animation: ProviderAbout-mainInit 1s ease-in-out;
+}
+
+@keyframes ProviderAbout-mainInit {
+    from{opacity: 0;}
+    to{opacity: 1;}
+}

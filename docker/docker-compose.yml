@@ -1,0 +1,181 @@
+version: '3.8'
+
+services:
+  nginx:
+    container_name: nginx
+    build:
+      context: ../nginx
+      dockerfile: Dockerfile
+    networks:
+      - shopm
+    restart: "always"
+    ports:
+      - 3000:3000
+    # expose: 
+    #   - 80
+    depends_on:
+      # - shopm1
+      # - shopm2
+      - get_image
+      - upload_image
+      - get_medication
+      - upload_medication
+      - get_provider
+      - upload_provider
+      - get_provider_news
+      - upload_provider_news
+      - get_user_infor
+      - upload_user_infor
+  
+
+#----------------------frontEnd----------------------
+  # shopm1:
+  #   container_name: shopm1
+  #   build:
+  #     context: ../frontEnd/shopm
+  #     dockerfile: Dockerfile
+  #     # args:
+  #     #   - REACT_APP_API_KEY=localhost
+  #     #   - REACT_APP_CHATAPI_KEY=localhost
+  #   networks:
+  #     - shopm
+  #   restart: "always"
+
+  # shopm2:
+  #   container_name: shopm2
+  #   build:
+  #     context: ../frontEnd/shopm
+  #     dockerfile: Dockerfile
+  #     # args:
+  #     #   - REACT_APP_API_KEY=localhost
+  #     #   - REACT_APP_CHATAPI_KEY=localhost
+  #   networks:
+  #     - shopm
+  #   restart: "always"
+
+#---------------------------------------------------------
+
+#--------------------------backEnd-------------------------------
+  get_image:
+    container_name: get_image
+    build:
+      context: ../backEnd/getImage
+      dockerfile: Dockerfile
+    networks:
+      - shopm
+    restart: "always"
+    environment:
+      - NODE_SERVER_PORT_KEY=4000
+    volumes:
+      - volume_image:/app/prod-build-optimization/public
+
+  upload_image:
+    container_name: upload_image
+    build:
+      context: ../backEnd/uploadImage
+      dockerfile: Dockerfile
+    networks:
+      - shopm
+    restart: "always"
+    environment:
+      - NODE_SERVER_PORT_KEY=4000
+    volumes:
+      - volume_image:/app/prod-build-optimization/public
+  
+  get_medication:
+    container_name: get_medication
+    build:
+      context: ../backEnd/getMedication
+      dockerfile: Dockerfile
+    networks:
+      - shopm
+    restart: "always"
+    environment:
+      - NODE_SERVER_PORT_KEY=4000
+
+  upload_medication:
+    container_name: upload_medication
+    build:
+      context: ../backEnd/uploadMedication
+      dockerfile: Dockerfile
+    networks:
+      - shopm
+    restart: "always"
+    environment:
+      - NODE_SERVER_PORT_KEY=4000
+
+  get_provider:
+    container_name: get_provider
+    build:
+      context: ../backEnd/getProvider
+      dockerfile: Dockerfile
+    networks:
+      - shopm
+    restart: "always"
+    environment:
+      - NODE_SERVER_PORT_KEY=4000
+
+  upload_provider:
+    container_name: upload_provider
+    build:
+      context: ../backEnd/uploadProvider
+      dockerfile: Dockerfile
+    networks:
+      - shopm
+    restart: "always"
+    environment:
+      - NODE_SERVER_PORT_KEY=4000
+
+  get_provider_news:
+    container_name: get_provider_news
+    build:
+      context: ../backEnd/getProviderNews
+      dockerfile: Dockerfile
+    networks:
+      - shopm
+    restart: "always"
+    environment:
+      - NODE_SERVER_PORT_KEY=4000
+
+  upload_provider_news:
+    container_name: upload_provider_news
+    build:
+      context: ../backEnd/uploadProviderNews
+      dockerfile: Dockerfile
+    networks:
+      - shopm
+    restart: "always"
+    environment:
+      - NODE_SERVER_PORT_KEY=4000
+
+  get_user_infor:
+    container_name: get_user_infor
+    build:
+      context: ../backEnd/getUserInfor
+      dockerfile: Dockerfile
+    networks:
+      - shopm
+    restart: "always"
+    environment:
+      - NODE_SERVER_PORT_KEY=4000
+
+  upload_user_infor:
+    container_name: upload_user_infor
+    build:
+      context: ../backEnd/uploadUserInfor
+      dockerfile: Dockerfile
+    networks:
+      - shopm
+    restart: "always"
+    environment:
+      - NODE_SERVER_PORT_KEY=4000
+
+
+# ------------------------------------------------------      
+
+networks:
+  shopm:
+    driver: bridge
+volumes:
+  volume_image:
+    driver: local

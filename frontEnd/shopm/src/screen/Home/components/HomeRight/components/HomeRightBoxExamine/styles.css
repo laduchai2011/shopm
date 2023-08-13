@@ -1,0 +1,150 @@
+.HomeRightBoxExamine {
+    box-sizing: border-box;
+    padding: 15px;
+    border-radius: 15px !important;
+    width: 0;
+    height: 0;
+    border: 1px solid gray;
+    background-color: white;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 5px 5px 5px gray;
+
+    transition: height 0.5s ease-in-out, width 0.5s ease-in-out;
+    animation: HomeRightBoxExamineAnimation 3s ease-in-out forwards;
+}
+@keyframes HomeRightBoxExamineAnimation {
+    0% {border-radius: 15px;}
+    100% {border-radius: 50%;}
+}
+
+.HomeRightBoxExamine.active {
+    padding: 10px;
+    border-radius: 15px !important;
+    width: 250px;
+    height: 195px;
+    cursor: default;
+}
+
+.HomeRightBoxExamine-close {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.HomeRightBoxExamine-close svg {
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.HomeRightBoxExamine-close svg:hover {
+    background-color: rgb(214, 214, 214);
+}
+
+.HomeRightBoxExamine-header {
+    font-size: 1.2em;
+    font-weight: 500;
+    text-align: center;
+}
+
+.HomeRightBoxExamine-options {
+    display: flex;
+    justify-content: space-around;
+    margin: 3px 0;
+}
+
+.HomeRightBoxExamine-note {
+    padding: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.HomeRightBoxExamine-note input {
+    outline: none;
+    border: none;
+    background-color: #eee;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.HomeRightBoxExamine-book {
+    margin: 5px 0;
+    text-align: center;
+}
+
+.HomeRightBoxExamine-book button {
+    border: none;
+    background-color: blue;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.HomeRightBoxExamine-book button:active {
+    background-color: white;
+    color: blue;
+}
+
+.HomeRightBoxExamine-overlay {
+    background-color: rgb(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 100%;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    transition: left 0.3s linear;
+}
+
+.HomeRightBoxExamine-overlay.active {
+    left: 0;
+}
+
+.HomeRightBoxExamine-overlay div {
+    display: flex;
+    flex-direction: column;
+}
+
+.HomeRightBoxExamine-overlay div svg {
+    margin-bottom: 20px;
+    animation: HomeRightBoxExamineLoader 1.5s linear infinite;
+}
+@keyframes HomeRightBoxExamineLoader {
+    0% {
+        transform: rotate(0);
+    }
+    25% {
+        transform: rotate(90deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    75% {
+        transform: rotate(270deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.HomeRightBoxExamine-overlay div button {
+    background-color: white;
+    padding: 5px;
+    border-radius: 15px;
+    cursor: pointer;
+    border: none;
+}
+
+.HomeRightBoxExamine-overlay div button:hover {
+    background-color: rgb(228, 228, 228);
+}
+
+.HomeRightBoxExamine-overlay div button:active {
+    background-color: white;
+}

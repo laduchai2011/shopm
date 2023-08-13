@@ -1,0 +1,10 @@
+.Extend-main {
+    box-sizing: border-box;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Extend-main-pharmacist button {
+    margin: 5px 0;
+}

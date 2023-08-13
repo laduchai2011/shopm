@@ -1,0 +1,238 @@
+.ProviderBottomAboutDialog {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 340px;
+    background-color: white;
+    z-index: 20;
+    border-radius: 20px;
+    padding: 10px;
+    border: 1px solid black;
+    display: none;
+}
+
+.ProviderBottomAboutDialog.show {
+    display: block;
+
+    animation: ProviderBottomAboutDialogAnimation 1s;
+}
+
+@keyframes ProviderBottomAboutDialogAnimation {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.ProviderBottomAboutDialog-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ProviderBottomAboutDialog-top svg {
+    padding: 3px;
+    border-radius: 50%;
+}
+
+.ProviderBottomAboutDialog-top svg:hover {
+    background-color: rgb(201, 201, 201);
+}
+
+.ProviderBottomAboutDialog-top span {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.ProviderBottomAboutDialog-center {
+    margin-top: 5px;
+    overflow-y: scroll;
+    max-height: 600px;
+}
+
+.ProviderBottomAboutDialog-center::-webkit-scrollbar {
+    width: 5px;
+}
+
+.ProviderBottomAboutDialog-center::-webkit-scrollbar-thumb {
+    background-color: gray;
+}
+
+.ProviderBottomAboutDialog-incenter {
+    margin-top: 5px;
+    background-color: white;
+}
+
+.ProviderBottomAboutDialog-contentContainer {
+    background-color: rgb(206, 206, 206);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.ProviderBottomAboutDialog-contentContainer input {
+    padding: 10px;
+    margin: 3px 0;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    width: 80%;
+}
+
+.ProviderBottomAboutDialog-bottom {
+    margin-top: 5px;
+    padding: 15px;
+}
+
+.ProviderBottomAboutDialog-addBtn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ProviderBottomAboutDialog-addBtn span {
+    background-color: aqua;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: default;
+}
+
+.ProviderBottomAboutDialog-addBtn span:hover {
+    background-color: rgb(162, 255, 255);
+}
+
+.ProviderBottomAboutDialog-addBtn svg {
+    padding: 5px;
+    border-radius: 50px;
+}
+
+.ProviderBottomAboutDialog-addBtn svg:hover {
+    background-color: rgb(224, 224, 224);
+}
+
+.ProviderBottomAboutDialog-acceptBtn {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.3rem;
+    font-weight: 500;
+    position: relative;
+    margin-top: 30px;
+    width: 155px;
+    left: calc((100% - 155px)/2);
+}
+
+.ProviderBottomAboutDialog-btn {
+    border-radius: 30px;
+    height: 30px;
+    width: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+
+    transition: width 1s ease;
+}
+
+.ProviderBottomAboutDialog-btn.loading {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    cursor: default;
+    position: absolute;
+    left: 0;
+    border: 1px solid gray;
+    background-color: rgb(8, 255, 173);
+}
+
+.ProviderBottomAboutDialog-txtLoading {
+    opacity: 0;
+    background-color: aquamarine;
+
+    transition: opacity 1s ease;
+}
+
+.ProviderBottomAboutDialog-txtSuccess {
+    position: absolute;
+    opacity: 0;
+    background-color: aquamarine;
+
+    transition: opacity 1s ease;
+}
+
+.ProviderBottomAboutDialog-txtLoading.active {
+    opacity: 1;
+}
+
+.ProviderBottomAboutDialog-txtSuccess.active {
+    opacity: 1;
+}
+
+.ProviderBottomAboutDialog-btn.loading.active {
+    width: 100px;
+    background-color: aquamarine;
+}
+
+.ProviderBottomAboutDialog-btn.accept {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    cursor: default;
+    position: absolute;
+    right: 0;
+    border: 1px solid red;
+    background-color: white;
+
+    .ProviderBottomAboutDialog-btnAccept {
+        opacity: 0;
+
+        transition: opacity 1s ease;
+    }
+}
+
+.ProviderBottomAboutDialog-btn.accept.active {
+    color: white;
+    background-color: red;
+    width: 100px;
+
+    .ProviderBottomAboutDialog-btnAccept {
+        opacity: 1;
+    }
+}
+
+.ProviderBottomAboutDialog-btnAccept-iconLoading {
+    position: absolute;
+    opacity: 0;
+    background-color: white;
+
+    transition: opacity 0.5s;
+}
+
+.ProviderBottomAboutDialog-btnAccept-iconLoading.active {
+    opacity: 1;
+    animation: loadingAnimation 0.8s linear infinite;
+}
+
+@keyframes loadingAnimation {
+    0%{transform: rotate(0);}
+    25%{transform: rotate(90deg);}
+    75%{transform: rotate(180deg);}
+    100%{transform: rotate(270deg);}
+}
+
+.ProviderBottomAboutDialog-btn.accept.active:hover {
+    background-color: white;
+    color: black;
+}
+
+.ProviderBottomAboutDialog-btnAccept-iconSuccess {
+    position: absolute;
+    opacity: 0;
+
+    transition: opacity 0.5s;
+}
+
+.ProviderBottomAboutDialog-btnAccept-iconSuccess.active {
+    opacity: 1;
+    background-color: white;
+}

@@ -1,0 +1,25 @@
+const { clientRedis } = require('../../config/serviceRedis');
+
+class ServiceRedis {
+    constructor(clientRedis) {
+        this._clientRedis = clientRedis;
+        this._clientRedis.connect();
+    }
+
+    setData(key, jsonValue, timeExpireat) {
+        // timeExpireat: { EX: 60*60*24 }
+        const valueToString = JSON.stringify(jsonValue);
+        this._clientRedis.set(key, valueToString, { EX: timeExpireat });
+    }
+
+    getData(key, callback) {
+        this._clientRedis.get(key).then(data => {
+            const valueToJson = JSON.parse(data);
+            callback(valueToJson);
+        })
+    }
+}
+
+const serviceRedis = new ServiceRedis(clientRedis);
+
+module.exports = { serviceRedis }

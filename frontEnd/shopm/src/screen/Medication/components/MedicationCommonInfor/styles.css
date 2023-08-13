@@ -1,0 +1,206 @@
+.MedicationCommonInfor {
+    box-sizing: border-box;
+    border-radius: 15px;
+    display: flex;
+    background-color: white;
+    width: 100%;
+    padding: 10px;
+}
+
+.MedicationCommonInfor-imgContainer {
+    background-color: rgb(233, 233, 233);
+    width: 40%;
+    height: 100%;
+}
+
+.MedicationCommonInfor-mainImg {
+    width: 90%;
+    aspect-ratio: 6/7;
+    object-fit: contain;
+    margin-left: calc(10%/2);
+}
+
+.MedicationCommonInfor-listImg {
+    display: flex;
+    align-items: center;
+    overflow-x: scroll;
+}
+
+.MedicationCommonInfor-listImg::-webkit-scrollbar {
+    height: 5px;
+}
+
+.MedicationCommonInfor-listImg::-webkit-scrollbar-thumb {
+    background-color: gray;
+}
+
+.MedicationCommonInfor-listImg img {
+    height: 60px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border: 1px solid gray;
+    margin: 0 3px;
+    cursor: pointer;
+}
+
+.MedicationCommonInfor-text {
+    box-sizing: border-box;
+    padding: 10px;
+    width: 60%;  
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.MedicationCommonInfor-text-top h2 {
+    margin: 0 0;
+    font-size: 2em;
+}
+
+.MedicationCommonInfor-listStar {
+    display: flex;
+    align-items: center;
+}
+
+.MedicationCommonInfor-text-top h5 {
+    margin: 5px 0;
+}
+
+.MedicationCommonInfor-warn {
+    margin-top: 20px;
+    background-color: red;
+    padding: 5px;
+    color: white;
+    border-radius: 10px;
+    /* font-style:italic; */
+    font-style:oblique;
+
+    -webkit-animation: warn 700ms infinite;
+	-moz-animation: warn 700ms infinite; 
+	-o-animation: warn 700ms infinite; 
+	animation: warn 700ms infinite;
+}
+/*toggle warning*/
+@-webkit-keyframes warn {
+    0% { color: #F8CD0A; } 
+    50% { color: #fff;  } 
+    100% { color: #F8CD0A;  } 
+}
+@-moz-keyframes warn { 
+    0% { color: #F8CD0A;  } 
+    50% { color: #fff;  }
+    100% { color: #F8CD0A;  } 
+}
+@-o-keyframes warn { 
+    0% { color: #F8CD0A; } 
+    50% { color: #fff; } 
+    100% { color: #F8CD0A;  } 
+}
+@keyframes warn { 
+    0% { color: #F8CD0A;  } 
+    50% { color: #fff;  }
+    100% { color: #F8CD0A;  } 
+} 
+
+.MedicationCommonInfor-text1 {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+    gap: 10px 0;
+}
+
+.MedicationCommonInfor-text1 div {
+    font-size: 1.1em;
+}
+
+/* .MedicationCommonInfor-text-bottom {
+    background-color: rgb(255, 172, 172);
+} */
+
+.MedicationCommonInfor-text-bottom-1 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 5px 0;
+    background-color: rgb(122, 255, 244);
+    border-radius: 5px;
+}
+
+.MedicationCommonInfor-text-bottom-1 div {
+    padding: 10px;
+    text-align: center;
+}
+
+.MedicationCommonInfor-text-bottom-2 {
+    display: grid;
+    grid-template-columns: 1fr 3fr 2fr;
+    background-color: rgb(255, 227, 227);
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.MedicationCommonInfor-text-bottom-2 div {
+    padding: 10px;
+    text-align: center;
+}
+
+.MedicationCommonInfor-text-bottom-2 div:nth-child(1) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.MedicationCommonInfor-text-bottom-2 div:nth-child(1) svg {
+    cursor: pointer;
+}
+
+.MedicationCommonInfor-text-bottom-2 div:nth-child(1) svg:hover {
+    transform: scale(1.5);
+}
+
+.MedicationCommonInfor-text-bottom-2 div:nth-child(1) input {
+    margin: 0 5px;
+    outline: none;
+    border: none;
+    padding: 5px;
+    width: 30px;
+}
+
+.MedicationCommonInfor-text-bottom-2 div:nth-child(2) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} 
+
+.MedicationCommonInfor-text-bottom-2 div:nth-child(3) button {
+    border: none;
+    padding: 5px;
+    font-size: 1.1em !important;
+    background-color: rgb(255, 0, 79);
+    color: #fff;
+    margin: 5px;
+    cursor: pointer;
+    box-shadow: 5px 5px 5px rgb(255, 0, 79, 0.8);
+}
+
+.MedicationCommonInfor-text-bottom-2 div:nth-child(3) button:hover {
+    background-color: rgb(255, 0, 79, 0.6);
+}
+
+.MedicationCommonInfor-text-bottom-2 div:nth-child(3) button:active {
+    background-color: rgb(255, 0, 79);
+}
+
+@media screen and (max-width: 1200px) {
+    .MedicationCommonInfor {
+        flex-direction: column;
+        font-size: 14px;
+    }
+
+    .MedicationCommonInfor-imgContainer {
+        width: 100%;
+    }
+
+    .MedicationCommonInfor-text {
+        width: 100%;  
+    }
+}

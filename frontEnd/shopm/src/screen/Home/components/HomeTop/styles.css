@@ -1,0 +1,130 @@
+.HomeTop {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(228, 228, 227);
+    position: sticky;
+    top: 45px;
+}
+
+.HomeTop input {
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    width: 160px;
+    padding: 5px;
+
+    transition: width 0.2s linear;
+}
+
+.HomeTop input:hover {
+    width: 500px !important;
+}
+
+.inputactive {
+    width: 500px !important;
+}
+
+.HomeTop-object {
+    width: 100%;
+    margin-top: 10px; 
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.HomeTop-object div {
+    text-align: center;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 5px;
+}
+
+.HomeTop-object div:hover {
+    background-color: rgb(152, 255, 238);
+}
+
+.HomeTop-object-active {
+    background-color: rgb(255, 255, 255);
+}
+
+@media screen and (max-width: 1800px) { 
+    .HomeTop-object {
+        width: 80%;
+        margin-top: 10px; 
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+    }
+}
+
+@media screen and (max-width: 1300px) { 
+    .HomeTop-object {
+        width: 90%;
+        margin-top: 10px; 
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+    }
+}
+
+@media screen and (max-width: 1000px) { 
+    .HomeTop-object {
+        width: 100%;
+        margin-top: 10px; 
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+    }
+}
+
+@media screen and (max-width: 900px) { 
+    .HomeTop-object {
+        width: 100%;
+        margin-top: 10px; 
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+@media screen and (max-width: 800px) { 
+    .HomeTop-object {
+        width: 100%;
+        margin-top: 10px; 
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media screen and (max-width: 650px) { 
+    .HomeTop-object {
+        width: 100%;
+        margin-top: 10px; 
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .HomeTop input:hover {
+        width: calc(100% - 10px) !important;
+    }
+    
+    .inputactive {
+        width: calc(100% - 10px) !important;
+    }
+}
+
+@media screen and (max-width: 500px) { 
+    .HomeTop-object {
+        width: 100%;
+        margin-top: 10px; 
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .HomeTop input:hover {
+        width: calc(100% - 10px) !important;
+    }
+    
+    .inputactive {
+        width: calc(100% - 10px) !important;
+    }
+}

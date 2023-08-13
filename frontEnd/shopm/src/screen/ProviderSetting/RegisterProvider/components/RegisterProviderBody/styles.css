@@ -1,0 +1,152 @@
+.RegisterProviderBody {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.RegisterProviderBody-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.RegisterProviderBody-message.showSuccess::before {
+    content: 'Register successly !';
+    color: blue;
+}
+
+.RegisterProviderBody-message.showFailure::after {
+    content: 'Register failure !';
+    color: red;
+}
+
+.RegisterProviderBody-row {
+    margin: 10px 0;
+    padding: 10px;
+    /* display: flex;
+    align-items: center; */
+    width: 80%;
+}
+
+.RegisterProviderBody-row input {
+    border: none;
+    outline: none;
+    background-color: rgb(221, 221, 221);
+    padding: 10px;
+    border-radius: 20px;
+    width: 90%;
+}
+
+.RegisterProviderBody-row-nameErr {
+    color: red;
+    font-size: 0.9em;
+    width: max-content;
+    font-style: italic;
+    margin-top: -20px;
+    display: none;
+}
+
+.RegisterProviderBody-row.banner img {
+    aspect-ratio: 1270 / 350;
+    width: 90%;
+    object-fit: contain;
+    border: 1px solid gray;
+}
+
+.RegisterProviderBody-row.avatar img {
+    aspect-ratio: 1 / 1;
+    width: 30%;
+    border-radius: 50%;
+    border: 1px solid blue;
+}
+
+.RegisterProviderBody-row.banner,
+.RegisterProviderBody-row.avatar {
+    position: relative;
+}
+
+.RegisterProviderBody-deleteImage {
+    position: absolute;
+    right: 0;
+    border-radius: 50%;
+    padding: 3px;
+}
+
+.RegisterProviderBody-deleteImage:hover {
+    background-color: rgb(211, 211, 211);
+}
+
+.RegisterProviderBody-rowLabel {
+    display: flex;
+    align-items: center;
+    border-radius: 25px;
+    padding: 10px;
+    position: relative;
+    width: 50%;
+}
+
+.RegisterProviderBody-rowLabel:hover {
+    .RegisterProviderBody-rowLabel-overlay {
+        width: 100%;
+        border-radius: 25px;
+    }
+}
+
+.RegisterProviderBody-rowLabel.banner {
+    background-color: rgb(255, 115, 143);
+}
+.RegisterProviderBody-rowLabel.avatar {
+    background-color: rgb(181, 255, 181);
+}
+
+.RegisterProviderBody-row.banner,
+.RegisterProviderBody-row.avatar {
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.RegisterProviderBody-row.banner.close,
+.RegisterProviderBody-row.avatar.close {
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+.RegisterProviderBody-rowLabel svg {
+    margin-right: 10px;
+}
+
+.RegisterProviderBody-rowLabel-overlay {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.05);
+    width: 50px;
+    height: 100%;
+    left: 0;
+    border-radius: 25px;
+
+    transition: width 0.3s ease-in-out;
+}
+
+.RegisterProviderBody-row button {
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 20px;
+    width: 90%;
+    background-color: rgb(215, 215, 255);
+}
+
+.RegisterProviderBody-row button:hover {
+    background-color: rgb(171, 171, 255);
+}
+
+.RegisterProviderBody-row button:active {
+    background-color: rgb(215, 215, 255);
+}
+
+@media screen and (max-width: 800px) {
+    .RegisterProviderBody-row {
+        width: 100%;
+    }
+}

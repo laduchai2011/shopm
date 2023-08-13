@@ -1,0 +1,31 @@
+.SignupMessage {
+    position: fixed;
+    top: 50%;
+    left: 100%;
+    background-color: white;
+    transform: translate(0%, -50%);
+    width: 320px;
+    aspect-ratio: 5/2;
+    border: 1px solid red;
+    border-radius: 15px;
+    padding: 10px;
+    font-size: 1.1rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    opacity: 0;
+
+    transition: left 0.5s ease-in-out, opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.SignupMessage svg {
+    width: 50px;
+}
+
+.SignupMessage.show {
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+}

@@ -1,0 +1,31 @@
+.ProviderList-body {
+    box-sizing: border-box;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 10px;
+}
+
+.ProviderList-body-add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(223, 223, 223);
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px #eee;
+    cursor: pointer;
+    box-sizing: border-box;
+    background-color: white;
+    aspect-ratio: 6/4;
+}
+
+.ProviderList-body-add svg {
+    font-size: 500%;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: rgb(219, 219, 219);
+}
+
+.ProviderList-body-add svg:hover {
+    transform: scale(1.2);
+}

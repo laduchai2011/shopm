@@ -1,0 +1,31 @@
+.Home {
+    width: 100%;
+    position: relative;
+}
+
+.Home-main {
+    display: flex;
+}
+
+.Home-center {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.Home-center1 {
+    width: 1000px;
+}
+
+/* .Home-right {
+    right: 0;
+    position: fixed;
+    z-index: 5;
+} */
+
+@media screen and (max-width: 450px) { 
+    /* .Home-center {
+        width: 100%;
+        margin-left: 0;
+    } */
+}

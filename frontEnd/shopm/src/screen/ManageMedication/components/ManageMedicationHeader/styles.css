@@ -1,0 +1,99 @@
+.ManageMedicationHeader {
+    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.ManageMedicationHeader div img {
+    aspect-ratio: 1/1;
+    height: 100px;
+    border: 1px solid gray;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.ManageMedicationHeader-infor {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.ManageMedicationHeader-infor div:nth-child(1) {
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.ManageMedicationHeader-infor div:nth-child(2) {
+    font-size: 0.8em;
+}
+
+.ManageMedicationHeader-infor div:nth-child(3) {
+    display: flex;
+    align-items: center;
+    height: min-content;
+}
+
+.ManageMedicationHeader-infor div:nth-child(3) div {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* skeleton Loading */
+.ManageMedicationHeader-loading .ManageMedicationHeader-avatar {
+    overflow: hidden;
+    position: relative;
+    border-radius: 50%;
+}
+
+.ManageMedicationHeader-loading .ManageMedicationHeader-infor {
+    height: 100px;
+}
+
+.ManageMedicationHeader-loading .ManageMedicationHeader-infor div { 
+    overflow: hidden;
+    position: relative;
+    height: min-content;
+    border-radius: 20px;
+}
+
+.ManageMedicationHeader-loading .ManageMedicationHeader-avatar::after,
+.ManageMedicationHeader-loading .ManageMedicationHeader-infor div::after {
+    position: absolute;
+    background-color: #dddddd;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.ManageMedicationHeader-loading .ManageMedicationHeader-avatar::before,
+.ManageMedicationHeader-loading .ManageMedicationHeader-infor div::before {
+    position: absolute;
+    background: linear-gradient(to right, #dddddd, #ffffff, #dddddd);
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+
+    animation: skeletonLoadingMedicationHeader 1.5s infinite alternate;
+}
+
+@keyframes skeletonLoadingMedicationHeader  {
+    from {
+        left: -50%;
+    } to {
+        left: 50%;
+    }
+}

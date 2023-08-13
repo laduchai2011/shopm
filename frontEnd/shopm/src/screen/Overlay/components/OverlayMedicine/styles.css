@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Noticia+Text&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
+
+:root {
+    --font-header: 'Noticia Text', serif;
+    --font-text: 'Crimson Text', serif;
+}
+
+.OverlayMedicine {
+    position: absolute;
+    width: calc(30% - 20px);
+    height: 90%;
+    display: none;
+    left: calc(70%/2);
+    top: calc(10%/2);
+    background-color: white;
+    padding: 0 10px;
+    overflow-y: scroll;
+    border-radius: 20px;
+}
+
+.OverlayMedicine.show {
+    display: block;
+}
+
+.OverlayMedicine-top {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background-color: white;
+    border-bottom: 1px solid gray;
+}
+
+.OverlayMedicine-top div {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 6px;
+}
+
+.OverlayMedicine h3 {
+    font-family: var(--font-header);
+    font-size: 24px;
+    margin: 0 0;
+}
+
+/* .OverlayMedicine h3 span {
+    font-size: 20px;
+    padding: 2px;
+    border-radius: 10px;
+}  */
+
+.OverlayMedicine-p {
+    font-family: var(--font-text);
+}
+
+.OverlayMedicine-p1 {
+    font-family: var(--font-header);
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.OverlayMedicine h3, 
+.OverlayMedicine-p {
+    width: max-content;
+    margin-left: calc(100%/2);
+    transform: translateX(-50%);
+}
+
+.OverlayMedicine img {
+    width: 100%;
+    height: 300px;
+}
+
+.OverlayMedicine iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    overflow: hidden;
+    background-color: rgb(174, 246, 255);
+    border-radius: 10px;
+}
+
+.OverlayMedicine-bottom {
+    position: sticky;
+    position: -webkit-sticky;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    bottom: 0;
+    border-top: 1px solid gray;
+    background-color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.OverlayMedicine-bottom div {
+    width: 180px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.OverlayMedicine-bottom div button {
+    border-radius: 8px;
+    height: 30px;
+    width: 80px;
+    background-color: #ff0d0d;
+    color: white;
+    cursor: pointer;
+    box-shadow: 5px 5px 2px #ff9f9f;
+}
+
+.OverlayMedicine-bottom div button a {
+    color: white;
+    text-decoration: none;
+}
+
+.OverlayMedicine-bottom div button:hover, .OverlayMedicine-bottom div button a:hover {
+    background-color: white;
+    color: #ff0d0d;
+}
+
+.OverlayMedicine::-webkit-scrollbar {
+    width: 0px;
+}
+
+@media screen and (max-width: 1200px) { 
+    .OverlayMedicine {
+        width: calc(40% - 20px);
+        left: calc(60%/2);
+    }
+}
+
+@media screen and (max-width: 1000px) { 
+    .OverlayMedicine {
+        width: calc(50% - 20px);
+        left: calc(50%/2);
+    }
+}
+
+@media screen and (max-width: 800px) { 
+    .OverlayMedicine {
+        width: calc(60% - 20px);
+        left: calc(40%/2);
+    }
+}   
+
+@media screen and (max-width: 650px) { 
+    .OverlayMedicine {
+        width: calc(80% - 20px);
+        left: calc(20%/2);
+    }
+}
+
+@media screen and (max-width: 430px) { 
+    .OverlayMedicine {
+        width: calc(100% - 20px);
+        left: 0;
+    }
+}

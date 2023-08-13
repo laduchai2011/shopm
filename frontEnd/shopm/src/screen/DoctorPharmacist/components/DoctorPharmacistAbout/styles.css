@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
+
+.DoctorPharmacistAbout {
+    --font-header: 'Anton', sans-serif;
+    --font-text: 'Crimson Text', serif;
+}
+
+.DoctorPharmacistAbout {
+    background-color: white;
+    margin-top: 10px;
+    padding: 5px;
+    width: calc(100% - 10px);
+    border-radius: 10px;
+}
+
+.DoctorPharmacistAbout-headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.DoctorPharmacistAbout-header {
+    font-family: var(--font-header);
+    font-size: 20px;
+    font-weight: 500;   
+}
+
+.DoctorPharmacistAbout-headerContainer div svg {
+    padding: 3px;
+    border-radius: 50%;
+}
+
+.DoctorPharmacistAbout-headerContainer div svg:hover {
+    background-color: rgb(221, 220, 220);
+}
+
+.DoctorPharmacistAbout-optionsContainer {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.DoctorPharmacistAbout-options {
+    width: 150px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    position: absolute;
+    top: 30px;
+    line-height: 30px;
+    background-color: white;
+    display: none;
+}
+
+.DoctorPharmacistAbout-options div {
+    padding: 0 10px;
+    border-radius: 10px;
+    cursor: default;
+}
+
+.DoctorPharmacistAbout-options div:hover {
+    background-color: rgb(233, 233, 233);
+}
+
+.DoctorPharmacistAbout-options.show {
+    display: block;
+}
+
+.DoctorPharmacistAbout-center {
+    margin-top: 10px;
+    display: grid;
+    gap: 10px 10px;
+    grid-template-columns: repeat(3, calc((100% - 20px)/3));
+}
+
+.DoctorPharmacistAbout-inforObjContainer {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+.DoctorPharmacistAbout-inforObj {
+    font-family: var(--font-text);
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.DoctorPharmacistAbout-footer {
+    margin-top: 5px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+    width: calc(100% - 20px);
+}
+
+.DoctorPharmacistAbout-footer svg {
+    border-radius: 50%;
+    padding: 5px;
+    display: none;
+}
+
+.DoctorPharmacistAbout-footer svg:hover {
+    background-color: rgb(177, 177, 177);
+    color: white;
+}
+
+.DoctorPharmacistAbout-footer-svgActive {
+    display: block !important;
+}
+
+@media screen and (max-width: 1000px) { 
+    .DoctorPharmacistAbout-center {
+        grid-template-columns: repeat(2, calc((100% - 10px)/2));
+    }
+}
+
+@media screen and (max-width: 650px) { 
+    .DoctorPharmacistAbout-center {
+        grid-template-columns: repeat(1, calc((100% - 0px)/1));
+    }
+}

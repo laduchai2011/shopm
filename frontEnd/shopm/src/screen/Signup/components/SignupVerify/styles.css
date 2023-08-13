@@ -1,0 +1,70 @@
+.SignupVerify {
+    background-color: white;
+    position: fixed;
+    top: 50%;
+    left: 100%;
+    transform: translate(0%, -50%);
+
+    border: 1px solid black;
+    border-radius: 10px;
+    aspect-ratio: 2/1;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0;
+
+    transition: left 0.3 ease-in-out, opacity 0.3 ease-in-out, transform 0.3 ease-in-out;
+}
+
+.SignupVerify.show {
+    left: 50%;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+}
+
+.SignupVerify-inputContainer {
+    padding: 10px;
+    height: 75%;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.SignupVerify-inputContainer input {
+    margin-top: 5px;
+    background-color: rgb(231, 231, 231);
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+}
+
+.SignupVerify-note {
+    color: red;
+    opacity: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.SignupVerify-note.show {
+    opacity: 1;
+}
+
+.SignupVerify-btn {
+    height: 25%;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.SignupVerify-btn button {
+    height: 100%;
+    width: 50%;
+}

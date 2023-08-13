@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.Add {
+    --font-textProcess: 'Poppins', sans-serif;
+}
+
+.Add {
+    background-color: #eee;
+    z-index: 5;
+}
+
+.Add-main {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Add-form {
+    padding: 10px;
+    box-sizing: border-box;
+    width: 60%;
+}
+
+.Add-submitContainer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+}
+
+.Add-loading {
+    background-color: rgb(201, 201, 255);
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    font-weight: var(--font-textProcess);
+    position: absolute;
+    left: 0;
+    opacity: 0;
+
+    transition: opacity 0.5s ease-in-out, left 0.5s ease-in-out;
+}
+
+.Add-loading.active {
+    left: 50%;
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.Add-submitContainer button {
+    border: none;
+    outline: none;
+    background-color: red;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    color: white;
+}
+
+.Add-submitContainer button:hover {
+    background-color: rgb(255, 110, 110);
+}
+
+.Add-submitContainer button:active {
+    background-color: white;
+    color: red;
+}
+
+.Add-Submit {
+    display: none;
+    width: 0;
+    opacity: 0;
+    transition: width 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+.Add-Submit.show {
+    display: block;
+}
+.Add-Submit.active {
+    width: 100px;
+    opacity: 1;
+}
+.Add-Continue {
+    display: none;
+    width: 0;
+    opacity: 0;
+    transition: width 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+.Add-Continue.show {
+    display: block;
+}
+.Add-Continue.active {
+    width: 100px;
+    opacity: 1;
+}
+
+.Add-circleProcessContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Add-circleProcess {
+    width: 0;
+    aspect-ratio: 1/1;
+    background: conic-gradient(rgb(117, 117, 255) 0deg, white 0deg);
+    border-radius: 50%;
+    position: relative;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+
+    transition: opacity 0.5s ease-in-out, width 0.5s ease-in-out;
+}
+.Add-circleProcess.show {
+    display: flex;
+}
+.Add-circleProcess.active {
+    opacity: 1;
+    width: 150px;
+}
+
+.Add-circleProcess::before {
+    content: '';
+    background: white;
+    aspect-ratio: 1/1;
+    width: 140px;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.Add-textProcess {
+    position: absolute;
+    font-size: 2rem;
+    font-family: var(--font-textProcess);
+    color: rgb(117, 117, 255);
+}
+
+.Add-form-row {
+    display: flex;
+    margin: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.Add-form-row span {
+    margin-right: 50px;
+    width: 70px;
+}
+
+.Add-form-row input {
+    border: none;
+    outline: none;
+    padding: 3px;
+    border-radius: 5px;
+    width: 250px;
+} 
+
+.Add-form-row textarea {
+    border: none;
+    outline: none;
+    padding: 5px;
+    border-radius: 10px;
+    width: 250px;
+    resize: none;
+    height: 200px;
+}
+
+.Add-form-iconImg {
+    display: flex;
+    align-items: center;
+    background-color: rgb(237, 255, 210);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.Add-form-iconImg-div {
+    height: 100%;
+    width: 0;
+    background-color: rgba(0, 0, 0, 0.05);
+    position: absolute;
+    box-sizing: border-box;
+
+    transition: width 0.3s ease-in-out;
+}
+
+.Add-form-iconImg:hover {
+    .Add-form-iconImg-div {
+        width: 100%;
+    }
+}
+
+.Add-form-row.images {
+    flex-direction: column !important;
+}
+
+.Add-imgContainer {
+    width: 100%;
+    height: 300px;
+    background-color: white;
+    margin: 5px 0;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.Add-imgContainer.hidden {
+    animation: imgContainerAnimation 1s ease-in-out forwards;
+}
+@keyframes imgContainerAnimation {
+    from {
+        left: 0;
+        height: 300px;
+        margin: 5px 0;
+        opacity: 1;
+    }
+    to {
+        left: calc(-0.6*100vw);
+        height: 0;
+        margin: 0;
+        opacity: 0;
+    }
+}
+
+.Add-imgContainer svg {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    padding: 3px;
+    border-radius: 10px;
+}
+
+.Add-imgContainer svg:hover {
+    background-color: rgb(206, 206, 206);
+}
+
+.Add-imgContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.Add-custom {
+    background-color: yellow;
+    width: 40%;
+}
+
+@media screen and (max-width: 700px) {
+    .Add-form {
+        width: 100%;
+    }
+
+    .Add-custom {
+        display: none;
+    }
+}

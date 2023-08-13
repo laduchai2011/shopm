@@ -1,0 +1,133 @@
+.Header {
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    height: 50px;
+    z-index: 50;
+}
+
+.Header-logo {
+    padding: 5px;
+    border-radius: 10px;
+    cursor: default;
+    font-size: 1em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.Header-logo svg {
+    margin-left: 5px;
+    padding: 3px;
+    border-radius: 50%;
+}
+
+.Header-logo svg:hover{
+    background-color: rgb(160, 160, 160);
+}
+
+.Header-logo span {
+    cursor: pointer;
+}
+
+.Header-logo:hover {
+    background-color: rgb(216, 216, 216);
+}
+
+.Header-menuContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Header-menu {
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    font-size: 1em;
+}
+
+.Header-line {
+    background-color: rgb(0, 217, 255) !important;
+    height: 3px;
+    width: 0;
+    position: absolute;
+    bottom: 0;
+    padding: 0px !important;
+}
+
+.Header-menu div {
+    margin: 0 1px;
+    padding: 3px 5px;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    cursor: default;
+    background-color: rgb(194, 255, 255);
+}
+
+.Header-menu div.active,
+.Header-menu div:hover {
+    background-color: rgb(67, 255, 255);
+}
+
+.Header-avatar {
+    height: 100%;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.Header-avatar span:hover {
+    color: blue;
+}
+
+.Header-avatar img {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 430px) {
+    .Header {
+        font-size: 12px;
+    }
+
+    .Header-menuContainer {
+        position: relative;
+    }
+
+    .Header-menu {
+        position: fixed;
+        top: 50px;
+        width: 100vw;
+        margin: 0;
+        left: 0;
+        background-color: white;
+        justify-content: flex-start;
+        height: 0;
+        display: none;
+        opacity: 0;
+
+        transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+
+    .Header-menu.display {
+        display: flex;
+    }
+
+    .Header-menu.show {
+        height: 30px;
+        opacity: 1;
+    }
+}

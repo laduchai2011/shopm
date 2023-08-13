@@ -1,0 +1,221 @@
+.DoctorPharmacistReadyServiceToastMessage {
+    --time: 0;
+    --color-time: rgb(66, 233, 255);
+    --color-circleAnimation: red
+}
+
+.DoctorPharmacistReadyServiceToastMessage {
+    position: fixed;
+    height: 0;
+    width: 0;
+    left: 50%;
+    top: 50%;
+    background-color: rgba(0,0,0,0.5);
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: height 0.3s ease, width 0.3s ease;
+}
+
+.DoctorPharmacistReadyServiceToastMessage-show {
+    height: 100%;
+    width: 100%;
+}
+
+.DoctorPharmacistReadyServiceToastMessage-dialog {
+    display: none;
+    width: 0;
+    height: 0;
+    background-color: white;
+    border-radius: 15px;
+    opacity: 0;
+
+    transition: height 0.3s ease, width 0.3s ease, opacity 0.3s ease;
+}
+
+.DoctorPharmacistReadyServiceToastMessage-dialog-show {
+    width: calc(400px - 20px);
+    height: calc(500px - 20px);
+    padding: 10px;
+    opacity: 1;
+}
+
+.DoctorPharmacistReadyServiceToastMessage-circle {
+    width: 250px;
+    height: 250px;
+    margin-left: calc((100% - 250px)/2);
+    margin-top: calc((100% - 250px)/2);
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.DoctorPharmacistReadyServiceToastMessage-rectangleContainer {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    position: absolute;
+}
+
+.DoctorPharmacistReadyServiceToastMessage-rectangle1 {
+    background-color: var(--color-time);
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+.DoctorPharmacistReadyServiceToastMessage-rectangle2 {
+    background-color: var(--color-time);
+}
+.DoctorPharmacistReadyServiceToastMessage-rectangle3 {
+    background-color: var(--color-time);
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.DoctorPharmacistReadyServiceToastMessage-rectangle4 {
+    background-color: var(--color-time);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.DoctorPharmacistReadyServiceToastMessage-smallRectangle1 {
+    width: 100%;
+    height: 100%;
+
+    animation: smallRectangle1Animation calc(0.25s*var(--time)) linear forwards calc(0.75s*var(--time));
+}
+@keyframes smallRectangle1Animation {
+    0% {
+        width: 0;
+        height: 0;
+        background-color: var(--color-circleAnimation);
+    }
+    50% {
+        width: 50%;
+        height: 100%;
+        background-color: var(--color-circleAnimation);
+    }
+    100% {
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-circleAnimation);
+    }
+}
+
+.DoctorPharmacistReadyServiceToastMessage-smallRectangle2 {
+    width: 100%;
+    height: 100%;
+    animation: smallRectangle2Animation calc(0.25s*var(--time)) linear forwards calc(0s*var(--time));
+}
+@keyframes smallRectangle2Animation {
+    0% {
+        width: 0;
+        height: 0;
+        background-color: var(--color-circleAnimation);
+    }
+    50% {
+        width: 100%;
+        height: 50%;
+        background-color: var(--color-circleAnimation);
+    }
+    100% {
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-circleAnimation);
+    }
+}
+
+.DoctorPharmacistReadyServiceToastMessage-smallRectangle3 {
+    width: 100%;
+    height: 100%;
+    animation: smallRectangle3Animation calc(0.25s*var(--time)) linear forwards calc(0.5s*var(--time));
+}
+@keyframes smallRectangle3Animation {
+    0% {
+        width: 0;
+        height: 0;
+        background-color: var(--color-circleAnimation);
+    }
+    50% {
+        width: 50%;
+        height: 100%;
+        background-color: var(--color-circleAnimation);
+    }
+    100% {
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-circleAnimation);
+    }
+}
+
+.DoctorPharmacistReadyServiceToastMessage-smallRectangle4 {
+    width: 100%;
+    height: 100%;
+    animation: smallRectangle4Animation calc(0.25s*var(--time)) linear forwards calc(0.25s*var(--time));
+}
+@keyframes smallRectangle4Animation {
+    0% {
+        width: 0;
+        height: 0;
+        background-color: var(--color-circleAnimation);
+    }
+    50% {
+        width: 100%;
+        height: 50%;
+        background-color: var(--color-circleAnimation);
+    }
+    100% {
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-circleAnimation);
+    }
+}
+
+.DoctorPharmacistReadyServiceToastMessage-smallCircle {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.DoctorPharmacistReadyServiceToastMessage-smallCircle span {
+    color: var(--color-time);
+    font-size: 48px;
+}
+
+.DoctorPharmacistReadyServiceToastMessage-note {
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+}
+
+.DoctorPharmacistReadyServiceToastMessage-note span {
+    font-size: 28px;
+    font-weight: 200;
+
+    animation: bookFailure 0s forwards calc(1s*var(--time));
+}
+
+@keyframes bookFailure {
+    from {color: black;}
+    to {color: red;}
+}
+
+@media screen and (max-width: 430px) { 
+    .DoctorPharmacistReadyServiceToastMessage-dialog-show {
+        width: calc(100% - 20px);
+        height: calc(70% - 20px);
+    }
+}

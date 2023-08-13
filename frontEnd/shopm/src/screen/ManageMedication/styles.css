@@ -1,0 +1,10 @@
+.ManageMedication-header {
+    width: 100%;
+    z-index: 99;
+    position: fixed;
+    top: 0;
+}
+
+.ManageMedication-body {
+    margin-top: 65px;
+}

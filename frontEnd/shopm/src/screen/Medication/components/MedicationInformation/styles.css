@@ -1,0 +1,20 @@
+.MedicationInformation {
+    box-sizing: border-box;
+    margin: 10px 0;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.MedicationInformation-header {
+    box-sizing: border-box;
+    background-color: rgb(216, 216, 216);
+    padding: 10px;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.MedicationInformation-body {
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: white;
+}

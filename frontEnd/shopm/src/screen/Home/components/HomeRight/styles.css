@@ -1,0 +1,17 @@
+.HomeRight {
+    box-sizing: border-box;
+    padding: 10px;
+    position: fixed;
+    top: 85px;
+    display: flex;
+    justify-content: flex-end;
+    z-index: 5;
+    right: 0;
+    /* background-color: aqua; */
+}
+
+.HomeRight-boxExamine,
+.HomeRight-boxAmbulance {
+    display: flex;
+    justify-content: flex-end;
+}

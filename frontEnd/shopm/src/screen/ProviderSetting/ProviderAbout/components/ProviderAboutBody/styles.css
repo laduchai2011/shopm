@@ -1,0 +1,175 @@
+.ProviderAboutBody {
+    box-sizing: border-box;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.ProviderAboutBody-main {
+    margin-top: 1%;
+}
+
+.ProviderAboutBody-selectProvider {
+    display: flex;
+    flex-direction: column;
+}
+
+.ProviderAboutBody-selectProvider label {
+    font-size: larger;
+    font-style: italic;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.ProviderAboutBody-selectProvider select {
+    border: none;
+    outline: none;
+    background-color: rgb(240, 240, 240);
+    padding: 5px;
+    box-sizing: border-box;
+    background-color: blue;
+    color: white;
+}
+
+.ProviderAboutBody-selectProvider option {
+    border: none;
+    outline: none;
+    background-color: blue;
+    margin: 5px 0;
+}
+
+.ProviderAboutBody-inputBox {
+    background-color: rgb(204, 204, 204);
+    /* margin: 10px 0;
+    padding: 10px 5px; */
+    border-radius: 15px;
+    margin: 0;
+    padding: 0;
+    height: 0;
+    opacity: 0;
+
+    transition: margin 0.3s linear, padding 0.3s linear, opacity 0.3s linear, height 0.3s linear;
+}
+
+.ProviderAboutBody-inputBox.show {
+    margin: 10px 0;
+    padding: 10px 5px;
+    height: max-content;
+    opacity: 1;
+}
+
+.ProviderAboutBody-inputBox input {
+    border: none;
+    outline: none;
+    margin: 0 10px;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.ProviderAboutBody-btnContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ProviderAboutBody-btn1 {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.ProviderAboutBody-btn1 svg { 
+    border-radius: 50%;
+}
+
+.ProviderAboutBody-btn1 svg:hover {
+    background-color: rgb(207, 207, 207);
+    transform: scale(1.5);
+}
+
+.ProviderAboutBody-btn1 button {
+    border: none;
+    outline: none;
+    padding: 8px;
+    border-radius: 15px;
+    background-color: greenyellow;
+}
+
+.ProviderAboutBody-btn1 button:hover {
+    background-color: rgb(0, 255, 0);
+    color: white;
+}
+
+.ProviderAboutBody-btn1 button:active {
+    background-color: rgb(206, 255, 133);
+}
+
+.ProviderAboutBody-submit {
+    border: none;
+    outline: none;
+    padding: 8px;
+    border-radius: 15px;
+    width: 150px;
+    background-color: rgb(197, 197, 197);
+}
+
+.ProviderAboutBody-submit:hover {
+    background-color: rgb(146, 146, 146);
+    color: white;
+}
+
+.ProviderAboutBody-submit:active {
+    background-color: rgb(235, 235, 235);
+    color: black;
+}
+
+.ProviderAboutBody-note.success::after {
+    color: blue;
+    content: 'Sucessly !';
+}
+
+.ProviderAboutBody-note.failure::after {
+    color: red;
+    content: 'Failure !';
+}
+
+.ProviderAboutBody-note.emptySubject::after {
+    color: red;
+    content: 'Failure. Subject is empty !';
+}
+
+@media screen and (min-width: 600px) and (max-width: 700px){
+    .ProviderAboutBody-inputBox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .ProviderAboutBody-inputBox input {
+        margin: 5px;
+    }
+}
+
+@media screen and (max-width: 450px){
+    .ProviderAboutBody-main {
+        width: 90%;
+    }
+
+    .ProviderAboutBody-inputBox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .ProviderAboutBody-inputBox input {
+        margin: 5px;
+        width: 80%;
+    }
+}

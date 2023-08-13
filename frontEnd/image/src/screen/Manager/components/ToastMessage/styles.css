@@ -1,0 +1,94 @@
+.ToastMessage {
+    background: #eee;
+    position: fixed;
+    left: 110%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    aspect-ratio: 5 / 2;
+    width: 280px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid black;
+    opacity: 0;
+
+    transition: left 1s ease, opacity 1s ease;
+}
+
+.ToastMessage.show {
+    left: 50%;
+    opacity: 1;
+}
+
+.ToastMessage-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.ToastMessage-content div {
+    margin-left: 3px;
+}
+
+.ToastMessage-deleting {
+    font-size: 1.5rem;
+
+    animation: deletingAnimation 1s ease-in-out infinite;
+}
+@keyframes deletingAnimation {
+    0%{font-size: 1.5rem;}
+    50%{font-size: 2rem;}
+    100%{font-size: 1.5rem;}
+}
+
+.ToastMessage-deleting-dot {
+    --i: 0; 
+    display: inline-block;
+    animation: deletingDotAnimation 1s ease-in-out infinite;
+    animation-delay: calc(0.1s * var(--i));
+}
+@keyframes deletingDotAnimation {
+    0% {
+        transform: translateY(0px);
+    }
+    20% {
+        transform: translateY(-10px);
+    }
+    40%, 100% {
+        transform: translateY(0px);
+    }
+}
+
+.ToastMessage-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ToastMessage-button div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 40px;
+    border: 1px solid black;
+    box-sizing: border-box;
+    cursor: default;
+
+    transition: width 0.5s ease-in-out;
+}
+
+.ToastMessage-button div.oke {
+    width: 100%;
+}
+
+.ToastMessage-button div:hover {
+    background-color: white;
+}
+
+.ToastMessage-button div:active {
+    background-color: #eee;
+}

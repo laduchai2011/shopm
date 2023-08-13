@@ -1,0 +1,283 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+.Signup {
+    --Signup-background-color: #E5E5E5;
+    --Signup-main-background-color: #FFFFFF;
+    --Login-text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    --Login-font-header: 'Poppins', sans-serif;
+    --Login-header-color: #000000;
+    --Login-font-text: 'Inter', sans-serif;
+    --Login-text-color: rgba(0, 0, 0, 0.56);
+    box-sizing: border-box;
+}
+
+.Signup {
+    background-color: var(--Signup-background-color);
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.Signup-main {
+    width: 360px;
+    height: 880px;
+    background-color: var(--Signup-main-background-color);
+
+    position: relative;
+}
+
+.Signup-main-top {
+    position: relative;
+}
+
+.Signup-main-top img {
+    position: absolute;
+}
+
+.Signup-main-top span {
+    width: 139px;
+    height: 54px;
+    left: 111px;
+    top: 204px;
+
+    font-family: var(--Login-font-header);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 54px;
+
+    color: var(--Login-header-color);
+
+    text-shadow: var(--Login-text-shadow);
+}
+
+.Signup-form {
+    height: min-content;
+    /* margin-top: 287px; */
+    margin-top: 210px;
+}
+
+.Signup-form-input {
+    margin: 0 0 0 29px;
+    width: 300px;
+    height: 37px;
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow: -1.66767px -0.555889px 3.89122px 1.11178px rgba(0, 0, 0, 0.25), 1.66767px 2.22356px 3.89122px rgba(0, 0, 0, 0.25);
+    border-radius: 48.3px 48.3623px 48.3623px 48.3px;
+
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+} 
+
+.Signup-form-input input {
+    border: none;
+    outline: none;
+    margin-left: 8px;
+
+    width: auto;
+    height: 15px;
+    font-family: var(--Login-font-text);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12.4212px;
+    line-height: 15px;
+    color: var(--Login-text-color);
+}
+
+.Signup-form-input-icon,
+.Signup-form-input img {
+    margin-left: 24px;
+}
+
+.Signup-form-input-icon {
+    display: none;
+    opacity: 0;
+
+    transition: opacity 0.3s ease-in-out;
+}
+
+.Signup-form-input-icon.display {
+    display: block;
+}
+
+.Signup-form-input-icon.active {
+    opacity: 1;
+}
+
+.Signup-note {
+    text-align: center;
+    color: red;
+}
+
+.Signup-signup {
+    margin-top: 10px;
+    margin-left: 125px;
+    width: 98.52px;
+    height: 34.1px;
+
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow: -1.43512px -0.478373px 3.34861px 0.956746px rgba(0, 0, 0, 0.25), 1.43512px 1.91349px 3.34861px rgba(0, 0, 0, 0.25);
+    border-radius: 41.6px 41.6184px 41.6184px 41.6px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.Signup-loading {
+    position: absolute;
+    opacity: 0;
+
+    transition: opacity 0.3s ease-in-out;
+}
+
+.Signup-loading.loading {
+    opacity: 1;
+    animation: loadingAnimation 0.8s ease-in-out infinite;
+}
+@keyframes loadingAnimation {
+    0% {transform: rotate(0);}
+    25% {transform: rotate(90deg);}
+    50% {transform: rotate(180deg);}
+    75%, 100% {transform: rotate(270deg);}
+}
+
+.Signup-signup span {
+    width: 61px;
+    height: 24px;
+
+    font-family: var(--Login-font-header);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15.6982px;
+    line-height: 24px;
+
+    color: #FF0404;
+}
+
+.Signup-signupSpan {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.Signup-signupSpan.hidden {
+    opacity: 0;
+}
+
+.Signup-account {
+    width: 250px;
+    height: 20px;
+    left: 3px;
+    top: 513px;
+
+    font-family: var(--Login-font-text);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16.75px;
+    line-height: 20px;
+
+    color: var(--Login-text-color);
+
+    text-shadow: var(--Login-text-shadow);
+
+    cursor: pointer;
+}
+
+.Signup-login {
+    width: 79.62px;
+    height: 27.56px;
+    margin-top: 50px;
+
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow: -1.15985px -0.386615px 2.70631px 0.77323px rgba(0, 0, 0, 0.25), 1.15985px 1.54646px 2.70631px rgba(0, 0, 0, 0.25);
+    border-radius: 0px 33.6355px 33.6355px 0px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.Signup-login span {
+    width: 34px;
+    height: 19px;
+
+    font-family: var(--Login-font-header);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12.6871px;
+    line-height: 19px;
+
+    color: #FF0404;
+}
+
+.Signup-main-bottom {
+    height: 227px;
+    position: relative;
+    cursor: pointer;
+}
+
+.Signup-main-bottom img {
+    position: absolute;
+    bottom: 0;
+}
+
+.Signup-recaptcha-containerr {
+    position: absolute;
+}
+
+@media screen and (max-width: 500px) { 
+    .Signup {
+        background-color: var(--Login-background-color);
+        width: 100vw;
+        height: 100vh;
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .Signup-main {
+        width: 100%;
+        height: 100%;
+        background-color: var(--Login-main-background-color);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .Signup-main-top {
+        width: 100%;
+        position: relative;
+    }
+    
+    .Signup-main-top img {
+        width: 100%;
+        position: absolute;
+    }
+
+    .Signup-account {
+        position: absolute;
+        top: calc(100vh/2 + 120px);
+    }
+
+    .Signup-main-bottom {
+        width: 100%;
+        height: 227px;
+        position: relative;
+    }
+
+    .Signup-main-bottom img {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+    }
+}

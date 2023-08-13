@@ -1,0 +1,149 @@
+.ManagerBottom {
+    background-color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 1800px;
+    margin-left: calc((100% - 1800px)/2);
+    border-radius: 20px;
+}
+
+.ManagerBottom-controler {
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+}
+
+.ManagerBottom-controler button {
+    margin: 0 3px;
+    border: none;
+    padding: 8px;
+}
+
+.ManagerBottom-controler button:active {
+    background-color: white;
+}
+
+.ManagerBottom-addBtn {
+    background-color: rgb(175, 255, 173);
+}
+
+.ManagerBottom-row {
+    display: grid;
+    grid-template-columns: 80px repeat(2, 1fr) repeat(1, 6fr) repeat(1, 1fr);
+}
+
+.ManagerBottom-row div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.ManagerBottom-row.header {
+    background-color: rgb(132, 241, 255);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.ManagerBottom-row.header div {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.ManagerBottom-row.image {
+    border-bottom: 1px solid black;
+    margin-top: 5px;
+}
+
+.ManagerBottom-row.image.active {
+    background-color: #d2faff;
+}
+
+.ManagerBottom-row.image:hover {
+    background-color: #d2faff;
+}
+
+.ManagerBottom-iconContainer svg {
+    padding: 2px;
+    border-radius: 50px;
+}
+
+.ManagerBottom-iconContainer svg:hover {
+    background-color: rgb(204, 204, 204);
+}
+
+.ManagerBottom-imageContainer {
+    grid-column: 1 / 6;
+    height: 0;
+    background: #eee;
+    position: relative;
+    opacity: 0;
+    display: none !important;
+
+    transition: height 0.3s ease, opacity 0.3s ease;
+}
+
+.ManagerBottom-imageContainer.display {
+    display: flex !important;
+}
+
+.ManagerBottom-imageContainer.show {
+    height: 500px;
+    opacity: 1;
+    padding: 10px;
+}
+
+.ManagerBottom-imageContainer img {
+    object-fit: contain;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.ManagerBottom-imageContainer span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+@media screen and (max-width: 1800px) {
+    .ManagerBottom {
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .ManagerBottom {
+        width: 100%;
+    }
+
+    .ManagerBottom-row {  
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-areas: 
+        "stt id id id id"
+        "tag tag tag tag tag"
+        "content content content content content"
+        "icon icon icon icon icon"
+    }
+
+    .ManagerBottom-row-stt {
+        grid-area: stt;
+        background-color: rgb(196, 196, 196);
+    }
+    .ManagerBottom-row-id {
+        grid-area: id;
+    }
+    .ManagerBottom-row-tag {
+        grid-area: tag;
+    }
+    .ManagerBottom-row-content {
+        grid-area: content;
+    }
+    .ManagerBottom-iconContainer {
+        grid-area: icon;
+    }
+}

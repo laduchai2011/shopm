@@ -1,0 +1,26 @@
+.Manager {
+    background-color: #eee;
+}
+
+.Manager-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.Manager-ManagerTop {
+    margin-top: 50px;
+}
+
+@media screen and (max-width: 1800px) {
+    .Manager-ManagerTop {
+        width: 1800px;
+    }
+}
+
+@media screen and (max-width: 1800px) {
+    .Manager-ManagerTop {
+        width: 100%;
+    }
+}

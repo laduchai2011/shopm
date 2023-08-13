@@ -1,0 +1,15 @@
+.Profile {
+    background-color: #eee;
+}
+
+.Profile-main {
+    width: 1200px;
+    margin-left: calc((100% - 1200px)/2);
+}
+
+@media (max-width: 1200px) {
+    .Profile-main {
+        width: 100%;
+        margin-left: 0;
+    }
+  }

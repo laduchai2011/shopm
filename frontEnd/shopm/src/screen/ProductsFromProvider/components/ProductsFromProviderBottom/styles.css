@@ -1,0 +1,112 @@
+.ProductsFromProviderBottom {
+    --row: 1;
+    --column: 1;
+    --gridColumn: 6
+}
+
+.ProductsFromProviderBottom {
+    background-color: white;
+    padding: 5px;
+    width: calc(100% - 10px);
+
+    display: grid;
+    grid-template-columns: repeat(var(--gridColumn), 1fr);
+    grid-auto-rows: minmax(60px, auto);
+}
+
+.ProductsFromProviderBottom-productContainer {
+    padding: 5px;
+    border-top: 1px solid gray;
+}
+
+.ProductsFromProviderBottom-productContainer.activeLeft {
+    grid-row: var(--row) / calc(var(--row) + 1);
+    grid-column: var(--column) / calc(var(--column) + 2);
+}
+
+.ProductsFromProviderBottom-productContainer.activeRight {
+    grid-row: var(--row) / calc(var(--row) + 1);
+    grid-column: calc(var(--column) - 1) / calc(var(--column) + 1);
+}
+
+.ProductsFromProviderBottom-imgContainer {
+    position: relative;
+}
+
+.ProductsFromProviderBottom-imgContainer img {
+    max-width: 100%;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+.ProductsFromProviderBottom-imgContainer svg {
+    position: absolute;
+    padding: 3px;
+    border-radius: 50%;
+    background-color: white;
+    z-index: 10;
+    margin: 5px;
+}
+
+.ProductsFromProviderBottom-iconMenu {
+   left: 0;
+}
+
+.ProductsFromProviderBottom-iconDelete {
+    right: 0;
+}
+
+.ProductsFromProviderBottom-imgContainer svg:hover {
+    background-color: rgb(216, 216, 216);
+}
+
+.ProductsFromProviderBottom-menuDialog {
+    position: absolute;
+    width: max-content;
+    background-color: white;
+    margin: 31px 5px;
+    border-radius: 10px;
+    border: 1px solid black;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    overflow: hidden;
+    z-index: 10;
+    display: none;
+}
+
+.ProductsFromProviderBottom-menuDialog.show {
+    display: block;
+}
+
+.ProductsFromProviderBottom-menuDialog div {
+    padding: 5px;
+    cursor: default;
+}
+
+.ProductsFromProviderBottom-menuDialog div:hover {
+    background-color: rgb(209, 209, 209);
+}
+
+@media screen and (max-width: 1500px) {
+    .ProductsFromProviderBottom {
+        --gridColumn: 5
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .ProductsFromProviderBottom {
+        --gridColumn: 4
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .ProductsFromProviderBottom {
+        --gridColumn: 3
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .ProductsFromProviderBottom {
+        --gridColumn: 2
+    }
+}
