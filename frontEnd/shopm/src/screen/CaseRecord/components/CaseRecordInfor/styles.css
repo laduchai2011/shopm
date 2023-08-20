@@ -1,0 +1,28 @@
+.CaseRecordInfor {
+    background-color: white;
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.CaseRecordInfor-patientInfor,
+.CaseRecordInfor-doctorPharmacistInfor {
+    margin-top: 10px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.CaseRecordInfor-patientInfor-header,
+.CaseRecordInfor-doctorPharmacistInfor-header {
+    background-color: #eee;
+    font-size: 1.3em;
+    font-weight: 600;
+    padding: 10px;
+}
+
+.CaseRecordInfor-patientInfor-content,
+.CaseRecordInfor-doctorPharmacistInfor-content {
+    padding: 10px;
+}

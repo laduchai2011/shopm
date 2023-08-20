@@ -1,9 +1,9 @@
 .OverlayMenu {
     position: absolute;
     height: 100vh;
-    width: 150px;
+    width: 200px;
     top: 0;
-    left: -150px;
+    left: -200px;
     background-color: white;
 
     transition: left 0.2s linear;

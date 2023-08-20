@@ -6,11 +6,13 @@
 .TextEditor-header {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     border-bottom: 1px solid black;
     background: #eee;
-    /* display: grid;
-    grid-template-columns: repeat(10, 1fr); */
     overflow-x: scroll;
+    /* display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 5px; */
 }
 
 .TextEditor-header::-webkit-scrollbar {

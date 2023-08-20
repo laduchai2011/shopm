@@ -32,6 +32,15 @@
     display: flex;
     align-items: center;
     margin-top: 10px;
+    overflow-x: scroll;
+}
+
+.ProfileTop-options::-webkit-scrollbar {
+    height: 5px;
+}
+
+.ProfileTop-options::-webkit-scrollbar-thumb {
+    background-color: rgb(211, 211, 211);
 }
 
 .ProfileTop-options div {

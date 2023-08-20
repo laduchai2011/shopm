@@ -25,7 +25,7 @@ import {
 
 import { $ } from "utilize/Tricks";
 
-const TextEditor = ({getData}) => {
+const TextEditor = () => {
     const [fileName, setFileName] = useState('');
 
     const handleFormat = (cmd, value=null) => {

@@ -22,6 +22,7 @@ import RegisterProviderDelete from "screen/ProviderSetting/RegisterProvider/comp
 import ProviderAbout from "screen/ProviderSetting/ProviderAbout";
 
 import Extend from "screen/Extend";
+import CaseRecord from "screen/CaseRecord";
 
 export const elements = [
     {
@@ -112,5 +113,11 @@ export const elements = [
     {
         path: '/extend',
         element: <Extend />
+    },
+
+    // case-record
+    {
+        path: '/caseRecord/:id',
+        element: <CaseRecord />
     }
 ]

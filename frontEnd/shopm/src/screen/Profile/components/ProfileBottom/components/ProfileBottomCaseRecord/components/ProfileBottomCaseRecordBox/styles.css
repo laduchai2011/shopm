@@ -1,0 +1,157 @@
+.ProfileBottomCaseRecordBox {
+    margin: 10px 0;
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.ProfileBottomCaseRecordBox-top {
+    display: grid;
+    grid-template-columns: 3fr 3fr 2fr 1fr;
+}
+
+.ProfileBottomCaseRecordBox-top div:nth-child(1) {
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.ProfileBottomCaseRecordBox-top div:nth-child(2) {
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+.ProfileBottomCaseRecordBox-top div:nth-child(3) {
+    color: red;
+}
+
+.ProfileBottomCaseRecordBox-top div:nth-child(3).finaly {
+    color: blue;
+}
+
+.ProfileBottomCaseRecordBox-top div:nth-child(4) button {
+    border: none;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+}
+
+.ProfileBottomCaseRecordBox-top div:nth-child(4) button:hover {
+    background-color: rgb(93, 93, 253);
+}
+
+.ProfileBottomCaseRecordBox-top div:nth-child(4) button:active {
+    background-color: blue;
+}
+
+.ProfileBottomCaseRecordBox-top div:not(:last-child) {
+    box-sizing: border-box;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    padding: 0 5px;
+}
+
+.ProfileBottomCaseRecordBox-top div:not(:first-child) {
+    text-align: center;
+}
+
+.ProfileBottomCaseRecordBox-center {
+    box-sizing: border-box;
+    padding: 10px 5px;
+}
+
+.ProfileBottomCaseRecordBox-center div:nth-child(2) {
+    margin: 5px 0;
+    display: flex;
+    box-sizing: border-box;
+}
+
+.ProfileBottomCaseRecordBox-center-avatarContainer {
+    position: relative;
+    height: 100px;
+    width: 150px;
+}
+
+.ProfileBottomCaseRecordBox-center-avatarContainer img {
+    aspect-ratio: 1/1;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid rgb(224, 224, 224);
+    position: absolute;
+}
+
+.ProfileBottomCaseRecordBox-center-avatarContainer img:nth-child(1) {
+    left: 0;
+    z-index: 2;
+}
+
+.ProfileBottomCaseRecordBox-center-avatarContainer img:nth-child(2) {
+    right: 0;
+    z-index: 1;
+}
+
+.ProfileBottomCaseRecordBox-center-avatarContainer img:nth-child(1).viewAvatarDoctorPharmacist {
+    z-index: 1;
+}
+
+.ProfileBottomCaseRecordBox-center-avatarContainer img:nth-child(2).viewAvatarDoctorPharmacist {
+    z-index: 2;
+}
+
+.ProfileBottomCaseRecordBox-center-infor {
+    padding-left: 5px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: calc(100% - 150px);
+}
+
+.ProfileBottomCaseRecordBox-center-infor div:nth-child(1) {
+    font-weight: 600;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+.ProfileBottomCaseRecordBox-center-infor div:nth-child(2) {
+    font-weight: 300;
+    font-size: 0.8em;
+    font-style: italic;
+}
+
+.ProfileBottomCaseRecordBox-center-infor div:nth-child(3) {
+    display: flex;
+    align-items: center;
+}
+
+.ProfileBottomCaseRecordBox-center-infor div {
+    box-sizing: border-box;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.ProfileBottomCaseRecordBox-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ProfileBottomCaseRecordBox-bottom div:nth-child(3) button {
+    border: none;
+    padding: 5px;
+    background-color: yellow;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.ProfileBottomCaseRecordBox-bottom div:nth-child(3) button:hover {
+    background-color: rgb(255, 255, 138);
+}
+
+.ProfileBottomCaseRecordBox-bottom div:nth-child(3) button:active {
+    background-color: yellow;
+}

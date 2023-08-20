@@ -5,3 +5,8 @@ export const TEGetContent = () => {
     const contentHTML = qTextEditorContent.innerHTML;
     return contentHTML;
 }
+
+export const TESetContent = ({ content }) => {
+    const qTextEditorContent = $('.TextEditor-content');
+    qTextEditorContent.innerHTML = content;
+}

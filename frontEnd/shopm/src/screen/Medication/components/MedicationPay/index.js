@@ -11,9 +11,13 @@ import { SERVER_ADDRESS_CREATE_ORDERMEDICATION } from 'config/server';
 
 /**
 *@typedef {
-*note: text,
+*title: string,
+*image_video: text,
+*note1: text,
+*note2: text,
 *history: string,
 *total: float,
+*status: string,
 *uuid_doctorOrPharmacist: uuid,
 *uuid_user: uuid
 *} orderAllMedicationOptions
@@ -85,9 +89,13 @@ const MedicationPay = () => {
         // }
         const orderFinalMedicationOptions = {
             orderAllMedicationOptions: {
-                note: '',
+                title: '',
+                image_video: null,
+                note1: '',
+                note2: null,
                 history: '10000',
                 total: buyNow.priceTotal + medicationPayState.transportCost,
+                status: 'normal',
                 uuid_doctorOrPharmacist: null,
                 uuid_user: ''
             },

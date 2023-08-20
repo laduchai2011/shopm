@@ -25,7 +25,7 @@
     cursor: pointer;
 }
 
-.Header-icon {
+.Header-iconContainer {
     height: 100%;
     width: 100px;
     display: flex;
@@ -33,18 +33,23 @@
     align-items: center;
 }
 
-.Header-icon img {
+.Header-iconContainer img {
     cursor: pointer;
+    width: 34px;
+    height: 34px;
+    border-radius: 17px;
+    margin-left: 15px;
 }
 
-.Header-icon div {
+.Header-iconBox {
     display: flex;
     align-items: center;
     position: relative;
     cursor: pointer;
+    margin: 0 5px;
 }
 
-.Header-icon div p {
+.Header-iconBox p {
     position: absolute;
     background-color: red;
     width: 14px;
@@ -59,9 +64,87 @@
     align-items: center;
 }
 
-.Header-icon img {
-    width: 34px;
-    height: 34px;
-    border-radius: 17px;
-    margin-left: 15px;
+
+
+.Header-iconBox:nth-child(1) {
+    animation: cartAnimation 1s ease-in-out infinite;
+}
+@keyframes cartAnimation {
+    from {
+        color: red;
+    } to {
+        color: blue;
+    }
+}
+
+.Header-iconBox:nth-child(1) p {
+    animation: cartAnimationP 5s ease-in-out infinite;
+}
+@keyframes cartAnimationP {
+    from {
+        background-color: blue;
+    } to {
+        background-color: red;
+    }
+}
+
+.Header-contentBox {
+    color: black !important;
+    position: absolute;
+    top: 40px;
+    background-color: white;
+    border: 1px solid rgb(226, 226, 226);
+    border-radius: 20px;
+    box-sizing: border-box;
+    box-shadow: 5px 5px 5px rgb(226, 226, 226);
+    padding: 10px;
+    left: 0;
+    width: 300px;
+    transform: translateX(-50%);
+    display: none;
+}
+
+.Header-contentBox.show {
+    display: block;
+}
+
+.Header-contentBox-header {
+    border-bottom: 1px solid gray;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+.Header-contentBox-content {
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+.Header-contentBox-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.Header-contentBox-content::-webkit-scrollbar-thumb {
+    background-color: rgb(212, 212, 212);
+}
+
+.Header-contentBox-content-row {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 6fr 2fr 2fr;
+    margin: 3px 0;
+}
+
+.Header-contentBox-content-row div:not(:last-child) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.Header-contentBox-content-row div button {
+    border: none;
+    padding: 3px 10px;
+    border-radius: 5px;
+    background-color: blue;
+    color: white;
+    cursor: pointer;
 }

@@ -1,0 +1,78 @@
+.MedicationOrderImage {
+    position: fixed;
+    background: rgb(0, 0, 0, 0.3);
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+
+    transition: 0.3s ease-in-out;
+}
+
+.MedicationOrderImage.active {
+    width: 100%;
+    height: 100%;
+}
+
+.MedicationOrderImage-imageBox {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    position: absolute;
+    width: 90%;
+    height: 80%;
+    border-radius: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.MedicationOrderImage-imageBox-top {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.MedicationOrderImage-imageBox-iconContainer {
+    display: flex;
+    align-items: center;
+}
+
+.MedicationOrderImage-imageBox-iconContainer div {
+    display: flex;
+    align-items: center;
+    margin: 0 5px;
+    cursor: pointer;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.MedicationOrderImage-imageBox-iconContainer div:nth-child(1) {
+    background-color: blue;
+}
+
+.MedicationOrderImage-imageBox-iconContainer div:nth-child(2) {
+    background-color: red;
+}
+
+.MedicationOrderImage-imageBox-iconContainer div span {
+    margin: 0 3px;
+}
+
+.MedicationOrderImage-imageBox-bottom {
+    margin: 5px 0;
+    height: 94%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MedicationOrderImage-imageBox-bottom img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}

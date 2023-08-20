@@ -1,7 +1,10 @@
-import React from "react";
+import React, { memo, useContext } from "react";
 import './styles.css';
 
+import { ProfileContext } from "screen/Profile/utilize/ProfileContext";
+
 const ProfileTop = () => {
+    const { profileOptions, setProfileOptions } = useContext(ProfileContext);
     return (
         <div className="ProfileTop">
             <div className="ProfileTop-avatar">
@@ -11,13 +14,14 @@ const ProfileTop = () => {
                 <strong>Name Name Name</strong>
             </div>
             <div className="ProfileTop-options">
-                <div className="active">History</div>
-                <div>Provider</div>
-                <div>Hospital</div>
-                <div>Follow</div>
+                <div className={ profileOptions==='history' ? 'active' : ''} onClick={() => setProfileOptions('history')}>History</div>
+                <div className={ profileOptions==='caserecord' ? 'active' : ''} onClick={() => setProfileOptions('caserecord')}>CaseRecord</div>
+                <div className={ profileOptions==='provider' ? 'active' : ''} onClick={() => setProfileOptions('provider')}>Provider</div>
+                <div className={ profileOptions==='hospital' ? 'active' : ''} onClick={() => setProfileOptions('hospital')}>Hospital</div>
+                <div className={ profileOptions==='follow' ? 'active' : ''} onClick={() => setProfileOptions('follow')}>Follow</div>
             </div>
         </div>
     )
 }
 
-export default ProfileTop;
+export default memo(ProfileTop);

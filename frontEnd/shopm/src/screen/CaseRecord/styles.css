@@ -1,0 +1,14 @@
+.CaseRecord {
+    background-color: #eee;
+}
+
+.CaseRecord-main {
+    display: flex;
+    justify-content: center;
+}
+
+.CaseRecord-main1 {
+    width: 1200px;
+    border-radius: 20px;
+    box-sizing: border-box;
+}

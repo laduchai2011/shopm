@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import './styles.css';
 
+import { ProfileContext } from "screen/Profile/utilize/ProfileContext";
+
 import ProfileBottomHistory from "./components/ProfileBottomHistory";
+import ProfileBottomCaseRecord from "./components/ProfileBottomCaseRecord";
 
 const ProfileBottom = () => {
+    const { profileOptions } = useContext(ProfileContext);
     return (
         <div className="ProfileBottom">
-            <ProfileBottomHistory />
+            { profileOptions==='history' && <ProfileBottomHistory /> }
+            { profileOptions==='caserecord' && <ProfileBottomCaseRecord /> }
         </div>
     )
 }

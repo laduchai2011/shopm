@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import { AiOutlineMenu, AiOutlineHome, AiOutlineSetting } from 'react-icons/ai';
 import { TbBrandProducthunt } from 'react-icons/tb';
-import { BsHospital } from 'react-icons/bs';
+import { BsHospital, BsFillRecordBtnFill } from 'react-icons/bs';
 import { GiAbstract013 } from 'react-icons/gi';
 
 const OverlayMenu = () => {
@@ -23,6 +23,10 @@ const OverlayMenu = () => {
                 <div title="Home">
                     <AiOutlineHome size={25} />
                     <span>Home</span>
+                </div>
+                <div onClick={() => navigate(`/profile/fdgdfg`)} title="Case-record">
+                    <BsFillRecordBtnFill size={25} />
+                    <span>Case-record</span>
                 </div>
                 <div onClick={() => navigate(`/provider/list`)} title="Provider">
                     <TbBrandProducthunt size={25} />
