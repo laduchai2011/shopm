@@ -21,7 +21,10 @@ app.use('/api/svGetProvider', function (req, res, next) {
     next();
 });
 
-app.use('/api/svGetProvider', morgan('dev'));
+if (process.env.NODE_ENV === 'development') {
+    app.use('/api/svGetProvider', morgan('dev'));
+}
+
 app.use(cookieParser());
 app.use('/api/svGetProvider', express.json());
 app.use('/api/svGetProvider', express.urlencoded({extended: true}));

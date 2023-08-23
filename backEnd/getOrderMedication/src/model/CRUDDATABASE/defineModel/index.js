@@ -238,6 +238,22 @@ class DefineModel {
                 type: DataTypes.BOOLEAN,
                 allowNull: false
             },
+            address: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            major: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            graduated: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            phone: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
             avatar: {
                 type: DataTypes.TEXT,
                 allowNull: false
@@ -252,6 +268,14 @@ class DefineModel {
             },
             information: {
                 type: DataTypes.TEXT,
+                allowNull: false
+            },
+            averageRating: {
+                type: DataTypes.FLOAT,
+                allowNull: false
+            },
+            rateCount: {
+                type: DataTypes.INTEGER,
                 allowNull: false
             },
             uuid_user: {
@@ -298,16 +322,21 @@ class DefineModel {
                 type: DataTypes.STRING,
                 allowNull: false
             }, 
-            total: {
-                type: DataTypes.FLOAT,
-                allowNull: false
-            },
             status: {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            uuid_doctorOrPharmacist: {
-                type: Sequelize.UUID
+            total: {
+                type: DataTypes.FLOAT,
+                allowNull: false
+            },
+            caseRecordPage: {
+                type: DataTypes.INTEGER,
+                allowNull: false
+            },
+            uuid_caseRecord: {
+                type: Sequelize.UUID,
+                allowNull: false
             },
             uuid_user: {
                 type: Sequelize.UUID,
@@ -319,15 +348,15 @@ class DefineModel {
                 using: 'BTREE',
                 fields: ['uuid_user']
             }, {
-                name: 'uuid_doctorOrPharmacist_indexes',
+                name: 'uuid_caseRecord_indexes',
                 using: 'BTREE',
-                fields: ['uuid_doctorOrPharmacist']
+                fields: ['uuid_caseRecord']
             }]
         })
-        // this._User.hasMany(this._OrderAllMedication, { foreignKey: 'uuid_user' })
-        // this._DoctorOrPharmacist.hasMany(this._OrderAllMedication, { foreignKey: 'uuid_doctorOrPharmacist' })
+        this._User.hasMany(this._OrderAllMedication, { foreignKey: 'uuid_user' })
+        this._CaseRecord.hasMany(this._OrderAllMedication, { foreignKey: 'uuid_caseRecord' })
         this._OrderAllMedication.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User' })
-        this._OrderAllMedication.belongsTo(this._DoctorOrPharmacist, { foreignKey: 'uuid_doctorOrPharmacist', targetKey: 'uuid_doctorOrPharmacist', as: 'uuid_DoctorOrPharmacist' })
+        this._OrderAllMedication.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord' })
 
         this._OrderMedication = sequelize.define('OrderMedication', {
             id: {
@@ -433,7 +462,7 @@ class DefineModel {
             }]
         })
         this._OrderAllMedication.hasOne(this._Transport, { foreignKey: 'uuid_orderAllMedication' })
-        this._Transport.belongsTo(this._OrderAllMedication, { foreignKey: 'uuid_orderAllMedication', targetKey: 'uuid_orderAllMedication', as: 'uuid_OrderAllMedication' })
+        this._Transport.belongsTo(this._OrderAllMedication, { foreignKey: 'uuid_orderAllMedication', targetKey: 'uuid_orderAllMedication', as: 'uuid_OrderAllMedication' })     
 
         sequelize.sync();
     }

@@ -33,7 +33,11 @@ app.use('/api/svGetImage', function (req, res, next) {
     );
     next();
 });
-app.use('/api/svGetImage', morgan('dev'));
+
+if (process.env.NODE_ENV === 'development') {
+    app.use('/api/svGetImage', morgan('dev'));
+}
+
 app.use('/api/svGetImage', express.json());
 app.use(cookieParser());
 app.use('/api/svGetImage', express.urlencoded({extended: true}));

@@ -28,6 +28,7 @@ export const SERVER_ADDRESS_GET_ORDER_MEDICATION       = 'http://localhost:8600/
 export const SERVER_ADDRESS_POST_PROVIDER_NEWS         = 'http://localhost:8900/api/svUploadProviderNews/provider/news/add';
 export const SERVER_ADDRESS_GET_PROVIDER_NEWS_LIST     = 'http://localhost:8800/api/svGetProviderNews/provider/news/list';
 
+export const SERVER_ADDRESS_POST_CASERECORD            = 'http://localhost:7200/api/svUploadCaseRecord/caseRecord/create';
 
 
 // ---------------------------------------

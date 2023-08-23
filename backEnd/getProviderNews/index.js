@@ -21,7 +21,10 @@ app.use('/api/svGetProviderNews', function (req, res, next) {
     next();
 });
 
-app.use('/api/svGetProviderNews', morgan('dev'));
+if (process.env.NODE_ENV === 'development') {
+    app.use('/api/svGetProviderNews', morgan('dev'));
+}
+
 app.use(cookieParser());
 app.use('/api/svGetProviderNews', express.json());
 app.use('/api', express.urlencoded({extended: true}));

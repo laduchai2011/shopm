@@ -11,7 +11,7 @@ const { defineModel } = require('../defineModel');
 *history: string,
 *total: float,
 *status: string,
-*uuid_doctorOrPharmacist: uuid,
+*uuid_caseRecord: uuid,
 *uuid_user: uuid
 *} orderAllMedicationOptions
 */ 

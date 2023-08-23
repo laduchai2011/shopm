@@ -7,7 +7,7 @@ import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/bs';
 
 import { $$ } from "utilize/Tricks";
 
-const ProfileBottomCaseRecordBox = ({ index }) => {
+const ProfileBottomCaseRecordBox = ({ index, onData }) => {
 
     const navigate = useNavigate();
 
@@ -67,8 +67,8 @@ const ProfileBottomCaseRecordBox = ({ index }) => {
                 <div>Doctor/Pharmacist</div>
                 <div>
                     <div className="ProfileBottomCaseRecordBox-center-avatarContainer">
-                        <img className="viewAvatarDoctorPharmacist" src="https://openclipart.org/image/2400px/svg_to_png/190113/1389952697.png" onClick={(e) => handleViewAvatar(e)} alt=""/>
-                        <img className="viewAvatarDoctorPharmacist" src="https://openclipart.org/image/2400px/svg_to_png/190113/1389952697.png" onClick={(e) => handleViewAvatar(e)} alt=""/>
+                        <img className="viewAvatarDoctorPharmacist" src="https://tse3.mm.bing.net/th?id=OIP.D8z-01L15DnYmN3pT-veJQHaHa&pid=Api&P=0&h=180" onClick={(e) => handleViewAvatar(e)} alt=""/>
+                        <img className="viewAvatarDoctorPharmacist" src="https://tse3.mm.bing.net/th?id=OIP.D8z-01L15DnYmN3pT-veJQHaHa&pid=Api&P=0&h=180" onClick={(e) => handleViewAvatar(e)} alt=""/>
                     </div>
                     <div className="ProfileBottomCaseRecordBox-center-infor">
                         <div>Name Name Name Name Name Name Name Name</div>

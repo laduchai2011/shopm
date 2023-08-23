@@ -20,7 +20,11 @@ app.use('/api/svGetMedication', function (req, res, next) {
     );
     next();
 });
-app.use('/api/svGetMedication', morgan('dev'));
+
+if (process.env.NODE_ENV === 'development') {
+    app.use('/api/svGetMedication', morgan('dev'));
+}
+
 app.use(cookieParser());
 app.use('/api/svGetMedication', express.json());
 app.use('/api/svGetMedication', express.urlencoded({extended: true}));

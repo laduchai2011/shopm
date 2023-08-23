@@ -20,7 +20,11 @@ app.use('/api/svUploadProvider', function (req, res, next) {
     );
     next();
 });
-app.use('/api/svUploadProvider', morgan('dev'));
+
+if (process.env.NODE_ENV === 'development') {
+    app.use('/api/svUploadProvider', morgan('dev'));
+}
+
 app.use(cookieParser());
 app.use('/api/svUploadProvider', express.json());
 app.use('/api/svUploadProvider', express.urlencoded({extended: true}));

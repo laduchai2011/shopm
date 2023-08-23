@@ -8,7 +8,9 @@ const cookieParser = require('cookie-parser');
 const app = express();
 
 //add other middleware
-app.use('/api/svUploadImage', morgan('dev'));
+if (process.env.NODE_ENV === 'development') {
+    app.use('/api/svUploadImage', morgan('dev'));
+}
 app.use(cookieParser());
 app.use('/api/svUploadImage', fileupload());
 app.use('/api/svUploadImage', express.json());

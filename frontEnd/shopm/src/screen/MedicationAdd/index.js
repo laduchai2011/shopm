@@ -164,6 +164,7 @@ const MedicationAdd = () => {
 
             newImages.push(newImage);
         }
+        
         setImages(pre => pre.concat(newImages));
     }
 
@@ -404,7 +405,7 @@ const MedicationAdd = () => {
                     <label className="MedicationAdd-imageIcon" htmlFor='inputImg'>
                         <span>Image</span>
                         <FcImageFile size={35} />
-                        <input id='inputImg' type='file' hidden="hidden" multiple onChange={(e) => handleImageInput(e)} />
+                        <input id='inputImg' type='file' hidden="hidden" accept="image/*" multiple onChange={(e) => handleImageInput(e)} />
                     </label>
                     <div className="MedicationAdd-imageBlock-imageContainer">
                         { list_image }

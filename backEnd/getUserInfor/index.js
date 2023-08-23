@@ -17,10 +17,13 @@ app.use('/api/svGetUserInfor', function (req, res, next) {
     );
     next();
 });
-app.use('/api/svGetUserInfor', morgan('dev'));
+
+if (process.env.NODE_ENV === 'development') {
+    app.use('/api/svGetUserInfor', morgan('dev'));
+}
+
 app.use('/api/svGetUserInfor', express.json());
 app.use('/api/svGetUserInfor', express.urlencoded({extended: true}));
-
 
 app.use('/api/svGetUserInfor', router);
 

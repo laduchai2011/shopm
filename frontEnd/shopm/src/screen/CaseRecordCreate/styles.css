@@ -1,0 +1,142 @@
+.CaseRecordCreate {
+    background-color: #eee;
+    min-height: 100vh;
+}
+
+.CaseRecordCreate-main {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.CaseRecordCreate-main1 {
+    width: 1200px;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.CaseRecordCreate-title span {
+    font-style: italic;
+    color: red;
+    font-size: 0.9em;
+}
+
+.CaseRecordCreate-textarea {
+    resize: none;
+    width: 330px;
+    border: none;
+    outline: none;
+    background-color: rgb(120, 255, 255);
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.CaseRecordCreate-textarea.title {
+    height: 100px;
+}
+
+.CaseRecordCreate-textarea.describe {
+    height: 300px;
+}
+
+.CaseRecordCreate-imageVideo-iconContainer {
+    display: flex;
+    align-items: center;
+}
+
+.CaseRecordCreate-imageVideo-iconContainer label {
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.CaseRecordCreate-imageVideo-iconContainer label:nth-child(1) {
+    background-color: greenyellow;
+}
+.CaseRecordCreate-imageVideo-iconContainer label:nth-child(1) svg {
+    color: green;
+    font-size: 20px;
+}
+
+.CaseRecordCreate-imageVideo-iconContainer label:nth-child(2) {
+    background-color: rgb(255, 95, 127);
+}
+.CaseRecordCreate-imageVideo-iconContainer label:nth-child(2) svg {
+    color: red;
+    font-size: 20px;
+}
+
+.CaseRecordCreate-imageVideo-iconContainer label span {
+    margin-right: 3px;
+}
+
+.CaseRecordCreate-imageVideo {
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.CaseRecordCreate-imageVideo-image,
+.CaseRecordCreate-imageVideo-video {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 10px;
+}
+
+.CaseRecordCreate-imageVideo-image div,
+.CaseRecordCreate-imageVideo-video div {
+    height: 200px;
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+}
+
+.CaseRecordCreate-imageVideo-image div img,
+.CaseRecordCreate-imageVideo-video div video  {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    background-color: black;
+    z-index: 1;
+}
+
+.CaseRecordCreate-imageVideo-image div svg,
+.CaseRecordCreate-imageVideo-video div svg {
+    position: absolute;
+    background-color: white;
+    right: 5px;
+    top: 5px;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.CaseRecordCreate-createBtn {
+    margin-top: 50px;
+}
+
+.CaseRecordCreate-createBtn button {
+    border: none;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 1.2em;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1200px) {
+    .CaseRecordCreate-main1 {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .CaseRecordCreate-textarea {
+        width: 100%;
+    }
+}

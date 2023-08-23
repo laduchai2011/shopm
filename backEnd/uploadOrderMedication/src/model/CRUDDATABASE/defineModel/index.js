@@ -238,6 +238,22 @@ class DefineModel {
                 type: DataTypes.BOOLEAN,
                 allowNull: false
             },
+            address: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            major: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            graduated: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            phone: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
             avatar: {
                 type: DataTypes.TEXT,
                 allowNull: false
@@ -252,6 +268,14 @@ class DefineModel {
             },
             information: {
                 type: DataTypes.TEXT,
+                allowNull: false
+            },
+            averageRating: {
+                type: DataTypes.FLOAT,
+                allowNull: false
+            },
+            rateCount: {
+                type: DataTypes.INTEGER,
                 allowNull: false
             },
             uuid_user: {
@@ -438,55 +462,7 @@ class DefineModel {
             }]
         })
         this._OrderAllMedication.hasOne(this._Transport, { foreignKey: 'uuid_orderAllMedication' })
-        this._Transport.belongsTo(this._OrderAllMedication, { foreignKey: 'uuid_orderAllMedication', targetKey: 'uuid_orderAllMedication', as: 'uuid_OrderAllMedication' })
-
-        this._CaseRecord = sequelize.define('CaseRecord', {
-            id: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-                autoIncrement: true,
-                unique: 'UQ__CaseRecords__id'
-            },
-            uuid_caseRecord: {
-                type: Sequelize.UUID,
-                defaultValue: Sequelize.UUIDV4,
-                primaryKey: true
-            },
-            title: {
-                type: DataTypes.STRING,
-                allowNull: false
-            },
-            dataPage: {
-                type: DataTypes.TEXT
-            },
-            status: {
-                type: DataTypes.STRING,
-                allowNull: false
-            },
-            uuid_doctorOrPharmacist: {
-                type: Sequelize.UUID,
-                allowNull:false
-            },
-            uuid_user: {
-                type: Sequelize.UUID,
-                allowNull: false
-            }
-        }, {
-            indexes: [{
-                name: 'uuid_user_indexes',
-                using: 'BTREE',
-                fields: ['uuid_user']
-            }, {
-                name: 'uuid_doctorOrPharmacist_indexes',
-                using: 'BTREE',
-                fields: ['uuid_doctorOrPharmacist']
-            }]
-        })
-        // this._User.hasMany(this._OrderAllMedication, { foreignKey: 'uuid_user' })
-        // this._DoctorOrPharmacist.hasMany(this._OrderAllMedication, { foreignKey: 'uuid_doctorOrPharmacist' })
-        this._CaseRecord.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User' })
-        this._CaseRecord.belongsTo(this._DoctorOrPharmacist, { foreignKey: 'uuid_doctorOrPharmacist', targetKey: 'uuid_doctorOrPharmacist', as: 'uuid_DoctorOrPharmacist' })
-
+        this._Transport.belongsTo(this._OrderAllMedication, { foreignKey: 'uuid_orderAllMedication', targetKey: 'uuid_orderAllMedication', as: 'uuid_OrderAllMedication' })     
 
         sequelize.sync();
     }

@@ -21,7 +21,10 @@ app.use('/api/svUploadProviderNews', function (req, res, next) {
     next();
 });
 
-app.use('/api/svUploadProviderNews', morgan('dev'));
+if (process.env.NODE_ENV === 'development') {
+    app.use('/api/svUploadProviderNews', morgan('dev'));
+}
+
 app.use(cookieParser());
 app.use('/api/svUploadProviderNews', express.json());
 app.use('/api/svUploadProviderNews', express.urlencoded({extended: true}));
