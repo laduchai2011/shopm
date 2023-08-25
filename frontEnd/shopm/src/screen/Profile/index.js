@@ -8,7 +8,11 @@ import ProfileBottom from "./components/ProfileBottom";
 import { ProfileContext } from "./utilize/ProfileContext";
 
 const Profile = () => {
-    const [profileOptions, setProfileOptions] = useState('history');
+    let storage_profileOption = sessionStorage.getItem("profileOption");
+    if (!storage_profileOption) {
+        storage_profileOption = 'history';
+    }
+    const [profileOptions, setProfileOptions] = useState(storage_profileOption);
     return (
         <div className="Profile">
             <Header />

@@ -5,13 +5,15 @@ const { defineModel } = require('../defineModel');
 /**
 *@typedef {
 *dataPage: text,
+*priceTotal: integer,
 *uuid_caseRecord: uuid
 *} caseRecordPageOptions
 */ 
 
 /**
 *@typedef {
-*page: integer
+*page: ,
+*priceTotal: integer,
 *description: {
 *   note: string,
 *   images: [],

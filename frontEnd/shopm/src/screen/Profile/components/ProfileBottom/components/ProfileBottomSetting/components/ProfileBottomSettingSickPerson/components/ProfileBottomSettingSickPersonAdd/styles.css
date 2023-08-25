@@ -1,0 +1,81 @@
+.ProfileBottomSettingSickPersonAdd {
+    box-sizing: border-box;
+    padding: 15px 10px;
+}
+
+.ProfileBottomSettingSickPersonAdd > h3 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.ProfileBottomSettingSickPersonAdd > div {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.ProfileBottomSettingSickPersonAdd > div > div {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.ProfileBottomSettingSickPersonAdd > div > div > span {
+    background-color: white;
+    padding: 3px;
+    font-size: 1.1em;
+    font-style: italic;
+}
+
+.ProfileBottomSettingSickPersonAdd > div > div > div > div {
+    font-style: italic;
+    color: red;
+}
+
+.ProfileBottomSettingSickPersonAdd > div > div > div > input {
+    padding: 10px;
+    font-size: 1.1em;
+    border: 1px solid black;
+}
+
+.ProfileBottomSettingSickPersonAdd > button {
+    margin-top: 50px;
+    border: none;
+    background-color: red;
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    border-radius: 10px;
+}
+
+.ProfileBottomSettingSickPersonAdd > button:active {
+    background-color: rgb(255, 60, 60);
+}
+
+.ProfileBottomSettingSickPersonAdd-submitNoti {
+    margin-left: 10px;
+    font-style: italic;
+}
+
+.ProfileBottomSettingSickPersonAdd-submitNoti.loading::after {
+    content: 'Please wait to loading ...';
+    animation: ProfileBottomSettingSickPersonAdd_submitNotiLoading 1.5s ease-in-out infinite;
+}
+@keyframes ProfileBottomSettingSickPersonAdd_submitNotiLoading {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+    }
+}
+
+.ProfileBottomSettingSickPersonAdd-submitNoti.success::after {
+    content: 'Create sick-person successly !';
+    color: blue;
+}
+
+.ProfileBottomSettingSickPersonAdd-submitNoti.failure::after {
+    content: 'Create sick-person failure, you only have sick-person !';
+    color: red;
+}

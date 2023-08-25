@@ -4,6 +4,16 @@ const { defineModel } = require('../defineModel');
 
 /**
 *@typedef {
+*title: string,
+*status: string,
+*report: string,
+*uuid_doctorOrPharmacist: uuid,
+*uuid_user: uuid
+*} caseRecordOptions
+*/ 
+
+/**
+*@typedef {
 *dataPage: text,
 *priceTotal: integer,
 *uuid_caseRecord: uuid
@@ -12,7 +22,8 @@ const { defineModel } = require('../defineModel');
 
 /**
 *@typedef {
-*page: integer, 
+*page: integer
+*priceTotal: integer,
 *description: {
 *   note: string,
 *   images: [],

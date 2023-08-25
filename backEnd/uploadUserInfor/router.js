@@ -7,6 +7,7 @@ const { v4: uuidv4 } = require('uuid');
 // const { adminFirebase } = require('./src/config/firebase');
 const { crudUser } = require('./src/model/CRUDDATABASE/CRUDUSER');
 const { doctorOrPharmacist } = require('./src/model/CRUDDATABASE/CRUDDOCTORORPHARMACIST');
+const { sickPerson } = require('./src/model/CRUDDATABASE/CRUDSICKPERSON');
 const { token } = require('./src/model/token');
 const { serviceRedis } = require('./src/model/serviceRedis');
 const { Authentication } = require('./src/auth/Authentication');
@@ -117,6 +118,32 @@ router.post('/registerDoctorOrPharmacist', Authentication, (req, res) => {
                 exist: false,
                 success: true,
                 message: 'Create doctor or pharmacist successly !'
+            });
+        }
+    })
+})
+
+router.post('/sickPerson/create', Authentication, (req, res) => {   
+    const sickpersonOptions = req.body;
+    const userOptions = req.decodedToken.data;
+    sickpersonOptions.uuid_user = userOptions.uuid;
+    sickPerson.create(sickpersonOptions, (sickPerson, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send(err);
+        } else {
+            if (sickPerson === null) return res.status(200).json({
+                sickPerson: sickPerson,
+                exist: true,
+                success: false,
+                message: 'Create doctor or sick-person not successly !'
+            });
+
+            return res.status(201).json({
+                sickPerson: sickPerson,
+                exist: false,
+                success: true,
+                message: 'Create doctor or sick-person successly !'
             });
         }
     })

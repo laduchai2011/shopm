@@ -1,6 +1,7 @@
 export const SERVER_ADDRESS_SIGNUP                     = 'http://localhost:7000/api/svUploadUserInfor/signup';
 export const SERVER_ADDRESS_LOGIN                      = 'http://localhost:7000/api/svUploadUserInfor/login';
 export const SERVER_ADDRESS_ADD_DOCTORORPHARMACIST     = 'http://localhost:7000/api/svUploadUserInfor/registerDoctorOrPharmacist';
+export const SERVER_ADDRESS_SICKPERSON_CREATE          = 'http://localhost:7000/api/svUploadUserInfor/sickPerson/create';
 
 export const SERVER_ADDRESS_CREATE_ORDERMEDICATION     = 'http://localhost:7100/api/svUploadOrderMedication/orderMedication/create';
 

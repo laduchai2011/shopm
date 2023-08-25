@@ -12,6 +12,7 @@ const createCaseRecord = (caseRecordOptions, dataPage, callback) => {
             } else {
                 const uuid_caseRecord = caseRecord.dataValues.uuid_caseRecord;
                 const caseRecordPageOptions = {
+                    priceTotal: dataPage.priceTotal,
                     dataPage: JSON.stringify(dataPage),
                     uuid_caseRecord: uuid_caseRecord
                 }

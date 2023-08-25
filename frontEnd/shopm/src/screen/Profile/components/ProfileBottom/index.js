@@ -5,6 +5,7 @@ import { ProfileContext } from "screen/Profile/utilize/ProfileContext";
 
 import ProfileBottomHistory from "./components/ProfileBottomHistory";
 import ProfileBottomCaseRecord from "./components/ProfileBottomCaseRecord";
+import ProfileBottomSetting from "./components/ProfileBottomSetting";
 
 const ProfileBottom = () => {
     const { profileOptions } = useContext(ProfileContext);
@@ -12,6 +13,7 @@ const ProfileBottom = () => {
         <div className="ProfileBottom">
             { profileOptions==='history' && <ProfileBottomHistory /> }
             { profileOptions==='caserecord' && <ProfileBottomCaseRecord /> }
+            { profileOptions==='setting' && <ProfileBottomSetting /> }
         </div>
     )
 }

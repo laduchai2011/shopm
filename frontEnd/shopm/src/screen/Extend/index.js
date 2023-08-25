@@ -12,10 +12,16 @@ import { SERVER_ADDRESS_ADD_DOCTORORPHARMACIST } from 'config/server';
 *name: string, 
 *birthday: date,
 *sex: boolean,
+*address: string,
+*major: string,
+*graduated: string,
+*phone: string,
 *avatar: text,
 *image: text,
-*type: string,
+*type: string
 *information: text,
+*averageRating: float,
+*rateCount: integer,
 *uuid_user: uuid
 *} doctorOrPharmacistOptions
 */ 
@@ -26,10 +32,16 @@ const Extend = () => {
             name: 'laduchai', 
             birthday: new Date("December 17, 1995"),
             sex: true,
+            address: 'address 1',
+            major: 'major 1',
+            graduated: 'graduated 1',
+            phone: 'phone 1',
             avatar: '',
             image: '',
             type: 'pharmacist',
             information: '',
+            averageRating: 0,
+            rateCount: 0,
             uuid_user: ''
         }
         axios({

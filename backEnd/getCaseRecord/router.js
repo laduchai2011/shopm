@@ -7,7 +7,7 @@ const router = express.Router();
 const { Authentication } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
-const { createCaseRecord } = require('./src/middle/createCaseRecord');
+const { getCaseRecord } = require('./src/middle/getCaseRecord');
 
 
 router.post('/caseRecord/getList', Authentication, (req, res) => {

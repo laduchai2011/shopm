@@ -66,6 +66,22 @@ class DefineModel {
                 type: DataTypes.BOOLEAN,
                 allowNull: false
             },
+            address: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            major: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            graduated: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            phone: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
             avatar: {
                 type: DataTypes.TEXT,
                 allowNull: false
@@ -80,6 +96,14 @@ class DefineModel {
             },
             information: {
                 type: DataTypes.TEXT,
+                allowNull: false
+            },
+            averageRating: {
+                type: DataTypes.FLOAT,
+                allowNull: false
+            },
+            rateCount: {
+                type: DataTypes.INTEGER,
                 allowNull: false
             },
             uuid_user: {
@@ -97,6 +121,47 @@ class DefineModel {
         this._User.hasOne(this._DoctorOrPharmacist, { foreignKey: 'uuid_user' })
         this._DoctorOrPharmacist.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User' })
 
+        this._SickPerson = sequelize.define('SickPerson', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                autoIncrement: true,
+                unique: 'UQ__SickPersons__id'
+            },
+            uuid_doctorOrPharmacist: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            birthday: {
+                type: DataTypes.DATE,
+                allowNull: false
+            },
+            sex: {
+                type: DataTypes.BOOLEAN,
+                allowNull: false
+            },
+            address: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            phone: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_user: {
+                type: Sequelize.UUID,
+                allowNull: false,
+                unique: 'UQ__SickPersons_uuid_user'
+            }
+        })
+        this._User.hasOne(this._DoctorOrPharmacist, { foreignKey: 'uuid_user' })
+        this._SickPerson.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User' })
+
         sequelize.sync();
     }
 
@@ -106,6 +171,10 @@ class DefineModel {
 
     getDoctorOrPharmacist() {
         return this._DoctorOrPharmacist;
+    }
+
+    getSickPerson() {
+        return this._SickPerson;
     }
 }
 

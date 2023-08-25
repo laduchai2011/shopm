@@ -23,6 +23,7 @@ import { SERVER_ADDRESS_UPLOADIMAGE, SERVER_ADDRESS_GETIMAGE, SERVER_ADDRESS_POS
 /**
 *@typedef {
 *dataPage: text,
+*priceTotal: integer,
 *uuid_caseRecord: uuid
 *} caseRecordPageOptions
 */ 
@@ -30,6 +31,7 @@ import { SERVER_ADDRESS_UPLOADIMAGE, SERVER_ADDRESS_GETIMAGE, SERVER_ADDRESS_POS
 /**
 *@typedef {
 *page: integer
+*priceTotal: integer,
 *description: {
 *   note: string,
 *   images: [],
@@ -158,6 +160,7 @@ const CaseRecordCreate = () => {
                     },
                     dataPage: {
                         page: 1,
+                        priceTotal: 0,
                         description: {
                            note: describe,
                            images: imageUrls,

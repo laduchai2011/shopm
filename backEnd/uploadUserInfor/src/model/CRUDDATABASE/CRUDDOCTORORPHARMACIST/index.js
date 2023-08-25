@@ -7,10 +7,16 @@ const { defineModel } = require('../defineModel');
 *name: string, 
 *birthday: date,
 *sex: boolean,
+*address: string,
+*major: string,
+*graduated: string,
+*phone: string,
 *avatar: text,
 *image: text,
 *type: string
 *information: text,
+*averageRating: float,
+*rateCount: integer,
 *uuid_user: uuid
 *} doctorOrPharmacistOptions
 */ 

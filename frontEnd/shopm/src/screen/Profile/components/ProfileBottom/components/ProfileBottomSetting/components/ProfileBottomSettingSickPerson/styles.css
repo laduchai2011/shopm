@@ -1,0 +1,71 @@
+.ProfileBottomSettingSickPerson {
+    box-sizing: border-box;
+    display: flex;
+}
+
+.ProfileBottomSettingSickPerson-left {
+    width: 150px;
+    height: 150px;
+    padding: 5px;
+    box-sizing: border-box;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
+    background-color: white;
+    overflow: hidden;
+
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+}
+
+.ProfileBottomSettingSickPerson-left > svg {
+    padding: 3px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.ProfileBottomSettingSickPerson-left > svg:hover {
+    background-color: gray;
+    color: white;
+}
+
+.ProfileBottomSettingSickPerson-left > div {
+    text-align: center;
+    padding: 5px 0;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.ProfileBottomSettingSickPerson-left > div:hover,
+.ProfileBottomSettingSickPerson-left > div.active {
+    background-color: gray;
+    color: white;
+}
+
+.ProfileBottomSettingSickPerson-right {
+    width: calc(100% - 150px);
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 450px) {
+    .ProfileBottomSettingSickPerson {
+        position: relative;
+    }
+
+    .ProfileBottomSettingSickPerson-left {
+        position: absolute;
+        z-index: 2;
+    }
+
+    .ProfileBottomSettingSickPerson-left.hidden {
+        width: 35px;
+        height: 35px;
+    }
+
+    .ProfileBottomSettingSickPerson-right {
+        z-index: 1;
+    }
+
+    .ProfileBottomSettingSickPerson-right {
+        width: 100%;
+    }
+}

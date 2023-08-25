@@ -1,0 +1,18 @@
+.ProfileBottomSetting-header {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 5px;
+}
+
+.ProfileBottomSetting-header > div {
+    background-color: rgb(178, 178, 255);
+    cursor: pointer;
+    text-align: center;
+    padding: 2px;
+    box-sizing: border-box;
+}
+
+.ProfileBottomSetting-header > div.active {
+    background-color: blue;
+    color: white;
+}

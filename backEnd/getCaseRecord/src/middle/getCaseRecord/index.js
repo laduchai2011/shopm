@@ -1,7 +1,7 @@
 const { caseRecord } = require('../../model/CRUDDATABASE/CRUDCASERECORD');
 const { caseRecordPage } = require('../../model/CRUDDATABASE/CRUDCASERECORDPAGE');
 
-const createCaseRecord = (caseRecordOptions, dataPage, callback) => { 
+const getCaseRecord = (caseRecordOptions, dataPage, callback) => { 
     let data = null;
     let err;
 
@@ -12,6 +12,7 @@ const createCaseRecord = (caseRecordOptions, dataPage, callback) => {
             } else {
                 const uuid_caseRecord = caseRecord.dataValues.uuid_caseRecord;
                 const caseRecordPageOptions = {
+                    priceTotal: dataPage.priceTotal,
                     dataPage: JSON.stringify(dataPage),
                     uuid_caseRecord: uuid_caseRecord
                 }
@@ -35,4 +36,4 @@ const createCaseRecord = (caseRecordOptions, dataPage, callback) => {
     })
 }
 
-module.exports = { createCaseRecord }
+module.exports = { getCaseRecord }

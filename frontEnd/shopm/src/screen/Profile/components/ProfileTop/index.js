@@ -14,11 +14,12 @@ const ProfileTop = () => {
                 <strong>Name Name Name</strong>
             </div>
             <div className="ProfileTop-options">
-                <div className={ profileOptions==='history' ? 'active' : ''} onClick={() => setProfileOptions('history')}>History</div>
-                <div className={ profileOptions==='caserecord' ? 'active' : ''} onClick={() => setProfileOptions('caserecord')}>CaseRecord</div>
-                <div className={ profileOptions==='provider' ? 'active' : ''} onClick={() => setProfileOptions('provider')}>Provider</div>
-                <div className={ profileOptions==='hospital' ? 'active' : ''} onClick={() => setProfileOptions('hospital')}>Hospital</div>
-                <div className={ profileOptions==='follow' ? 'active' : ''} onClick={() => setProfileOptions('follow')}>Follow</div>
+                <div className={ profileOptions==='history' ? 'active' : ''} onClick={() => { setProfileOptions('history'); sessionStorage.setItem("profileOption", "history") }}>History</div>
+                <div className={ profileOptions==='caserecord' ? 'active' : ''} onClick={() => { setProfileOptions('caserecord'); sessionStorage.setItem("profileOption", "caserecord") }}>CaseRecord</div>
+                <div className={ profileOptions==='provider' ? 'active' : ''} onClick={() => { setProfileOptions('provider'); sessionStorage.setItem("profileOption", "provider") }}>Provider</div>
+                <div className={ profileOptions==='hospital' ? 'active' : ''} onClick={() => { setProfileOptions('hospital'); sessionStorage.setItem("profileOption", "hospital") }}>Hospital</div>
+                <div className={ profileOptions==='follow' ? 'active' : ''} onClick={() => { setProfileOptions('follow'); sessionStorage.setItem("profileOption", "follow") }}>Follow</div>
+                <div className={ profileOptions==='setting' ? 'active' : ''} onClick={() => { setProfileOptions('setting'); sessionStorage.setItem("profileOption", "setting") }}>Setting</div>
             </div>
         </div>
     )
