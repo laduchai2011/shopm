@@ -11,3 +11,10 @@ COMMIT
 SELECT resource_type, request_mode, resource_description
 FROM sys.dm_tran_locks
 WHERE resource_type <> 'shopm'
+
+
+ALTER TABLE CaseRecords
+ADD pageTotal int;
+
+UPDATE CaseRecords
+SET pageTotal = 1

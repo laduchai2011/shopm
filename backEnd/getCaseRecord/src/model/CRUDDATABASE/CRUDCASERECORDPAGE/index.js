@@ -2,15 +2,6 @@ const { Op } = require('sequelize');
 const { sequelize } = require('../../../config/database');
 const { defineModel } = require('../defineModel');
 
-/**
-*@typedef {
-*title: string,
-*status: string,
-*report: string,
-*uuid_doctorOrPharmacist: uuid,
-*uuid_user: uuid
-*} caseRecordOptions
-*/ 
 
 /**
 *@typedef {
@@ -41,34 +32,34 @@ class CaseRecordPage {
         this._CaseRecordPage = defineModel.getCaseRecordPage();
     }
 
-    create(caseRecordPageOptions, callback) {
-        let caseRecordPage;
-        let err;
+    // create(caseRecordPageOptions, callback) {
+    //     let caseRecordPage;
+    //     let err;
         
-        const caseRecordPagePromise = new Promise((resolve, reject) => {
-            try {
-                sequelize.transaction(async (t) => {
-                    try {
-                        const newCaseRecordPage = await this._CaseRecordPage.create(caseRecordPageOptions, { transaction: t });
-                        resolve(newCaseRecordPage);   
-                    } catch (error) {
-                        reject(error);
-                    }
-                });
-            } catch (error) {
-                reject(error);
-            }
-        });
+    //     const caseRecordPagePromise = new Promise((resolve, reject) => {
+    //         try {
+    //             sequelize.transaction(async (t) => {
+    //                 try {
+    //                     const newCaseRecordPage = await this._CaseRecordPage.create(caseRecordPageOptions, { transaction: t });
+    //                     resolve(newCaseRecordPage);   
+    //                 } catch (error) {
+    //                     reject(error);
+    //                 }
+    //             });
+    //         } catch (error) {
+    //             reject(error);
+    //         }
+    //     });
 
-        caseRecordPagePromise
-        .then(newCaseRecordPage => {
-            caseRecordPage = newCaseRecordPage;
-        }).catch(error => {
-            err = error;
-        }).finally(() => {
-            callback(caseRecordPage, err);
-        })
-    }
+    //     caseRecordPagePromise
+    //     .then(newCaseRecordPage => {
+    //         caseRecordPage = newCaseRecordPage;
+    //     }).catch(error => {
+    //         err = error;
+    //     }).finally(() => {
+    //         callback(caseRecordPage, err);
+    //     })
+    // }
 
     // update(uuid_orderAllMedication, orderAllMedicationOptions, callback) {
     //     let orderAllMedication;
@@ -102,6 +93,36 @@ class CaseRecordPage {
     //         callback(orderAllMedication, err);
     //     })
     // }
+
+    
+    read(caseRecordPageOptions, callback) {
+        let caseRecordPage;
+        let err;
+        
+        const caseRecordPagePromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const newCaseRecordPage = await this._CaseRecordPage.create(caseRecordPageOptions, { transaction: t });
+                        resolve(newCaseRecordPage);   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        caseRecordPagePromise
+        .then(newCaseRecordPage => {
+            caseRecordPage = newCaseRecordPage;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(caseRecordPage, err);
+        })
+    }
 }
 
 const caseRecordPage = new CaseRecordPage();

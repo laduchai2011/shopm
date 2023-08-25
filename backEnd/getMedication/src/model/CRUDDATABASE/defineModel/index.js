@@ -37,6 +37,9 @@ class DefineModel {
             lastName: {
                 type: DataTypes.STRING,
                 allowNull: false
+            },
+            avatar: {
+                type: DataTypes.STRING,
             }
         }, {
             // Other model options go here

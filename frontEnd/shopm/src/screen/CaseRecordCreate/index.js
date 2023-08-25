@@ -13,8 +13,10 @@ import { SERVER_ADDRESS_UPLOADIMAGE, SERVER_ADDRESS_GETIMAGE, SERVER_ADDRESS_POS
 /**
 *@typedef {
 *title: string,
-*status: string,
+*priceTotal: integer,
+*pageTotal: integer,
 *report: string,
+*status: string,
 *uuid_doctorOrPharmacist: uuid,
 *uuid_user: uuid
 *} caseRecordOptions
@@ -153,8 +155,10 @@ const CaseRecordCreate = () => {
                 const data = {
                     caseRecordOptions: {
                         title: title,
-                        status: 'normal',
+                        priceTotal: null,
+                        pageTotal: 1,
                         report: null,
+                        status: 'normal',
                         uuid_doctorOrPharmacist: null,
                         uuid_user: null
                     },

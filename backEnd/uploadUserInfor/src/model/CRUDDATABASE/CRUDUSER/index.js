@@ -8,7 +8,8 @@ const { defineModel } = require('../defineModel');
 *password: string,
 *phone: string,
 *firstName: string,
-*lastName: string
+*lastName: string,
+*avatar: string
 *} userOptions
 */ 
 

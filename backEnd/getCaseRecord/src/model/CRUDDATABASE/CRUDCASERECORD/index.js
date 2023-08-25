@@ -5,8 +5,10 @@ const { defineModel } = require('../defineModel');
 /**
 *@typedef {
 *title: string,
-*status: string,
+*priceTotal: integer,
+*pageTotal: integer,
 *report: string,
+*status: string,
 *uuid_doctorOrPharmacist: uuid,
 *uuid_user: uuid
 *} caseRecordOptions

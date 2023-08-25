@@ -1,13 +1,19 @@
-import React, { memo } from 'react';
+import React, { memo, useContext } from 'react';
 import './styles.css';
 
 import ProfileBottomCaseRecordHeader from './components/ProfileBottomCaseRecordHeader';
 import ProfileBottomCaseRecordBox from './components/ProfileBottomCaseRecordBox';
 
+import { ProfileBottomContext } from '../../utilize/ProfileBottomContext';
+
 const ProfileBottomCaseRecord = () => {
-    const list_caseRecordBox = [1,2,3,4,5,6].map((data, index) => {
+
+    const { caseRecords } = useContext(ProfileBottomContext);
+
+    const list_caseRecordBox = caseRecords.map((data, index) => {
         return <ProfileBottomCaseRecordBox key={index} index={index} onData={data} />
     })
+    
     return (
         <div className='ProfileBottomCaseRecord'>
             <ProfileBottomCaseRecordHeader />

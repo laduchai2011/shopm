@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import './styles.css';
 
 import axios from "axios";
@@ -20,27 +20,23 @@ import { $ } from "utilize/Tricks";
 const ProfileBottomSettingSickPersonAdd = () => {
     const [name, setName] = useState('');
     const [nameNoti, setNameNoti] = useState('');
-    const [birthday, setBirthday] = useState();
+    const [birthday, setBirthday] = useState('');
     const [sex, setSex] = useState(true);
     const [address, setAddress] = useState('');
     const [addressNoti, setAddressNoti] = useState('');
     const [phone, setPhone] = useState('');
     const [phoneNoti, setPhoneNoti] = useState('');
 
-    useEffect(() => {
-
-    }, [name, birthday, sex, address, phone])
-
     const handlePhone = (e) => {
         const value = e.target.value;
 
         if (isNaN(value) || value.length===0) {
             setPhoneNoti('Phone must is number !');
-            setPhone(value);
         } else {
             setPhoneNoti('');
-            setPhone(Number(value));
         }
+
+        setPhone(value);
     }
 
     const handleSubmit = () => {
@@ -48,39 +44,47 @@ const ProfileBottomSettingSickPersonAdd = () => {
         q_submitNoti.classList.remove('loading');
         q_submitNoti.classList.remove('success');
         q_submitNoti.classList.remove('failure');
+        q_submitNoti.classList.remove('failure1');
 
         q_submitNoti.classList.add('loading');
 
         const sickpersonOptions = {
-            name: name, 
+            name: name.trim(), 
             birthday: birthday,
             sex: sex,
-            address: address,
-            phone: phone,
+            address: address.trim(),
+            phone: phone.trim(),
             uuid_user: null
         }
 
-        setTimeout(() => {
-            axios({
-                method: 'post',
-                url: SERVER_ADDRESS_SICKPERSON_CREATE,
-                withCredentials: true,
-                data: sickpersonOptions,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(res => {
-                const resData = res.data;
-                if (resData.success) {
-                    q_submitNoti.classList.add('success');
-                } else {
+        if ((name.length > 0) && (birthday.length > 0) && (address.length > 0) && (phone.length > 0) && (phoneNoti.length === 0)) {
+            setTimeout(() => {
+                axios({
+                    method: 'post',
+                    url: SERVER_ADDRESS_SICKPERSON_CREATE,
+                    withCredentials: true,
+                    data: sickpersonOptions,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(res => {
+                    const resData = res.data;
+                    q_submitNoti.classList.remove('loading');
+                    if (resData.success) {
+                        q_submitNoti.classList.add('success');
+                    } else {
+                        q_submitNoti.classList.add('failure');
+                    }
+                }).catch(error => {
+                    console.error(error);
+                    q_submitNoti.classList.remove('loading');
                     q_submitNoti.classList.add('failure');
-                }
-            }).catch(error => {
-                console.error(error);
-                q_submitNoti.classList.add('failure');
-            })
-        }, 2000) 
+                })
+            }, 2000) 
+        } else {
+            q_submitNoti.classList.remove('loading');
+            q_submitNoti.classList.add('failure1');
+        }
     }
 
     // new Date().toISOString().slice(0, 19).replace('T', ' ')
@@ -92,7 +96,7 @@ const ProfileBottomSettingSickPersonAdd = () => {
                 <div>
                     <span>Name</span>
                     <div>
-                        <input type="text" value={name} onChange={(e) => { setName(e.target.value.trim()); e.target.value.length===0 ? setNameNoti('Name must is a string !') : setNameNoti('') }} />
+                        <input type="text" value={name} onChange={(e) => { setName(e.target.value); e.target.value.length===0 ? setNameNoti('Name must is a string !') : setNameNoti('') }} />
                         <div>{ nameNoti }</div>
                     </div>
                 </div>
@@ -100,7 +104,7 @@ const ProfileBottomSettingSickPersonAdd = () => {
                     <span>Birthday</span>
                     <div>
                         <input type="date" onChange={(e) => setBirthday(new Date(e.target.value).toISOString().slice(0, 19).replace('T', ' '))} />
-                        <div>{ birthday }</div>
+                        {/* <div>{ birthday }</div> */}
                     </div>
                 </div>
                 <div>
@@ -121,7 +125,7 @@ const ProfileBottomSettingSickPersonAdd = () => {
                 <div>
                     <span>Address</span>
                     <div>
-                        <input type="text" value={address} onChange={(e) => { setAddress(e.target.value.trim()); e.target.value.length===0 ? setAddressNoti('Address must is a string !') : setAddressNoti('') }} />
+                        <input type="text" value={address} onChange={(e) => { setAddress(e.target.value); e.target.value.length===0 ? setAddressNoti('Address must is a string !') : setAddressNoti('') }} />
                         <div>{ addressNoti }</div>
                     </div>
                 </div>

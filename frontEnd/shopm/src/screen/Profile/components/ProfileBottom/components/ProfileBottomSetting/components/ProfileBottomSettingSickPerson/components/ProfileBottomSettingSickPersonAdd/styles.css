@@ -79,3 +79,8 @@
     content: 'Create sick-person failure, you only have sick-person !';
     color: red;
 }
+
+.ProfileBottomSettingSickPersonAdd-submitNoti.failure1::after {
+    content: 'Please fill full the information !';
+    color: red;
+}

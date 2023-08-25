@@ -37,6 +37,9 @@ class DefineModel {
             lastName: {
                 type: DataTypes.STRING,
                 allowNull: false
+            },
+            avatar: {
+                type: DataTypes.STRING,
             }
         }, {
             // Other model options go here
@@ -307,6 +310,13 @@ class DefineModel {
             },
             title: {
                 type: DataTypes.STRING,
+                allowNull: false
+            },
+            priceTotal: {
+                type: DataTypes.INTEGER
+            },
+            pageTotal: {
+                type: DataTypes.INTEGER,
                 allowNull: false
             },
             report: {
