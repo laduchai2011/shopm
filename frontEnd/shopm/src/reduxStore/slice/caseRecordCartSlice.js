@@ -51,7 +51,7 @@ export const counterSlice = createSlice({
             // Add user to the state array
             console.log('extraReducers', action, state)
             state.value1 = action.payload;
-          })
+        })
     }
 })
 

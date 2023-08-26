@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './styles.css';
 
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';
 import { AiFillEdit } from 'react-icons/ai';
 import { CiCircleRemove } from 'react-icons/ci';
 import { GrAdd } from 'react-icons/gr';
@@ -10,13 +10,11 @@ import TextEditor from "TextEditor";
 import { TEGetContent, TESetContent } from "TextEditor/utilize";
 import { $$ } from "utilize/Tricks";
 
-import { increment } from "reduxStore/slice/counterSlice";
-import { fetchUserById } from "reduxStore/slice/counterSlice";
 
 
 const CaseRecordPage = () => {
-    const count = useSelector((state) => state.counter.value);
-    const dispatch = useDispatch();
+    // const count = useSelector((state) => state.counter.value);
+    // const dispatch = useDispatch();
 
     const [editBoolD, setEditBoolD] = useState(false);
     const [editBoolP, setEditBoolP] = useState(false);
@@ -75,8 +73,6 @@ const CaseRecordPage = () => {
 
     const des_m = 'Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease';
 
-    let i_thunk = 0;
-
     return (
         <div className="CaseRecordPage">
             <h2>Page 1</h2>
@@ -125,12 +121,6 @@ const CaseRecordPage = () => {
                 <button onClick={() => setEditBoolD(false)}>Save Description</button>
                 <button>Lock</button>
                 <button>Un-Lock</button>
-                <button onClick={() => dispatch(increment())}>testRedux</button>
-                <div>{count}</div>
-                <button onClick={() => {
-                    dispatch(fetchUserById(i_thunk));
-                    i_thunk++;
-                }}>reduxThunk</button>
             </div>
         </div>
     )

@@ -18,3 +18,6 @@ ADD pageTotal int;
 
 UPDATE CaseRecords
 SET pageTotal = 1
+
+ALTER TABLE Users
+ADD avatar nvarchar(255);

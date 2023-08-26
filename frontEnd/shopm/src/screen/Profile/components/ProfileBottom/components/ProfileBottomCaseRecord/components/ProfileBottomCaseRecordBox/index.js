@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import './styles.css';
 
 import { useNavigate } from "react-router-dom";
@@ -6,10 +6,18 @@ import { useNavigate } from "react-router-dom";
 import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/bs'; 
 
 import { $$ } from "utilize/Tricks";
+import { Timestamp } from "utilize/Timestamp";
 
 const ProfileBottomCaseRecordBox = ({ index, onData }) => {
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const q_CaseRecordBox = $$('.ProfileBottomCaseRecordBox');
+        if (onData.load) {
+            q_CaseRecordBox[index].classList.remove('ProfileBottomCaseRecordBox-loading');
+        }
+    }, [index, onData.load])
 
     const handleViewAvatar = (e) => {
         const target = e.target;
@@ -56,12 +64,12 @@ const ProfileBottomCaseRecordBox = ({ index, onData }) => {
     })
 
     return (
-        <div className="ProfileBottomCaseRecordBox">
+        <div className="ProfileBottomCaseRecordBox ProfileBottomCaseRecordBox-loading">
             <div className="ProfileBottomCaseRecordBox-top">
-                <div>Title Title Title Title Title Title</div>
-                <div>Time Time</div>
-                <div>Not finaly yet</div>
-                <div><button onClick={() => navigate('/caseRecord/asd878h')}>Detail</button></div>
+                <div>{ onData.title }</div>
+                <div>{ Timestamp(onData.createdAt) }</div>
+                <div>{ onData.status }</div>
+                <div><button onClick={() => navigate(`/caseRecord/${onData.uuid_caseRecord}`)}>Detail</button></div>
             </div>
             <div className="ProfileBottomCaseRecordBox-center">
                 <div>Doctor/Pharmacist</div>
@@ -70,16 +78,16 @@ const ProfileBottomCaseRecordBox = ({ index, onData }) => {
                         <img className="viewAvatarDoctorPharmacist" src="https://tse3.mm.bing.net/th?id=OIP.D8z-01L15DnYmN3pT-veJQHaHa&pid=Api&P=0&h=180" onClick={(e) => handleViewAvatar(e)} alt=""/>
                         <img className="viewAvatarDoctorPharmacist" src="https://tse3.mm.bing.net/th?id=OIP.D8z-01L15DnYmN3pT-veJQHaHa&pid=Api&P=0&h=180" onClick={(e) => handleViewAvatar(e)} alt=""/>
                     </div>
-                    <div className="ProfileBottomCaseRecordBox-center-infor">
+                    { onData.uuid_doctorOrPharmacist ? <div className="ProfileBottomCaseRecordBox-center-infor">
                         <div>Name Name Name Name Name Name Name Name</div>
                         <div>Doctor/Pharmacist</div>
                         <div>{ list_star }</div>
-                    </div>
+                    </div> : <div className="ProfileBottomCaseRecordBox-noDoctorOrPharmacist">Empty</div> }
                 </div>
             </div>
             <div className="ProfileBottomCaseRecordBox-bottom">
-                <div>Page total: 5</div>
-                <div>Cost: 100$</div>
+                <div>Page total: { onData.pageTotal }</div>
+                <div>Cost: { onData.priceTotal }$</div>
                 <div><button>Continue</button></div>
             </div>
         </div>

@@ -30,6 +30,7 @@ export const SERVER_ADDRESS_POST_PROVIDER_NEWS         = 'http://localhost:8900/
 export const SERVER_ADDRESS_GET_PROVIDER_NEWS_LIST     = 'http://localhost:8800/api/svGetProviderNews/provider/news/list';
 
 export const SERVER_ADDRESS_POST_CASERECORD            = 'http://localhost:7200/api/svUploadCaseRecord/caseRecord/create';
+export const SERVER_ADDRESS_GETLIST_CASERECORD         = 'http://localhost:7300/api/svGetCaseRecord/caseRecord/getList';
 
 
 // ---------------------------------------
