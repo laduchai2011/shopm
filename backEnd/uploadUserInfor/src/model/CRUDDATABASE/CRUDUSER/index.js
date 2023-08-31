@@ -76,7 +76,7 @@ class CRUDUSER {
                                 ]         
                             },
                             attributes: {
-                                exclude: ['phone', 'password', 'createdAt', 'updatedAt']
+                                exclude: ['phone', 'password', 'createdAt', 'updatedAt', 'avatar']
                             }
                         }, { transaction: t })
 

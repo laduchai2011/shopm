@@ -32,7 +32,7 @@ app.use('/api/svUploadOrderMedication', express.urlencoded({extended: true}));
 
 app.use('/api/svUploadOrderMedication', router);
 
-const PORT = process.env.NODE_SERVER_PORT_KEY || 7100;
+const PORT = process.env.NODE_SERVER_PORT_KEY || 7400;
 
 app.listen(PORT, function () {
     console.log(`Listening on port ${PORT}!`);

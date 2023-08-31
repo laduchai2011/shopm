@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useContext } from 'react';
 import './styles.css';
 
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { AiOutlineMenu } from 'react-icons/ai';
 import { IoMdNotificationsOutline } from 'react-icons/io';
@@ -13,7 +13,7 @@ import { ThemeContextApp } from "utilize/ContextApp";
 import { $$ } from 'utilize/Tricks';
 
 const Header = () => {
-    const count = useSelector((state) => state.counter.value1);
+    // const count = useSelector((state) => state.counter.value1);
     const navigate = useNavigate();
 
     const clickDocument = useContext(ThemeContextApp);
@@ -81,7 +81,6 @@ const Header = () => {
                     <p>5</p>
                 </div>
                 <img src="https://1.bp.blogspot.com/-a71p9zvla98/UkP4-cPfK4I/AAAAAAAAAg8/va9AmdChErg/s1600/anh-dep-hinh-nen-thien-nhien-0.jpg" onClick={() => navigate('/profile/23423sdgfsdgds')} alt=""/>
-                <div>{count}</div>
             </div>
             <Overlay />
         </div>

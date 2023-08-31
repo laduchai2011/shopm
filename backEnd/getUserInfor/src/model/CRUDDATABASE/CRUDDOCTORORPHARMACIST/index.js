@@ -27,7 +27,48 @@ class DOCTORORPHARMACIST {
         this._DoctorOrPharmacist = defineModel.getDoctorOrPharmacist();
     }
 
-    create(doctorOrPharmacistOptions, callback) {
+    // create(doctorOrPharmacistOptions, callback) {
+    //     let doctorOrPharmacist;
+    //     let err;
+        
+    //     const doctorOrPharmacistPromise = new Promise((resolve, reject) => {
+    //         try {
+    //             sequelize.transaction(async (t) => {
+    //                 try {
+    //                     const isDoctorOrPharmacist = await this._DoctorOrPharmacist.findAll({
+    //                         where: {
+    //                             [Op.or]: [
+    //                                 { uuid_user: doctorOrPharmacistOptions.uuid_user }
+    //                             ]         
+    //                         }
+    //                     }, { transaction: t })
+
+    //                     if (isDoctorOrPharmacist.length === 0) {
+    //                         const newDoctorOrPharmacist = await this._DoctorOrPharmacist.create(doctorOrPharmacistOptions, { transaction: t });
+    //                         resolve(newDoctorOrPharmacist);
+    //                     } else {
+    //                         resolve(null);
+    //                     }   
+    //                 } catch (error) {
+    //                     reject(error);
+    //                 }
+    //             });
+    //         } catch (error) {
+    //             reject(error);
+    //         }
+    //     });
+
+    //     doctorOrPharmacistPromise
+    //     .then(newDoctorOrPharmacist => {
+    //         doctorOrPharmacist = newDoctorOrPharmacist;
+    //     }).catch(error => {
+    //         err = error;
+    //     }).finally(() => {
+    //         callback(doctorOrPharmacist, err);
+    //     })
+    // }
+
+    readFromCaseRecord(uuid_doctorOrPharmacist, callback) {
         let doctorOrPharmacist;
         let err;
         
@@ -35,20 +76,15 @@ class DOCTORORPHARMACIST {
             try {
                 sequelize.transaction(async (t) => {
                     try {
-                        const isDoctorOrPharmacist = await this._DoctorOrPharmacist.findAll({
+                        const isDoctorOrPharmacist = await this._DoctorOrPharmacist.findOne({
                             where: {
-                                [Op.or]: [
-                                    { uuid_user: doctorOrPharmacistOptions.uuid_user }
-                                ]         
+                                uuid_doctorOrPharmacist: uuid_doctorOrPharmacist        
+                            },
+                            attributes: {
+                                exclude: ['avatar', 'image', 'information']
                             }
                         }, { transaction: t })
-
-                        if (isDoctorOrPharmacist.length === 0) {
-                            const newDoctorOrPharmacist = await this._DoctorOrPharmacist.create(doctorOrPharmacistOptions, { transaction: t });
-                            resolve(newDoctorOrPharmacist);
-                        } else {
-                            resolve(null);
-                        }   
+                        resolve(isDoctorOrPharmacist);
                     } catch (error) {
                         reject(error);
                     }

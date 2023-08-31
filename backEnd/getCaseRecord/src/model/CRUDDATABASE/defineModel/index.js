@@ -320,7 +320,7 @@ class DefineModel {
                 allowNull: false
             },
             report: {
-                type: DataTypes.STRING
+                type: DataTypes.TEXT
             },
             status: {
                 type: DataTypes.STRING,

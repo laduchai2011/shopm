@@ -12,3 +12,5 @@
 25-08-2023	15:28:23--------/caseRecord/getList?pageIndex=1&pageSize=5---GET---SequelizeDatabaseError: The number of rows provided for a TOP or FETCH clauses row count parameter must be an integer.
 25-08-2023	45:35:23--------/caseRecord/getList?pageIndex=1&pageSize=5---GET---SequelizeDatabaseError: The number of rows provided for a TOP or FETCH clauses row count parameter must be an integer.
 25-08-2023	46:35:23--------/caseRecord/getList?pageIndex=1&pageSize=5---GET---SequelizeDatabaseError: The number of rows provided for a TOP or FETCH clauses row count parameter must be an integer.
+29-08-2023	00:52:17--------/caseRecord/get?uuid_user=d21c4c93-df64-4289-a378-3882cccdf248---GET---Error: WHERE parameter "uuid_caseRecord" has invalid "undefined" value
+29-08-2023	01:52:17--------/caseRecord/get?uuid_user=d21c4c93-df64-4289-a378-3882cccdf248---GET---Error: WHERE parameter "uuid_caseRecord" has invalid "undefined" value

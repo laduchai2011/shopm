@@ -7,11 +7,12 @@ const app = express();
 //add other middleware
 app.use('/api/svGetUserInfor', function (req, res, next) {
     // specify CORS headers to send
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.header(
         'Access-Control-Allow-Methods',
         'POST, PUT, PATCH, GET, DELETE, OPTIONS',
     );
+    res.header('Access-Control-Allow-Credentials', true);
     res.header(
         'Access-Control-Allow-Headers', 'Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization, X-Firebase-CheckToken'
     );

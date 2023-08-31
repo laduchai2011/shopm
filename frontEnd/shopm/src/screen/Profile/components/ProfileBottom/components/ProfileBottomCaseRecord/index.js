@@ -17,10 +17,17 @@ const ProfileBottomCaseRecord = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        let promise_fetchBulkReadCaseRecord;
         if (!fetching && caseRecords.length===0) {
-            dispatch(fetchBulkReadCaseRecord(SERVER_ADDRESS_GETLIST_CASERECORD));
+            promise_fetchBulkReadCaseRecord = dispatch(fetchBulkReadCaseRecord(SERVER_ADDRESS_GETLIST_CASERECORD));
         }
-    }, [fetching, caseRecords, emptyDB, dispatch])
+
+        return () => {
+            promise_fetchBulkReadCaseRecord?.abort();
+        }
+
+        // eslint-disable-next-line
+    }, [])
 
     window.onscroll = function() {
         const scrollable = window.innerHeight + document.documentElement.scrollTop - document.documentElement.offsetHeight;
@@ -35,7 +42,6 @@ const ProfileBottomCaseRecord = () => {
     
     return (
         <div className='ProfileBottomCaseRecord'>
-            <button onClick={() => dispatch(fetchBulkReadCaseRecord(SERVER_ADDRESS_GETLIST_CASERECORD))}>test</button>
             <ProfileBottomCaseRecordHeader />
             { list_caseRecordBox }
         </div>

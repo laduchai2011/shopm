@@ -131,7 +131,7 @@ class DefineModel {
                 autoIncrement: true,
                 unique: 'UQ__SickPersons__id'
             },
-            uuid_doctorOrPharmacist: {
+            uuid_sickPerson: {
                 type: Sequelize.UUID,
                 defaultValue: Sequelize.UUIDV4,
                 primaryKey: true

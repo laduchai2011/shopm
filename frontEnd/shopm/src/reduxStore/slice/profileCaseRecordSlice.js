@@ -1,14 +1,26 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+/**
+*@typedef {
+*title: string,
+*priceTotal: integer,
+*pageTotal: integer,
+*report: text,
+*status: string,
+*uuid_doctorOrPharmacist: uuid,
+*uuid_user: uuid
+*} caseRecordOptions
+*/ 
+
 const initialState = {
     fetching: false,
-    caseRecords: [],
+    caseRecords: [],    // array of caseRecordOptions
     error: null,
     pageIndex: 1,
     pageSize: 5,
     emptyDB: false, 
-    init: false  // use in development
+    // init: false  // use in development
 }
 
 export const fetchBulkReadCaseRecord = createAsyncThunk(
@@ -19,7 +31,8 @@ export const fetchBulkReadCaseRecord = createAsyncThunk(
             const res = await axios({
                 method: 'get',
                 url: `${serverAddress}?pageIndex=${getState.pageIndex}&pageSize=${getState.pageSize}`,
-                withCredentials: true
+                withCredentials: true,
+                signal: thunkAPI.signal
             })
 
             const resData = res.data;
@@ -67,49 +80,65 @@ export const profileCaseRecordSlice = createSlice({
             // console.log('fulfilled', action.payload)
 
             const data = action.payload.data;
-            if (process.env.NODE_ENV === 'development') {
-                // console.log('development');
+            // if (process.env.NODE_ENV === 'development') {
+            //     // console.log('development');
 
-                if (state.pageIndex === 1) {
-                    state.caseRecords = data;
-                } else {
-                    state.caseRecords.pop();
-                    state.caseRecords = state.caseRecords.concat(data);
-                }
+            //     if (state.pageIndex === 1) {
+            //         state.caseRecords = data;
+            //     } else {
+            //         state.caseRecords.pop();
+            //         state.caseRecords = state.caseRecords.concat(data);
+            //     }
 
-                if (state.pageIndex*state.pageSize < action.payload.count) {
-                    state.emptyDB = false;
-                } else {
-                    state.emptyDB = true;
-                }
+            //     if (state.pageIndex*state.pageSize < action.payload.count) {
+            //         state.emptyDB = false;
+            //     } else {
+            //         state.emptyDB = true;
+            //     }
 
-                state.fetching = false;
-                if (!state.init) {
-                    state.pageIndex = 1;
-                    state.init = true;
-                } else {
-                    state.pageIndex = action.payload.pageIndexNext;
-                }
-            } else {
-                // console.log('product');
+            //     state.fetching = false;
+            //     if (!state.init) {
+            //         state.pageIndex = 1;
+            //         state.init = true;
+            //     } else {
+            //         state.pageIndex = action.payload.pageIndexNext;
+            //     }
+            // } else {
+            //     // console.log('product');
 
-                if (state.pageIndex === 1) {
-                    state.caseRecords = data;
-                } else {
-                    state.caseRecords.pop();
-                    state.caseRecords = state.caseRecords.concat(data);
-                }
+            //     if (state.pageIndex === 1) {
+            //         state.caseRecords = data;
+            //     } else {
+            //         state.caseRecords.pop();
+            //         state.caseRecords = state.caseRecords.concat(data);
+            //     }
     
-                if (state.pageIndex*state.pageSize < action.payload.count) {
-                    state.emptyDB = false;
-                } else {
-                    state.emptyDB = true;
-                }
+            //     if (state.pageIndex*state.pageSize < action.payload.count) {
+            //         state.emptyDB = false;
+            //     } else {
+            //         state.emptyDB = true;
+            //     }
     
-                state.fetching = false;
-                state.pageIndex = action.payload.pageIndexNext;
-            }
+            //     state.fetching = false;
+            //     state.pageIndex = action.payload.pageIndexNext;
+            // }
            
+            
+            if (state.pageIndex === 1) {
+                state.caseRecords = data;
+            } else {
+                state.caseRecords.pop();
+                state.caseRecords = state.caseRecords.concat(data);
+            }
+
+            if (state.pageIndex*state.pageSize < action.payload.count) {
+                state.emptyDB = false;
+            } else {
+                state.emptyDB = true;
+            }
+
+            state.fetching = false;
+            state.pageIndex = action.payload.pageIndexNext;
         })
     }
 })

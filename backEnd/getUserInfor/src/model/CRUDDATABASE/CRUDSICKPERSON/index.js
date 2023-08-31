@@ -18,7 +18,48 @@ class SICKPERSON {
         this._SickPerson = defineModel.getSickPerson();
     }
 
-    create(sickpersonOptions, callback) {
+    // create(sickpersonOptions, callback) {
+    //     let sickPerson;
+    //     let err;
+        
+    //     const sickpersonPromise = new Promise((resolve, reject) => {
+    //         try {
+    //             sequelize.transaction(async (t) => {
+    //                 try {
+    //                     const isSickPerson = await this._SickPerson.findAll({
+    //                         where: {
+    //                             [Op.or]: [
+    //                                 { uuid_user: sickpersonOptions.uuid_user }
+    //                             ]         
+    //                         }
+    //                     }, { transaction: t })
+
+    //                     if (isSickPerson.length === 0) {
+    //                         const newSickPerson = await this._SickPerson.create(sickpersonOptions, { transaction: t });
+    //                         resolve(newSickPerson);
+    //                     } else {
+    //                         resolve(null);
+    //                     }   
+    //                 } catch (error) {
+    //                     reject(error);
+    //                 }
+    //             });
+    //         } catch (error) {
+    //             reject(error);
+    //         }
+    //     });
+
+    //     sickpersonPromise
+    //     .then(newSickPerson => {
+    //         sickPerson = newSickPerson;
+    //     }).catch(error => {
+    //         err = error;
+    //     }).finally(() => {
+    //         callback(sickPerson, err);
+    //     })
+    // }
+
+    readWithFk(uuid_user, callback) {
         let sickPerson;
         let err;
         
@@ -26,20 +67,12 @@ class SICKPERSON {
             try {
                 sequelize.transaction(async (t) => {
                     try {
-                        const isSickPerson = await this._SickPerson.findAll({
+                        const isSickPerson = await this._SickPerson.findOne({
                             where: {
-                                [Op.or]: [
-                                    { uuid_user: sickpersonOptions.uuid_user }
-                                ]         
+                                uuid_user: uuid_user        
                             }
                         }, { transaction: t })
-
-                        if (isSickPerson.length === 0) {
-                            const newSickPerson = await this._SickPerson.create(sickpersonOptions, { transaction: t });
-                            resolve(newSickPerson);
-                        } else {
-                            resolve(null);
-                        }   
+                        resolve(isSickPerson);
                     } catch (error) {
                         reject(error);
                     }
@@ -50,8 +83,8 @@ class SICKPERSON {
         });
 
         sickpersonPromise
-        .then(newSickPerson => {
-            sickPerson = newSickPerson;
+        .then(isSickPerson => {
+            sickPerson = isSickPerson;
         }).catch(error => {
             err = error;
         }).finally(() => {

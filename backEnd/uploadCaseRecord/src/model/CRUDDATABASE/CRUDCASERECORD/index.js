@@ -7,7 +7,7 @@ const { defineModel } = require('../defineModel');
 *title: string,
 *priceTotal: integer,
 *pageTotal: integer,
-*report: string,
+*report: text,
 *status: string,
 *uuid_doctorOrPharmacist: uuid,
 *uuid_user: uuid

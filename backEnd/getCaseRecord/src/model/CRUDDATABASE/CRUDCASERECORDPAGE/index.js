@@ -95,16 +95,25 @@ class CaseRecordPage {
     // }
 
     
-    read(caseRecordPageOptions, callback) {
-        let caseRecordPage;
+    bulkReadWithFk(uuid_caseRecord, pageIndex, pageSize, callback) {
+        let caseRecordPages;
         let err;
         
         const caseRecordPagePromise = new Promise((resolve, reject) => {
             try {
                 sequelize.transaction(async (t) => {
                     try {
-                        const newCaseRecordPage = await this._CaseRecordPage.create(caseRecordPageOptions, { transaction: t });
-                        resolve(newCaseRecordPage);   
+                        const newCaseRecordPages = await this._CaseRecordPage.findAndCountAll({
+                            where: {
+                                uuid_caseRecord: uuid_caseRecord
+                            },
+                            order: [
+                                ['id', 'DESC']
+                            ],
+                            offset: pageSize * (pageIndex - 1),
+                            limit: pageSize
+                        }, { transaction: t });
+                        resolve(newCaseRecordPages);   
                     } catch (error) {
                         reject(error);
                     }
@@ -115,12 +124,12 @@ class CaseRecordPage {
         });
 
         caseRecordPagePromise
-        .then(newCaseRecordPage => {
-            caseRecordPage = newCaseRecordPage;
+        .then(newCaseRecordPages => {
+            caseRecordPages = newCaseRecordPages;
         }).catch(error => {
             err = error;
         }).finally(() => {
-            callback(caseRecordPage, err);
+            callback(caseRecordPages, err);
         })
     }
 }
