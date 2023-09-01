@@ -26,6 +26,7 @@ import { SERVER_ADDRESS_UPLOADIMAGE, SERVER_ADDRESS_GETIMAGE, SERVER_ADDRESS_POS
 *@typedef {
 *dataPage: text,
 *priceTotal: integer,
+*status: string,
 *uuid_caseRecord: uuid
 *} caseRecordPageOptions
 */ 
@@ -165,6 +166,7 @@ const CaseRecordCreate = () => {
                     dataPage: {
                         page: 1,
                         priceTotal: 0,
+                        status: 'notComplete',
                         description: {
                            note: describe,
                            images: imageUrls,

@@ -36,13 +36,12 @@ export const fetchBulkReadCaseRecord = createAsyncThunk(
             })
 
             const resData = res.data;
-        
+            console.log(resData)
             if (resData.success) {
                 const list_caseRecord = resData.caseRecords.rows;
                 for (let i = 0; i < list_caseRecord.length; i++) {
                     list_caseRecord[i].load = true;
                 }
-                // console.log(getState.caseRecords)
                 return {
                     count: resData.caseRecords.count,
                     data: list_caseRecord,

@@ -1,0 +1,122 @@
+.CaseRecordInforPassiveSearchBox {
+    box-sizing: border-box;
+}
+
+.CaseRecordInforPassiveSearchBox-overlay {
+    position: fixed;
+    top: 0;
+    left: 100%;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 50;
+
+    transition: left 0.3s ease-in-out;
+}
+
+.CaseRecordInforPassiveSearchBox-overlay.active {
+    left: 0;
+}
+
+.CaseRecordInforPassiveSearchBox-box {
+    min-width: 320px;
+    width: 35%;
+    max-height: 700px;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.CaseRecordInforPassiveSearchBox-box > div:nth-child(1) {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.CaseRecordInforPassiveSearchBox-box > div:nth-child(1) > svg {
+    padding: 2px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.CaseRecordInforPassiveSearchBox-box > div:nth-child(1) > svg:hover {
+    background-color: rgb(224, 224, 224);
+}
+
+.CaseRecordInforPassiveSearchBox-box > h4 {
+    font-size: 1.2em;
+}
+
+.CaseRecordInforPassiveSearchBox-targetList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 10px;
+    overflow-y: scroll;
+    max-height: 450px;
+}
+
+.CaseRecordInforPassiveSearchBox-targetList::-webkit-scrollbar {
+    width: 5px;
+}
+
+.CaseRecordInforPassiveSearchBox-targetList::-webkit-scrollbar-thumb {
+    background-color: rgb(218, 218, 218);
+}
+
+.CaseRecordInforPassiveSearchBox-targetList > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(200, 242, 255);
+    padding: 5px;
+}
+
+.CaseRecordInforPassiveSearchBox-targetList > div > svg {
+    cursor: pointer;
+}
+
+.CaseRecordInforPassiveSearchBox-inputContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.CaseRecordInforPassiveSearchBox-inputContainer > input {
+    border: none;
+    outline: none;
+    background-color: #eee;
+    padding: 5px;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+.CaseRecordInforPassiveSearchBox-inputContainer > div {
+    display: flex;
+    align-items: center;
+    background-color: greenyellow;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.CaseRecordInforPassiveSearchBox-inputContainer > div:active {
+    background-color: rgb(153, 255, 0);
+}
+
+.CaseRecordInforPassiveSearchBox-begin {
+    margin-top: 15px;
+}
+
+.CaseRecordInforPassiveSearchBox-begin > button {
+    border: none;
+    background: red;
+    color: white;
+    font-size: 1.3em;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}

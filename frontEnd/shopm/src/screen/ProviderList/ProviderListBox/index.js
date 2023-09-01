@@ -38,10 +38,10 @@ const ProviderListBox = ({ onData }) => {
                     }</>
                 }</> 
             }
-            </div>
-            
+            </div>  
         )
     })
+    
     return (
         <div className='ProviderListBox'>
             <div className='ProviderListBox-bannerContainer' onClick={() => navigate(`/provider/${onData.uuid_provider}`)}>

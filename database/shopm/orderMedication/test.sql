@@ -21,3 +21,12 @@ SET pageTotal = 1
 
 ALTER TABLE Users
 ADD avatar nvarchar(255);
+
+ALTER TABLE CaseRecordPages
+ADD status nvarchar(255) NOT NULL DEFAULT 'notComplete';
+
+ALTER TABLE CaseRecordPages
+DROP COLUMN status;
+
+UPDATE CaseRecordPages
+SET status = 'botComplete'

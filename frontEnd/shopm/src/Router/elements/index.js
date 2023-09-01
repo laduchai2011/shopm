@@ -26,6 +26,11 @@ import Extend from "screen/Extend";
 import CaseRecord from "screen/CaseRecord";
 import CaseRecordCreate from "screen/CaseRecordCreate";
 
+
+
+// test rich editor
+import RichEditor from "RichEditor";
+
 export const elements = [
     {
         path: '/',
@@ -125,5 +130,11 @@ export const elements = [
     {
         path: '/caseRecord/create',
         element: <CaseRecordCreate />
+    },
+
+    // test rich editor
+    {
+        path: '/richEditor/test',
+        element: <RichEditor />
     }
 ]

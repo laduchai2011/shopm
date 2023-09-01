@@ -367,6 +367,10 @@ class DefineModel {
             dataPage: {
                 type: DataTypes.TEXT
             },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
             uuid_caseRecord: {
                 type: Sequelize.UUID,
                 allowNull: false

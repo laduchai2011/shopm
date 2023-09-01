@@ -7,13 +7,14 @@ const { defineModel } = require('../defineModel');
 *@typedef {
 *dataPage: text,
 *priceTotal: integer,
+*status: string,
 *uuid_caseRecord: uuid
 *} caseRecordPageOptions
 */ 
 
 /**
 *@typedef {
-*page: integer
+*page: integer,
 *priceTotal: integer,
 *description: {
 *   note: string,

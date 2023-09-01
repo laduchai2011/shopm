@@ -85,7 +85,6 @@ const CaseRecordPage = () => {
                     </div>
                 </div>
                 <div className="CaseRecordPage-description-content">
-                    
                     { !editBoolD && <div>{ des_m }</div> }
                     { editBoolD && <textarea value={ des_m } /> }
                 </div>

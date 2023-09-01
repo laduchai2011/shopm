@@ -43,7 +43,7 @@ const ProfileBottomCaseRecord = () => {
     return (
         <div className='ProfileBottomCaseRecord'>
             <ProfileBottomCaseRecordHeader />
-            { list_caseRecordBox }
+            { caseRecords.length!==0 ? list_caseRecordBox : <div className='ProfileBottomCaseRecord-empty'>Empty</div>  }
         </div>
     )
 }
