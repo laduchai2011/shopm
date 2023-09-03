@@ -70,10 +70,20 @@
     display: flex;
     align-items: center;
     margin: 0 10px;
-    background-color: greenyellow;
     padding: 5px;
     cursor: pointer;
     border-radius: 10px;
+    background-color: greenyellow;
+}
+
+.CaseRecordPage-description-icon.image {
+    background-color: blue !important;
+    color: white !important;
+}
+
+.CaseRecordPage-description-icon.video {
+    background-color: red !important;
+    color: white !important;
 }
 
 .CaseRecordPage-description-content textarea {

@@ -23,8 +23,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 /**
 *@typedef {
-*page: integer
 *priceTotal: integer,
+*status: string,
 *description: {
 *   note: string,
 *   images: [],
@@ -43,7 +43,9 @@ import { createSlice } from '@reduxjs/toolkit';
 *patientInfor: {},
 *doctorOrPharmacistInfor: {},
 *caseRecord: {},
-*caseRecordPages: []    // array of caseRecordPageOptions
+*caseRecordPages: [],    // array of caseRecordPageOptions
+*pageSize: 1,
+*pageIndex: 1
 *} caseRecord
 */ 
 
@@ -52,8 +54,11 @@ import { createSlice } from '@reduxjs/toolkit';
 //     patientInfor: null,
 //     doctorOrPharmacistInfor: {},
 //     caseRecord: {},
-//     caseRecordPages: []    // array of caseRecordPageOptions
-// } 
+//     caseRecordPages: []    // array of caseRecordPageOptions,
+//     pageSize: 1,
+//     pageIndex: 1,
+//     emptyDb: false
+// }  
 
 const initialState = {
     loadingCaseRecord: false,
@@ -104,6 +109,20 @@ export const caseRecordSlice = createSlice({
         },
         setLoadingDoctorOrPharmacistInfor: (state, action) => {
             state.loadingDoctorOrPharmacistInfor = action.payload;
+        },
+
+        ////////////
+        setPageIndex: (state, action) => {
+            state.caseRecords[state.currentIndex].pageIndex = action.payload;
+        },
+        setEmptyDb: (state, action) => {
+            state.caseRecords[state.currentIndex].emptyDb = action.payload;
+        },
+
+        // set push case-record page
+        pushCaseRecordPage: (state, action) => {
+            const old_caseRecordPages = state.caseRecords[state.currentIndex].caseRecordPages;
+            state.caseRecords[state.currentIndex].caseRecordPages = old_caseRecordPages.concat(action.payload);
         }
     }
 })
@@ -116,7 +135,10 @@ export const {
     setDoctorOrPharmacistCurrent,
     setLoadingCaseRecord,
     setLoadingPatientInfor,
-    setLoadingDoctorOrPharmacistInfor 
+    setLoadingDoctorOrPharmacistInfor,
+    setPageIndex,
+    setEmptyDb,
+    pushCaseRecordPage 
 } = caseRecordSlice.actions;
 
 const caseRecordReducer = caseRecordSlice.reducer;

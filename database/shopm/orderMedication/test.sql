@@ -30,3 +30,5 @@ DROP COLUMN status;
 
 UPDATE CaseRecordPages
 SET status = 'botComplete'
+
+DELETE FROM CaseRecords

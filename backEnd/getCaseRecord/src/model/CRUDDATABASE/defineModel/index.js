@@ -385,6 +385,35 @@ class DefineModel {
         this._CaseRecord.hasMany(this._CaseRecordPage, { foreignKey: 'uuid_caseRecord' })
         this._CaseRecordPage.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord' })
 
+        this._CaseRecordPageEH = sequelize.define('CaseRecordPageEH', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                autoIncrement: true,
+                unique: 'UQ__CaseRecordPagesEH__id'
+            },
+            uuid_caseRecordPageEH: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            dataPage: {
+                type: DataTypes.TEXT
+            },
+            uuid_caseRecordPage: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [{
+                name: 'uuid_caseRecordPage_indexes',
+                using: 'BTREE',
+                fields: ['uuid_caseRecordPage']
+            }]
+        })
+        this._CaseRecordPage.hasMany(this._CaseRecordPageEH, { foreignKey: 'uuid_caseRecordPage' })
+        this._CaseRecordPageEH.belongsTo(this._CaseRecordPage, { foreignKey: 'uuid_caseRecordPage', targetKey: 'uuid_caseRecordPage', as: 'uuid_CaseRecordPage' })
+
         this._OrderAllMedication = sequelize.define('OrderAllMedication', {
             id: {
                 type: DataTypes.INTEGER,
@@ -580,6 +609,10 @@ class DefineModel {
 
     getCaseRecordPage() {
         return this._CaseRecordPage;
+    }
+
+    getCaseRecordPageEH() {
+        return this._CaseRecordPageEH;
     }
 
     getOrderAllMedication() {

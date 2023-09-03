@@ -14,8 +14,8 @@ const { defineModel } = require('../defineModel');
 
 /**
 *@typedef {
-*page: integer,
 *priceTotal: integer,
+*status: string,
 *description: {
 *   note: string,
 *   images: [],

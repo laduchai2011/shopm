@@ -14,6 +14,7 @@ const createCaseRecord = (caseRecordOptions, dataPage, callback) => {
                 const caseRecordPageOptions = {
                     priceTotal: dataPage.priceTotal,
                     dataPage: JSON.stringify(dataPage),
+                    status: 'notComplete',
                     uuid_caseRecord: uuid_caseRecord
                 }
                 caseRecordPage.create(caseRecordPageOptions, (caseRecordPage, err) => {

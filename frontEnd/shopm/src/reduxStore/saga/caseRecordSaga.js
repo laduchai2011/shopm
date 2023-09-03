@@ -1,4 +1,4 @@
-import { put, takeLatest, delay, select, call } from 'redux-saga/effects';
+import { put, takeLatest, delay, select, call, takeLeading } from 'redux-saga/effects';
 
 import { 
     setCaseRecordCurrent, 
@@ -8,7 +8,10 @@ import {
     setDoctorOrPharmacistCurrent,
     setLoadingCaseRecord,
     setLoadingPatientInfor,
-    setLoadingDoctorOrPharmacistInfor 
+    setLoadingDoctorOrPharmacistInfor,
+    setPageIndex,
+    setEmptyDb,
+    pushCaseRecordPage 
 } from 'reduxStore/slice/caseRecordSlice';
 
 import axios from 'axios';
@@ -16,7 +19,8 @@ import axios from 'axios';
 import { 
     SERVER_ADDRESS_GET_CASERECORD, 
     SERVER_ADDRESS_GET_SICKPERSON_FROM_CASERECORD,
-    SERVER_ADDRESS_GET_DOCTORORPHARMACIST_FROM_CASERECORD 
+    SERVER_ADDRESS_GET_DOCTORORPHARMACIST_FROM_CASERECORD,
+    SERVER_ADDRESS_GETLIST_CASERECORDPAGE 
 } from 'config/server';
 
 // const caseRecord = {
@@ -24,17 +28,23 @@ import {
 //     patientInfor: null,
 //     doctorOrPharmacistInfor: {},
 //     caseRecord: {},
-//     caseRecordPages: []    // array of caseRecordPageOptions
+//     caseRecordPages: []    // array of caseRecordPageOptions,
+//     pageSize: 1,
+//     pageIndex: 1,
+//     emptyDb: false
 // } 
 
-const caseRecordCreator = (uuid_caseRecord, caseRecord) => {
+function caseRecordCreator(uuid_caseRecord, caseRecord) {
     return {
         uuid_caseRecord: uuid_caseRecord,
         patientInfor: null,
         doctorOrPharmacistInfor: null,
         caseRecord: caseRecord,
-        caseRecordPages: []    // array of caseRecordPageOptions
-    } 
+        caseRecordPages: [], // array of caseRecordPageOptions,
+        pageSize: 1,
+        pageIndex: null,
+        emptyDb: false
+    };
 }
 
 // fetch data
@@ -50,7 +60,7 @@ function* fetchReadPatientInfor(uuid_sickPerSon) {
         })
         const resData = res.data;
         if (resData.success) {
-            yield put({type: setPatientInforCurrent.type, payload: resData.sickPerson})
+            yield put({type: setPatientInforCurrent.type, payload: resData.sickPerson});
         } else {
             yield put({type: setCaseRecordError.type, payload: resData.data});
         }
@@ -73,7 +83,7 @@ function* fetchReadDoctorOrPharmacistInfor(uuid_doctorOrPharmacist) {
         })
         const resData = res.data;
         if (resData.success) {
-            yield put({type: setDoctorOrPharmacistCurrent.type, payload: resData.doctorOrPharmacist})
+            yield put({type: setDoctorOrPharmacistCurrent.type, payload: resData.doctorOrPharmacist});
         } else {
             yield put({type: setCaseRecordError.type, payload: resData.data});
         }
@@ -152,8 +162,62 @@ function* caseRecordInit(action) {
     }
 }
 
+// load more case-record Page
+function* caseRecordPageLoadMore(action) {
+    try {
+        const pageSize = yield select(state => {
+            const currentIndex = state.caseRecord.currentIndex;
+            const pageSize = state.caseRecord.caseRecords[currentIndex].pageSize;
+            return pageSize;
+        })
+        let pageIndex = yield select(state => {
+            const currentIndex = state.caseRecord.currentIndex;
+            const pageIndex = state.caseRecord.caseRecords[currentIndex].pageIndex;
+            return pageIndex;
+        })
+        const uuid_caseRecord = yield select(state => state.caseRecord.current_uuid_caseRecord);
+        const emptyDb = yield select(state => {
+            const currentIndex = state.caseRecord.currentIndex;
+            const pageIndex = state.caseRecord.caseRecords[currentIndex].emptyDb;
+            return pageIndex;
+        })
+        if (!emptyDb && ((action.payload==='caseRecordPageInit' && pageIndex===null) || (action.payload==='loadMoreCaseRecordPage'))) {
+            if (pageIndex===null) {
+                yield put({type: setPageIndex.type, payload: 1});
+                pageIndex = yield select(state => {
+                    const currentIndex = state.caseRecord.currentIndex;
+                    const pageIndex = state.caseRecord.caseRecords[currentIndex].pageIndex;
+                    return pageIndex;
+                })
+            }
+            const res = yield call(() => {
+                return axios({
+                    method: 'get',
+                    url: `${SERVER_ADDRESS_GETLIST_CASERECORDPAGE}?pageSize=${pageSize}&pageIndex=${pageIndex}&uuid_caseRecord=${uuid_caseRecord}`,
+                    withCredentials: true
+                })
+            })
+            const resData = res.data;
+            // console.log(resData)
+            if (resData.success) {
+                yield put({type: pushCaseRecordPage.type, payload: resData.caseRecordPages.rows});
+                if (resData.caseRecordPages.count <= pageSize*pageIndex) {
+                    yield put({type: setEmptyDb.type, payload: true});
+                }
+                yield put({type: setPageIndex.type, payload: pageIndex + 1});
+            } else {
+                yield put({type: setCaseRecordError.type, payload: resData});
+            }
+        }
+    } catch (error) {
+        yield put({type: setCaseRecordError.type, payload: error});
+    }
+}
+
 function* caseRecordSage() {
     yield takeLatest('caseRecordInit', caseRecordInit);
+
+    yield takeLeading('loadMoreCaseRecordPage', caseRecordPageLoadMore);
 }
 
 

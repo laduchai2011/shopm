@@ -33,8 +33,8 @@ import { SERVER_ADDRESS_UPLOADIMAGE, SERVER_ADDRESS_GETIMAGE, SERVER_ADDRESS_POS
 
 /**
 *@typedef {
-*page: integer
 *priceTotal: integer,
+*status: string,
 *description: {
 *   note: string,
 *   images: [],
