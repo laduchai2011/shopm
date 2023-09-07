@@ -1,4 +1,0 @@
-01-08-2023	48:11:20--------/registerDoctorOrPharmacist---POST---Error: WHERE parameter "user" has invalid "undefined" value
-01-08-2023	58:12:20--------/registerDoctorOrPharmacist---POST---Error: WHERE parameter "user" has invalid "undefined" value
-01-08-2023	07:14:20--------/registerDoctorOrPharmacist---POST---Error: WHERE parameter "user" has invalid "undefined" value
-01-08-2023	57:25:20--------/registerDoctorOrPharmacist---POST---SequelizeDatabaseError: Invalid column name 'uuid'.

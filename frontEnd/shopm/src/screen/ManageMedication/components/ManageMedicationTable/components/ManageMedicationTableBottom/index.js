@@ -14,11 +14,7 @@ import ManageMedicationTableBottomToastMessage, { setToasMessage } from "./compo
 import { $, $$ } from "utilize/Tricks";
 import { SERVER_ADDRESS_GET_MEDICATIONMANAGER_LIST, SERVER_ADDRESS_PATCH_MEDICATION } from "config/server";
 
-import { 
-    initState, 
-    reducer,
-    getData
-} from "./utilize/reducer";
+import reducer, { initState, getData } from "./utilize/reducer";
 
 const ManageMedicationTableBottom = ({changeTop, setChangBottom}) => {
     const {id: uuid_provider} = useParams();

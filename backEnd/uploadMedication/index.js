@@ -6,10 +6,12 @@ const morgan = require('morgan');
 const app = express();
 const cookieParser = require('cookie-parser');
 
+const baseURL_shopm = 'http://192.168.5.129:3000';
+
 //add other middleware
 app.use('/api/svUploadMedication', function (req, res, next) {
     // specify CORS headers to send
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Origin', baseURL_shopm);
     res.header(
         'Access-Control-Allow-Methods',
         'POST, PUT, PATCH, GET, DELETE, OPTIONS',
@@ -34,6 +36,6 @@ app.use('/api/svUploadMedication', router);
 
 const PORT = process.env.NODE_SERVER_PORT_KEY || 8600;
 
-app.listen(PORT, function () {
+app.listen(PORT, '0.0.0.0', function () {
     console.log(`Listening on port ${PORT}!`);
 });

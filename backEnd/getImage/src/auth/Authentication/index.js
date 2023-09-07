@@ -10,6 +10,7 @@ function Authentication(req, res, next) {
         serviceRedis.getData(keyServiceRedis, (redisData) => {
             if(redisData !== null) {
                 const secretKey = redisData.secretKey;
+                const preSecretKey = redisData.preSecretKey;
                 token.verify(accessToken, secretKey, (err1, decodedAccessToken) => {
                     if(err1) {
                         if ((redisData.accessToken === accessToken) && (redisData.refreshToken === refreshToken)) {
@@ -34,23 +35,40 @@ function Authentication(req, res, next) {
                                     secretKey: newSecretKey,
                                     refreshToken: newRefreshToken, 
                                     accessToken: newAccessToken,
+                                    preSecretKey: secretKey,
+                                    preRefreshToken: refreshToken,
+                                    preAccessToken: accessToken, 
                                     refreshToken_used: new_new_refreshToken_used
                                 };
                                 const timeExpireat = 60*60*24*30*12; // 1 year
-                                serviceRedis.setData(keyServiceRedis, jsonValue, timeExpireat);
+
+                                try {
+                                    serviceRedis.setData(keyServiceRedis, jsonValue, timeExpireat);
+                                } catch (error) {
+                                    return res.status(200).json({
+                                        message: 'Please login !',
+                                        status: false, 
+                                        error: error
+                                    })
+                                }
+
+                                let secure_cookie = false;
+                                if (process.env.NODE_ENV !== 'development') {
+                                    secure_cookie = true;
+                                }
 
                                 res.cookie('uid', uid, {
                                     httpOnly: true,
-                                    secure: true,
+                                    secure: secure_cookie,
                                     expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
                                     // signed: true
                                 }).cookie('accessToken', newAccessToken, {
                                     httpOnly: true, 
-                                    secure: true,
+                                    secure: secure_cookie,
                                     expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
                                 }).cookie('refreshToken', newRefreshToken, {
                                     httpOnly: true, 
-                                    secure: true,
+                                    secure: secure_cookie,
                                     expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
                                 })
 
@@ -58,6 +76,16 @@ function Authentication(req, res, next) {
                                 //     message: 'Reset token !', 
                                 //     status: true
                                 // })
+                                req.decodedToken = decodedRefreshToken;
+                                next();
+                            })
+                        } else if ((redisData.preAccessToken === accessToken) && (redisData.preRefreshToken === refreshToken)) {
+                            token.verify(refreshToken, preSecretKey, (err2, decodedRefreshToken) => {
+                                if(err2) return res.status(200).json({
+                                    message: 'Access token expired !',
+                                    status: false
+                                })
+
                                 req.decodedToken = decodedRefreshToken;
                                 next();
                             })

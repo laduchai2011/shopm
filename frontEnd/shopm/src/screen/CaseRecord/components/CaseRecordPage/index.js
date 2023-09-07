@@ -11,7 +11,8 @@ import TextEditor from "TextEditor";
 import { TEGetContent, TESetContent } from "TextEditor/utilize";
 import { $$ } from "utilize/Tricks";
 
-import { getCookie, setCookie, deleteCookie } from "auth/cookie";
+import { SERVER_ADDRESS_GET_VIDEO } from "config/server";
+import { getCookie } from "auth/cookie";
 
 
 /**
@@ -31,7 +32,6 @@ import { getCookie, setCookie, deleteCookie } from "auth/cookie";
 */ 
 
 const CaseRecordPage = () => {
-    const KEY_CACHE_CUSTOM = 'caseRecordPageDataPage';
     const index = 0;
     const dispatch = useDispatch();
     const currentIndex = useSelector(state => state.caseRecord.currentIndex);
@@ -43,6 +43,8 @@ const CaseRecordPage = () => {
     });
 
     const [dataPage, setDataPage] = useState();
+    const [newImages, setNewImages] = useState([]); // [{file: '', blob: ''}]
+    const [removeImages, setRemoveImages] = useState([]);
     const [editBoolD, setEditBoolD] = useState(false);
     const [editBoolP, setEditBoolP] = useState(false);
     const [dataP, setDataP] = useState('');
@@ -75,12 +77,6 @@ const CaseRecordPage = () => {
     }, [caseRecordPage])
 
     useEffect(() => {
-        if  (editBoolD || editBoolP) {
-            setCookie(KEY_CACHE_CUSTOM, JSON.stringify(dataPage), 30);
-        }
-    }, [dataPage, editBoolD, editBoolP])
-
-    useEffect(() => {
         if (!editBoolP) {
             const q_prescription = $$('.CaseRecordPage-prescription-content')[pageNumber];
             q_prescription.children[0].innerHTML = dataP;
@@ -88,6 +84,10 @@ const CaseRecordPage = () => {
             TESetContent({content: dataP})
         }
     }, [dataP, editBoolP])
+
+    useEffect(() => {
+        console.log('newImages', newImages)
+    }, [newImages])
 
     const handleSaveP = () => {
         if (editBoolP) {
@@ -98,7 +98,6 @@ const CaseRecordPage = () => {
 
     const handleSaveD = () => {
         if (editBoolD) {
-            deleteCookie(KEY_CACHE_CUSTOM);
             setEditBoolD(false);
         }
     }
@@ -122,19 +121,60 @@ const CaseRecordPage = () => {
         })
     }
 
+    const handleUnRemoveImages = (data) => {
+        const cpRemoveImages = [...removeImages];
+        cpRemoveImages.splice(cpRemoveImages.indexOf(data), 1);
+        setRemoveImages(cpRemoveImages);
+    }
+
+    const handleAddImages = (e) => {
+        const files = e.target.files;
+        const newImagePaths = [];
+        const newImages_m = []; // [{file: '', blob: ''}]
+        for (let i = 0; i < files.length; i++) {
+            const path = URL.createObjectURL(files[i]);
+            newImagePaths.push(path);
+            newImages_m.push({
+                file: files[i],
+                blob: path
+            })
+        }
+        const cpImages = dataPage.description.images;
+        const finalImages = cpImages.concat(newImagePaths);
+        setDataPage(pre => {
+            return {
+                ...pre,
+                description: {
+                    ...pre.description,
+                    images: finalImages
+                }
+            }
+        })
+        setNewImages(pre => pre.concat(newImages_m));
+    }
+
     const list_image = dataPage?.description.images.map((data, index) => {
         return (
             <div key={index}>
-                { editBoolD && <CiCircleRemove size={25} /> }
+                { editBoolD && 
+                    <>
+                        { 
+                            removeImages.indexOf(data) < 0 ?  
+                            <CiCircleRemove onClick={() => setRemoveImages(pre => [...pre, data])} size={25} /> : 
+                            <div onClick={() => handleUnRemoveImages(data)}>Un-Remove</div>
+                        }
+                    </>
+                }
                 <img src={data} alt="" />
             </div>
         )
     })
 
     const list_video = [
-        'http://localhost:4040/api/video/',
-        'http://localhost:4040/api/video/',
-        'http://localhost:4040/api/video/'
+        SERVER_ADDRESS_GET_VIDEO, 
+        SERVER_ADDRESS_GET_VIDEO, 
+        SERVER_ADDRESS_GET_VIDEO,
+        SERVER_ADDRESS_GET_VIDEO
     ].map((data, index) => {
         return (
             <div key={index}>
@@ -153,19 +193,21 @@ const CaseRecordPage = () => {
                 <div className="CaseRecordPage-description-header">Description of the disease</div>
                 <div className="CaseRecordPage-description-iconContainer">
                     { getCookie('caseRecordRole')==='patient' && <>
-                        { editBoolD && <div className="CaseRecordPage-description-icon image">
+                        { editBoolD && <label className="CaseRecordPage-description-icon image" htmlFor='inputImg'>
                             <span>Image</span>
                             <BsFillFileEarmarkImageFill color="white" size={25} />
-                        </div> }
-                        { editBoolD && <div className="CaseRecordPage-description-icon video">
+                            <input id='inputImg' type='file' hidden="hidden" accept="image/*" multiple onChange={(e) => handleAddImages(e)} />
+                        </label> }
+                        { editBoolD && <label className="CaseRecordPage-description-icon video" htmlFor='inputVideo'>
                             <span>Video</span>
                             <BsPersonVideo2 color="white" size={25} />
-                        </div> }
+                            <input id='inputVideo' type='file' hidden="hidden" accept="video/mp4, video/mov" multiple />
+                        </label> }
                         <div className="CaseRecordPage-description-icon editor" onClick={() => setEditBoolD(true)}>
                             <span>Edit</span>
                             <AiFillEdit color="green" size={25} />
                         </div> 
-                    </>}
+                    </> }
                 </div>
                 <div className="CaseRecordPage-description-content">
                     { !editBoolD && <div>{ dataPage?.description.note }</div> }

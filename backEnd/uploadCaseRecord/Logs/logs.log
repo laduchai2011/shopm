@@ -1,6 +1,0 @@
-22-08-2023	50:43:11--------/caseRecord/create---POST---SequelizeValidationError: notNull Violation: CaseRecord.uuid_user cannot be null
-22-08-2023	02:46:11--------/caseRecord/create---POST---SequelizeValidationError: notNull Violation: CaseRecord.uuid_user cannot be null
-22-08-2023	52:46:11--------/caseRecord/create---POST---SequelizeValidationError: string violation: dataPage cannot be an array or an object
-22-08-2023	07:47:11--------/caseRecord/create---POST---SequelizeValidationError: string violation: dataPage cannot be an array or an object
-01-09-2023	46:41:19--------/caseRecord/create---POST---SequelizeValidationError: notNull Violation: CaseRecordPage.status cannot be null
-01-09-2023	59:41:19--------/caseRecord/create---POST---SequelizeValidationError: notNull Violation: CaseRecordPage.status cannot be null

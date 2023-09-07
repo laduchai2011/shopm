@@ -7,6 +7,8 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const app = express();
 
+const baseURL_shopm = 'http://192.168.5.129:3000';
+
 //add other middleware
 if (process.env.NODE_ENV === 'development') {
     app.use('/api/svUploadImage', morgan('dev'));
@@ -18,7 +20,7 @@ app.use('/api/svUploadImage', express.urlencoded({extended: true}));
 // app.use('/api', express.static(__dirname + '/public'));
 app.use('/api/svUploadImage', function (req, res, next) {
     // specify CORS headers to send
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Origin', baseURL_shopm);
     res.header(
       'Access-Control-Allow-Methods',
       'POST, PUT, PATCH, GET, DELETE, OPTIONS',
@@ -49,6 +51,6 @@ app.use('/api/svUploadImage', router);
 
 const PORT = process.env.NODE_SERVER_PORT_KEY || 8100;
 
-app.listen(PORT || 8100, function () {
+app.listen(PORT, '0.0.0.0', function () {
     console.log(`Listening on port ${PORT}!`);
 });

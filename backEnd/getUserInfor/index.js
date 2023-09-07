@@ -4,10 +4,12 @@ const router = require('./router');
 const morgan = require('morgan');
 const app = express();
 
+const baseURL_shopm = 'http://192.168.5.129:3000';
+
 //add other middleware
 app.use('/api/svGetUserInfor', function (req, res, next) {
     // specify CORS headers to send
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Origin', baseURL_shopm);
     res.header(
         'Access-Control-Allow-Methods',
         'POST, PUT, PATCH, GET, DELETE, OPTIONS',
@@ -30,6 +32,6 @@ app.use('/api/svGetUserInfor', router);
 
 const PORT = process.env.NODE_SERVER_PORT_KEY || 7100
 
-app.listen(PORT, function () {
+app.listen(PORT, '0.0.0.0', function () {
     console.log(`Listening on port ${PORT}!`);
 });

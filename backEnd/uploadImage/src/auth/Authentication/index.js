@@ -52,18 +52,23 @@ function Authentication(req, res, next) {
                                     })
                                 }
 
+                                let secure_cookie = false;
+                                if (process.env.NODE_ENV !== 'development') {
+                                    secure_cookie = true;
+                                }
+
                                 res.cookie('uid', uid, {
                                     httpOnly: true,
-                                    secure: true,
+                                    secure: secure_cookie,
                                     expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
                                     // signed: true
                                 }).cookie('accessToken', newAccessToken, {
                                     httpOnly: true, 
-                                    secure: true,
+                                    secure: secure_cookie,
                                     expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
                                 }).cookie('refreshToken', newRefreshToken, {
                                     httpOnly: true, 
-                                    secure: true,
+                                    secure: secure_cookie,
                                     expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
                                 })
 

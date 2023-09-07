@@ -72,11 +72,12 @@ const Login = () => {
                     'Content-Type': 'application/json'
                 }
             }).then(res => {
-                const data = res.data;
-                if (data.exist) {
+                const resData = res.data;
+                console.log('resData', resData)
+                if (resData.exist) {
                     navigate('/');
                 } else {
-                    setNote(data.message)
+                    setNote(resData.message)
                 }
             }).catch(error => console.error(error))
         }

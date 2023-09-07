@@ -50,8 +50,9 @@ function reducer(state, action) {
     }
 }
 
-module.exports = { 
+export { 
     initState,
-    reducer,
     getData
 }
+
+export default reducer;

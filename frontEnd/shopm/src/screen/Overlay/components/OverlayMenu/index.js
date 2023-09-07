@@ -3,7 +3,7 @@ import './styles.css';
 
 import { useNavigate } from "react-router-dom";
 
-import { AiOutlineMenu, AiOutlineHome, AiOutlineSetting } from 'react-icons/ai';
+import { AiOutlineMenu, AiOutlineHome, AiOutlineSetting, AiOutlineLogin } from 'react-icons/ai';
 import { TbBrandProducthunt } from 'react-icons/tb';
 import { BsHospital, BsFillRecordBtnFill } from 'react-icons/bs';
 import { GiAbstract013 } from 'react-icons/gi';
@@ -39,6 +39,10 @@ const OverlayMenu = () => {
                 <div title="Setting">
                     <AiOutlineSetting size={25} />
                     <span>Setting</span>
+                </div>
+                <div onClick={() => navigate(`/login`)} title="Login">
+                    <AiOutlineLogin size={25} />
+                    <span>Login</span>
                 </div>
                 <div onClick={() => navigate(`/extend`)} title="Extend">
                     <GiAbstract013 size={25} />

@@ -40,6 +40,6 @@ app.get("/api/video", function (req, res) {
     videoStream.pipe(res);
 });
 
-app.listen(4040, function () {
+app.listen(4040, '0.0.0.0', function () {
     console.log("Listening on port 4040!");
 });

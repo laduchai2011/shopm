@@ -10,7 +10,7 @@
     "apexcharts": "^3.41.0",
     "axios": "^1.4.0",
     "draft-js": "^0.11.7",
-    "firebase": "^9.22.2",
+    "firebase": "^9.23.0",
     "html2pdf.js": "^0.10.1",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
@@ -47,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "transform": {
+    "\\.js$": "<rootDir>/node_modules/babel-jest"
   }
 }
