@@ -61,38 +61,36 @@ class CaseRecordPage {
         })
     }
 
-    // update(uuid_orderAllMedication, orderAllMedicationOptions, callback) {
-    //     let orderAllMedication;
-    //     let err;
+    update_withSickPerson(uuid_caseRecordPage, dataPage,  callback) {
+        let caseRecordPage;
+        let err;
         
-    //     const orderAllMedicationPromise = new Promise((resolve, reject) => {
-    //         try {
-    //             sequelize.transaction(async (t) => {
-    //                 try {
-    //                     const newOrderAllMedication = await this._OrderAllMedication.update(orderAllMedicationOptions, {
-    //                         where: {
-    //                             uuid_orderAllMedication: uuid_orderAllMedication
-    //                         }
-    //                     }, { transaction: t });
-    //                     resolve(newOrderAllMedication);   
-    //                 } catch (error) {
-    //                     reject(error);
-    //                 }
-    //             });
-    //         } catch (error) {
-    //             reject(error);
-    //         }
-    //     });
+        const caseRecordPagePromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isCaseRecordPage = await this._CaseRecordPage.findByPk(uuid_caseRecordPage, { lock: true, transaction: t });
+                        isCaseRecordPage.dataPage = dataPage;
+                        await isCaseRecordPage.save({ transaction:t })
+                        resolve(isCaseRecordPage);   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
 
-    //     orderAllMedicationPromise
-    //     .then(newOrderAllMedication => {
-    //         orderAllMedication = newOrderAllMedication;
-    //     }).catch(error => {
-    //         err = error;
-    //     }).finally(() => {
-    //         callback(orderAllMedication, err);
-    //     })
-    // }
+        caseRecordPagePromise
+        .then(isCaseRecordPage => {
+            caseRecordPage = isCaseRecordPage;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(caseRecordPage, err);
+        })
+    }
 }
 
 const caseRecordPage = new CaseRecordPage();

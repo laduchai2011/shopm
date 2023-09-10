@@ -6,6 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 // const { verifyToken } = require('./src/middle/checkToken');
 const { crudImage } = require('./src/model/CRUDDATABASE/CRUDIMAGE');
 const { Authentication } = require('./src/auth/Authentication');
+const { logEvents } = require('./logEvents');
 
 
 router.get('/', (req, res) => {
@@ -30,19 +31,21 @@ router.post('/image', Authentication, (req, res) => {
 
     crudImage.bulkCreate(imagesOptionsArray, (err, images) => {
         if(err) {
-            console.error(err)
+            logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
         }
         return res.status(201).json({
             message: 'Upload Image success !', 
             status: true,
-            imageUrls: images
+            imageUrls: images,
+            success: true
         })
     })
 })
 
 router.post('/image/upload', Authentication, (req, res) => {
     if (!req.files) {
+        logEvents(`${req.url}---${req.method}---${'file is not found'}`);
         return res.status(500).send({ msg: "file is not found" });
     }
 
@@ -68,6 +71,7 @@ router.post('/image/upload', Authentication, (req, res) => {
         const newPromise = new Promise((resolve, reject) => {
             myFile.mv(`${__dirname}/public/image/${path}`, function (err) {
                 if (err) {
+                    logEvents(`${req.url}---${req.method}---${err}`);
                     reject(err);
                 } else {
                     // returing the response with file path and name
@@ -88,11 +92,14 @@ router.post('/image/upload', Authentication, (req, res) => {
             decodedToekn: req.decodedToken,
             status: true, 
             fileNames: fileNames,
-            paths: paths
+            paths: paths,
+            success: true
         })
     }).catch(err => {
+        logEvents(`${req.url}---${req.method}---${err}`);
         return res.status(500).send({ 
-            message: "Error occured" ,
+            message: "Error occured",
+            success: false,
             err: err
         });
     })

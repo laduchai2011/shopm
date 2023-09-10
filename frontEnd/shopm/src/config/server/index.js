@@ -36,6 +36,7 @@ export const SERVER_ADDRESS_POST_CASERECORD                           = `${baseU
 export const SERVER_ADDRESS_GETLIST_CASERECORD                        = `${baseURL}:7300/api/svGetCaseRecord/caseRecord/getList`;
 export const SERVER_ADDRESS_GET_CASERECORD                            = `${baseURL}:7300/api/svGetCaseRecord/caseRecord/get`;
 export const SERVER_ADDRESS_GETLIST_CASERECORDPAGE                    = `${baseURL}:7300/api/svGetCaseRecord/caseRecordPage/getList`;
+export const SERVER_ADDRESS_PATCH_CASERECORDPAGE                      = `${baseURL}:7200/api/svUploadCaseRecord/caseRecordPage/patch`;                       
 
 
 // ---------------------------------------

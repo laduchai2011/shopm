@@ -97,7 +97,7 @@ const Add = () => {
 
     const uploadImage = (files, callback) => {
         const formData = new FormData();
-        files.forEach(file => formData.append("file", file))
+        files.forEach(file => formData.append("file", file));
         axios.post(
             SERVER_ADDRESS_UPLOADIMAGE,
             formData,

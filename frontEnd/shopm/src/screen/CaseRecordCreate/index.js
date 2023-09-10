@@ -130,8 +130,9 @@ const CaseRecordCreate = () => {
                 withCredentials: true, 
             }
         ).then(res => {
-            if (res.data.status) {
-                const paths = res.data.paths;
+            const resData= res.data;
+            if (resData.success) {
+                const paths = resData.paths;
                 const imageUrls = [];
                 paths.forEach(path => imageUrls.push(`${SERVER_ADDRESS_GETIMAGE}/${path}`))
                 callback(imageUrls);

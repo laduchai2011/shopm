@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import './styles.css';
 
+import axios from "axios";
+
 import { useDispatch, useSelector } from 'react-redux';
 import { AiFillEdit } from 'react-icons/ai';
 import { CiCircleRemove } from 'react-icons/ci';
@@ -11,8 +13,14 @@ import TextEditor from "TextEditor";
 import { TEGetContent, TESetContent } from "TextEditor/utilize";
 import { $$ } from "utilize/Tricks";
 
-import { SERVER_ADDRESS_GET_VIDEO } from "config/server";
+import { 
+    SERVER_ADDRESS_GET_VIDEO, 
+    SERVER_ADDRESS_GETIMAGE, 
+    SERVER_ADDRESS_UPLOADIMAGE,
+    SERVER_ADDRESS_PATCH_CASERECORDPAGE 
+} from "config/server";
 import { getCookie } from "auth/cookie";
+import myEvents from "utilize/myEvents";
 
 
 /**
@@ -86,8 +94,13 @@ const CaseRecordPage = () => {
     }, [dataP, editBoolP])
 
     useEffect(() => {
-        console.log('newImages', newImages)
-    }, [newImages])
+        return () => {
+            for (let i = 0; i < newImages.length; i++) {
+                URL.revokeObjectURL(newImages.blob);
+            }
+        }
+        // eslint-disable-next-line
+    }, [])
 
     const handleSaveP = () => {
         if (editBoolP) {
@@ -96,8 +109,97 @@ const CaseRecordPage = () => {
         }
     }
 
+    // update with patient
+    useEffect(() => {
+        // filter images removed
+        myEvents.on('filterRemovedImages-start', ({cpNewImages, cpImages}) => {
+            const filterNewImages = cpNewImages.filter(image => removeImages.indexOf(image.blob) === -1);
+            const filterImages = cpImages.filter(image => (removeImages.indexOf(image) === -1) && (image.indexOf('blob') === -1));
+
+            myEvents.emit('filterRemovedImages-success', ({filterNewImages, filterImages}));
+        })
+
+        // upload new Images
+        myEvents.on('uploadNewImages-start', ({filterNewImages, filterImages}) => {
+            if (filterNewImages.length > 0) {
+                const formData = new FormData();
+                filterNewImages.forEach(image => formData.append("file", image.file));
+                axios.post(
+                    SERVER_ADDRESS_UPLOADIMAGE,
+                    formData,
+                    {
+                        withCredentials: true, 
+                    }
+                ).then(res => {
+                    const resData= res.data;
+                    if (resData.success) {
+                        const paths = res.data.paths;
+                        const imageUrls = [];
+                        paths.forEach(path => imageUrls.push(`${SERVER_ADDRESS_GETIMAGE}/${path}`));
+                        const imageUrls_filterNewImages = imageUrls;
+                        myEvents.emit('uploadNewImages-success', ({imageUrls_filterNewImages, filterImages}));
+                    } else {
+                        alert(resData.message);
+                    }
+                }).catch(err => console.error(err));
+            } else {
+                const imageUrls_filterNewImages = [];
+                myEvents.emit('uploadNewImages-success', ({imageUrls_filterNewImages, filterImages}));
+            }
+        })
+
+        // add new image Urls to description in dataPage
+        myEvents.on('concatImageUrls-start', ({imageUrls_filterNewImages, filterImages}) => {
+            const finalImages = filterImages.concat(imageUrls_filterNewImages);
+            myEvents.emit('concatImageUrls-success', finalImages);
+        })
+
+        // update database
+        myEvents.on('updateDB', finalImages => {
+            const cpDataPage = {...dataPage};
+            cpDataPage.description.images = finalImages;
+
+            axios({
+                method: 'patch',
+                url: SERVER_ADDRESS_PATCH_CASERECORDPAGE,
+                withCredentials: true,
+                data: {
+                    caseRecordRole: getCookie('caseRecordRole'),
+                    uuid_caseRecordPage: caseRecordPage.uuid_caseRecordPage,
+                    dataPage: cpDataPage
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                const resData = res.data;
+                console.log(resData);
+            }).catch(error => console.error(error))
+        })
+
+    }, [dataPage, newImages, removeImages, caseRecordPage])
+
     const handleSaveD = () => {
         if (editBoolD) {
+            myEvents.on('concatImageUrls-success', finalImages => {
+                console.log('concatImageUrls-success')
+                myEvents.emit('updateDB', finalImages)
+            })
+
+            myEvents.on('uploadNewImages-success', ({imageUrls_filterNewImages, filterImages}) => {
+                console.log('uploadNewImages-success')
+                myEvents.emit('concatImageUrls-start', ({imageUrls_filterNewImages, filterImages}))
+            })
+
+            myEvents.on('filterRemovedImages-success', ({filterNewImages, filterImages}) => {
+                console.log('filterRemovedImages-success')
+                myEvents.emit('uploadNewImages-start', ({filterNewImages, filterImages}))
+            })
+
+            const cpNewImages = [...newImages];
+            const cpImages = [...dataPage.description.images];
+            myEvents.emit('filterRemovedImages-start', ({cpNewImages, cpImages}));
+            
             setEditBoolD(false);
         }
     }
@@ -139,7 +241,7 @@ const CaseRecordPage = () => {
                 blob: path
             })
         }
-        const cpImages = dataPage.description.images;
+        const cpImages = [...dataPage.description.images];
         const finalImages = cpImages.concat(newImagePaths);
         setDataPage(pre => {
             return {
@@ -183,8 +285,6 @@ const CaseRecordPage = () => {
             </div>
         )
     })
-
-    // const des_m = 'Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease Description of the disease';
 
     return (
         <div className="CaseRecordPage">

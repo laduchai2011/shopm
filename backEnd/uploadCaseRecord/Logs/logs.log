@@ -1,0 +1,3 @@
+11-09-2023	14:03:01--------/caseRecordPage/patch---PATCH---TypeError: Cannot set properties of null (setting 'dataPage')
+11-09-2023	28:06:01--------/caseRecordPage/patch---PATCH---TypeError: Cannot set properties of null (setting 'dataPage')
+11-09-2023	15:09:01--------/caseRecordPage/patch---PATCH---SequelizeValidationError: string violation: dataPage cannot be an array or an object
