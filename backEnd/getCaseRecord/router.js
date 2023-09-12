@@ -65,7 +65,6 @@ router.get('/caseRecordPage/getList', Authentication, (req, res) => {
     const pageIndex = req.query.pageIndex;
     const pageSize = req.query.pageSize;
     const uuid_caseRecord = req.query.uuid_caseRecord;
-    // console.log('-----------------------', pageIndex, pageSize)
     caseRecordPage.bulkReadWithFk(uuid_caseRecord, Number(pageIndex), Number(pageSize), (caseRecordPages, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);

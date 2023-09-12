@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, memo } from "react";
 import './styles.css';
 
 import ProfileBottomHistory from "./components/ProfileBottomHistory";
@@ -19,4 +19,4 @@ const ProfileBottom = () => {
     )
 }
 
-export default ProfileBottom;
+export default memo(ProfileBottom);

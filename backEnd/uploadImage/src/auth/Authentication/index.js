@@ -13,11 +13,14 @@ function Authentication(req, res, next) {
                 const preSecretKey = redisData.preSecretKey;
                 token.verify(accessToken, secretKey, (err1, decodedAccessToken) => {
                     if(err1) {
+                        logEvents(`${req.url}---${req.method}---${err1}`);
                         if ((redisData.accessToken === accessToken) && (redisData.refreshToken === refreshToken)) {
                             token.verify(refreshToken, secretKey, (err2, decodedRefreshToken) => {
+                                logEvents(`${req.url}---${req.method}---${err2}`);
                                 if(err2) return res.status(200).json({
                                     message: 'Token expired. Please login again !',
-                                    status: false
+                                    status: false,
+                                    success: false
                                 })
 
                                 const newSecretKey = uuidv4();
@@ -45,10 +48,12 @@ function Authentication(req, res, next) {
                                 try {
                                     serviceRedis.setData(keyServiceRedis, jsonValue, timeExpireat);
                                 } catch (error) {
+                                    logEvents(`${req.url}---${req.method}---${error}`);
                                     return res.status(200).json({
                                         message: 'Please login !',
                                         status: false, 
-                                        error: error
+                                        error: error,
+                                        success: false
                                     })
                                 }
 
@@ -81,10 +86,14 @@ function Authentication(req, res, next) {
                             })
                         } else if ((redisData.preAccessToken === accessToken) && (redisData.preRefreshToken === refreshToken)) {
                             token.verify(refreshToken, preSecretKey, (err2, decodedRefreshToken) => {
-                                if(err2) return res.status(200).json({
-                                    message: 'Access token expired !',
-                                    status: false
-                                })
+                                if(err2) {
+                                    logEvents(`${req.url}---${req.method}---${err2}`);
+                                    return res.status(200).json({
+                                        message: 'Access token expired !',
+                                        status: false,
+                                        success: false
+                                    })
+                                }
 
                                 req.decodedToken = decodedRefreshToken;
                                 next();
@@ -93,12 +102,14 @@ function Authentication(req, res, next) {
                             if(redisData.refreshToken_used.includes(refreshToken)) {
                                 return res.status(200).json({
                                     message: 'Your account is attacked. Please login again !',
-                                    status: false
+                                    status: false,
+                                    success: false
                                 })
                             } else {
                                 return res.status(200).json({
                                     message: 'Invalid token. Please login !',
-                                    status: false
+                                    status: false,
+                                    success: false
                                 })
                             }
                         }
@@ -114,7 +125,8 @@ function Authentication(req, res, next) {
             } else {
                 return res.status(200).json({
                     message: 'Please login !',
-                    status: false
+                    status: false,
+                    success: false
                 })
             }
         })
@@ -122,7 +134,8 @@ function Authentication(req, res, next) {
         return res.status(200).json({
             message: 'Please login !',
             status: false, 
-            error: error
+            error: error,
+            success: false
         })
     }
 }

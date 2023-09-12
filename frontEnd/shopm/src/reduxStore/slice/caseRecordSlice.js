@@ -30,7 +30,7 @@ import { createSlice } from '@reduxjs/toolkit';
 *   images: [],
 *   videos: []
 *},
-*Prescription: {
+*prescription: {
 *   note: text,
 *   medicationList: []    
 *}

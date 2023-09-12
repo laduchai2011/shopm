@@ -1,7 +1,6 @@
 import React, { memo, useEffect, useContext } from 'react';
 import './styles.css';
 
-// import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { AiOutlineMenu } from 'react-icons/ai';
 import { IoMdNotificationsOutline } from 'react-icons/io';
@@ -11,12 +10,14 @@ import Overlay from 'screen/Overlay';
 
 import { ThemeContextApp } from "utilize/ContextApp";
 import { $$ } from 'utilize/Tricks';
+import { getCookie } from 'auth/cookie';
 
 const Header = () => {
-    // const count = useSelector((state) => state.counter.value1);
     const navigate = useNavigate();
 
     const clickDocument = useContext(ThemeContextApp);
+    const loginInfor = JSON.parse(getCookie('loginInfor'));
+    const avatarNull = 'https://tse1.mm.bing.net/th?id=OIP.sVrMAmmEljdzKDEba8nttAHaHa&pid=Api&P=0&h=180';
 
     useEffect(() => {
         return () => {
@@ -80,7 +81,7 @@ const Header = () => {
                     <IoMdNotificationsOutline size={30} />
                     <p>5</p>
                 </div>
-                <img src="https://1.bp.blogspot.com/-a71p9zvla98/UkP4-cPfK4I/AAAAAAAAAg8/va9AmdChErg/s1600/anh-dep-hinh-nen-thien-nhien-0.jpg" onClick={() => navigate('/profile/23423sdgfsdgds')} alt=""/>
+                <img src={loginInfor.avatar!==null ? loginInfor.avatar : avatarNull} onClick={() => navigate(`/profile/${loginInfor.uuid}`)} alt=""/>
             </div>
             <Overlay />
         </div>

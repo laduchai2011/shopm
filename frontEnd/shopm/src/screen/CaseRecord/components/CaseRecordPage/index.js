@@ -32,7 +32,7 @@ import myEvents from "utilize/myEvents";
 *   images: [],
 *   videos: []
 *},
-*Prescription: {
+*prescription: {
 *   note: text,
 *   medicationList: []    
 *}
@@ -56,7 +56,6 @@ const CaseRecordPage = () => {
     const [editBoolD, setEditBoolD] = useState(false);
     const [editBoolP, setEditBoolP] = useState(false);
     const [dataP, setDataP] = useState('');
-    const pageNumber = 0;
 
     useEffect(() => {
         if (currentIndex!==null) {
@@ -86,7 +85,7 @@ const CaseRecordPage = () => {
 
     useEffect(() => {
         if (!editBoolP) {
-            const q_prescription = $$('.CaseRecordPage-prescription-content')[pageNumber];
+            const q_prescription = $$('.CaseRecordPage-prescription-content')[index];
             q_prescription.children[0].innerHTML = dataP;
         } else {
             TESetContent({content: dataP})
@@ -155,9 +154,11 @@ const CaseRecordPage = () => {
         })
 
         // update database
-        myEvents.on('updateDB', finalImages => {
+        myEvents.on('updateDB-start', finalImages => {
             const cpDataPage = {...dataPage};
             cpDataPage.description.images = finalImages;
+            let data;
+            let err;
 
             axios({
                 method: 'patch',
@@ -173,34 +174,42 @@ const CaseRecordPage = () => {
                 }
             }).then(res => {
                 const resData = res.data;
-                console.log(resData);
-            }).catch(error => console.error(error))
+                data = resData;
+            }).catch(error => {
+                err = error;
+            }).finally(() => {
+                myEvents.emit('updateDB-finally', ({data, err}));
+            })
         })
 
     }, [dataPage, newImages, removeImages, caseRecordPage])
 
     const handleSaveD = () => {
         if (editBoolD) {
+            myEvents.on('updateDB-finally', ({data, err}) => {
+                if (err) console.error(err);
+                console.log(data);
+                setEditBoolD(false);
+            })
+
             myEvents.on('concatImageUrls-success', finalImages => {
-                console.log('concatImageUrls-success')
-                myEvents.emit('updateDB', finalImages)
+                // console.log('concatImageUrls-success')
+                myEvents.emit('updateDB-start', finalImages)
             })
 
             myEvents.on('uploadNewImages-success', ({imageUrls_filterNewImages, filterImages}) => {
-                console.log('uploadNewImages-success')
+                // console.log('uploadNewImages-success')
                 myEvents.emit('concatImageUrls-start', ({imageUrls_filterNewImages, filterImages}))
             })
 
             myEvents.on('filterRemovedImages-success', ({filterNewImages, filterImages}) => {
-                console.log('filterRemovedImages-success')
+                // console.log('filterRemovedImages-success')
                 myEvents.emit('uploadNewImages-start', ({filterNewImages, filterImages}))
             })
 
             const cpNewImages = [...newImages];
             const cpImages = [...dataPage.description.images];
             myEvents.emit('filterRemovedImages-start', ({cpNewImages, cpImages}));
-            
-            setEditBoolD(false);
         }
     }
 
@@ -343,8 +352,12 @@ const CaseRecordPage = () => {
                 </div>
             </div>
             <div className="CaseRecordPage-buttonContainer">
-                { getCookie('caseRecordRole')!=='patient' && <button onClick={() => handleSaveP()}>Save Prescription</button> }
-                { getCookie('caseRecordRole')==='patient' && <button onClick={() => handleSaveD()}>Save Description</button> }
+                { getCookie('caseRecordRole')!=='patient' && 
+                    <>{ editBoolP && <button onClick={() => handleSaveP()}>Save Prescription</button> }</> 
+                }
+                { getCookie('caseRecordRole')==='patient' && 
+                    <>{ editBoolD && <button onClick={() => handleSaveD()}>Save Description</button> }</> 
+                }
                 <button>Lock</button>
                 <button>Un-Lock</button>
             </div>

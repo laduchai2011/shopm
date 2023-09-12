@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require("express");
 const router = require('./router');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 const app = express();
 
 const baseURL_shopm = 'http://192.168.5.129:3000';
@@ -25,6 +26,7 @@ if (process.env.NODE_ENV === 'development') {
     app.use('/api/svGetUserInfor', morgan('dev'));
 }
 
+app.use(cookieParser());
 app.use('/api/svGetUserInfor', express.json());
 app.use('/api/svGetUserInfor', express.urlencoded({extended: true}));
 

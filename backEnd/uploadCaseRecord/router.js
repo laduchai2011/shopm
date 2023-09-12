@@ -28,7 +28,6 @@ router.post('/caseRecord/create', Authentication, (req, res) => {
 
 
 router.patch('/caseRecordPage/patch', Authentication, (req, res) => {
-    console.log(req.body)
     const caseRecordRole = req.body.caseRecordRole;
     const uuid_caseRecordPage = req.body.uuid_caseRecordPage;
     const dataPage = req.body.dataPage;

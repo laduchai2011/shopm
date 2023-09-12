@@ -49,7 +49,6 @@ router.post('/login', (req, res) => {
             });
 
             const loginCode = uuidv4();
-            console.log('loginCode', loginCode)
 
             // create token
             const secretKey = uuidv4();
@@ -88,6 +87,9 @@ router.post('/login', (req, res) => {
                 expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
             }).cookie('loginCode', loginCode, {
                 httpOnly: true, 
+                secure: secure_cookie,
+                expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
+            }).cookie('loginInfor', JSON.stringify(user.dataValues), {
                 secure: secure_cookie,
                 expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
             })
