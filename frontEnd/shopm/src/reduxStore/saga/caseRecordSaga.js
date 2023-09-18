@@ -1,4 +1,11 @@
-import { put, takeLatest, delay, select, call, takeLeading } from 'redux-saga/effects';
+import { 
+    put, 
+    takeLatest, 
+    delay, 
+    select, 
+    call, 
+    takeLeading 
+} from 'redux-saga/effects';
 
 import { 
     setCaseRecordCurrent, 
@@ -106,7 +113,7 @@ function* fetchReadCaseRecord(current_uuid_caseRecord) {
         })
         const resData = res.data;
         if (resData.success) {
-            yield put({type: setCaseRecordNewData.type, payload: caseRecordCreator(current_uuid_caseRecord, resData.caseRecord)})
+            yield put({type: setCaseRecordNewData.type, payload: caseRecordCreator(current_uuid_caseRecord, resData.caseRecord)});
         } else {
             yield put({type: setCaseRecordError.type, payload: resData.data});
         }

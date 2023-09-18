@@ -32,3 +32,18 @@ UPDATE CaseRecordPages
 SET status = 'botComplete'
 
 DELETE FROM CaseRecords
+
+
+SELECT * FROM Users
+SELECT count(1) FROM Users
+
+
+USE datatest;
+DROP TABLE IF EXISTS Users;
+CREATE TABLE Users (
+	id INT IDENTITY(1,1) NOT NULL,
+	client_name VARCHAR(32) NOT NULL,
+	modification_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+	CONSTRAINT PK_id PRIMARY KEY(id),
+);

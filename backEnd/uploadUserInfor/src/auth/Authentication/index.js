@@ -2,6 +2,7 @@
 const { v4: uuidv4 } = require('uuid');
 const { token } = require('../../model/token');
 const { serviceRedis } = require('../../model/serviceRedis');
+const { logEvents } = require('../../../logEvents');
 
 function Authentication(req, res, next) {
     const { refreshToken, accessToken, loginCode, uid } = req.cookies;

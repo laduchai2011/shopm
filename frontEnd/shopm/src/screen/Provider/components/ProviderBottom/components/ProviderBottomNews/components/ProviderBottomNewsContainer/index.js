@@ -14,7 +14,7 @@ const ProviderBottomNewsContainer = ({ onData, index }) => {
 
     const provider = JSON.parse(window.sessionStorage.getItem('providerData'));
 
-    const clickDocument = useContext(ThemeContextApp);
+    const { clickDocument } = useContext(ThemeContextApp);
 
     useEffect(() => {
         return () => {

@@ -15,7 +15,7 @@ const ProductsFromProviderBottom = () => {
 
     const navigate = useNavigate();
 
-    const clickDocument = useContext(ThemeContextApp);
+    const { clickDocument } = useContext(ThemeContextApp);
 
     useEffect(() => {
         return () => {

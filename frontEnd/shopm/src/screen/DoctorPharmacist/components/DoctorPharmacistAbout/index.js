@@ -10,7 +10,7 @@ import { RiArrowUpSLine } from 'react-icons/ri';
 
 const DoctorPharmacistAbout = () => {
 
-    const clickDocument = useContext(ThemeContextApp);
+    const { clickDocument } = useContext(ThemeContextApp);
 
     useEffect(() => {
         return () => {

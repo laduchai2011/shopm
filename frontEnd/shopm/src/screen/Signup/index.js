@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import './styles.css';
 
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import backgroundtop from './images/backgroundtop.png';
 import backgroundtopsmall1 from './images/backgroundtopsmall1.png';
@@ -61,7 +61,7 @@ const Signup = () => {
         lastName: ''
     });
 
-    const clickDocument = useContext(ThemeContextApp);
+    const { clickDocument } = useContext(ThemeContextApp);
 
     useEffect(() => {
         return () => {
@@ -81,6 +81,9 @@ const Signup = () => {
         //     const qvery = $('.SignupVerify');
         //     qvery.classList.add('show');
         // });
+
+        console.log('Signup');
+
         setNote('');
         if (infor.user==='') {
             setNote('Account is not allow empty !');
@@ -109,12 +112,12 @@ const Signup = () => {
                     url: SERVER_ADDRESS_SIGNUP,
                     data: infor
                 }).then((res) => {
-                    const data = res.data;
-                    console.log(data)
-                    if (data.exist) {
-                        loadingIcon.classList.remove('loading');
-                        signupSpan.classList.remove('hidden');
-                        setNote(data.message);
+                    const resData = res.data;
+                    console.log('resData-signup', resData)
+                    loadingIcon.classList.remove('loading');
+                    signupSpan.classList.remove('hidden');
+                    if (!resData.success) {
+                        setNote(resData.message);
                     } else {
                         navigate('/login');
                     }
@@ -249,8 +252,6 @@ const Signup = () => {
             default:
                 throw new Error('Parameter invalid !');
         }
-
-        
     }
 
     return (
@@ -296,7 +297,7 @@ const Signup = () => {
                     <span className="Signup-signupSpan">Sign Up</span>
                 </div>
                 <span className="Signup-account" onClick={() => handleSignin()}>Have an Account ?</span>
-                <div className="Signup-login">
+                <div className="Signup-login" onClick={() => navigate('/login')}>
                     <span>Login</span>
                 </div>
                 <div className="Signup-recaptcha-container">

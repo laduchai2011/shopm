@@ -12,3 +12,13 @@
     border-radius: 20px;
     box-sizing: border-box;
 }
+
+.CaseRecord-main1-empty {
+    font-size: 2em;
+    color: blue;
+    font-weight: 700;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

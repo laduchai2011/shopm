@@ -51,7 +51,7 @@ const dataFake = {
 
 const ProviderBottomNews = () => {
 
-    const clickDocument = useContext(ThemeContextApp);
+    const { clickDocument } = useContext(ThemeContextApp);
 
     const navigate = useNavigate();
     const { id: uuid_provider } = useParams();

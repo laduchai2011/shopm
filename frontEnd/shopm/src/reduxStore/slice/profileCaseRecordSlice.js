@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+import { SERVER_ADDRESS_GETLIST_CASERECORD } from 'config/server';
+
 /**
 *@typedef {
 *title: string,
@@ -25,27 +27,35 @@ const initialState = {
 
 export const fetchBulkReadCaseRecord = createAsyncThunk(
     'profileCaseRecord/fetchBulkRead',
-    async (serverAddress, thunkAPI) => {    
+    async (uuid_user, thunkAPI) => {    
         try {
             const getState = thunkAPI.getState().profileCaseRecord;
             const res = await axios({
                 method: 'get',
-                url: `${serverAddress}?pageIndex=${getState.pageIndex}&pageSize=${getState.pageSize}`,
+                url: `${SERVER_ADDRESS_GETLIST_CASERECORD}?pageIndex=${getState.pageIndex}&pageSize=${getState.pageSize}&uuid_user=${uuid_user}`,
                 withCredentials: true,
                 signal: thunkAPI.signal
             })
 
             const resData = res.data;
-            console.log(resData)
+
             if (resData.success) {
                 const list_caseRecord = resData.caseRecords.rows;
                 for (let i = 0; i < list_caseRecord.length; i++) {
                     list_caseRecord[i].load = true;
                 }
+
+                let pageIndex = getState.pageIndex;
+                let pageSize = getState.pageSize;
+                const count = resData.caseRecords.count;
+                if (pageIndex*pageSize < count) {
+                    pageIndex = pageIndex + 1;
+                }
+
                 return {
-                    count: resData.caseRecords.count,
+                    count: count,
                     data: list_caseRecord,
-                    pageIndexNext: getState.pageIndex + 1
+                    pageIndexNext: pageIndex
                 };
             } else {
                 return thunkAPI.rejectWithValue(resData.message); 
@@ -76,52 +86,7 @@ export const profileCaseRecordSlice = createSlice({
             state.fetching = false;
         })
         builder.addCase(fetchBulkReadCaseRecord.fulfilled, (state, action) => {
-            // console.log('fulfilled', action.payload)
-
-            const data = action.payload.data;
-            // if (process.env.NODE_ENV === 'development') {
-            //     // console.log('development');
-
-            //     if (state.pageIndex === 1) {
-            //         state.caseRecords = data;
-            //     } else {
-            //         state.caseRecords.pop();
-            //         state.caseRecords = state.caseRecords.concat(data);
-            //     }
-
-            //     if (state.pageIndex*state.pageSize < action.payload.count) {
-            //         state.emptyDB = false;
-            //     } else {
-            //         state.emptyDB = true;
-            //     }
-
-            //     state.fetching = false;
-            //     if (!state.init) {
-            //         state.pageIndex = 1;
-            //         state.init = true;
-            //     } else {
-            //         state.pageIndex = action.payload.pageIndexNext;
-            //     }
-            // } else {
-            //     // console.log('product');
-
-            //     if (state.pageIndex === 1) {
-            //         state.caseRecords = data;
-            //     } else {
-            //         state.caseRecords.pop();
-            //         state.caseRecords = state.caseRecords.concat(data);
-            //     }
-    
-            //     if (state.pageIndex*state.pageSize < action.payload.count) {
-            //         state.emptyDB = false;
-            //     } else {
-            //         state.emptyDB = true;
-            //     }
-    
-            //     state.fetching = false;
-            //     state.pageIndex = action.payload.pageIndexNext;
-            // }
-           
+            const data = action.payload.data;      
             
             if (state.pageIndex === 1) {
                 state.caseRecords = data;

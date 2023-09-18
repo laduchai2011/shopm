@@ -10,14 +10,13 @@ import Overlay from 'screen/Overlay';
 
 import { ThemeContextApp } from "utilize/ContextApp";
 import { $$ } from 'utilize/Tricks';
-import { getCookie } from 'auth/cookie';
+import { avatarNull } from 'utilize/constant';
+
 
 const Header = () => {
     const navigate = useNavigate();
 
-    const clickDocument = useContext(ThemeContextApp);
-    const loginInfor = JSON.parse(getCookie('loginInfor'));
-    const avatarNull = 'https://tse1.mm.bing.net/th?id=OIP.sVrMAmmEljdzKDEba8nttAHaHa&pid=Api&P=0&h=180';
+    const { clickDocument, loginInfor } = useContext(ThemeContextApp);
 
     useEffect(() => {
         return () => {
@@ -81,7 +80,13 @@ const Header = () => {
                     <IoMdNotificationsOutline size={30} />
                     <p>5</p>
                 </div>
-                <img src={loginInfor.avatar!==null ? loginInfor.avatar : avatarNull} onClick={() => navigate(`/profile/${loginInfor.uuid}`)} alt=""/>
+                { loginInfor!==null ? <img 
+                    src={loginInfor.avatar!==null ? loginInfor.avatar : avatarNull} 
+                    onClick={() => navigate(`/profile/${loginInfor?.uuid}`)} alt=""
+                /> : <img 
+                    src={ avatarNull } 
+                    onClick={() => navigate(`/login`)} alt=""
+                />}
             </div>
             <Overlay />
         </div>

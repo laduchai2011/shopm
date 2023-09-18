@@ -71,7 +71,7 @@ class CaseRecordPage {
                     try {
                         const isCaseRecordPage = await this._CaseRecordPage.findByPk(uuid_caseRecordPage, { lock: true, transaction: t });
                         isCaseRecordPage.dataPage = dataPage;
-                        await isCaseRecordPage.save({ transaction:t })
+                        await isCaseRecordPage.save({ transaction:t });
                         resolve(isCaseRecordPage);   
                     } catch (error) {
                         reject(error);

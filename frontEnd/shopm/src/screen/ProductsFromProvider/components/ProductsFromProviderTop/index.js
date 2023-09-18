@@ -9,7 +9,7 @@ import { ThemeContextApp } from "utilize/ContextApp";
 
 const ProductsFromProviderTop = () => {
 
-    const clickDocument = useContext(ThemeContextApp);
+    const { clickDocument } = useContext(ThemeContextApp);
 
     useEffect(() => {
         return () => {

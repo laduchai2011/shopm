@@ -22,7 +22,7 @@ const fakeData = [{subject: '111',content: '111'}, {subject: '111',content: '111
 
 const ProviderBottomAbout = () => {
     const navigate = useNavigate();
-    const clickDocument = useContext(ThemeContextApp);
+    const { clickDocument } = useContext(ThemeContextApp);
     const providerStore = useContext(ProviderContext);
     const [data, setData] = useState({
         showData: fakeData,

@@ -2,6 +2,7 @@
 const { v4: uuidv4 } = require('uuid');
 const { token } = require('../../model/token');
 const { serviceRedis } = require('../../model/serviceRedis');
+const { logEvents } = require('../../../logEvents');
 
 function Authentication(req, res, next) {
     const { refreshToken, accessToken, loginCode, uid } = req.cookies;
@@ -50,7 +51,7 @@ function Authentication(req, res, next) {
                                 } catch (error) {
                                     logEvents(`${req.url}---${req.method}---${error}`);
                                     return res.status(200).json({
-                                        message: 'Please login !',
+                                        message: 'Please login 1 !',
                                         status: false, 
                                         error: error,
                                         success: false
@@ -124,7 +125,7 @@ function Authentication(req, res, next) {
                 })
             } else {
                 return res.status(200).json({
-                    message: 'Please login !',
+                    message: 'Please login 2 !',
                     status: false,
                     success: false
                 })
@@ -132,7 +133,7 @@ function Authentication(req, res, next) {
         })
     } catch (error) {
         return res.status(200).json({
-            message: 'Please login !',
+            message: 'Please login 3 !',
             status: false, 
             error: error,
             success: false

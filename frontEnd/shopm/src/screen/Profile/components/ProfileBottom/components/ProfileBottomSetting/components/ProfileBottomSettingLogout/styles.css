@@ -1,0 +1,26 @@
+.ProfileBottomSettingLogout {
+    box-sizing: border-box;
+    width: 100%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ProfileBottomSettingLogout > button {
+    box-sizing: border-box;
+    border: 1px solid red;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    font-size: 1.1em;
+    border-radius: 10px;
+    cursor: pointer;
+
+    transition: 0.3s ease-in-out;
+}
+
+.ProfileBottomSettingLogout > button:hover {
+    background-color: white;
+    color: red;
+}

@@ -1,6 +1,7 @@
-const { Op } = require('sequelize');
+const { Op, where } = require('sequelize');
 const { sequelize } = require('../../../config/database');
 const { defineModel } = require('../defineModel');
+const { options } = require('../../../../router');
 
 /**
 *@typedef {
@@ -48,38 +49,44 @@ class CaseRecord {
         })
     }
 
-    // update(uuid_orderAllMedication, orderAllMedicationOptions, callback) {
-    //     let orderAllMedication;
-    //     let err;
+    updateDoctorPharmacist(uuid_user, uuid_caseRecord, uuid_doctorOrPharmacist, callback) {
+        let caseRecord;
+        let err;
         
-    //     const orderAllMedicationPromise = new Promise((resolve, reject) => {
-    //         try {
-    //             sequelize.transaction(async (t) => {
-    //                 try {
-    //                     const newOrderAllMedication = await this._OrderAllMedication.update(orderAllMedicationOptions, {
-    //                         where: {
-    //                             uuid_orderAllMedication: uuid_orderAllMedication
-    //                         }
-    //                     }, { transaction: t });
-    //                     resolve(newOrderAllMedication);   
-    //                 } catch (error) {
-    //                     reject(error);
-    //                 }
-    //             });
-    //         } catch (error) {
-    //             reject(error);
-    //         }
-    //     });
+        const caseRecordPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isCaseRecord = await this._CaseRecord.findByPk(
+                            uuid_caseRecord,
+                            {
+                                where: {
+                                    uuid_user: uuid_user
+                                }
+                            },
+                            { lock: true, transaction: t },
+                        );
+                        isCaseRecord.uuid_doctorOrPharmacist = uuid_doctorOrPharmacist;
+                        await isCaseRecord.save({ transaction:t });
+                        resolve(isCaseRecord);   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
 
-    //     orderAllMedicationPromise
-    //     .then(newOrderAllMedication => {
-    //         orderAllMedication = newOrderAllMedication;
-    //     }).catch(error => {
-    //         err = error;
-    //     }).finally(() => {
-    //         callback(orderAllMedication, err);
-    //     })
-    // }
+        caseRecordPromise
+        .then(isCaseRecord => {
+            caseRecord = isCaseRecord;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(caseRecord, err);
+        })
+    }
 }
 
 const caseRecord = new CaseRecord();

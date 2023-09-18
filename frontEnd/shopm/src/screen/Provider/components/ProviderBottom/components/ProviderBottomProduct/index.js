@@ -36,7 +36,7 @@ const ProviderBottomProduct = () => {
     const params = useParams();
     const navigate = useNavigate();
 
-    const clickDocument = useContext(ThemeContextApp);
+    const { clickDocument } = useContext(ThemeContextApp);
 
     const [state, setSate] = useState({
         medications: [fakeMedication, fakeMedication, fakeMedication, fakeMedication, fakeMedication],

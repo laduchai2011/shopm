@@ -9,6 +9,8 @@ import { ThemeContextApp } from './utilize/ContextApp';
 // import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
 
+import { getCookie } from 'auth/cookie';
+
 
 
 function App() {
@@ -30,8 +32,15 @@ function App() {
 
     const clickDocument = new ClickDocument();
     clickDocument.start();
+
+    const loginInforCookie = getCookie('loginInfor');
+    let loginInfor = null;
+    if (loginInforCookie) {
+        loginInfor = JSON.parse(loginInforCookie);
+    }
+
     return (
-        <ThemeContextApp.Provider value={ clickDocument }>
+        <ThemeContextApp.Provider value={{clickDocument, loginInfor}}>
             <div className="App">
                 <Router />
                 {/* <Overlay /> */}

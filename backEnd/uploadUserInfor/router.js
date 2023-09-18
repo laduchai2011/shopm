@@ -13,6 +13,10 @@ const { serviceRedis } = require('./src/model/serviceRedis');
 const { Authentication } = require('./src/auth/Authentication');
 const { logEvents } = require('./logEvents');
 
+let secure_cookie = false;
+if (process.env.NODE_ENV !== 'development') {
+    secure_cookie = true;
+}
 
 router.post('/signup', (req, res) => {
     const userOptions = req.body;
@@ -24,12 +28,14 @@ router.post('/signup', (req, res) => {
             if (user !== null) return res.status(201).json({
                 user: user,
                 exist: false,
-                message: 'Signin success !'
+                message: 'Signin success !',
+                success: true
             });
-            return res.status(205).json({
+            return res.status(200).json({
                 user: userOptions,
                 exist: true,
-                message: 'Account or phone number is used !'
+                message: 'Account or phone number is used !',
+                success: false
             });
         }
     });
@@ -66,11 +72,6 @@ router.post('/login', (req, res) => {
             };
             const timeExpireat = 60*60*24*30*12; // 1 year
             serviceRedis.setData(keyServiceRedis, jsonValue, timeExpireat);
-        
-            let secure_cookie = false;
-            if (process.env.NODE_ENV !== 'development') {
-                secure_cookie = true;
-            }
 
             res.cookie('uid', user.dataValues.uuid, {
                 httpOnly: true,
@@ -103,6 +104,35 @@ router.post('/login', (req, res) => {
             });
         }
     })
+})
+
+router.post('/logout', Authentication, (req, res) => {
+    res.cookie('uid', '', {
+        httpOnly: true,
+        secure: secure_cookie,
+        expires: new Date(Date.now()),
+        // signed: true
+    }).cookie('accessToken', '', {
+        httpOnly: true, 
+        secure: secure_cookie,
+        expires: new Date(Date.now())
+    }).cookie('refreshToken', '', {
+        httpOnly: true, 
+        secure: secure_cookie,
+        expires: new Date(Date.now())
+    }).cookie('loginCode', '', {
+        httpOnly: true, 
+        secure: secure_cookie,
+        expires: new Date(Date.now())
+    }).cookie('loginInfor', '', {
+        secure: secure_cookie,
+        expires: new Date(Date.now())
+    })
+
+    return res.status(200).json({
+        success: true,
+        message: 'Logout success !'
+    });
 })
 
 router.post('/registerDoctorOrPharmacist', Authentication, (req, res) => {   

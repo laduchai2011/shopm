@@ -76,10 +76,13 @@ const Login = () => {
                 console.log('resData', resData)
                 if (resData.exist) {
                     navigate('/');
+                    window.location.reload();
                 } else {
                     setNote(resData.message)
                 }
-            }).catch(error => console.error(error))
+            }).catch(error => {
+                console.error(error);
+            })
         }
     }
     
@@ -109,7 +112,7 @@ const Login = () => {
                 <span className="Login-forgot">Forgot ?</span>
                 <div className="Login-register">
                     <span>Register</span>
-                    <img src={nextsmall} alt="" />
+                    <img src={nextsmall} onClick={() => navigate('/signup')} alt="" />
                 </div>
                 <div className="Login-main-bottom">
                     <img className="Login-main-bottom-img1" src={backgroundbottom} alt="" />

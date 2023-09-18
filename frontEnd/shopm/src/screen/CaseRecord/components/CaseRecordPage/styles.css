@@ -113,10 +113,12 @@
     padding: 2px 5px;
     border-radius: 5px;
     cursor: pointer;
+    margin-right: 2px;
 }
 
-.CaseRecordPage-prescription-medicationList div:nth-child(2) svg {
-    margin-right: 2px;
+.CaseRecordPage-prescription-medicationList-table {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100, 1fr));
 }
 
 .CaseRecordPage-buttonContainer {

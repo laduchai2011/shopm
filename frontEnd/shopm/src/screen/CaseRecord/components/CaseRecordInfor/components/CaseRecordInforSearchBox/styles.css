@@ -63,6 +63,20 @@
     font-size: 1.1em;
 }
 
+.CaseRecordInforSearchBox-box-pending {
+    margin: 10px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CaseRecordInforSearchBox-box-pending > span {
+    background-color: #eee;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
 .CaseRecordInforSearchBox-list {
     margin: 5px 0;
     overflow-y: scroll;
@@ -92,6 +106,11 @@
     align-items: center;
 }
 
+.CaseRecordInforSearchBox-doctorPharmacistInforBox > div:nth-child(1) {
+    width: 75%;
+    overflow: hidden;
+}
+
 .CaseRecordInforSearchBox-doctorPharmacistInforBox > div > img {
     aspect-ratio: 1/1;
     border-radius: 50%;
@@ -109,6 +128,9 @@
 .CaseRecordInforSearchBox-doctorPharmacistInforBox > div > div > div:nth-child(1) {
     font-size: 1.3em;
     font-weight: 600;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
 .CaseRecordInforSearchBox-doctorPharmacistInforBox > div > div > div:nth-child(2) {
@@ -125,4 +147,60 @@
 
 .CaseRecordInforSearchBox-doctorPharmacistInforBox > div > button:active {
     background-color: rgb(153, 255, 0);
+}
+
+.CaseRecordInforSearchBox-doctorPharmacistInforBox > div > svg {
+    cursor: pointer;
+}
+
+.CaseRecordInforSearchBox-box-selected {
+    background-color: rgb(180, 255, 255);
+    padding: 5px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.CaseRecordInforSearchBox-box-selected > div {
+    display: flex;
+    align-items: center;
+}
+
+.CaseRecordInforSearchBox-box-selected > div > span {
+    font-size: 0.8em;
+    padding: 0 10px;
+    color: red;
+}
+
+.CaseRecordInforSearchBox-box-selected > div > strong {
+    font-style: italic;
+    color: green;
+    cursor: pointer;
+}
+
+.CaseRecordInforSearchBox-box-selected > div > button {
+    border: none;
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+.CaseRecordInforSearchBox-box-selected > div > svg {
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+@media screen and (max-width: 450px) {
+    .CaseRecordInforSearchBox {
+        font-size: 14px;
+    }
+
+    .CaseRecordInforSearchBox-doctorPharmacistInforBox > div > img {
+        margin-right: 5px;
+        height: 70px;
+    }
 }

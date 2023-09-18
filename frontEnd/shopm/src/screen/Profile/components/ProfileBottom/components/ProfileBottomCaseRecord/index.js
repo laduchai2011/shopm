@@ -1,12 +1,11 @@
 import React, { memo, useEffect } from 'react';
 import './styles.css';
 
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ProfileBottomCaseRecordHeader from './components/ProfileBottomCaseRecordHeader';
 import ProfileBottomCaseRecordBox from './components/ProfileBottomCaseRecordBox';
-
-import { SERVER_ADDRESS_GETLIST_CASERECORD } from 'config/server';
 
 import { fetchBulkReadCaseRecord } from 'reduxStore/slice/profileCaseRecordSlice';
 
@@ -15,11 +14,12 @@ const ProfileBottomCaseRecord = () => {
     const caseRecords = useSelector((state) => state.profileCaseRecord.caseRecords);
     const emptyDB = useSelector((state) => state.profileCaseRecord.emptyDB);
     const dispatch = useDispatch();
+    const { id: uuid_user } = useParams();
 
     useEffect(() => {
         let promise_fetchBulkReadCaseRecord;
         if (!fetching && caseRecords.length===0) {
-            promise_fetchBulkReadCaseRecord = dispatch(fetchBulkReadCaseRecord(SERVER_ADDRESS_GETLIST_CASERECORD));
+            promise_fetchBulkReadCaseRecord = dispatch(fetchBulkReadCaseRecord(uuid_user));
         }
 
         return () => {
@@ -32,7 +32,7 @@ const ProfileBottomCaseRecord = () => {
     window.onscroll = function() {
         const scrollable = window.innerHeight + document.documentElement.scrollTop - document.documentElement.offsetHeight;
         if((scrollable > -10) && !fetching && !emptyDB) {
-            dispatch(fetchBulkReadCaseRecord(SERVER_ADDRESS_GETLIST_CASERECORD))
+            dispatch(fetchBulkReadCaseRecord(uuid_user))
         }
     } 
 

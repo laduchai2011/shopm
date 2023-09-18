@@ -11,11 +11,16 @@ const { caseRecord } = require('./src/model/CRUDDATABASE/CRUDCASERECORD');
 const { caseRecordPage } = require('./src/model/CRUDDATABASE/CRUDCASERECORDPAGE');
 
 
-router.get('/caseRecord/getList', Authentication, (req, res) => {
+let secure_cookie = false;
+if (process.env.NODE_ENV !== 'development') {
+    secure_cookie = true;
+}
+
+router.get('/caseRecord/getList', (req, res) => {
     const pageIndex = req.query.pageIndex;
     const pageSize = req.query.pageSize;
-    const userOptions = req.decodedToken.data;
-    caseRecord.bulkReadWithFk(userOptions.uuid, Number(pageIndex), Number(pageSize), (caseRecords, err) => {
+    const uuid_user = req.query.uuid_user;
+    caseRecord.bulkReadWithFk(uuid_user, Number(pageIndex), Number(pageSize), (caseRecords, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send({ 
@@ -51,7 +56,10 @@ router.get('/caseRecord/get', Authentication, (req, res) => {
                 success: false
             })
             const nCaseRecord = {...caseRecord.dataValues}
-            res.cookie('caseRecordRole', nCaseRecord.uuid_user === userOptions.uuid ? 'patient' : 'doctorOrPharmacist')
+            res.cookie('caseRecordRole', nCaseRecord.uuid_user === userOptions.uuid ? 'patient' : 'doctorOrPharmacist', {
+                secure: secure_cookie,
+                expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+            })
             return res.status(200).json({ 
                 caseRecord: caseRecord,
                 message: "Get case-record successly !",

@@ -345,10 +345,17 @@ const CaseRecordPage = () => {
                 </div>
                 <div className="CaseRecordPage-prescription-medicationList">
                     <div><strong>Medication List:</strong></div>
-                    { editBoolP && <div>
-                        <GrAdd />
-                        <span>Add</span>
-                    </div> }
+                    { editBoolP && <>
+                        <div>
+                            <GrAdd />
+                            <span>Add</span>
+                        </div>
+                        <div className="CaseRecordPage-prescription-medicationList-table">
+                            <div>name</div>
+                            <div>name</div>
+                            <div>name</div>
+                        </div>
+                    </>}
                 </div>
             </div>
             <div className="CaseRecordPage-buttonContainer">
