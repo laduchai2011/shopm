@@ -12,17 +12,25 @@ import { ThemeContextApp } from "utilize/ContextApp";
 import { $$ } from 'utilize/Tricks';
 import { avatarNull } from 'utilize/constant';
 
+import { useGetNotificationCountQuery } from 'reduxStore/RTKQuery/notificationRTKQuery';
+
 
 const Header = () => {
     const navigate = useNavigate();
 
     const { clickDocument, loginInfor } = useContext(ThemeContextApp);
 
+    const { data, isLoading, isFetching, isError } = useGetNotificationCountQuery({type: 'type', status: 'receved'});
+
     useEffect(() => {
         return () => {
             clickDocument.clear();
         }
     }, [clickDocument])
+
+    useEffect(() => {
+        console.log('Header', data)
+    }, [data])
 
     const handleMenu = () => {
         const overlay = document.querySelector(".Overlay");

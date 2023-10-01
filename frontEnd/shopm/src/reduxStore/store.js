@@ -6,6 +6,7 @@ import profileCaseRecordReducer from './slice/profileCaseRecordSlice';
 import caseRecordReducer from './slice/caseRecordSlice';
 import rootSaga from './rootSaga';
 import { doctorOrPharmacistRTKQuery } from './RTKQuery/doctorOrPharmacistRTKQuery';
+import { notificationRTKQuery } from './RTKQuery/notificationRTKQuery';
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -16,10 +17,12 @@ export const store = configureStore({
     profileCaseRecord: profileCaseRecordReducer,
     caseRecord: caseRecordReducer,
     [doctorOrPharmacistRTKQuery.reducerPath]: doctorOrPharmacistRTKQuery.reducer,
+    [notificationRTKQuery.reducerPath]: notificationRTKQuery.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([
     sagaMiddleware, 
-    doctorOrPharmacistRTKQuery.middleware
+    doctorOrPharmacistRTKQuery.middleware,
+    notificationRTKQuery.middleware
   ])
 })
 

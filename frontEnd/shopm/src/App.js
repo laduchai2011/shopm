@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import './App.css';
 
 import Router from './Router';
@@ -10,6 +11,8 @@ import { ThemeContextApp } from './utilize/ContextApp';
 // import { getAnalytics } from "firebase/analytics";
 
 import { getCookie } from 'auth/cookie';
+
+import noti_require_examine from 'notification/noti_require_examine';
 
 
 
@@ -38,6 +41,20 @@ function App() {
     if (loginInforCookie) {
         loginInfor = JSON.parse(loginInforCookie);
     }
+
+    useEffect(() => {
+        // noti_require_examine
+        // noti_require_examine.connect();
+        // noti_require_examine.disconnect();
+        // console.log('start')
+        return () => {
+            clickDocument.destroy();
+            // noti_require_examine.close();
+            // console.log('clear')
+        }
+
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <ThemeContextApp.Provider value={{clickDocument, loginInfor}}>

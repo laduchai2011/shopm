@@ -60,6 +60,10 @@ const CaseRecordInforSearchBox = () => {
         myEvents.emitFirst('searchInput', (e.target.value));
     }
 
+    const handlePatchDoctorPharmacist = () => {
+        setSentStatus(true);
+    }
+
     const isIntergerRange = (fistInt, lastInt, averageInt) => {
         if (averageInt >= 0) {
             if ((fistInt <= averageInt) && (averageInt < lastInt)) {
@@ -136,7 +140,7 @@ const CaseRecordInforSearchBox = () => {
                             </div>
                             }
                             { !sentStatus && <div>
-                                <button onClick={() => setSentStatus(true)}>Send</button>
+                                <button onClick={() => handlePatchDoctorPharmacist()}>Send</button>
                                 <HiOutlineX onClick={() => setSelectedDoctorPharmacist(null)} color='red' size={20} />
                             </div> }
                         </div> 

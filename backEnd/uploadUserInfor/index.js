@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const app = express();
 
-const baseURL_shopm = 'http://192.168.5.129:3000';
+const baseURL_shopm = process.env.NODE_ENV_BASEURL_SHOPM || 'http://192.168.5.129:3000';
 
 //add other middleware
 app.use('/api/svUploadUserInfor', function (req, res, next) {
@@ -33,7 +33,7 @@ app.use(cookieParser(baseURL_shopm));
 
 app.use('/api/svUploadUserInfor', router);
 
-const PORT = process.env.NODE_SERVER_PORT_KEY || 7000
+const PORT = process.env.NODE_SERVER_PORT_KEY || 7000;
 
 app.listen(PORT, '0.0.0.0', function () {
     console.log(`Listening on port ${PORT}!`);

@@ -1,4 +1,5 @@
-export const baseURL = 'http://192.168.5.129';
+export const baseURL                                                           = 'http://192.168.5.129';
+export const baseURL_socket                                                    = 'ws://192.168.5.129';
 
 
 export const SERVER_ADDRESS_SIGNUP                                             = `${baseURL}:7000/api/svUploadUserInfor/signup`;
@@ -39,7 +40,10 @@ export const SERVER_ADDRESS_POST_CASERECORD                                    =
 export const SERVER_ADDRESS_GETLIST_CASERECORD                                 = `${baseURL}:7300/api/svGetCaseRecord/caseRecord/getList`;
 export const SERVER_ADDRESS_GET_CASERECORD                                     = `${baseURL}:7300/api/svGetCaseRecord/caseRecord/get`;
 export const SERVER_ADDRESS_GETLIST_CASERECORDPAGE                             = `${baseURL}:7300/api/svGetCaseRecord/caseRecordPage/getList`;
-export const SERVER_ADDRESS_PATCH_CASERECORDPAGE                               = `${baseURL}:7200/api/svUploadCaseRecord/caseRecordPage/patch`;                       
+export const SERVER_ADDRESS_PATCH_CASERECORDPAGE                               = `${baseURL}:7200/api/svUploadCaseRecord/caseRecordPage/patch`;  
+
+export const SERVER_ADDRESS_GET_NOTIFICATION_ROOM                              = `${baseURL}:2000/api/svNotification/getRoom`; 
+export const SERVER_ADDRESS_NOTI_REQUIRE_EXAMINE                               = `${baseURL_socket}:2100`; 
 
 
 // ---------------------------------------

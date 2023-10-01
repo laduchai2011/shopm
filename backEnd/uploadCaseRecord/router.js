@@ -27,7 +27,11 @@ router.post('/caseRecord/create', Authentication, (req, res) => {
     })
 })
 
-router.patch('/caseRecordPage/patchDoctorPharmacist', Authentication, (req, res) => {
+router.post('/caseRecord/sendRequireToDoctorPharmacist', Authentication, (req, res) => {
+    
+})
+
+router.patch('/caseRecord/patchDoctorPharmacist', Authentication, (req, res) => {
     const userOptions = req.decodedToken.data;
     const uuid_caseRecord = req.body.uuid_caseRecord;
     const uuid_doctorOrPharmacist = req.body.uuid_doctorOrPharmacist;

@@ -37,4 +37,10 @@ export default class ClickDocument {
     getElements() {
         return this._elements;
     }
+
+    destroy() {
+        document.removeEventListener('click', () => {
+            console.log('removeEventListener : click')
+        })
+    }
 }

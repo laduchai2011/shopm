@@ -1,6 +1,0 @@
-13-09-2023	41:13:11--------/logout---POST---JsonWebTokenError: invalid signature
-13-09-2023	00:15:11--------/logout---POST---JsonWebTokenError: invalid signature
-13-09-2023	05:29:13--------/logout---POST---TokenExpiredError: jwt expired
-13-09-2023	05:29:13--------/logout---POST---null
-14-09-2023	21:09:00--------/registerDoctorOrPharmacist---POST---TokenExpiredError: jwt expired
-14-09-2023	21:09:00--------/registerDoctorOrPharmacist---POST---null
