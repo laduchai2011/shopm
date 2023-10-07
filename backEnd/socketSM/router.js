@@ -14,8 +14,8 @@ const { getSocketSMRoom } = require('./src/middle/getSocketSMRoom');
 
 router.get('/getRoom', Authentication, (req, res) => {
     const userOptions = req.decodedToken.data;
-    const roomType = req.query.roomType;
-    getSocketSMRoom(userOptions.uuid, roomType, (socketSMRoom, err) => {
+    const status = req.query.status;
+    getSocketSMRoom(userOptions.uuid, status, async (socketSMRoom, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             console.log(err)
@@ -37,20 +37,20 @@ router.get('/getRoom', Authentication, (req, res) => {
             const timeExpireat = 60*2; // 2p
             const secretKey = uuidv4();
 
-            const accessToken_notificationSocket = token.createAccessTokens(secretKey, JSON.parse(loginInfor));
+            const accessToken_socketSMRoom = await token.createAccessTokens(secretKey, JSON.parse(loginInfor));
 
             const jsonValue = {
                 secretKey: secretKey,
-                accessToken: accessToken_notificationSocket
+                accessToken: accessToken_socketSMRoom
             }
 
-            serviceRedis.setData(keyServiceRedis, jsonValue, timeExpireat);
+            await serviceRedis.setData(keyServiceRedis, jsonValue, timeExpireat);
 
             return res.status(200).json({ 
                 socketSMRoom: socketSMRoom,
                 message: "Get socketSM room successly !",
                 success: true, 
-                accessToken: accessToken_notificationSocket, 
+                accessToken: accessToken_socketSMRoom, 
                 secretKey: secretKey
 
             })

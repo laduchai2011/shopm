@@ -42,8 +42,10 @@ export const SERVER_ADDRESS_GET_CASERECORD                                     =
 export const SERVER_ADDRESS_GETLIST_CASERECORDPAGE                             = `${baseURL}:7300/api/svGetCaseRecord/caseRecordPage/getList`;
 export const SERVER_ADDRESS_PATCH_CASERECORDPAGE                               = `${baseURL}:7200/api/svUploadCaseRecord/caseRecordPage/patch`;  
 
-export const SERVER_ADDRESS_GET_NOTIFICATION_ROOM                              = `${baseURL}:2000/api/svNotification/getRoom`; 
-export const SERVER_ADDRESS_NOTI_REQUIRE_EXAMINE                               = `${baseURL_socket}:2100`; 
+export const SERVER_ADDRESS_GET_SOCKETSM_ROOM                                  = `${baseURL}:2000/api/svSocketSM/getRoom`; 
+export const SERVER_ADDRESS_SOCKETSM                                           = `${baseURL_socket}:2100`; 
+
+
 
 
 // ---------------------------------------

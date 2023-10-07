@@ -14,14 +14,14 @@ const { socketSMRoom: socketSMRoom_obj } = require('../../model/CRUDDATABASE/CRU
 */
 
 
-const getSocketSMRoom = (uuid_user, type, callback) => {
+const getSocketSMRoom = (uuid_user, status, callback) => {
     let socketSMRoom;
     let err;
 
     const getSocketSMRoomPromise = new Promise((resolve, reject) => {
-        socketSMRoom_obj.readWithFK(uuid_user, type, (socketSMRoom1, err) => {
+        socketSMRoom_obj.readWithFK(uuid_user, status, (socketSMRoom1, err) => {
             if (err) { reject(err) } else {
-                if (socketSMRoom1) {
+                if (socketSMRoom1!==null) {
                     resolve(socketSMRoom1);
                 } else {
                     if (!socketSMRoom1 || (socketSMRoom1===null)) {

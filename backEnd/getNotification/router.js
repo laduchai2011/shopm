@@ -29,19 +29,11 @@ router.get('/getNotificationCount', Authentication, (req, res) => {
                 success: false
             })
         } else {
-            if (count!==0) {
-                return res.status(200).json({ 
-                    count: count,
-                    message: "Get get notification count successly !",
-                    success: true
-                })
-            } else {
-                return res.status(200).json({ 
-                    count: count,
-                    message: "Get get notification count NOT successly !",
-                    success: false
-                })
-            }
+            return res.status(200).json({ 
+                count: count,
+                message: "Get get notification count successly !",
+                success: true
+            })
             
         }
     })

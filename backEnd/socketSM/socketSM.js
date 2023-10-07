@@ -3,7 +3,7 @@ const express = require('express');
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const cookieParser = require('socket.io-cookie-parser');
-const { Notification_Authentication } = require('./src/auth/Notification_Authentication');
+const { SocketSM_Authentication } = require('./src/auth/SocketSM_Authentication');
 
 const baseURL_shopm = process.env.NODE_ENV_BASEURL_SHOPM || 'http://192.168.5.129:3000';
 
@@ -34,7 +34,7 @@ const io = new Server(httpServer, {
 console.log('socketSM')
 
 io.use(cookieParser());
-io.use(Notification_Authentication);
+io.use(SocketSM_Authentication);
 
 io.on("connection", (socket) => {
     
@@ -51,5 +51,5 @@ io.on("connection", (socket) => {
 const PORT = process.env.NODE_SERVER_PORT_KEY || 2100;
 
 httpServer.listen(PORT, '0.0.0.0', () => {
-    console.log(`( notification_require_examine ) Listening on port ${PORT}!`);
+    console.log(`( SocketSM ) Listening on port ${PORT}!`);
 });

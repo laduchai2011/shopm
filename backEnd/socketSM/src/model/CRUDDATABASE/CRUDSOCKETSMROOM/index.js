@@ -6,7 +6,7 @@ const { defineModel } = require('../defineModel');
 /**
 *@typedef {
 *room: string,
-*status: integer,
+*status: string,
 *uuid_user: uuid
 *} socketSMRoomOptions
 */  
@@ -46,7 +46,7 @@ class SocketSMRoom {
         })
     }
 
-    readWithFK(uuid_user, type, callback) {
+    readWithFK(uuid_user, status, callback) {
         let socketSMRoom;
         let err;
         
@@ -57,7 +57,7 @@ class SocketSMRoom {
                         const isSocketSMRoom = await this._SockerSMRoom.findOne({
                             where: {
                                 uuid_user: uuid_user,
-                                type: type
+                                status: status
                             },
                         }, { transaction: t });
                         resolve(isSocketSMRoom);   

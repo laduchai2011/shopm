@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 import Router from './Router';
@@ -12,11 +12,15 @@ import { ThemeContextApp } from './utilize/ContextApp';
 
 import { getCookie } from 'auth/cookie';
 
-import noti_require_examine from 'notification/noti_require_examine';
+import socketSM from 'socketSM';
+import { usePatchNotificationStatusMutation } from 'reduxStore/RTKQuery/notificationRTKQuery';
 
 
 
 function App() {
+
+    const [patchNotificationStatus] = usePatchNotificationStatusMutation();
+    const [socketSMConnected, setSocketSMConnected] = useState(false);
     
     // initFirebase();
     // const firebaseConfig = {
@@ -43,17 +47,36 @@ function App() {
     }
 
     useEffect(() => {
-        // noti_require_examine
-        // noti_require_examine.connect();
-        // noti_require_examine.disconnect();
         // console.log('start')
+        
         return () => {
             clickDocument.destroy();
-            // noti_require_examine.close();
-            // console.log('clear')
         }
 
         // eslint-disable-next-line
+    }, [])
+
+    useEffect(() => {
+        if (!socketSMConnected) {
+            socketSM.connect(() => {
+                setSocketSMConnected(true);
+
+                socketSM.onDisconnect(() => {
+                    setSocketSMConnected(false);
+                });
+            });
+        }
+
+        return () => {
+           
+        }
+        
+    }, [socketSMConnected])
+
+    useEffect(() => {
+        setTimeout(() => {
+            patchNotificationStatus({type: 'type1', newStatus: 'receved', currentStatus: 'sent'})
+        }, 3000)
     }, [])
 
     return (

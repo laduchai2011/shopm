@@ -1,18 +1,16 @@
 const { clientRedis } = require('../../config/serviceRedis');
-const { logEvents } = require('../../../logEvents');
 
 class ServiceRedis {
     constructor(clientRedis) {
         this._clientRedis = clientRedis;
         this._clientRedis.connect();
-        this._clientRedis.on('error', err => logEvents(`Redis Client Error ${err}`));
     }
 
-    async setData(key, jsonValue, timeExpireat) {
+    setData(key, jsonValue, timeExpireat) {
         if (key) {
            // timeExpireat: { EX: 60*60*24 }
             const valueToString = JSON.stringify(jsonValue);
-            await this._clientRedis.set(key, valueToString, { EX: timeExpireat });
+            this._clientRedis.set(key, valueToString, { EX: timeExpireat });
         } else {
             throw new Error('Invalid key type!');
         }

@@ -20,7 +20,11 @@ const Header = () => {
 
     const { clickDocument, loginInfor } = useContext(ThemeContextApp);
 
-    const { data, isLoading, isFetching, isError } = useGetNotificationCountQuery({type: 'type', status: 'receved'});
+    const { 
+        data: notification_data,
+        isError: notification_error
+    } = useGetNotificationCountQuery({type: 'type1', status: 'receved'});
+
 
     useEffect(() => {
         return () => {
@@ -29,8 +33,12 @@ const Header = () => {
     }, [clickDocument])
 
     useEffect(() => {
-        console.log('Header', data)
-    }, [data])
+        console.log('notification_data', notification_data)
+    }, [notification_data])
+
+    useEffect(() => {
+        notification_error && alert(notification_error);
+    }, [notification_error])
 
     const handleMenu = () => {
         const overlay = document.querySelector(".Overlay");
@@ -86,7 +94,7 @@ const Header = () => {
                 </div>
                 <div className='Header-iconBox'>
                     <IoMdNotificationsOutline size={30} />
-                    <p>5</p>
+                    { notification_data?.count > 0 && <p>{ notification_data?.count }</p> }
                 </div>
                 { loginInfor!==null ? <img 
                     src={loginInfor.avatar!==null ? loginInfor.avatar : avatarNull} 

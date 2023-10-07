@@ -3,11 +3,10 @@ const jwt = require('jsonwebtoken');
 class Token {
     constructor() {}
 
-    async createAccessTokens(key, data) {
-        const token = await jwt.sign({
+    createAccessTokens(key, data) {
+        return jwt.sign({
             data: data
         }, key, { expiresIn: 60 * 1 });
-        return token;
     }
 
     createRefreshToken(key, data) {
