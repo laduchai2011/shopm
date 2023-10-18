@@ -20,10 +20,11 @@ const Header = () => {
 
     const { clickDocument, loginInfor } = useContext(ThemeContextApp);
 
+    const skipNotification = loginInfor!==null;
     const { 
         data: notification_data,
         isError: notification_error
-    } = useGetNotificationCountQuery({type: 'type1', status: 'receved'});
+    } = useGetNotificationCountQuery({type: 'type1', status: 'receved'}, {skip: !skipNotification});
 
 
     useEffect(() => {
@@ -33,11 +34,13 @@ const Header = () => {
     }, [clickDocument])
 
     useEffect(() => {
-        console.log('notification_data', notification_data)
+        console.log('notification_data', notification_data, loginInfor!==null)
+
+        // eslint-disable-next-line
     }, [notification_data])
 
     useEffect(() => {
-        notification_error && alert(notification_error);
+        notification_error && alert(`Header: ${notification_error}`);
     }, [notification_error])
 
     const handleMenu = () => {
@@ -78,7 +81,7 @@ const Header = () => {
                 <h4 onClick={() => navigate('/')}>SHOPM</h4>
             </div>
             <div className="Header-iconContainer">
-                <div className='Header-iconBox' onClick={(e) => handleShowCartCaseRecord(e)}>
+                { loginInfor!==null && <div className='Header-iconBox' onClick={(e) => handleShowCartCaseRecord(e)}>
                     <BsFillCartPlusFill size={30} />
                     <p>5</p>
                     <div className='Header-contentBox'>
@@ -87,17 +90,17 @@ const Header = () => {
                             { list_contentBox }
                         </div>
                     </div>
-                </div>
-                <div className='Header-iconBox'>
+                </div> }
+                { loginInfor!==null && <div className='Header-iconBox'>
                     <BsCartPlus size={30} />
                     <p>5</p>
-                </div>
-                <div className='Header-iconBox'>
+                </div> }
+                { loginInfor!==null && <div className='Header-iconBox'>
                     <IoMdNotificationsOutline size={30} />
                     { notification_data?.count > 0 && <p>{ notification_data?.count }</p> }
-                </div>
+                </div> }
                 { loginInfor!==null ? <img 
-                    src={loginInfor.avatar!==null ? loginInfor.avatar : avatarNull} 
+                    src={loginInfor?.avatar!==null ? loginInfor?.avatar : avatarNull} 
                     onClick={() => navigate(`/profile/${loginInfor?.uuid}`)} alt=""
                 /> : <img 
                     src={ avatarNull } 

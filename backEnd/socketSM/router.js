@@ -15,10 +15,11 @@ const { getSocketSMRoom } = require('./src/middle/getSocketSMRoom');
 router.get('/getRoom', Authentication, (req, res) => {
     const userOptions = req.decodedToken.data;
     const status = req.query.status;
+    console.log('getRoom ------------------------')
     getSocketSMRoom(userOptions.uuid, status, async (socketSMRoom, err) => {
         if (err) {
+            console.log('----------------------------------', err)
             logEvents(`${req.url}---${req.method}---${err}`);
-            console.log(err)
             return res.status(500).send({ 
                 message: "Can't get socketSM room !",
                 err: err,
@@ -34,17 +35,37 @@ router.get('/getRoom', Authentication, (req, res) => {
             // create access-token for notificatio-socket
             const { loginCode, uid, loginInfor } = req.cookies;
             const keyServiceRedis = `socket-token-${ uid }-${ loginCode }`;
-            const timeExpireat = 60*2; // 2p
+            const timeExpireat = 60 * 2; // 2p
             const secretKey = uuidv4();
 
-            const accessToken_socketSMRoom = await token.createAccessTokens(secretKey, JSON.parse(loginInfor));
+            let accessToken_socketSMRoom;
+
+            try {
+                accessToken_socketSMRoom = await token.createAccessTokens(secretKey, JSON.parse(loginInfor));
+            } catch (error) {
+                logEvents(`${req.url}---${req.method}---${error}`);
+                return res.status(200).json({
+                    message: 'Please login !',
+                    error: error,
+                    success: false
+                })
+            }
 
             const jsonValue = {
                 secretKey: secretKey,
                 accessToken: accessToken_socketSMRoom
             }
 
-            await serviceRedis.setData(keyServiceRedis, jsonValue, timeExpireat);
+            try {
+                await serviceRedis.setData(keyServiceRedis, jsonValue, timeExpireat);
+            } catch (error) {
+                logEvents(`${req.url}---${req.method}---${err2}`);
+                return res.status(200).json({
+                    message: 'Please login !',
+                    error: error,
+                    success: false
+                })
+            }
 
             return res.status(200).json({ 
                 socketSMRoom: socketSMRoom,

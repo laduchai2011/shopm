@@ -35,10 +35,11 @@ class SocketSM {
                 });
         
                 this._socket.io.on("error", (error) => {
-                    console.error(error);
+                    console.error('Error SocketSM', error);
                 })
             } else {
-                alert(resData.message);
+                console.log(`socketSM: ${resData.message}`)
+                // alert(`socketSM: ${resData.message}`);
             }
         })
     }
@@ -67,7 +68,7 @@ class SocketSM {
             withCredentials: true
         }).then(res => {
             resData = res.data;
-            // console.log(resData)
+            // console.log('getSocketSMRoom', resData)
         }).catch(error => console.error(error))
         .finally(() => {
             callback(resData);

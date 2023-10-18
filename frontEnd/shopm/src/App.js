@@ -21,6 +21,7 @@ function App() {
 
     const [patchNotificationStatus] = usePatchNotificationStatusMutation();
     const [socketSMConnected, setSocketSMConnected] = useState(false);
+    const [socketSM_sm, setSocketSM_sm] = useState();
     
     // initFirebase();
     // const firebaseConfig = {
@@ -57,9 +58,11 @@ function App() {
     }, [])
 
     useEffect(() => {
-        if (!socketSMConnected) {
+        if (!socketSMConnected && loginInfor!==null) {
             socketSM.connect(() => {
                 setSocketSMConnected(true);
+
+                setSocketSM_sm(socketSM.getSocket());
 
                 socketSM.onDisconnect(() => {
                     setSocketSMConnected(false);
@@ -71,16 +74,18 @@ function App() {
            
         }
         
-    }, [socketSMConnected])
+    }, [socketSMConnected, loginInfor])
 
     useEffect(() => {
         setTimeout(() => {
-            patchNotificationStatus({type: 'type1', newStatus: 'receved', currentStatus: 'sent'})
+            loginInfor!==null && patchNotificationStatus({type: 'type1', newStatus: 'receved', currentStatus: 'sent'})
         }, 3000)
+
+        // eslint-disable-next-line
     }, [])
 
     return (
-        <ThemeContextApp.Provider value={{clickDocument, loginInfor}}>
+        <ThemeContextApp.Provider value={{clickDocument, loginInfor, socketSM_sm}}>
             <div className="App">
                 <Router />
                 {/* <Overlay /> */}

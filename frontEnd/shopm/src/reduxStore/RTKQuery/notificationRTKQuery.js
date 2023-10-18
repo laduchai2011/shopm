@@ -35,8 +35,11 @@ export const notificationRTKQuery = createApi({
                 credentials: "include"
             }),
             invalidatesTags: (result, error, arg) => {
-                console.log(result)
-                return [{type: 'Notification', number: result.notification[0] > 0 ? true : false}]
+                if (error) {
+                    console.error(error);
+                } else {
+                    return [{type: 'Notification', bool: result.notification[0] > 0 ? true : false}]
+                }
             }
         })
     }),

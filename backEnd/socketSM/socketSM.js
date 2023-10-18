@@ -31,19 +31,15 @@ const io = new Server(httpServer, {
     }
 });
 
-console.log('socketSM')
-
 io.use(cookieParser());
 io.use(SocketSM_Authentication);
 
 io.on("connection", (socket) => {
-    
-    socket.on('begin', msg => {
-        console.log(msg)
-    })
+    socket.join(socket.request.cookies.uid);
 
     socket.on("disconnect", (reason) => {
-        console.log(`socket ${socket.id} disconnected due to ${reason}`);
+        // console.log(`socket ${socket.id} disconnected due to ${reason}`);
+        socket.leave(socket.request.cookies.uid);
         socket.disconnect(true);
     });
 });

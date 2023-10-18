@@ -9,15 +9,15 @@ function Authentication(req, res, next) {
     const keyServiceRedis = `token-${ uid }-${ loginCode }`;
     try {
         serviceRedis.getData(keyServiceRedis, (redisData) => {
-            if(redisData !== null) {
+            if((redisData!==null) && (redisData)) {
                 const secretKey = redisData.secretKey;
                 const preSecretKey = redisData.preSecretKey;
                 token.verify(accessToken, secretKey, (err1, decodedAccessToken) => {
                     if(err1) {
-                        logEvents(`${req.url}---${req.method}---${err1}`);
+                        logEvents(`${req.url}---${req.method}---${err1}: token.verify-accessToken`);
                         if ((redisData.accessToken === accessToken) && (redisData.refreshToken === refreshToken)) {
-                            token.verify(refreshToken, secretKey, (err2, decodedRefreshToken) => {
-                                logEvents(`${req.url}---${req.method}---${err2}`);
+                            token.verify(refreshToken, secretKey, async (err2, decodedRefreshToken) => {
+                                logEvents(`${req.url}---${req.method}---${err2}: Token expired. Please login again !`);
                                 if(err2) return res.status(200).json({
                                     message: 'Token expired. Please login again !',
                                     status: false,
@@ -25,8 +25,19 @@ function Authentication(req, res, next) {
                                 })
 
                                 const newSecretKey = uuidv4();
-                                const newRefreshToken = token.createRefreshToken(newSecretKey, decodedRefreshToken.data);
-                                const newAccessToken = token.createAccessTokens(newSecretKey, decodedRefreshToken.data);
+                                let newRefreshToken, newAccessToken;
+                                try {
+                                    newRefreshToken = await token.createRefreshToken(newSecretKey, decodedRefreshToken.data);
+                                    newAccessToken = await token.createAccessTokens(newSecretKey, decodedRefreshToken.data);
+                                } catch (error) {
+                                    logEvents(`${req.url}---${req.method}---${error}: Please login !`);
+                                    return res.status(200).json({
+                                        message: 'Please login !',
+                                        status: false,
+                                        error: error,
+                                        success: false
+                                    })
+                                }
 
                                 // cache refreshToken in redis
                                 let new_new_refreshToken_used = [...redisData.refreshToken_used];
@@ -47,12 +58,12 @@ function Authentication(req, res, next) {
                                 const timeExpireat = 60*60*24*30*12; // 1 year
 
                                 try {
-                                    serviceRedis.setData(keyServiceRedis, jsonValue, timeExpireat);
+                                    await serviceRedis.setData(keyServiceRedis, jsonValue, timeExpireat);
                                 } catch (error) {
-                                    logEvents(`${req.url}---${req.method}---${error}`);
+                                    logEvents(`${req.url}---${req.method}---${error}: Please login !`);
                                     return res.status(200).json({
                                         message: 'Please login !',
-                                        status: false, 
+                                        status: false,
                                         error: error,
                                         success: false
                                     })
@@ -88,7 +99,7 @@ function Authentication(req, res, next) {
                         } else if ((redisData.preAccessToken === accessToken) && (redisData.preRefreshToken === refreshToken)) {
                             token.verify(refreshToken, preSecretKey, (err2, decodedRefreshToken) => {
                                 if(err2) {
-                                    logEvents(`${req.url}---${req.method}---${err2}`);
+                                    logEvents(`${req.url}---${req.method}---${err2}: Access token expired !`);
                                     return res.status(200).json({
                                         message: 'Access token expired !',
                                         status: false,
