@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { curdUser } = require('./src/model/CRUDDATABASE/CRUDUSER');
+// const { curdUser } = require('./src/model/CRUDDATABASE/CRUDUSER');
 const { doctorOrPharmacist } = require('./src/model/CRUDDATABASE/CRUDDOCTORORPHARMACIST');
 const { sickPerson } = require('./src/model/CRUDDATABASE/CRUDSICKPERSON');
 // const { serviceRedis } = require('./src/model/serviceRedis');

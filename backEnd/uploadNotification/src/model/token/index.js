@@ -41,9 +41,13 @@ class Token {
     }
 
     verify(token, key, callback) {
-        jwt.verify(token, key, function(err, decoded) {
-            callback(err, decoded)
-        });
+        if (key) {
+            jwt.verify(token, key, function(err, decoded) {
+                callback(err, decoded)
+            });
+        } else {
+            throw new Error('Invalid key type!');
+        }
     }
 }
 

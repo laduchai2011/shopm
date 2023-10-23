@@ -10,7 +10,6 @@ const { logEvents } = require('./logEvents');
 
 
 router.get('/', (req, res) => {
-
     res.send('Successful response.');
 });
 

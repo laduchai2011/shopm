@@ -15,10 +15,8 @@ const { getSocketSMRoom } = require('./src/middle/getSocketSMRoom');
 router.get('/getRoom', Authentication, (req, res) => {
     const userOptions = req.decodedToken.data;
     const status = req.query.status;
-    console.log('getRoom ------------------------')
     getSocketSMRoom(userOptions.uuid, status, async (socketSMRoom, err) => {
         if (err) {
-            console.log('----------------------------------', err)
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send({ 
                 message: "Can't get socketSM room !",
@@ -45,7 +43,7 @@ router.get('/getRoom', Authentication, (req, res) => {
             } catch (error) {
                 logEvents(`${req.url}---${req.method}---${error}`);
                 return res.status(200).json({
-                    message: 'Please login !',
+                    message: 'Get room failure !',
                     error: error,
                     success: false
                 })

@@ -2,17 +2,13 @@
 require('dotenv').config();
 const express = require("express");
 const router = require('./router');
-const fileupload = require("express-fileupload");
-const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
 const app = express();
+const cookieParser = require('cookie-parser');
+const fileupload = require("express-fileupload");
 
-const baseURL_shopm = 'http://192.168.5.129:3000';
+const baseURL_shopm = process.env.NODE_ENV_BASEURL_SHOPM || 'http://192.168.5.129:3000';
 
 //add other middleware
-if (process.env.NODE_ENV === 'development') {
-    app.use('/api/svUploadImage', morgan('dev'));
-}
 app.use(cookieParser());
 app.use('/api/svUploadImage', fileupload());
 app.use('/api/svUploadImage', express.json());
@@ -32,6 +28,15 @@ app.use('/api/svUploadImage', function (req, res, next) {
     );
     next();
 });
+
+if (process.env.NODE_ENV === 'development') {
+  const morgan = require('morgan');
+  app.use('/api/svUploadImage', morgan('dev'));
+}
+
+app.use(cookieParser());
+app.use('/api/svGetCaseRecord', express.json());
+app.use('/api/svGetCaseRecord', express.urlencoded({extended: true}));
 // app.use('/api/svUploadImage', function (req, res, next) {
 //   // specify CORS headers to send
 //   res.header('Access-Control-Allow-Origin', 'http://localhost:3001');

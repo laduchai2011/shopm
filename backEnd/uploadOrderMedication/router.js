@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 
-const { orderAllMedication } = require('./src/model/CRUDDATABASE/CRUDORDERALLMEDICATION');
+// const { orderAllMedication } = require('./src/model/CRUDDATABASE/CRUDORDERALLMEDICATION');
 // const { serviceRedis } = require('./src/model/serviceRedis');
 const { Authentication } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');

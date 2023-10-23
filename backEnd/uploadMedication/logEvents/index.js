@@ -1,5 +1,5 @@
 const fs = require('fs').promises;
-const path = require();
+const path = require('path');
 const { format } = require('date-fns');
 
 

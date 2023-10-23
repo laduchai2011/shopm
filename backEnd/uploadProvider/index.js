@@ -2,11 +2,10 @@
 require('dotenv').config();
 const express = require("express");
 const router = require('./router');
-const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
 const app = express();
+const cookieParser = require('cookie-parser');
 
-const baseURL_shopm = 'http://192.168.5.129:3000';
+const baseURL_shopm = process.env.NODE_ENV_BASEURL_SHOPM || 'http://192.168.5.129:3000';
 
 //add other middleware
 app.use('/api/svUploadProvider', function (req, res, next) {
@@ -24,6 +23,7 @@ app.use('/api/svUploadProvider', function (req, res, next) {
 });
 
 if (process.env.NODE_ENV === 'development') {
+    const morgan = require('morgan');
     app.use('/api/svUploadProvider', morgan('dev'));
 }
 

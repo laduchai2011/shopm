@@ -3,26 +3,39 @@ const { v4: uuidv4 } = require('uuid');
 const { token } = require('../../model/token');
 const { serviceRedis } = require('../../model/serviceRedis');
 const { logEvents } = require('../../../logEvents');
+const { serviceRedlock } = require('../../config/serviceRedlock');
 
-function Authentication(req, res, next) {
+async function Authentication(req, res, next) {
     const { refreshToken, accessToken, loginCode, uid } = req.cookies;
     const keyServiceRedis = `token-${ uid }-${ loginCode }`;
+    const lockKey = `redlock-token-${ uid }-${ loginCode }`;
+
     try {
-        serviceRedis.getData(keyServiceRedis, (redisData) => {
+        // lock to update token
+        const lock = await serviceRedlock.acquire([lockKey], 30000); 
+
+        serviceRedis.getData(keyServiceRedis, async (redisData) => {
             if((redisData!==null) && (redisData)) {
                 const secretKey = redisData.secretKey;
                 const preSecretKey = redisData.preSecretKey;
-                token.verify(accessToken, secretKey, (err1, decodedAccessToken) => {
+                token.verify(accessToken, secretKey, async (err1, decodedAccessToken) => {
                     if(err1) {
                         logEvents(`${req.url}---${req.method}---${err1}: token.verify-accessToken`);
-                        if ((redisData.accessToken === accessToken) && (redisData.refreshToken === refreshToken)) {
+                        if ((redisData.refreshedToken === accessToken) && (redisData.refreshToken === refreshToken)) {
+                            req.decodedToken = redisData.decodedToken;
+                            await lock.release();
+                            next();
+                        } else if ((redisData.accessToken === accessToken) && (redisData.refreshToken === refreshToken)) {
                             token.verify(refreshToken, secretKey, async (err2, decodedRefreshToken) => {
-                                logEvents(`${req.url}---${req.method}---${err2}: Token expired. Please login again !`);
-                                if(err2) return res.status(200).json({
-                                    message: 'Token expired. Please login again !',
-                                    status: false,
-                                    success: false
-                                })
+                                if(err2) {
+                                    logEvents(`${req.url}---${req.method}---${err2}: Token expired. Please login again !`);
+                                    await lock.release();
+                                    return res.status(200).json({
+                                        message: 'Token expired. Please login again !',
+                                        status: false,
+                                        success: false
+                                    })
+                                }
 
                                 const newSecretKey = uuidv4();
                                 let newRefreshToken, newAccessToken;
@@ -31,6 +44,7 @@ function Authentication(req, res, next) {
                                     newAccessToken = await token.createAccessTokens(newSecretKey, decodedRefreshToken.data);
                                 } catch (error) {
                                     logEvents(`${req.url}---${req.method}---${error}: Please login !`);
+                                    await lock.release();
                                     return res.status(200).json({
                                         message: 'Please login !',
                                         status: false,
@@ -53,7 +67,9 @@ function Authentication(req, res, next) {
                                     preSecretKey: secretKey,
                                     preRefreshToken: refreshToken,
                                     preAccessToken: accessToken, 
-                                    refreshToken_used: new_new_refreshToken_used
+                                    refreshToken_used: new_new_refreshToken_used,
+                                    refreshedToken: accessToken,
+                                    decodedToken: decodedRefreshToken
                                 };
                                 const timeExpireat = 60*60*24*30*12; // 1 year
 
@@ -61,6 +77,7 @@ function Authentication(req, res, next) {
                                     await serviceRedis.setData(keyServiceRedis, jsonValue, timeExpireat);
                                 } catch (error) {
                                     logEvents(`${req.url}---${req.method}---${error}: Please login !`);
+                                    await lock.release();
                                     return res.status(200).json({
                                         message: 'Please login !',
                                         status: false,
@@ -93,13 +110,16 @@ function Authentication(req, res, next) {
                                 //     message: 'Reset token !', 
                                 //     status: true
                                 // })
+
                                 req.decodedToken = decodedRefreshToken;
+                                await lock.release();
                                 next();
                             })
                         } else if ((redisData.preAccessToken === accessToken) && (redisData.preRefreshToken === refreshToken)) {
-                            token.verify(refreshToken, preSecretKey, (err2, decodedRefreshToken) => {
+                            token.verify(refreshToken, preSecretKey, async (err2, decodedRefreshToken) => {
                                 if(err2) {
                                     logEvents(`${req.url}---${req.method}---${err2}: Access token expired !`);
+                                    await lock.release();
                                     return res.status(200).json({
                                         message: 'Access token expired !',
                                         status: false,
@@ -108,16 +128,21 @@ function Authentication(req, res, next) {
                                 }
 
                                 req.decodedToken = decodedRefreshToken;
+                                await lock.release();
                                 next();
                             })
                         } else {
-                            if(redisData.refreshToken_used.includes(refreshToken)) {
+                            if(redisData.refreshToken_used.includes(refreshToken) !== -1) {
+                                logEvents(`${req.url}---${req.method}: Your account is attacked. Please login again !`);
+                                await lock.release();
                                 return res.status(200).json({
                                     message: 'Your account is attacked. Please login again !',
                                     status: false,
                                     success: false
                                 })
                             } else {
+                                logEvents(`${req.url}---${req.method}: Invalid token. Please login !`);
+                                await lock.release();
                                 return res.status(200).json({
                                     message: 'Invalid token. Please login !',
                                     status: false,
@@ -130,11 +155,15 @@ function Authentication(req, res, next) {
                         //     message: 'Running !',
                         //     status: true
                         // })
+
                         req.decodedToken = decodedAccessToken;
+                        await lock.release();
                         next();
                     }
                 })
             } else {
+                logEvents(`${req.url}---${req.method}: Please login !`);
+                await lock.release();
                 return res.status(200).json({
                     message: 'Please login !',
                     status: false,
@@ -143,6 +172,7 @@ function Authentication(req, res, next) {
             }
         })
     } catch (error) {
+        logEvents(`${req.url}---${req.method}: Please login !`);
         return res.status(200).json({
             message: 'Please login !',
             status: false, 

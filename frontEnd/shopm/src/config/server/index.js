@@ -31,7 +31,7 @@ export const SERVER_ADDRESS_GET_MEDICATION_LIST                                =
 export const SERVER_ADDRESS_GET_MEDICATIONMANAGER_LIST                         = `${baseURL}:8700/api/svGetMedication/provider/medicationManager/list`;
 export const SERVER_ADDRESS_GET_MEDICATION_HOME                                = `${baseURL}:8700/api/svGetMedication/home/medication/list`;
 export const SERVER_ADDRESS_PATCH_MEDICATION                                   = `${baseURL}:8600/api/svUploadMedication/provider/medication/patch`;
-export const SERVER_ADDRESS_GET_ORDER_MEDICATION                               = `${baseURL}:8600/api/svGetOrderMedication`;
+export const SERVER_ADDRESS_GET_ORDER_MEDICATION                               = `${baseURL}:8500/api/svGetOrderMedication`;
 
 export const SERVER_ADDRESS_POST_PROVIDER_NEWS                                 = `${baseURL}:8900/api/svUploadProviderNews/provider/news/add`;
 export const SERVER_ADDRESS_GET_PROVIDER_NEWS_LIST                             = `${baseURL}:8800/api/svGetProviderNews/provider/news/list`;
@@ -43,7 +43,7 @@ export const SERVER_ADDRESS_GETLIST_CASERECORDPAGE                             =
 export const SERVER_ADDRESS_PATCH_CASERECORDPAGE                               = `${baseURL}:7200/api/svUploadCaseRecord/caseRecordPage/patch`;  
 
 export const SERVER_ADDRESS_GET_SOCKETSM_ROOM                                  = `${baseURL}:2000/api/svSocketSM/getRoom`; 
-export const SERVER_ADDRESS_SOCKETSM                                           = `${baseURL_socket}:2100`; 
+export const SERVER_ADDRESS_SOCKETSM                                           = `${baseURL_socket}:2100`;
 
 
 

@@ -296,6 +296,55 @@ class DefineModel {
         this._User.hasOne(this._DoctorOrPharmacist, { foreignKey: 'uuid_user' })
         this._DoctorOrPharmacist.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User' })
 
+        this._CaseRecord = sequelize.define('CaseRecord', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                autoIncrement: true,
+                unique: 'UQ__CaseRecords__id'
+            },
+            uuid_caseRecord: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            title: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            priceTotal: {
+                type: DataTypes.INTEGER
+            },
+            pageTotal: {
+                type: DataTypes.INTEGER,
+                allowNull: false
+            },
+            report: {
+                type: DataTypes.TEXT
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_doctorOrPharmacist: {
+                type: Sequelize.UUID
+            },
+            uuid_user: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [{
+                name: 'uuid_user_indexes',
+                using: 'BTREE',
+                fields: ['uuid_user']
+            }, {
+                name: 'uuid_doctorOrPharmacist_indexes',
+                using: 'BTREE',
+                fields: ['uuid_doctorOrPharmacist']
+            }]
+        })
+
         this._OrderAllMedication = sequelize.define('OrderAllMedication', {
             id: {
                 type: DataTypes.INTEGER,

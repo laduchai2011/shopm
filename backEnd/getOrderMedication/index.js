@@ -2,11 +2,10 @@
 require('dotenv').config();
 const express = require("express");
 const router = require('./router');
-const morgan = require('morgan');
 const app = express();
 const cookieParser = require('cookie-parser');
 
-const baseURL_shopm = 'http://192.168.5.129:3000';
+const baseURL_shopm = process.env.NODE_ENV_BASEURL_SHOPM || 'http://192.168.5.129:3000';
 
 //add other middleware
 app.use('/api/svGetOrderMedication', function (req, res, next) {
@@ -22,7 +21,12 @@ app.use('/api/svGetOrderMedication', function (req, res, next) {
     );
     next();
 });
-app.use('/api/svGetOrderMedication', morgan('dev'));
+
+if (process.env.NODE_ENV === 'development') {
+    const morgan = require('morgan');
+    app.use('/api/svGetOrderMedication', morgan('dev'));
+}
+
 app.use(cookieParser());
 app.use('/api/svGetOrderMedication', express.json());
 app.use('/api/svGetOrderMedication', express.urlencoded({extended: true}));
@@ -30,7 +34,7 @@ app.use('/api/svGetOrderMedication', express.urlencoded({extended: true}));
 
 app.use('/api/svGetOrderMedication', router);
 
-const PORT = process.env.NODE_SERVER_PORT_KEY || 8700;
+const PORT = process.env.NODE_SERVER_PORT_KEY || 8500;
 
 app.listen(PORT, '0.0.0.0', function () {
     console.log(`Listening on port ${PORT}!`);

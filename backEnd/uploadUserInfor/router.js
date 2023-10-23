@@ -43,7 +43,7 @@ router.post('/signup', (req, res) => {
 
 router.post('/login', (req, res) => {
     const loginOptions = req.body;
-    crudUser.read(loginOptions, (user, err) => {
+    crudUser.read(loginOptions, async (user, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
@@ -58,8 +58,19 @@ router.post('/login', (req, res) => {
 
             // create token
             const secretKey = uuidv4();
-            const newRefreshToken = token.createRefreshToken(secretKey, user);
-            const newAccessToken = token.createAccessTokens(secretKey, user);
+            let newRefreshToken, newAccessToken;
+
+            try {
+                newRefreshToken = await token.createRefreshToken(secretKey, user);
+                newAccessToken = await token.createAccessTokens(secretKey, user);
+            } catch (error) {
+                logEvents(`${req.url}---${req.method}---${error}`);
+                return res.status(200).json({
+                    message: 'Login failure !',
+                    error: error,
+                    success: false
+                })
+            }
 
             // cache refreshToken in redis
             const keyServiceRedis = `token-${ user.dataValues.uuid }-${ loginCode }`;
@@ -71,7 +82,7 @@ router.post('/login', (req, res) => {
                 refreshToken_used: []
             };
             const timeExpireat = 60*60*24*30*12; // 1 year
-            serviceRedis.setData(keyServiceRedis, jsonValue, timeExpireat);
+            await serviceRedis.setData(keyServiceRedis, jsonValue, timeExpireat);
 
             res.cookie('uid', user.dataValues.uuid, {
                 httpOnly: true,

@@ -1,0 +1,12 @@
+23-10-2023	41:17:23--------/getRoom?status=normal---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+23-10-2023	41:17:23--------/getRoom?status=normal---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+23-10-2023	41:17:23--------( SocketSM_Authentication ) Error: Socket-accessToken invalid or not created ( SocketSM_Authentication ) !
+23-10-2023	41:17:23--------/getRoom?status=normal---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+23-10-2023	42:17:23--------( SocketSM_Authentication ) Error: Socket-accessToken invalid or not created ( SocketSM_Authentication ) !
+24-10-2023	51:39:01--------/getRoom?status=normal---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+24-10-2023	51:39:01--------/getRoom?status=normal---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+24-10-2023	55:39:01--------/getRoom?status=normal---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+24-10-2023	55:39:01--------/getRoom?status=normal---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+24-10-2023	00:40:01--------/getRoom?status=normal---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+24-10-2023	00:40:01--------/getRoom?status=normal---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+24-10-2023	00:40:01--------( SocketSM_Authentication ) Error: Socket-accessToken invalid or not created ( SocketSM_Authentication ) !

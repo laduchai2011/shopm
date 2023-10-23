@@ -6,11 +6,11 @@ class ServiceRedis {
         this._clientRedis.connect();
     }
 
-    setData(key, jsonValue, timeExpireat) {
+    async setData(key, jsonValue, timeExpireat) {
         if (key) {
            // timeExpireat: { EX: 60*60*24 }
             const valueToString = JSON.stringify(jsonValue);
-            this._clientRedis.set(key, valueToString, { EX: timeExpireat });
+            await this._clientRedis.set(key, valueToString, { EX: timeExpireat });
         } else {
             throw new Error('Invalid key type!');
         }

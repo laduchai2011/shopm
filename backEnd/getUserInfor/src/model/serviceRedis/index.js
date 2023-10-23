@@ -1,22 +1,32 @@
 const { clientRedis } = require('../../config/serviceRedis');
+const { logEvents } = require('../../../logEvents');
 
 class ServiceRedis {
     constructor(clientRedis) {
         this._clientRedis = clientRedis;
         this._clientRedis.connect();
+        this._clientRedis.on('error', err => logEvents(`Redis Client Error ${err}`));
     }
 
-    setData(key, jsonValue, timeExpireat) {
-        // timeExpireat: { EX: 60*60*24 }
-        const valueToString = JSON.stringify(jsonValue);
-        this._clientRedis.set(key, valueToString, { EX: timeExpireat });
+    async setData(key, jsonValue, timeExpireat) {
+        if (key) {
+           // timeExpireat: { EX: 60*60*24 }
+            const valueToString = JSON.stringify(jsonValue);
+            await this._clientRedis.set(key, valueToString, { EX: timeExpireat });
+        } else {
+            throw new Error('Invalid key type!');
+        }
     }
 
     getData(key, callback) {
-        this._clientRedis.get(key).then(data => {
-            const valueToJson = JSON.parse(data);
-            callback(valueToJson);
-        })
+        if (key) {
+            this._clientRedis.get(key).then(data => {
+                const valueToJson = JSON.parse(data);
+                callback(valueToJson);
+            })
+        } else {
+            throw new Error('Invalid key type!');
+        }
     }
 }
 
