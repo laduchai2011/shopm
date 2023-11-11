@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useContext } from 'react';
+import React, { memo, useEffect, useContext, useState, useRef } from 'react';
 import './styles.css';
 
 import { useNavigate } from "react-router-dom";
@@ -9,10 +9,16 @@ import { BsCartPlus, BsFillCartPlusFill } from 'react-icons/bs';
 import Overlay from 'screen/Overlay';
 
 import { ThemeContextApp } from "utilize/ContextApp";
-import { $$ } from 'utilize/Tricks';
+import { $, $$ } from 'utilize/Tricks';
 import { avatarNull } from 'utilize/constant';
 
-import { useGetNotificationCountQuery } from 'reduxStore/RTKQuery/notificationRTKQuery';
+import { 
+    useGetNotificationCountQuery, 
+    useLazyGetNotificationListQuery, 
+    usePatchNotificationStatusMutation 
+} from 'reduxStore/RTKQuery/notificationRTKQuery';
+
+import HeaderNotification from './components/HeaderNotification';
 
 
 const Header = () => {
@@ -20,12 +26,29 @@ const Header = () => {
 
     const { clickDocument, loginInfor } = useContext(ThemeContextApp);
 
+    const [notifyList, setNotifyList] = useState([
+        { status: 'all', dataArray: [], pageIndex: 0},
+        { status: 'receved', dataArray: [], pageIndex: 0},
+        { status: 'seen', dataArray: [], pageIndex: 0},
+        { status: 'read', dataArray: [], pageIndex: 0}
+    ]);
+    const notifyIndex = useRef(0);
+
     const skipNotification = loginInfor!==null;
     const { 
-        data: notification_data,
-        isError: notification_error
-    } = useGetNotificationCountQuery({type: 'type1', status: 'receved'}, {skip: !skipNotification});
+        data: notificationCount_data,
+        isError: notificationCount_isError,
+        error: notificationCount_error
+    } = useGetNotificationCountQuery({type: 'normal', status: 'receved'}, {skip: !skipNotification});
 
+    const [getNotificationList, resultNotificationList] = useLazyGetNotificationListQuery();
+    const [patchNotificationStatus] = usePatchNotificationStatusMutation();
+
+    const { 
+        data: notification_live_data,
+        isError: notification_live_isError,
+        error: notification_live_error
+    } = useGetNotificationCountQuery({type: 'type2', status: 'receved'}, {skip: !skipNotification});
 
     useEffect(() => {
         return () => {
@@ -34,14 +57,92 @@ const Header = () => {
     }, [clickDocument])
 
     useEffect(() => {
-        console.log('notification_data', notification_data, loginInfor!==null)
+        const notifyOptions = $('.Header-contentBox-options').children;
+        notifyOptions[notifyIndex.current].classList.add('active');
+        notifyOptions.forEach(notifyOption => {
+            notifyOption.onclick = function(e) {
+                e.stopPropagation();
+                let index_m = notifyIndex.current;
+                for (let i = 0; i < notifyOptions.length; i++) {
+                    if (notifyOptions[i] !== notifyOption) {
+                        notifyOptions[i].classList.remove('active');
+                    } else {
+                        index_m = i;
+                    }
+                }
+                notifyOptions[index_m].classList.add('active');
+                notifyIndex.current = index_m;
+                getNotificationList({
+                    type: 'normal',
+                    status: getStatus(index_m),
+                    pageIndex: 1,
+                    pageSize: 10
+                }, true)
+            }
+        })
 
         // eslint-disable-next-line
-    }, [notification_data])
+    }, [])
 
     useEffect(() => {
-        notification_error && alert(`Header: ${notification_error}`);
-    }, [notification_error])
+        // console.log('notification_data', notification_data, loginInfor!==null)
+
+        // eslint-disable-next-line
+    }, [notificationCount_data])
+
+    useEffect(() => {
+        const cp_notifyList = [...notifyList];
+        const currentNotify = notifyList[notifyIndex.current];
+
+        const dataArray = [...currentNotify.dataArray];
+
+        if (resultNotificationList.isSuccess && currentNotify.pageIndex < 1) {
+            if (resultNotificationList.isFetching) {
+                dataArray.push(null);
+                currentNotify.dataArray = dataArray;
+                cp_notifyList[notifyIndex.current] = currentNotify;
+                setNotifyList(cp_notifyList);
+            }
+    
+            if (!resultNotificationList.isFetching) {
+                dataArray.pop();
+                const currentNotify_newData = dataArray.concat(resultNotificationList.data.notifications.rows);
+                currentNotify.dataArray = currentNotify_newData;
+                currentNotify.pageIndex = 1;
+                cp_notifyList[notifyIndex.current] = currentNotify;
+                setNotifyList(cp_notifyList);
+            }
+        }
+        
+        // eslint-disable-next-line
+    }, [resultNotificationList])
+
+    useEffect(() => {
+        notificationCount_isError && console.log('Header', notificationCount_error);
+        notification_live_isError && console.log('Header', notification_live_error);
+        resultNotificationList?.isError && console.log('Header', resultNotificationList?.error);
+    }, [notificationCount_isError, 
+        notification_live_isError, 
+        resultNotificationList?.isError,
+        notificationCount_error,
+        notification_live_error,
+        resultNotificationList?.error
+    ])
+
+    const getStatus = (index) => {
+        switch (index) {
+            case 0:
+                return 'all';
+            case 1:
+                return 'receved';
+            case 2:
+                return 'seen';
+            case 3:
+                return 'read';
+            default:
+                console.log(`invalid param !`);
+        }
+    }
 
     const handleMenu = () => {
         const overlay = document.querySelector(".Overlay");
@@ -53,8 +154,23 @@ const Header = () => {
     const handleShowCartCaseRecord = (e) => {
         e.stopPropagation();
         const q_contentBox0 = $$('.Header-contentBox')[0];
-        q_contentBox0.classList.add('show');
+        q_contentBox0.classList.toggle('show');
         clickDocument.pushElement(q_contentBox0);
+    }
+
+    const handleShowNotifications = (e) => {
+        e.stopPropagation();
+        const q_contentBox0 = $$('.Header-contentBox')[1];
+        q_contentBox0.classList.toggle('show');
+        clickDocument.pushElement(q_contentBox0);
+
+        getNotificationList({
+            type: 'normal',
+            status: 'all',
+            pageIndex: 1,
+            pageSize: 10
+        }, true)
+        patchNotificationStatus({type: 'normal', newStatus: 'seen', currentStatus: 'receved'});
     }
 
     const showDetailMedication = (e) => {
@@ -70,8 +186,13 @@ const Header = () => {
                 <div>{ data }</div>
                 <div><button onClick={(e) => showDetailMedication(e)}>Detail</button></div>
             </div>
+        ) 
+    })
+
+    const list_notification = notifyList[notifyIndex.current].dataArray.map((data, index) => {
+        return (
+            <HeaderNotification key={ index } data={ data } index={ index } />
         )
-            
     })
 
     return (
@@ -83,8 +204,8 @@ const Header = () => {
             <div className="Header-iconContainer">
                 { loginInfor!==null && <div className='Header-iconBox' onClick={(e) => handleShowCartCaseRecord(e)}>
                     <BsFillCartPlusFill size={30} />
-                    <p>5</p>
-                    <div className='Header-contentBox'>
+                    { notification_live_data?.count > 0 && <p>{ notification_live_data?.count }</p> }
+                    <div className='Header-contentBox showCartCaseRecord'>
                         <div className='Header-contentBox-header'>You are adding case-record that page number is 1</div>
                         <div className='Header-contentBox-content'>
                             { list_contentBox }
@@ -95,9 +216,20 @@ const Header = () => {
                     <BsCartPlus size={30} />
                     <p>5</p>
                 </div> }
-                { loginInfor!==null && <div className='Header-iconBox'>
+                { loginInfor!==null && <div className='Header-iconBox' onClick={(e) => handleShowNotifications(e)}>
                     <IoMdNotificationsOutline size={30} />
-                    { notification_data?.count > 0 && <p>{ notification_data?.count }</p> }
+                    { notificationCount_data?.count > 0 && <p>{ notificationCount_data?.count }</p> }
+                    <div className='Header-contentBox showNotification' onClick={(e) => e.stopPropagation()}>
+                        <div className='Header-contentBox-options'>
+                            <span>ALL</span>
+                            <span>RECEVED</span>
+                            <span>SEEN</span>
+                            <span>READ</span>
+                        </div>
+                        <div className='Header-contentBox-content'>
+                            { list_notification }
+                        </div>
+                    </div>
                 </div> }
                 { loginInfor!==null ? <img 
                     src={loginInfor?.avatar!==null ? loginInfor?.avatar : avatarNull} 

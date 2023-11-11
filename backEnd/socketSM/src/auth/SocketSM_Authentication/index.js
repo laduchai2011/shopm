@@ -10,7 +10,6 @@ function SocketSM_Authentication (socket, next) {
     const accessToken = socket.handshake.auth.accessToken;
     try {
         serviceRedis.getData(keyServiceRedis, (redisData) => {
-            console.log(redisData!==null, redisData?.secretKey===secretKey, redisData?.accessToken===accessToken)
             if ((redisData!==null) && (redisData?.secretKey===secretKey) && (redisData?.accessToken===accessToken)) {
                 token.verify(accessToken, secretKey, (err, decodedAccessToken) => {
                     if (err) {

@@ -1,0 +1,135 @@
+.Notifications {
+    box-sizing: border-box;
+    padding: 10px;
+    display: flex;
+    column-gap: 10px;
+    height: 100vh;
+    cursor: pointer;
+}
+
+.Notifications > div {
+    height: 100%;
+}
+
+.Notifications > div:nth-child(1) {
+    width: 350px;
+}
+
+.Notifications > div:nth-child(2) {
+    width: 100%;
+}
+
+.Notifications > div > div:nth-child(1) {
+    background-color: rgb(202, 202, 202);
+    box-sizing: border-box;
+    padding: 3px;
+    text-align: center;
+}
+
+.Notifications > div > div:nth-child(2) > div:nth-child(1) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Notifications > div > div:nth-child(2) > div:nth-child(1) > div {
+    background-color: rgb(214, 214, 214);
+    box-sizing: border-box;
+    padding: 3px;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    color: blue;
+}
+
+.Notifications > div > div:nth-child(2) > div:nth-child(1) > div:hover,
+.Notifications > div > div:nth-child(2) > div:nth-child(1) > div.active {
+    background-color: blue;
+    color: white;
+}
+
+.Notifications-list {
+    overflow-y: scroll;
+    height: 88vh;
+}
+
+.Notifications-list::-webkit-scrollbar {
+    width: 3px;
+}
+
+.Notifications-list::-webkit-scrollbar-thumb {
+    background-color: gray;
+}
+
+@media screen and (max-width: 1250px) {
+    .Notifications > div:nth-child(1) {
+        position: absolute;
+        z-index: 1;
+        left: -350px;
+
+        transition: left 0.3s ease-in-out;
+    }
+
+    .Notifications > div:nth-child(1).show {
+        left: 0;
+    }
+
+    .Notifications > div:nth-child(2) {
+        z-index: 0;
+    }
+
+    .Notifications > div:nth-child(1) > div:nth-child(1),
+    .Notifications > div:nth-child(2) > div:nth-child(1) {
+        position: relative;
+    }
+
+    .Notifications > div:nth-child(1) > div:nth-child(1) > div.active::before {
+        position: absolute;
+        content: '';
+        width: 0;
+        height: 0;
+        background-color: blue;
+        border-top: 35px solid rgb(202, 202, 202);
+        border-right: 25px solid transparent;
+        top: 0;
+        right: 0;
+    }
+
+    .Notifications > div:nth-child(1) > div:nth-child(1) > div.active::after {
+        position: absolute;
+        content: '';
+        width: 0;
+        height: 0;
+        background-color: blue;
+        border-bottom: 35px solid rgb(202, 202, 202);
+        border-right: 25px solid transparent;
+        bottom: 0;
+        right: 0;
+    }
+
+    .Notifications > div:nth-child(2) > div:nth-child(1) > div.active::before {
+        position: absolute;
+        content: '';
+        width: 0;
+        height: 0;
+        background-color: blue;
+        border-top: 35px solid rgb(202, 202, 202);
+        border-left: 25px solid transparent;
+        top: 0;
+        left: 0;
+    }
+
+    .Notifications > div:nth-child(2) > div:nth-child(1) > div.active::after {
+        position: absolute;
+        content: '';
+        width: 0;
+        height: 0;
+        background-color: blue;
+        border-bottom: 35px solid rgb(202, 202, 202);
+        border-left: 25px solid transparent;
+        bottom: 0;
+        left: 0;
+    }
+}

@@ -1,5 +1,5 @@
 const Client = require("ioredis");
-const { default: Redlock } = require("redlock");
+const { default: Redlock, ResourceLockedError } = require("redlock");
 const { logEvents } = require('../../../logEvents');
 
 const baseURL_shopm = process.env.NODE_ENV_BASEURL_REDIS || 'redis://:@192.168.5.129:6379';
@@ -22,14 +22,12 @@ const serviceRedlock = new Redlock(
 
 serviceRedlock.on("error", (error) => {
     // Ignore cases where a resource is explicitly marked as locked on a client.
-    // if (error instanceof ResourceLockedError) {
-    //     console.error('test err------------------', error);
-    //     return;
-    // }
+    if (error instanceof ResourceLockedError) {
+        return;
+    }
   
     // Log all other errors.
-    logEvents(`config redlock: ${error}`)
-    console.error('test err===============', error);
+    logEvents(`config redlock: ${error}`);
 });
 
 module.exports = { serviceRedlock }

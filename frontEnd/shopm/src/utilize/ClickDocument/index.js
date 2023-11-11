@@ -8,14 +8,21 @@ export default class ClickDocument {
     }
 
     start() {
-        document.addEventListener('click', () => this.closeDialog());
+        this._closeDialog = this.closeDialog();
+        document.addEventListener('click', this._closeDialog);
     }
 
     closeDialog() {
-        this._elements.forEach(element => {
-            element.classList.remove('show');
-            element.classList.remove('active');
-        });
+        const element_m = this._elements;
+        const closeDialog_m = function() {
+            element_m.forEach(element => {
+                element.classList.remove('show');
+                element.classList.remove('active');
+            });
+
+            document.removeEventListener('click', this.closeDialog_m);
+        }
+        return closeDialog_m;
     }
 
     setElements(elements) {
@@ -39,8 +46,6 @@ export default class ClickDocument {
     }
 
     destroy() {
-        document.removeEventListener('click', () => {
-            console.log('removeEventListener : click')
-        })
+        document.removeEventListener('click', this._closeDialog);
     }
 }

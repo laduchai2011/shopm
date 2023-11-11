@@ -3,6 +3,18 @@ import axios from 'axios';
 
 import { SERVER_ADDRESS_GET_SOCKETSM_ROOM, SERVER_ADDRESS_SOCKETSM } from "config/server";
 
+
+/**
+*@typedef {
+*room: string,           // notification-chat2
+*type: string,
+*status: string,
+*uuid_user: uuid
+*} socketSMRoomOptions
+*/
+    
+
+
 class SocketSM {
     constructor() {
         this._Url = SERVER_ADDRESS_GET_SOCKETSM_ROOM;
@@ -64,7 +76,7 @@ class SocketSM {
         let resData;
         axios({
             method: 'get',
-            url: `${this._Url}?status=normal`,
+            url: `${this._Url}?status=normal&type=notification`,
             withCredentials: true
         }).then(res => {
             resData = res.data;

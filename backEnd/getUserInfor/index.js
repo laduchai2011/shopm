@@ -32,7 +32,7 @@ app.use('/api/svGetUserInfor', express.urlencoded({extended: true}));
 
 app.use('/api/svGetUserInfor', router);
 
-const PORT = process.env.NODE_SERVER_PORT_KEY || 7100
+const PORT = process.env.NODE_SERVER_PORT_KEY || 7100;
 
 app.listen(PORT, '0.0.0.0', function () {
     console.log(`Listening on port ${PORT}!`);

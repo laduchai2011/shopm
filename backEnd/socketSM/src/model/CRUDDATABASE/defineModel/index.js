@@ -59,8 +59,11 @@ class DefineModel {
             },
             room: {
                 type: DataTypes.STRING,
-                allowNull: false,
-                unique: 'UQ_SockerSMRooms__room'
+                allowNull: false
+            },
+            type: {
+                type: DataTypes.STRING,
+                allowNull: false
             },
             status: {
                 type: DataTypes.STRING,

@@ -26,6 +26,8 @@ import Extend from "screen/Extend";
 import CaseRecord from "screen/CaseRecord";
 import CaseRecordCreate from "screen/CaseRecordCreate";
 
+import Notifications from "screen/Notifications";
+
 
 
 // test rich editor
@@ -136,5 +138,11 @@ export const elements = [
     {
         path: '/richEditor/test',
         element: <RichEditor />
-    }
+    },
+
+    // Notifications
+    {
+        path: '/notifications',
+        element: <Notifications />
+    },
 ]

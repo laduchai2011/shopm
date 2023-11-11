@@ -16,7 +16,7 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 
-router.post('/createNotification', (req, res) => {
+router.post('/createNotification',Authentication, (req, res) => {
     const notificationOptions = req.body.notificationOptions;
 
     notification.create(notificationOptions, (notification, err) => {

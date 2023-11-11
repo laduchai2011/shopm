@@ -103,6 +103,41 @@ class CRUDUSER {
             callback(user, err);
         })
     }
+
+    readWithPk_notification(uuid_user, callback) {
+        let user;
+        let err;
+
+        const userPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isUser = await this._User.findByPk(
+                            uuid_user, 
+                            {
+                                attributes: ['firstName', 'lastName', 'avatar']
+                            },
+                            { transaction: t }
+                        )
+                        resolve(isUser);
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        })
+
+        userPromise
+        .then(isUser => {
+            user = isUser;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(user, err);
+        })
+    }
 }
 
 const crudUser = new CRUDUSER();

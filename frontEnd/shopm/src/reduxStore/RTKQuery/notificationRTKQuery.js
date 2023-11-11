@@ -7,6 +7,12 @@
 *} notificationOptions
 */  
     
+/**
+*@typedef {
+*title: string
+*uuid_userSent: string,
+*} notification
+*/
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
@@ -27,6 +33,15 @@ export const notificationRTKQuery = createApi({
             }),
             providesTags: [{type: 'Notification', bool: true}]
         }),
+
+        getNotificationList: builder.query({
+            query: ({type, status, pageIndex, pageSize}) => ({ 
+                url: `${baseURL_notification_get}/getNotificationList?type=${type}&status=${status}&pageIndex=${pageIndex}&pageSize=${pageSize}`,
+                credentials: "include"
+            }),
+            // providesTags: [{type: 'Notification', bool: true}]
+        }),
+
         patchNotificationStatus: builder.mutation({
             query: ({type, newStatus, currentStatus}) => ({
                 url: `${baseURL_notification_upload}/patchNotificationStatus`,
@@ -41,11 +56,29 @@ export const notificationRTKQuery = createApi({
                     return [{type: 'Notification', bool: result.notification[0] > 0 ? true : false}]
                 }
             }
+        }),
+
+        createNotification: builder.mutation({
+            query: (notificationOptions) => ({
+                url: `${baseURL_notification_upload}/createNotification`,
+                method: 'POST',
+                body: { notificationOptions: notificationOptions },
+                credentials: "include"
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    console.log('createNotification', result)
+                }
+            }
         })
     }),
 })
 
 export const { 
     useGetNotificationCountQuery,
-    usePatchNotificationStatusMutation 
+    useLazyGetNotificationListQuery,
+    usePatchNotificationStatusMutation,
+    useCreateNotificationMutation 
 } = notificationRTKQuery;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useTransition, memo } from 'react';
+import React, { useState, useEffect, useTransition, memo, useContext } from 'react';
 import './styles.css';
 
 import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/bs';
@@ -7,13 +7,37 @@ import { RiDeleteBin2Fill } from 'react-icons/ri';
 import { HiOutlineX } from 'react-icons/hi';
 
 import { useGetDoctorOrPharmacistSearchByIdQuery } from 'reduxStore/RTKQuery/doctorOrPharmacistRTKQuery';
+import { useCreateNotificationMutation } from 'reduxStore/RTKQuery/notificationRTKQuery';
+
+import { ThemeContextApp } from 'utilize/ContextApp';
 
 import myEvents from 'utilize/myEvents';
 
 import { $ } from 'utilize/Tricks';
 import { avatarNull } from 'utilize/constant';
 
+/**
+*@typedef {
+*type: string,
+*notification: text,
+*status: string,  // sent - receved - seen - read - deleted / 1 - 2 - 3 - 4 - 5
+*uuid_user: uuid
+*} notificationOptions
+*/  
+
+/**
+*@typedef {
+*title: string,
+*type: string,
+*uuid_userSent: string,
+*} notification
+*/
+
+
 const CaseRecordInforSearchBox = () => {
+
+    const { loginInfor } = useContext(ThemeContextApp);
+
     const [searchText, setSearchText] = useState('');
     const [selectedDoctorPharmacist, setSelectedDoctorPharmacist] = useState(null);
     const [doctorPharmacistList, setDoctorPharmacistList] = useState([]);
@@ -25,6 +49,12 @@ const CaseRecordInforSearchBox = () => {
         isLoading: isLoading_doctorPharmacistList 
     } = useGetDoctorOrPharmacistSearchByIdQuery(searchText);
     // 28493b78-4cbd-4cb5-8e9e-0c1e7c5c45d6
+
+    const [createNotification] = useCreateNotificationMutation();
+
+    useEffect(() => {
+        // console.log('selectedDoctorPharmacist', selectedDoctorPharmacist)
+    }, [selectedDoctorPharmacist])
 
     useEffect(() => {
         if (error_doctorPharmacistList) {
@@ -61,7 +91,19 @@ const CaseRecordInforSearchBox = () => {
     }
 
     const handlePatchDoctorPharmacist = () => {
+        const notification = {
+            title: 'Toi can kham benh',
+            type: 'requireExamine',
+            uuid_userSent: loginInfor?.uuid
+        }
+
         setSentStatus(true);
+        createNotification({
+            type: 'normal',
+            notification: JSON.stringify(notification),
+            status: 'sent',
+            uuid_user: selectedDoctorPharmacist.uuid_user
+        })
     }
 
     const isIntergerRange = (fistInt, lastInt, averageInt) => {

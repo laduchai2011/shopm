@@ -11,6 +11,7 @@ export const SERVER_ADDRESS_SICKPERSON_CREATE                                  =
 export const SERVER_ADDRESS_GET_DOCTORORPHARMACIST_FROM_CASERECORD             = `${baseURL}:7100/api/svGetUserInfor/doctorOrPharmacist/getfromCaseRecord`;
 export const SERVER_ADDRESS_GET_SICKPERSON_FROM_CASERECORD                     = `${baseURL}:7100/api/svGetUserInfor/sickPerson/getfromCaseRecord`;
 export const SERVER_ADDRESS_GET_DOCTORORPHARMACIST_FROM_CASERECORD_SEARCH      = `${baseURL}:7100/api/svGetUserInfor/doctorOrPharmacist/getfromCaseRecord/search`;
+export const SERVER_ADDRESS_GET_USERWITHPK_NOTIFICATION                        = `${baseURL}:7100/api/svGetUserInfor/getUserWithPk_notification`;
 
 export const SERVER_ADDRESS_CREATE_ORDERMEDICATION                             = `${baseURL}:7400/api/svUploadOrderMedication/orderMedication/create`;
 
@@ -31,7 +32,7 @@ export const SERVER_ADDRESS_GET_MEDICATION_LIST                                =
 export const SERVER_ADDRESS_GET_MEDICATIONMANAGER_LIST                         = `${baseURL}:8700/api/svGetMedication/provider/medicationManager/list`;
 export const SERVER_ADDRESS_GET_MEDICATION_HOME                                = `${baseURL}:8700/api/svGetMedication/home/medication/list`;
 export const SERVER_ADDRESS_PATCH_MEDICATION                                   = `${baseURL}:8600/api/svUploadMedication/provider/medication/patch`;
-export const SERVER_ADDRESS_GET_ORDER_MEDICATION                               = `${baseURL}:8500/api/svGetOrderMedication`;
+export const SERVER_ADDRESS_GET_ORDER_MEDICATION                               = `${baseURL}:8400/api/svGetOrderMedication`;
 
 export const SERVER_ADDRESS_POST_PROVIDER_NEWS                                 = `${baseURL}:8900/api/svUploadProviderNews/provider/news/add`;
 export const SERVER_ADDRESS_GET_PROVIDER_NEWS_LIST                             = `${baseURL}:8800/api/svGetProviderNews/provider/news/list`;

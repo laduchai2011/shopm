@@ -7,14 +7,15 @@ const { socketSMRoom: socketSMRoom_obj } = require('../../model/CRUDDATABASE/CRU
 
 /**
 *@typedef {
-*room: string,
+*room: string,           // notification-chat2
+*type: string,
 *status: string,
 *uuid_user: uuid
 *} socketSMRoomOptions
 */
 
 
-const getSocketSMRoom = (uuid_user, status, callback) => {
+const getSocketSMRoom = (uuid_user, type, status, callback) => {
     let socketSMRoom;
     let err;
 
@@ -27,6 +28,7 @@ const getSocketSMRoom = (uuid_user, status, callback) => {
                     if (!socketSMRoom1 || (socketSMRoom1===null)) {
                         const notificationRoomOptions = {
                             room: uuidv4(),
+                            type: type,
                             status: 'normal',
                             uuid_user: uuid_user
                         };

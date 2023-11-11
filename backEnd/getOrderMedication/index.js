@@ -34,7 +34,7 @@ app.use('/api/svGetOrderMedication', express.urlencoded({extended: true}));
 
 app.use('/api/svGetOrderMedication', router);
 
-const PORT = process.env.NODE_SERVER_PORT_KEY || 8500;
+const PORT = process.env.NODE_SERVER_PORT_KEY || 8400;
 
 app.listen(PORT, '0.0.0.0', function () {
     console.log(`Listening on port ${PORT}!`);

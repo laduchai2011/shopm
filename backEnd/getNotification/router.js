@@ -44,9 +44,10 @@ router.get('/getNotificationList', Authentication, (req, res) => {
     const pageSize = req.query.pageSize;
     const type = req.query.type;
     const status = req.query.status;
+    const statusArray = status === 'all' ? ['sent', 'receved', 'seen', 'read'] : [status];
     const userOptions = req.decodedToken.data;
     const uuid_user = userOptions.uuid;
-    notification.bulkReadWithFk(uuid_user, type, status, Number(pageIndex), Number(pageSize), (notifications, err) => {
+    notification.bulkReadWithFk(uuid_user, type, statusArray, Number(pageIndex), Number(pageSize), (notifications, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send({ 

@@ -14,8 +14,9 @@ const { getSocketSMRoom } = require('./src/middle/getSocketSMRoom');
 
 router.get('/getRoom', Authentication, (req, res) => {
     const userOptions = req.decodedToken.data;
+    const type = req.query.type;
     const status = req.query.status;
-    getSocketSMRoom(userOptions.uuid, status, async (socketSMRoom, err) => {
+    getSocketSMRoom(userOptions.uuid, type, status, async (socketSMRoom, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send({ 

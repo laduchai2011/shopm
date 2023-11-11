@@ -12,6 +12,14 @@ const { defineModel } = require('../defineModel');
 *} notificationOptions
 */  
 
+/**
+*@typedef {
+*title: string, 
+*type: string,
+*uuid_userSent: string,
+*} notification
+*/
+
 class Notification {
     constructor() {
         this._Notification = defineModel.getNotification();
@@ -54,7 +62,7 @@ class Notification {
         })
     }
 
-    bulkReadWithFk(uuid_user, type, status, pageIndex, pageSize, callback) {
+    bulkReadWithFk(uuid_user, type, statusArray, pageIndex, pageSize, callback) {
         let notifications;
         let err;
         
@@ -67,7 +75,7 @@ class Notification {
                                 [Op.and]: [
                                     { uuid_user: uuid_user },
                                     { type: type },
-                                    { status: status }
+                                    { status: { [Op.in]: statusArray } }
                                 ]
                             },
                             order: [

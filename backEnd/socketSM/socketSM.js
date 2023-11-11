@@ -35,11 +35,13 @@ io.use(cookieParser());
 io.use(SocketSM_Authentication);
 
 io.on("connection", (socket) => {
-    socket.join(socket.request.cookies.uid);
+    const room = socket.handshake.auth.room;
+    socket.join(room);
 
     socket.on("disconnect", (reason) => {
         // console.log(`socket ${socket.id} disconnected due to ${reason}`);
-        socket.leave(socket.request.cookies.uid);
+        const room = socket.handshake.auth.room;
+        socket.leave(room);
         socket.disconnect(true);
     });
 });

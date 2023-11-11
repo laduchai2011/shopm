@@ -1,7 +1,0 @@
-24-10-2023	54:39:01--------config redlock: ResourceLockedError: The operation was applied to: 0 of the 1 requested resources.
-24-10-2023	54:39:01--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
-24-10-2023	54:39:01--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
-24-10-2023	59:39:01--------config redlock: ResourceLockedError: The operation was applied to: 0 of the 1 requested resources.
-24-10-2023	03:40:01--------config redlock: ResourceLockedError: The operation was applied to: 0 of the 1 requested resources.
-24-10-2023	03:40:01--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
-24-10-2023	03:40:01--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken

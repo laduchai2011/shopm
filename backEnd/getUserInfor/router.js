@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// const { curdUser } = require('./src/model/CRUDDATABASE/CRUDUSER');
+const { crudUser } = require('./src/model/CRUDDATABASE/CRUDUSER');
 const { doctorOrPharmacist } = require('./src/model/CRUDDATABASE/CRUDDOCTORORPHARMACIST');
 const { sickPerson } = require('./src/model/CRUDDATABASE/CRUDSICKPERSON');
 // const { serviceRedis } = require('./src/model/serviceRedis');
@@ -11,6 +11,31 @@ const { logEvents } = require('./logEvents');
 router.get('/', (req, res) => {
     res.send('get user infor')
 });
+
+router.get('/getUserWithPk_notification', Authentication, (req, res) => {
+    const uuid_user = req.query.uuid_user;
+    crudUser.readWithPk_notification(uuid_user, (user, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send({ 
+                message: "Can't get user (getUserWithPk_notification) !",
+                err: err,
+                success: false
+            })
+        } else {
+            if (user===null) return res.status(200).send({ 
+                message: "Can't get doctorOrPharmacist !",
+                user: user,
+                success: false
+            })
+            return res.status(200).json({ 
+                user: user,
+                message: "Get doctorOrPharmacist successly !",
+                success: true
+            })
+        }
+    })
+})
 
 router.get('/doctorOrPharmacist/getfromCaseRecord', Authentication, (req, res) => {
     const uuid_doctorOrPharmacist = req.query.uuid_doctorOrPharmacist;

@@ -1,7 +1,0 @@
-23-10-2023	41:17:23--------/doctorOrPharmacist/getfromCaseRecord/search?uuid_doctorOrPharmacist=---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-23-10-2023	42:17:23--------/sickPerson/getfromCaseRecord?uuid_user=4189f631-e74b-423e-a52d-d10722ee104c---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-24-10-2023	51:39:01--------config redlock: ResourceLockedError: The operation was applied to: 0 of the 1 requested resources.
-24-10-2023	51:39:01--------/doctorOrPharmacist/getfromCaseRecord/search?uuid_doctorOrPharmacist=---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-24-10-2023	51:39:01--------/sickPerson/getfromCaseRecord?uuid_user=4189f631-e74b-423e-a52d-d10722ee104c---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-24-10-2023	00:40:01--------/doctorOrPharmacist/getfromCaseRecord/search?uuid_doctorOrPharmacist=---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-24-10-2023	00:40:01--------/sickPerson/getfromCaseRecord?uuid_user=4189f631-e74b-423e-a52d-d10722ee104c---GET---JsonWebTokenError: invalid signature: token.verify-accessToken

@@ -33,10 +33,10 @@
     align-items: center;
 }
 
-.Header-iconContainer img {
+.Header-iconContainer > img {
     cursor: pointer;
-    width: 34px;
     height: 34px;
+    aspect-ratio: 1/1;
     border-radius: 17px;
     margin-left: 15px;
 }
@@ -64,8 +64,6 @@
     align-items: center;
 }
 
-
-
 .Header-iconBox:nth-child(1) {
     animation: cartAnimation 1s ease-in-out infinite;
 }
@@ -91,7 +89,7 @@
 .Header-contentBox {
     color: black !important;
     position: absolute;
-    top: 40px;
+    top: 50px;
     background-color: white;
     border: 1px solid rgb(226, 226, 226);
     border-radius: 20px;
@@ -99,19 +97,43 @@
     box-shadow: 5px 5px 5px rgb(226, 226, 226);
     padding: 10px;
     left: 0;
-    width: 300px;
+    width: 340px;
     transform: translateX(-50%);
     display: none;
+}
+
+.Header-contentBox.showNotification {
+    left: -85px !important;
 }
 
 .Header-contentBox.show {
     display: block;
 }
 
+.Header-contentBox:after {
+    content: '';
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: -10px;
+    transform: rotate(45deg);
+    border-top: 1px solid rgb(226, 226, 226);
+}
+
+.Header-contentBox.showCartCaseRecord:after {
+    left: 52%;
+}
+
+.Header-contentBox.showNotification:after {
+    left: 77%;
+}
+
 .Header-contentBox-header {
     border-bottom: 1px solid gray;
     padding-bottom: 5px;
     margin-bottom: 5px;
+    font-weight: 800;
 }
 
 .Header-contentBox-content {
@@ -120,7 +142,7 @@
 }
 
 .Header-contentBox-content::-webkit-scrollbar {
-    width: 5px;
+    width: 1px;
 }
 
 .Header-contentBox-content::-webkit-scrollbar-thumb {
@@ -147,4 +169,25 @@
     background-color: blue;
     color: white;
     cursor: pointer;
+}
+
+.Header-contentBox-options {
+    border-bottom: 1px solid gray;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.Header-contentBox-options > span {
+    box-sizing: border-box;
+    background-color: rgb(230, 230, 230);
+    margin: 0 5px;
+    padding: 2px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.Header-contentBox-options > span.active,
+.Header-contentBox-options > span:hover {
+    background-color: gray;
+    color: white;
 }
