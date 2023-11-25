@@ -1,11 +1,12 @@
+'use strict';
 const { clientRedis } = require('../../config/serviceRedis');
 const { logEvents } = require('../../../logEvents');
 
 class ServiceRedis {
     constructor(clientRedis) {
         this._clientRedis = clientRedis;
-        this._clientRedis.connect();
         this._clientRedis.on('error', err => logEvents(`Redis Client Error ${err}`));
+        this._clientRedis.connect();
     }
 
     async setData(key, jsonValue, timeExpireat) {

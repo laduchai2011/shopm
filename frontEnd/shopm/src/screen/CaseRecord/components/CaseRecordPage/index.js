@@ -2,16 +2,21 @@ import React, { useState, useEffect } from "react";
 import './styles.css';
 
 import axios from "axios";
-
 import { useDispatch, useSelector } from 'react-redux';
+
 import { AiFillEdit } from 'react-icons/ai';
-import { CiCircleRemove } from 'react-icons/ci';
+import { CiCircleRemove, CiEdit } from 'react-icons/ci';
 import { GrAdd } from 'react-icons/gr';
 import { BsFillFileEarmarkImageFill, BsPersonVideo2 } from 'react-icons/bs';
+import { IoCheckmark } from "react-icons/io5";
+import { MdDelete } from "react-icons/md";
 
 import TextEditor from "TextEditor";
 import { TEGetContent, TESetContent } from "TextEditor/utilize";
-import { $$ } from "utilize/Tricks";
+import { $, $$ } from "utilize/Tricks";
+
+import MedicationTableDelete from "./components/MedicationTable/MedicationTableDelete";
+import MedicationTableEdit from "./components/MedicationTable/MedicationTableEdit";
 
 import { 
     SERVER_ADDRESS_GET_VIDEO, 
@@ -264,6 +269,20 @@ const CaseRecordPage = () => {
         setNewImages(pre => pre.concat(newImages_m));
     }
 
+    const handleAddMedication = () => {
+        console.log('handleAddMedication')
+    }
+
+    const showTableDeleteMedication = () => {
+        const q_medicationDelete = $('.MedicationTableDelete');
+        q_medicationDelete.classList.add('show');
+    }
+
+    const showTableEditMedication = () => {
+        const q_medicationEdit = $('.MedicationTableEdit');
+        q_medicationEdit.classList.add('show');
+    }
+
     const list_image = dataPage?.description.images.map((data, index) => {
         return (
             <div key={index}>
@@ -291,6 +310,26 @@ const CaseRecordPage = () => {
             <div key={index}>
                 { editBoolD && <CiCircleRemove size={25} /> }
                 <video src={data} muted controls />
+            </div>
+        )
+    })
+
+    const medication_list = [1,2,3,4,5,6,7,8,9,10].map((data, index) => {
+        return (
+            <div className="CaseRecordPage-prescription-medicationList-table list" key={ index }>
+                <div>
+                    <div><span>Index</span><div>{ data }</div></div>
+                    <div><span>Uid</span><div>sdfff45634thf</div></div>
+                    <div><span>Name</span><div>laduchai</div></div>
+                    <div><span>Amount</span>43</div>
+                    <div><span>Note</span>dfgf dsfsdkfh sdfk sdif</div>
+                    <div><span>Price</span>2132</div>
+                </div>
+                <div className="CaseRecordPage-prescription-medicationList-table-icon">
+                    <IoCheckmark title="Check medication amount" color="blue" size={ 20 } />
+                    { getCookie('caseRecordRole')==='doctorOrPharmacist' && <CiEdit onClick={() => showTableEditMedication()} title="Edit a medication" color="green" size={ 20 } /> }
+                    { getCookie('caseRecordRole')==='doctorOrPharmacist' && <MdDelete onClick={() => showTableDeleteMedication()} title="Delete a medication" color="red" size={ 20 } /> }
+                </div>
             </div>
         )
     })
@@ -346,16 +385,27 @@ const CaseRecordPage = () => {
                 <div className="CaseRecordPage-prescription-medicationList">
                     <div><strong>Medication List:</strong></div>
                     { editBoolP && <>
-                        <div>
+                        <div className="CaseRecordPage-prescription-medicationList-add" onClick={() => handleAddMedication()} title="Add medication">
                             <GrAdd />
                             <span>Add</span>
                         </div>
-                        <div className="CaseRecordPage-prescription-medicationList-table">
-                            <div>name</div>
-                            <div>name</div>
-                            <div>name</div>
-                        </div>
                     </>}
+                    <div className="CaseRecordPage-prescription-medicationList-table header">
+                        <div>
+                            <div>Index</div>
+                            <div>Uid</div>
+                            <div title="name">Name</div>
+                            <div>Amount</div>
+                            <div>Note</div>
+                            <div>Price</div>
+                        </div>
+                        <div className="CaseRecordPage-prescription-medicationList-table-icon">
+                            <IoCheckmark title="Check all medication amount" color="blue" size={ 20 } />
+                            { getCookie('caseRecordRole')==='doctorOrPharmacist' && <CiEdit title="Edit all medications" color="green" size={ 20 } /> }
+                            { getCookie('caseRecordRole')==='doctorOrPharmacist' && <MdDelete title="Delete all medications" color="red" size={ 20 } /> }
+                        </div>
+                    </div>
+                    { medication_list }
                 </div>
             </div>
             <div className="CaseRecordPage-buttonContainer">
@@ -368,6 +418,8 @@ const CaseRecordPage = () => {
                 <button>Lock</button>
                 <button>Un-Lock</button>
             </div>
+            <MedicationTableDelete />
+            <MedicationTableEdit />
         </div>
     )
 }

@@ -17,6 +17,7 @@ const { defineModel } = require('../defineModel');
 *information: text,
 *averageRating: float,
 *rateCount: integer,
+*status: string,
 *uuid_user: uuid
 *} doctorOrPharmacistOptions
 */ 
@@ -83,6 +84,40 @@ class DOCTORORPHARMACIST {
                             attributes: {
                                 exclude: ['avatar', 'image', 'information']
                             }
+                        }, { transaction: t })
+                        resolve(isDoctorOrPharmacist);
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        doctorOrPharmacistPromise
+        .then(newDoctorOrPharmacist => {
+            doctorOrPharmacist = newDoctorOrPharmacist;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(doctorOrPharmacist, err);
+        })
+    }
+
+    readUuidViaUuid_user(uuid_user, callback) {
+        let doctorOrPharmacist;
+        let err;
+        
+        const doctorOrPharmacistPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isDoctorOrPharmacist = await this._DoctorOrPharmacist.findOne({
+                            where: {
+                                uuid_user: uuid_user        
+                            },
+                            attributes: ['uuid_doctorOrPharmacist']
                         }, { transaction: t })
                         resolve(isDoctorOrPharmacist);
                     } catch (error) {

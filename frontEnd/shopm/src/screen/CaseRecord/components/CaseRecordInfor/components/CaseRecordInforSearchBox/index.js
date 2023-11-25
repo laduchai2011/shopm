@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useTransition, memo, useContext } from 'react';
 import './styles.css';
 
+import axios from 'axios';
+import { useParams } from "react-router-dom";
+
 import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/bs';
 import { TiDeleteOutline } from 'react-icons/ti';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
@@ -15,6 +18,7 @@ import myEvents from 'utilize/myEvents';
 
 import { $ } from 'utilize/Tricks';
 import { avatarNull } from 'utilize/constant';
+import { SERVER_ADDRESS_PATCH_CASERECORD_SENDREQUIRETODOCTORPHARMACIST } from 'config/server';
 
 /**
 *@typedef {
@@ -36,6 +40,8 @@ import { avatarNull } from 'utilize/constant';
 
 const CaseRecordInforSearchBox = () => {
 
+    const { id: uuid_caseRecord } = useParams();
+
     const { loginInfor } = useContext(ThemeContextApp);
 
     const [searchText, setSearchText] = useState('');
@@ -48,7 +54,7 @@ const CaseRecordInforSearchBox = () => {
         error: error_doctorPharmacistList, 
         isLoading: isLoading_doctorPharmacistList 
     } = useGetDoctorOrPharmacistSearchByIdQuery(searchText);
-    // 28493b78-4cbd-4cb5-8e9e-0c1e7c5c45d6
+    // 925ae150-b29e-4714-b7ee-909c1aee1a01
 
     const [createNotification] = useCreateNotificationMutation();
 
@@ -98,12 +104,28 @@ const CaseRecordInforSearchBox = () => {
         }
 
         setSentStatus(true);
-        createNotification({
-            type: 'normal',
-            notification: JSON.stringify(notification),
-            status: 'sent',
-            uuid_user: selectedDoctorPharmacist.uuid_user
-        })
+
+        axios({
+            method: 'patch',
+            url: `${SERVER_ADDRESS_PATCH_CASERECORD_SENDREQUIRETODOCTORPHARMACIST}`, 
+            withCredentials: true,
+            data: {
+                uuid_caseRecord: uuid_caseRecord,
+                uuid_doctorOrPharmacist: selectedDoctorPharmacist.uuid_doctorOrPharmacist
+            }
+        }).then((res) => {
+            const resData = res.data;
+            if (resData.success) {
+                createNotification({
+                    type: 'normal',
+                    notification: JSON.stringify(notification),
+                    status: 'sent',
+                    uuid_user: selectedDoctorPharmacist.uuid_user
+                })
+            } else {
+                console.log(resData.message);
+            }
+        }).catch(err => console.error(err));
     }
 
     const isIntergerRange = (fistInt, lastInt, averageInt) => {

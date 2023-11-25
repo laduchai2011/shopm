@@ -17,6 +17,7 @@ const { defineModel } = require('../defineModel');
 *information: text,
 *averageRating: float,
 *rateCount: integer,
+*status: string,
 *uuid_user: uuid
 *} doctorOrPharmacistOptions
 */ 

@@ -11,4 +11,4 @@ export const caseRecordRTKQuery = createApi({
     }),
 })
 
-export const { useGetPokemonByNameQuery } = pokemonApi
+export const { useGetPokemonByNameQuery } = pokemonApi;

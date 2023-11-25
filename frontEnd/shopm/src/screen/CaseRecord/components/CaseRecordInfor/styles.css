@@ -72,6 +72,30 @@
     font-style: italic;
 }
 
+.CaseRecordInfor-doctorPharmacistInfor-content > div:nth-child(10) {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.CaseRecordInfor-doctorPharmacistInfor-content > div:nth-child(10) > button {
+    margin: 0 5px;
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.CaseRecordInfor-doctorPharmacistInfor-content > div:nth-child(10) > button:nth-child(1) {
+    background-color: greenyellow;
+}
+
+.CaseRecordInfor-doctorPharmacistInfor-content > div:nth-child(10) > button:nth-child(2) {
+    background-color: red;
+    color: white;
+}
+
 .CaseRecordInfor-doctorPharmacistInfor-search {
     padding: 10px;
     box-sizing: border-box;

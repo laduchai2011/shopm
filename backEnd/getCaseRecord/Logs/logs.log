@@ -1,0 +1,9 @@
+19-11-2023	47:30:19--------/caseRecord/get?uuid_caseRecord=a5734e39-0631-4ebc-9fac-7de9faa80a84---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+21-11-2023	05:55:20--------/caseRecord/get?uuid_caseRecord=a5734e39-0631-4ebc-9fac-7de9faa80a84---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+22-11-2023	48:31:18--------/caseRecord/get?uuid_caseRecord=a5734e39-0631-4ebc-9fac-7de9faa80a84---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+23-11-2023	34:47:13--------/caseRecord/get?uuid_caseRecord=a5734e39-0631-4ebc-9fac-7de9faa80a84---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+23-11-2023	43:48:13--------/caseRecord/get?uuid_caseRecord=a5734e39-0631-4ebc-9fac-7de9faa80a84---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+23-11-2023	43:48:13--------/caseRecordPage/getList?pageSize=1&pageIndex=1&uuid_caseRecord=a5734e39-0631-4ebc-9fac-7de9faa80a84---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+23-11-2023	25:26:16--------/caseRecord/get?uuid_caseRecord=a5734e39-0631-4ebc-9fac-7de9faa80a84---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+25-11-2023	26:42:08--------/caseRecord/get?uuid_caseRecord=a5734e39-0631-4ebc-9fac-7de9faa80a84---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+25-11-2023	48:58:14--------/caseRecord/get?uuid_caseRecord=a5734e39-0631-4ebc-9fac-7de9faa80a84---GET---JsonWebTokenError: invalid signature: token.verify-accessToken

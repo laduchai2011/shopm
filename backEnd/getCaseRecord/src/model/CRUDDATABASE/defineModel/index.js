@@ -281,6 +281,10 @@ class DefineModel {
                 type: DataTypes.INTEGER,
                 allowNull: false
             },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
             uuid_user: {
                 type: Sequelize.UUID,
                 allowNull: false,

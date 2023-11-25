@@ -8,10 +8,13 @@ import { $ } from "utilize/Tricks";
 import CaseRecordInforSearchBox from "./components/CaseRecordInforSearchBox";
 import CaseRecordInforPassiveSearchBox from "./components/CaseRecordInforPassiveSearchBox";
 
+import { setDoctorOrPharmacistInfor } from "reduxStore/slice/caseRecordSlice";
+import { getCookie } from "auth/cookie";
 
 const CaseRecordInfor = () => {
     const { id: uuid_caseRecord } = useParams();
     const navigate = useNavigate();
+    const caseRecordRole = getCookie('caseRecordRole');
 
     const currentIndex = useSelector(state => state.caseRecord.currentIndex);
     const caseRecords = useSelector(state => state.caseRecord.caseRecords);
@@ -20,11 +23,11 @@ const CaseRecordInfor = () => {
     const loadingDoctorOrPharmacistInfor = useSelector(state => state.caseRecord.loadingDoctorOrPharmacistInfor);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch({type: 'caseRecordInit', payload: uuid_caseRecord});
+    // useEffect(() => {
+    //     dispatch({type: 'caseRecordInit', payload: uuid_caseRecord});
 
-        // eslint-disable-next-line
-    }, [])
+    //     // eslint-disable-next-line
+    // }, [])
 
     useEffect(() => {
         const q_CaseRecordInfor = $('.CaseRecordInfor');
@@ -67,6 +70,10 @@ const CaseRecordInfor = () => {
         $('.CaseRecordInforPassiveSearchBox-overlay').classList.add('active');
     }
 
+    const handleSelectAgain = () => {
+        dispatch(setDoctorOrPharmacistInfor(null));
+    }
+
     return (
         <div className="CaseRecordInfor CaseRecordInfor-loadingCaseRecord CaseRecordInfor-loadingPatientInfor CaseRecordInfor-loadingDoctorOrPharmacistInfor">
             <h2>Case-Record ( { uuid_caseRecord } )</h2>
@@ -99,17 +106,18 @@ const CaseRecordInfor = () => {
             <div className="CaseRecordInfor-doctorPharmacistInfor">
                 <div className="CaseRecordInfor-doctorPharmacistInfor-header">Doctor or Pharmacist Information</div>
                 { 
-                    loadingDoctorOrPharmacistInfor ? 
+                    caseRecords[currentIndex]?.doctorOrPharmacistInfor !== null ? 
                     <div className="CaseRecordInfor-doctorPharmacistInfor-content">
-                        <div><strong>Name:</strong> La Duc Hai</div>
-                        <div><strong>Age:</strong> 28</div>
-                        <div><strong>Sex:</strong> male</div>
-                        <div><strong>Doctor or Pharmacist:</strong> Doctor</div>
-                        <div><strong>Major:</strong> tooth</div>
-                        <div><strong>Graduated in:</strong> Ha Noi medical University</div>
-                        <div><strong>Phone:</strong> 0789860854</div>
-                        <div><strong>Address:</strong> Ho Seu, Hoang Hoa Tham, Chi Linh, Hai Duong, Viet Nam</div>
+                        <div><strong>Name:</strong> { caseRecords[currentIndex]?.doctorOrPharmacistInfor?.name }</div>
+                        <div><strong>Age:</strong> { caseRecords[currentIndex]?.doctorOrPharmacistInfor?.birthday }</div>
+                        <div><strong>Sex:</strong> { caseRecords[currentIndex]?.doctorOrPharmacistInfor?.sex ? 'male' : 'fe-male' }</div>
+                        <div><strong>Doctor or Pharmacist:</strong> { caseRecords[currentIndex]?.doctorOrPharmacistInfor?.type }</div>
+                        <div><strong>Major:</strong> { caseRecords[currentIndex]?.doctorOrPharmacistInfor?.major }</div>
+                        <div><strong>Graduated in:</strong> { caseRecords[currentIndex]?.doctorOrPharmacistInfor?.graduated }</div>
+                        <div><strong>Phone:</strong> { caseRecords[currentIndex]?.doctorOrPharmacistInfor?.phone }</div>
+                        <div><strong>Address:</strong> { caseRecords[currentIndex]?.doctorOrPharmacistInfor?.address }</div>
                         <div><strong>Profile Shopm:</strong> <span onClick={() => navigate(`/profile/${caseRecords[currentIndex]?.doctorOrPharmacistInfor?.uuid_user}`)}>Profile Shopm</span></div>
+                        { caseRecordRole==='patient' && <div><button onClick={() => handleSelectAgain()}>Select again</button><button>Delete</button></div>}
                     </div>:
                     <div className="CaseRecordInfor-doctorPharmacistInfor-search">
                         <button onClick={() => handleSearchDoctorOrPharmacist()}>Search</button>

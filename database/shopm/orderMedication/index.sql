@@ -14,3 +14,8 @@ SELECT * FROM OrderMedications WHERE uuid_orderMedication = '11111'
 
 ------------------ Order medication -----------------------
 SELECT * FROM OrderAllMedications
+
+DELETE FROM DoctorOrPharmacists
+
+ALTER TABLE DoctorOrPharmacists
+ADD status nvarchar(255) not null;

@@ -119,6 +119,11 @@ export const caseRecordSlice = createSlice({
             state.caseRecords[state.currentIndex].emptyDb = action.payload;
         },
 
+        // set doctorOrPharmacistInfor in casr-records
+        setDoctorOrPharmacistInfor: (state, action) => {
+            state.caseRecords[state.currentIndex].doctorOrPharmacistInfor = action.payload;
+        },
+
         // set push case-record page
         pushCaseRecordPage: (state, action) => {
             const old_caseRecordPages = state.caseRecords[state.currentIndex].caseRecordPages;
@@ -138,6 +143,7 @@ export const {
     setLoadingDoctorOrPharmacistInfor,
     setPageIndex,
     setEmptyDb,
+    setDoctorOrPharmacistInfor,
     pushCaseRecordPage 
 } = caseRecordSlice.actions;
 

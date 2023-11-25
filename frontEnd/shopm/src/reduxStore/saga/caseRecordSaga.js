@@ -84,7 +84,7 @@ function* fetchReadDoctorOrPharmacistInfor(uuid_doctorOrPharmacist) {
         const res = yield call(() => {
             return axios({
                 method: 'get',
-                url: `${SERVER_ADDRESS_GET_DOCTORORPHARMACIST_FROM_CASERECORD}?uuid_user=${uuid_doctorOrPharmacist}`,
+                url: `${SERVER_ADDRESS_GET_DOCTORORPHARMACIST_FROM_CASERECORD}?uuid_doctorOrPharmacist=${uuid_doctorOrPharmacist}`,
                 withCredentials: true
             })
         })
@@ -141,8 +141,8 @@ function* caseRecordInit(action) {
     // get or update current sick-person information
     const uuid_sickPerSon = yield select(state => {
         const currentIndex = state.caseRecord.currentIndex;
-        const uuid_sickPerSon = state.caseRecord.caseRecords[currentIndex].caseRecord.uuid_user;
-        const sickPrson = state.caseRecord.caseRecords[currentIndex].patientInfor;
+        const uuid_sickPerSon = state.caseRecord.caseRecords[currentIndex]?.caseRecord.uuid_user;
+        const sickPrson = state.caseRecord.caseRecords[currentIndex]?.patientInfor;
         if (sickPrson===null) {
             return uuid_sickPerSon;
         } else {
@@ -156,8 +156,8 @@ function* caseRecordInit(action) {
     // get or update current DoctorOrPharmacist information
     const uuid_doctorOrPharmacist = yield select(state => {
         const currentIndex = state.caseRecord.currentIndex;
-        const uuid_doctorOrPharmacist = state.caseRecord.caseRecords[currentIndex].caseRecord.uuid_doctorOrPharmacist;
-        const doctorOrPharmacist = state.caseRecord.caseRecords[currentIndex].doctorOrPharmacistInfor;
+        const uuid_doctorOrPharmacist = state.caseRecord.caseRecords[currentIndex]?.caseRecord.uuid_doctorOrPharmacist;
+        const doctorOrPharmacist = state.caseRecord.caseRecords[currentIndex]?.doctorOrPharmacistInfor;
         if (doctorOrPharmacist===null && uuid_doctorOrPharmacist!==null) {
             return uuid_doctorOrPharmacist;
         } else {

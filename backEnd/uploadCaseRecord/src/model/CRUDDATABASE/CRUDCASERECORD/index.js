@@ -87,6 +87,46 @@ class CaseRecord {
             callback(caseRecord, err);
         })
     }
+
+    sendRequireToDoctorPharmacist(uuid_user, uuid_caseRecord, uuid_doctorOrPharmacist, callback) {
+        let caseRecord;
+        let err;
+        
+        const caseRecordPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isCaseRecord = await this._CaseRecord.findByPk(
+                            uuid_caseRecord,
+                            {
+                                where: {
+                                    uuid_user: uuid_user
+                                }
+                            },
+                            { lock: true, transaction: t },
+                        );
+                        isCaseRecord.status = 'wait';
+                        isCaseRecord.uuid_doctorOrPharmacist = uuid_doctorOrPharmacist;
+                        await isCaseRecord.save({ transaction:t });
+                        resolve(isCaseRecord);   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        caseRecordPromise
+        .then(isCaseRecord => {
+            caseRecord = isCaseRecord;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(caseRecord, err);
+        })
+    }
 }
 
 const caseRecord = new CaseRecord();

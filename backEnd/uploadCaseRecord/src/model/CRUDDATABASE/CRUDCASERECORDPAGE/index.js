@@ -20,7 +20,7 @@ const { defineModel } = require('../defineModel');
 *   images: [],
 *   videos: []
 *},
-*Prescription: {
+*prescription: {
 *   note: text,
 *   medicationList: []    
 *}

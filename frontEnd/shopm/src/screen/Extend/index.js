@@ -22,6 +22,7 @@ import { SERVER_ADDRESS_ADD_DOCTORORPHARMACIST } from 'config/server';
 *information: text,
 *averageRating: float,
 *rateCount: integer,
+*status: string,
 *uuid_user: uuid
 *} doctorOrPharmacistOptions
 */ 
@@ -42,6 +43,7 @@ const Extend = () => {
             information: '',
             averageRating: 0,
             rateCount: 0,
+            status: 'normal',
             uuid_user: ''
         }
         axios({

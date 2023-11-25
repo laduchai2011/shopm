@@ -27,8 +27,30 @@ router.post('/caseRecord/create', Authentication, (req, res) => {
     })
 })
 
-router.post('/caseRecord/sendRequireToDoctorPharmacist', Authentication, (req, res) => {
-    
+router.patch('/caseRecord/sendRequireToDoctorPharmacist', Authentication, (req, res) => {
+    const userOptions = req.decodedToken.data;
+    const uuid_caseRecord = req.body.uuid_caseRecord;
+    const uuid_doctorOrPharmacist = req.body.uuid_doctorOrPharmacist;
+    caseRecord.sendRequireToDoctorPharmacist(userOptions.uuid, uuid_caseRecord, uuid_doctorOrPharmacist, (caseRecord, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send(err);
+        } else {
+            if (caseRecord) {
+                return res.status(200).json({
+                    caseRecord: caseRecord,
+                    success: true,
+                    message: `sendRequireToDoctorPharmacist ( ${uuid_doctorOrPharmacist} ) for case-record ( ${uuid_caseRecord} ) successly !`
+                });
+            } else {
+                return res.status(200).json({
+                    caseRecord: caseRecord,
+                    success: false,
+                    message: `sendRequireToDoctorPharmacist ( ${uuid_doctorOrPharmacist} ) for case-record ( ${uuid_caseRecord} ) successly !`
+                });
+            }
+        }
+    })
 })
 
 router.patch('/caseRecord/patchDoctorPharmacist', Authentication, (req, res) => {

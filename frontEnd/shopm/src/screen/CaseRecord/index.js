@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './styles.css';
 
-import { useSelector } from 'react-redux';
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
 
 import Header from 'screen/Header';
 import CaseRecordInfor from './components/CaseRecordInfor';
@@ -11,14 +12,23 @@ import { getCookie } from 'auth/cookie';
 
 
 const CaseRecord = () => {
+    const { id: uuid_caseRecord } = useParams();
+    const dispatch = useDispatch();
+
     const caseRecordRole = getCookie('caseRecordRole');
-    const [caseRecordRoleState, setCaseRecordRole] = useState(false);
+    const [caseRecordRoleState, setCaseRecordRoleState] = useState(false);
     const loadingCaseRecord = useSelector(state => state.caseRecord.loadingCaseRecord);
+
+    useEffect(() => {
+        dispatch({type: 'caseRecordInit', payload: uuid_caseRecord});
+
+        // eslint-disable-next-line
+    }, [])
 
     useEffect(() => {
         const roles = ['patient', 'doctorOrPharmacist'];
         if (roles.indexOf(caseRecordRole) !== -1) {
-            setCaseRecordRole(true);
+            setCaseRecordRoleState(true);
         }
     }, [loadingCaseRecord, caseRecordRole])
 
