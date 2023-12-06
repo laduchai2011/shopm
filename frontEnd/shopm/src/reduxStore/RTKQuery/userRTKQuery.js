@@ -30,7 +30,16 @@ export const userRTKQuery = createApi({
                 credentials: "include"
             }),
         }),
+        getSickPersonFromCaseRecord: builder.query({
+            query: ({uuid_sickPerson}) => ({ 
+                url: `/sickPerson/getFromCaseRecord?uuid_sickPerson=${uuid_sickPerson}`,
+                credentials: "include"
+            }),
+        }),
     }),
 })
 
-export const { useLazyGetUserWithPk_notificationQuery } = userRTKQuery;
+export const { 
+    useLazyGetUserWithPk_notificationQuery ,
+    useGetSickPersonFromCaseRecordQuery
+} = userRTKQuery;

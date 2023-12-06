@@ -53,7 +53,7 @@ export const notificationRTKQuery = createApi({
                 if (error) {
                     console.error(error);
                 } else {
-                    return [{type: 'Notification', bool: result.notification[0] > 0 ? true : false}]
+                    return [{type: 'Notification', bool: result?.notification[0] > 0 ? true : false}]
                 }
             }
         }),

@@ -1,3 +1,4 @@
+'use strict';
 const { Op } = require('sequelize');
 const { sequelize } = require('../../../config/database');
 const { defineModel } = require('../defineModel');

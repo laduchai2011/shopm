@@ -1,3 +1,4 @@
+'use strict';
 const { Sequelize, DataTypes } = require('sequelize');
 const { sequelize } = require('../../../config/database');
 
@@ -353,6 +354,218 @@ class DefineModel {
         this._CaseRecord.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User' })
         this._CaseRecord.belongsTo(this._DoctorOrPharmacist, { foreignKey: 'uuid_doctorOrPharmacist', targetKey: 'uuid_doctorOrPharmacist', as: 'uuid_DoctorOrPharmacist' })
 
+        this._CaseRecordDescription = sequelize.define('CaseRecordDescription', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                autoIncrement: true,
+                unique: 'UQ__CaseRecordDescription__id'
+            },
+            uuid_caseRecordDescription: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            pageNumber: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            description: {
+                type: Sequelize.TEXT
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_caseRecord: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [{
+                name: 'uuid_caseRecord_indexes',
+                using: 'BTREE',
+                fields: ['uuid_caseRecord']
+            }]
+        })
+        this._CaseRecord.hasMany(this._CaseRecordDescription, { foreignKey: 'uuid_caseRecord' })
+        this._CaseRecordDescription.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord' })
+
+        this._CaseRecordImage = sequelize.define('CaseRecordImage', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                autoIncrement: true,
+                unique: 'UQ__CaseRecordImage__id'
+            },
+            uuid_caseRecordImage: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            pageNumber: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            images: {
+                type: Sequelize.TEXT
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_caseRecord: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [{
+                name: 'uuid_caseRecord_indexes',
+                using: 'BTREE',
+                fields: ['uuid_caseRecord']
+            }]
+        })
+        this._CaseRecord.hasMany(this._CaseRecordImage, { foreignKey: 'uuid_caseRecord' })
+        this._CaseRecordImage.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord' })
+
+        this._CaseRecordVideo = sequelize.define('CaseRecordVideo', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                autoIncrement: true,
+                unique: 'UQ__CaseRecordVideo__id'
+            },
+            uuid_caseRecordVideo: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            pageNumber: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            videos: {
+                type: Sequelize.TEXT
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_caseRecord: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [{
+                name: 'uuid_caseRecord_indexes',
+                using: 'BTREE',
+                fields: ['uuid_caseRecord']
+            }]
+        })
+        this._CaseRecord.hasMany(this._CaseRecordVideo, { foreignKey: 'uuid_caseRecord' })
+        this._CaseRecordVideo.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord' })
+
+        this._CaseRecordPrescription = sequelize.define('CaseRecordPrescription', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                autoIncrement: true,
+                unique: 'UQ__CaseRecordPrescription__id'
+            },
+            uuid_caseRecordPrescription: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            pageNumber: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            prescription: {
+                type: Sequelize.TEXT
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_caseRecord: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [{
+                name: 'uuid_caseRecord_indexes',
+                using: 'BTREE',
+                fields: ['uuid_caseRecord']
+            }]
+        })
+        this._CaseRecord.hasMany(this._CaseRecordPrescription, { foreignKey: 'uuid_caseRecord' })
+        this._CaseRecordPrescription.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord' })
+
+        this._CaseRecordMedication = sequelize.define('CaseRecordMedication', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                autoIncrement: true,
+                unique: 'UQ__CaseRecordMedication__id'
+            },
+            uuid_caseRecordMedication: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            pageNumber: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            amount: {
+                type: DataTypes.INTEGER.UNSIGNED,
+                allowNull: false
+            },
+            note: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            price: {
+                type: DataTypes.INTEGER.UNSIGNED,
+                allowNull: false
+            },
+            cost: {
+                type: DataTypes.INTEGER.UNSIGNED,
+                allowNull: false
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_caseRecord: {
+                type: Sequelize.UUID,
+                allowNull: false
+            },
+            uuid_medication: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [{
+                name: 'uuid_caseRecord_indexes',
+                using: 'BTREE',
+                fields: ['uuid_caseRecord']
+            }, {
+                name: 'uuid_medication_indexes',
+                using: 'BTREE',
+                fields: ['uuid_medication']
+            }]
+        })
+        this._CaseRecord.hasMany(this._CaseRecordMedication, { foreignKey: 'uuid_caseRecord' })
+        this._CaseRecordMedication.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord' })
+        this._Medication.hasMany(this._CaseRecordMedication, { foreignKey: 'uuid_medication' })
+        this._CaseRecordMedication.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication' })
+
         this._CaseRecordPage = sequelize.define('CaseRecordPage', {
             id: {
                 type: DataTypes.INTEGER,
@@ -609,6 +822,26 @@ class DefineModel {
 
     getCaseRecord() {
         return this._CaseRecord;
+    }
+
+    getCaseRecordDescription() {
+        return this._CaseRecordDescription;
+    }
+
+    getCaseRecordImage() {
+        return this._CaseRecordImage;
+    }
+
+    getCaseRecordVideo() {
+        return this._CaseRecordVideo;
+    }
+
+    getCaseRecordPrescription() {
+        return this._CaseRecordPrescription;
+    }
+
+    getCaseRecordMedication() {
+        return this._CaseRecordMedication;
     }
 
     getCaseRecordPage() {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useTransition, memo, useContext } from 'react';
 import './styles.css';
 
-import axios from 'axios';
 import { useParams } from "react-router-dom";
+import axios from 'axios';
 
 import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/bs';
 import { TiDeleteOutline } from 'react-icons/ti';
@@ -42,7 +42,7 @@ const CaseRecordInforSearchBox = () => {
 
     const { id: uuid_caseRecord } = useParams();
 
-    const { loginInfor } = useContext(ThemeContextApp);
+    const { loginInfor } = useContext(ThemeContextApp); 
 
     const [searchText, setSearchText] = useState('');
     const [selectedDoctorPharmacist, setSelectedDoctorPharmacist] = useState(null);
@@ -128,6 +128,10 @@ const CaseRecordInforSearchBox = () => {
         }).catch(err => console.error(err));
     }
 
+    const handleReload = () => {
+        window.location.reload();
+    }
+
     const isIntergerRange = (fistInt, lastInt, averageInt) => {
         if (averageInt >= 0) {
             if ((fistInt <= averageInt) && (averageInt < lastInt)) {
@@ -201,6 +205,9 @@ const CaseRecordInforSearchBox = () => {
                             <div>
                                 <span>You sent a require to user:</span>
                                 <strong>{selectedDoctorPharmacist?.name}</strong>
+                                <br />
+                                <span>Let reload. Please !</span>
+                                <button onClick={() => handleReload()}>Reload</button>
                             </div>
                             }
                             { !sentStatus && <div>

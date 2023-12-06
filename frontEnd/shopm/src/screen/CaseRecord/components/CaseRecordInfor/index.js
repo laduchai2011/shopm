@@ -1,66 +1,77 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import './styles.css';
 
 import { useParams, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import axios from "axios";
+
+import { ThemeContextApp } from "utilize/ContextApp";
 
 import { $ } from "utilize/Tricks";
 import CaseRecordInforSearchBox from "./components/CaseRecordInforSearchBox";
 import CaseRecordInforPassiveSearchBox from "./components/CaseRecordInforPassiveSearchBox";
 
-import { setDoctorOrPharmacistInfor } from "reduxStore/slice/caseRecordSlice";
-import { getCookie } from "auth/cookie";
+import { useCreateNotificationMutation } from 'reduxStore/RTKQuery/notificationRTKQuery';
+import { useGetSickPersonFromCaseRecordQuery } from "reduxStore/RTKQuery/userRTKQuery";
+import { 
+    useGetDoctorOrPharmacistFromCaseRecordQuery
+} from "reduxStore/RTKQuery/doctorOrPharmacistRTKQuery";
 
-const CaseRecordInfor = () => {
+import { SERVER_ADDRESS_PATCH_CASERECORD_SENDREQUIRETODOCTORPHARMACIST } from 'config/server';
+
+const CaseRecordInfor = ({ caseRecord, caseRecordRole }) => {
     const { id: uuid_caseRecord } = useParams();
     const navigate = useNavigate();
-    const caseRecordRole = getCookie('caseRecordRole');
+    const { loginInfor } = useContext(ThemeContextApp);
 
-    const currentIndex = useSelector(state => state.caseRecord.currentIndex);
-    const caseRecords = useSelector(state => state.caseRecord.caseRecords);
-    const loadingCaseRecord = useSelector(state => state.caseRecord.loadingCaseRecord);
-    const loadingPatientInfor = useSelector(state => state.caseRecord.loadingPatientInfor);
-    const loadingDoctorOrPharmacistInfor = useSelector(state => state.caseRecord.loadingDoctorOrPharmacistInfor);
-    const dispatch = useDispatch();
+    const [createNotification] = useCreateNotificationMutation();
 
-    // useEffect(() => {
-    //     dispatch({type: 'caseRecordInit', payload: uuid_caseRecord});
+    const {
+        data: data_sickPerson, 
+        isFetching: isFetching_sickPerson, 
+        isError: isError_sickPerson, 
+        error: error_sickPerson
+    } = useGetSickPersonFromCaseRecordQuery({uuid_sickPerson: caseRecord.uuid_user});
 
-    //     // eslint-disable-next-line
-    // }, [])
+    useEffect(() => {
+        isError_sickPerson && console.log(error_sickPerson);
+    }, [isError_sickPerson, error_sickPerson])
+
+    const {
+        data: data_doctorOrPharmacist, 
+        isFetching: isFetching_doctorOrPharmacist, 
+        isError: isError_doctorOrPharmacist, 
+        error: error_doctorOrPharmacist
+    } = useGetDoctorOrPharmacistFromCaseRecordQuery({uuid_doctorOrPharmacist: caseRecord.uuid_doctorOrPharmacist});
+
+    useEffect(() => {
+        isError_doctorOrPharmacist && console.log(error_doctorOrPharmacist);
+    }, [isError_doctorOrPharmacist, error_doctorOrPharmacist])
+
+    useEffect(() => {
+        console.log('data_doctorOrPharmacist', data_doctorOrPharmacist?.doctorOrPharmacist)
+    }, [data_doctorOrPharmacist?.doctorOrPharmacist])
 
     useEffect(() => {
         const q_CaseRecordInfor = $('.CaseRecordInfor');
-        if (!loadingCaseRecord) {
-            setTimeout(() => {
-                q_CaseRecordInfor.classList.remove('CaseRecordInfor-loadingCaseRecord');
-            }, 500);
-        } else { 
-            q_CaseRecordInfor.classList.add('CaseRecordInfor-loadingCaseRecord');
-        }
-    }, [loadingCaseRecord])
-
-    useEffect(() => {
-        const q_CaseRecordInfor = $('.CaseRecordInfor');
-        if (!loadingPatientInfor) {
+        if (!isFetching_sickPerson) {
             setTimeout(() => {
                 q_CaseRecordInfor.classList.remove('CaseRecordInfor-loadingPatientInfor');
             }, 600);
         } else { 
             q_CaseRecordInfor.classList.add('CaseRecordInfor-loadingPatientInfor');
         }
-    }, [loadingPatientInfor])
+    }, [isFetching_sickPerson])
 
     useEffect(() => {
         const q_CaseRecordInfor = $('.CaseRecordInfor');
-        if (!loadingDoctorOrPharmacistInfor) {
+        if (!isFetching_doctorOrPharmacist) {
             setTimeout(() => {
                 q_CaseRecordInfor.classList.remove('CaseRecordInfor-loadingDoctorOrPharmacistInfor');
             }, 600);
         } else { 
             q_CaseRecordInfor.classList.add('CaseRecordInfor-loadingDoctorOrPharmacistInfor');
         }
-    }, [loadingDoctorOrPharmacistInfor])
+    }, [isFetching_doctorOrPharmacist])
 
     const handleSearchDoctorOrPharmacist = () => {
         $('.CaseRecordInforSearchBox-overlay').classList.add('active');
@@ -71,58 +82,91 @@ const CaseRecordInfor = () => {
     }
 
     const handleSelectAgain = () => {
-        dispatch(setDoctorOrPharmacistInfor(null));
+        $('.CaseRecordInforSearchBox-overlay').classList.add('active');
+    }
+
+    const handlDeteteDoctorOrPharmacist = () => {
+        const notification = {
+            title: 'huy yeu cau kham benh',
+            type: 'destroyRequireExamine',
+            uuid_userSent: loginInfor?.uuid
+        }
+
+        axios({
+            method: 'patch',
+            url: `${SERVER_ADDRESS_PATCH_CASERECORD_SENDREQUIRETODOCTORPHARMACIST}`, 
+            withCredentials: true,
+            data: {
+                uuid_caseRecord: uuid_caseRecord,
+                uuid_doctorOrPharmacist: null
+            }
+        }).then((res) => {
+            const resData = res.data;
+            if (resData.success) {
+                createNotification({
+                    type: 'normal',
+                    notification: JSON.stringify(notification),
+                    status: 'sent',
+                    uuid_user: data_doctorOrPharmacist?.doctorOrPharmacist?.uuid_user
+                })
+            } else {
+                console.log(resData.message);
+            }
+        }).catch(err => console.error(err)).finally(() => window.location.reload())
     }
 
     return (
-        <div className="CaseRecordInfor CaseRecordInfor-loadingCaseRecord CaseRecordInfor-loadingPatientInfor CaseRecordInfor-loadingDoctorOrPharmacistInfor">
+        <div className="CaseRecordInfor CaseRecordInfor-loadingPatientInfor CaseRecordInfor-loadingDoctorOrPharmacistInfor">
             <h2>Case-Record ( { uuid_caseRecord } )</h2>
-            <div className="CaseRecordInfor-title"><strong>{ caseRecords[currentIndex]?.caseRecord?.title }</strong></div>
+            <div className="CaseRecordInfor-title"><strong>{ caseRecord.title }</strong></div>
             <div className="CaseRecordInfor-totalInfor">
                 <div>
                     <div>Cost Total</div>
-                    <div>{ caseRecords[currentIndex]?.caseRecord?.priceTotal } $</div>
+                    <div>{ caseRecord.priceTotal } $</div>
                 </div>
                 <div>
                     <div>Page Total</div>
-                    <div>{ caseRecords[currentIndex]?.caseRecord?.pageTotal }</div>
+                    <div>{ caseRecord.pageTotal }</div>
                 </div>
                 <div>
                     <div>Status</div>
-                    <div>{ caseRecords[currentIndex]?.caseRecord?.status }</div>
+                    <div>{ caseRecord.status }</div>
                 </div>
             </div>
             <div className="CaseRecordInfor-patientInfor">
                 <div className="CaseRecordInfor-patientInfor-header">Patient Information</div>
                 <div className="CaseRecordInfor-patientInfor-content">
-                    <div><strong>Name:</strong> { caseRecords[currentIndex]?.patientInfor?.name }</div>
-                    <div><strong>Age:</strong> { caseRecords[currentIndex]?.patientInfor?.birthday }</div>
-                    <div><strong>Sex:</strong> { caseRecords[currentIndex]?.patientInfor?.sex ? 'male' : 'fe-male' }</div>
-                    <div><strong>Phone:</strong> { caseRecords[currentIndex]?.patientInfor?.phone }</div>
-                    <div><strong>Address:</strong> { caseRecords[currentIndex]?.patientInfor?.address }</div>
-                    <div><strong>Profile Shopm:</strong> <span onClick={() => navigate(`/profile/${caseRecords[currentIndex]?.patientInfor?.uuid_user}`)}>Profile Shopm</span></div>
+                    <div><strong>Name:</strong> { data_sickPerson?.sickPerson?.name }</div>
+                    <div><strong>Age:</strong> { data_sickPerson?.sickPerson?.birthday }</div>
+                    <div><strong>Sex:</strong> { data_sickPerson?.sickPerson?.sex ? 'male' : 'fe-male' }</div>
+                    <div><strong>Phone:</strong> { data_sickPerson?.sickPerson?.phone }</div>
+                    <div><strong>Address:</strong> { data_sickPerson?.sickPerson?.address }</div>
+                    <div><strong>Profile Shopm:</strong> <span onClick={() => navigate(`/profile/${data_sickPerson?.sickPerson?.uuid_user}`)}>Profile Shopm</span></div>
                 </div>
             </div>
             <div className="CaseRecordInfor-doctorPharmacistInfor">
                 <div className="CaseRecordInfor-doctorPharmacistInfor-header">Doctor or Pharmacist Information</div>
                 { 
-                    caseRecords[currentIndex]?.doctorOrPharmacistInfor !== null ? 
+                    // caseRecord?.uuid_doctorOrPharmacist !== null ? 
+                    data_doctorOrPharmacist && data_doctorOrPharmacist?.doctorOrPharmacist !==null ? 
                     <div className="CaseRecordInfor-doctorPharmacistInfor-content">
-                        <div><strong>Name:</strong> { caseRecords[currentIndex]?.doctorOrPharmacistInfor?.name }</div>
-                        <div><strong>Age:</strong> { caseRecords[currentIndex]?.doctorOrPharmacistInfor?.birthday }</div>
-                        <div><strong>Sex:</strong> { caseRecords[currentIndex]?.doctorOrPharmacistInfor?.sex ? 'male' : 'fe-male' }</div>
-                        <div><strong>Doctor or Pharmacist:</strong> { caseRecords[currentIndex]?.doctorOrPharmacistInfor?.type }</div>
-                        <div><strong>Major:</strong> { caseRecords[currentIndex]?.doctorOrPharmacistInfor?.major }</div>
-                        <div><strong>Graduated in:</strong> { caseRecords[currentIndex]?.doctorOrPharmacistInfor?.graduated }</div>
-                        <div><strong>Phone:</strong> { caseRecords[currentIndex]?.doctorOrPharmacistInfor?.phone }</div>
-                        <div><strong>Address:</strong> { caseRecords[currentIndex]?.doctorOrPharmacistInfor?.address }</div>
-                        <div><strong>Profile Shopm:</strong> <span onClick={() => navigate(`/profile/${caseRecords[currentIndex]?.doctorOrPharmacistInfor?.uuid_user}`)}>Profile Shopm</span></div>
-                        { caseRecordRole==='patient' && <div><button onClick={() => handleSelectAgain()}>Select again</button><button>Delete</button></div>}
-                    </div>:
-                    <div className="CaseRecordInfor-doctorPharmacistInfor-search">
-                        <button onClick={() => handleSearchDoctorOrPharmacist()}>Search</button>
-                        <button onClick={() => handlePassiveSearchDoctorOrPharmacist()}>Passive-Search</button>
-                    </div>
+                        <div><strong>Name:</strong> { data_doctorOrPharmacist?.doctorOrPharmacist?.name }</div>
+                        <div><strong>Age:</strong> { data_doctorOrPharmacist?.doctorOrPharmacist?.birthday }</div>
+                        <div><strong>Sex:</strong> { data_doctorOrPharmacist?.doctorOrPharmacist?.sex ? 'male' : 'fe-male' }</div>
+                        <div><strong>Doctor or Pharmacist:</strong> { data_doctorOrPharmacist?.doctorOrPharmacist?.type }</div>
+                        <div><strong>Major:</strong> { data_doctorOrPharmacist?.doctorOrPharmacist?.major }</div>
+                        <div><strong>Graduated in:</strong> { data_doctorOrPharmacist?.doctorOrPharmacist?.graduated }</div>
+                        <div><strong>Phone:</strong> { data_doctorOrPharmacist?.doctorOrPharmacist?.phone }</div>
+                        <div><strong>Address:</strong> { data_doctorOrPharmacist?.doctorOrPharmacist?.address }</div>
+                        <div><strong>Profile Shopm:</strong> <span onClick={() => navigate(`/profile/${data_doctorOrPharmacist?.doctorOrPharmacist?.uuid_user}`)}>Profile Shopm</span></div>
+                        { caseRecordRole==='patient' && <div><button onClick={() => handleSelectAgain()}>Select again</button><button onClick={() => handlDeteteDoctorOrPharmacist()}>Delete</button></div>}
+                    </div>: <>{
+                        !isFetching_doctorOrPharmacist ? 
+                        <div className="CaseRecordInfor-doctorPharmacistInfor-search">
+                            <button onClick={() => handleSearchDoctorOrPharmacist()}>Search</button>
+                            <button onClick={() => handlePassiveSearchDoctorOrPharmacist()}>Passive-Search</button>
+                        </div>:<div></div>
+                    }</>
                 }
             </div>
             

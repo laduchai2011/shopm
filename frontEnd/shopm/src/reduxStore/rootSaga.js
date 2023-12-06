@@ -1,9 +1,9 @@
 import { all } from 'redux-saga/effects';
-import caseRecordSage from './saga/caseRecordSaga';
+// import caseRecordSage from './saga/caseRecordSaga';
 
 function* rootSaga() {
     yield all([
-        caseRecordSage()
+        // caseRecordSage()
     ])
 }
   

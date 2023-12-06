@@ -24,6 +24,55 @@ import { SERVER_ADDRESS_UPLOADIMAGE, SERVER_ADDRESS_GETIMAGE, SERVER_ADDRESS_POS
 
 /**
 *@typedef {
+*pageNumber: string,
+*description: text,
+*status: string,
+*uuid_caseRecord: uuid
+*} caseRecordDescriptionOptions
+*/
+
+/**
+*@typedef {
+*pageNumber: string,
+*images: text,
+*status: string,
+*uuid_caseRecord: uuid
+*} caseRecordImageOptions
+*/  
+
+/**
+*@typedef {
+*pageNumber: string,
+*videos: text,
+*status: string,
+*uuid_caseRecord: uuid
+*} caseRecordVideoOptions
+*/  
+
+/**
+*@typedef {
+*pageNumber: string,
+*prescription: text,
+*status: string,
+*uuid_caseRecord: uuid
+*} caseRecordPrescriptionOptions
+*/  
+
+/**
+*@typedef {
+*pageNumber: string,
+*name: string,
+*amount: INTEGER.UNSIGNED,
+*note: text,
+*price: INTEGER.UNSIGNED,
+*cost: INTEGER.UNSIGNED,
+*status: string,
+*uuid_caseRecord: uuid
+*} caseRecordMedicationOptions
+*/  
+
+/**
+*@typedef {
 *dataPage: text,
 *priceTotal: integer,
 *status: string,
@@ -157,27 +206,31 @@ const CaseRecordCreate = () => {
                 const data = {
                     caseRecordOptions: {
                         title: title,
-                        priceTotal: null,
+                        priceTotal: 0,
                         pageTotal: 1,
                         report: null,
-                        status: 'normal',
+                        status: 'notComplete',
                         uuid_doctorOrPharmacist: null,
                         uuid_user: null
                     },
-                    dataPage: {
-                        page: 1,
-                        priceTotal: 0,
+                    caseRecordDescriptionOptions: {
+                        pageNumber: '1',
+                        description: describe,
                         status: 'notComplete',
-                        description: {
-                           note: describe,
-                           images: imageUrls,
-                           videos: videoList
-                        },
-                        Prescription: {
-                           note: null,
-                           medicationList: null    
-                        }
-                    }
+                        uuid_caseRecord: null
+                    },
+                    caseRecordImageOptions: {
+                        pageNumber: '1',
+                        images: JSON.stringify({images: imageUrls}),
+                        status: 'notComplete',
+                        uuid_caseRecord: null
+                    },
+                    caseRecordVideoOptions: {
+                        pageNumber: '1',
+                        videos: JSON.stringify({videos: videoList}),
+                        status: 'notComplete',
+                        uuid_caseRecord: null
+                    } 
                 }
 
                 axios({

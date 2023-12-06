@@ -13,11 +13,10 @@ const { caseRecordPage } = require('./src/model/CRUDDATABASE/CRUDCASERECORDPAGE'
 
 
 router.post('/caseRecord/create', Authentication, (req, res) => {
-    const caseRecordOptions = req.body.caseRecordOptions;
-    const dataPage = req.body.dataPage;
+    const caseRecordData = req.body;
     const userOptions = req.decodedToken.data;
-    caseRecordOptions.uuid_user = userOptions.uuid;
-    createCaseRecord(caseRecordOptions, dataPage, (data, err) => {
+    caseRecordData.caseRecordOptions.uuid_user = userOptions.uuid;
+    createCaseRecord(caseRecordData, (data, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);

@@ -11,4 +11,4 @@ export const currentCartRTKQuery = createApi({
     }),
 })
 
-export const {  } = currentCartRTKQuery;
+export const { useGetPokemonByNameQuery } = currentCartRTKQuery;

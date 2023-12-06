@@ -9,6 +9,11 @@ const { Authentication } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
 const { caseRecord } = require('./src/model/CRUDDATABASE/CRUDCASERECORD');
+const { caseRecordDescription } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordDescription');
+const { caseRecordImage } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordImage');
+const { caseRecordVideo } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordVideo');
+const { caseRecordPrescription } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordPrescription');
+const { caseRecordMedication } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordMedication');
 const { caseRecordPage } = require('./src/model/CRUDDATABASE/CRUDCASERECORDPAGE');
 const { SvMessage } = require('./src/model/svMessge');
 
@@ -42,7 +47,73 @@ router.get('/caseRecord/getList', (req, res) => {
     })
 })
 
-router.get('/caseRecord/get', Authentication, async (req, res) => {
+// router.get('/caseRecord/get', Authentication, async (req, res) => {
+//     const uuid_caseRecord = req.query.uuid_caseRecord;
+//     const userOptions = req.decodedToken.data;
+//     const _id = uuidv4();
+    
+//     function getCaseRecord(message) {
+//         const uuid_doctorOrPharmacist = JSON.parse(message).uuid_doctorOrPharmacist;
+//         const id = JSON.parse(message).id;
+//         if (_id === id) {
+//             let uuid_doctorOrPharmacist_m;
+    
+//             if (uuid_doctorOrPharmacist && uuid_doctorOrPharmacist!==null) {
+//                 uuid_doctorOrPharmacist_m = uuid_doctorOrPharmacist;
+//             } else {
+//                 uuid_doctorOrPharmacist_m = userOptions.uuid;
+//             }
+    
+//             caseRecord.readWithUuidAndFk(uuid_caseRecord, userOptions.uuid, uuid_doctorOrPharmacist_m, (caseRecord, err) => {
+//                 if (err) {
+//                     logEvents(`${req.url}---${req.method}---${err}`);
+//                     return res.status(500).send({ 
+//                         message: "Can't get case-record !",
+//                         err: err,
+//                         success: false
+//                     })
+//                 } else {
+//                     let caseRecordRole = 'notPermission';
+//                     if (caseRecord===null) {
+//                         res.cookie('caseRecordRole', caseRecordRole, {
+//                             secure: secure_cookie,
+//                             expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+//                         })
+//                         return res.status(200).send({ 
+//                             message: "Can't get case-record !",
+//                             caseRecord: caseRecord,
+//                             success: false
+//                         })
+//                     } else {
+//                         const nCaseRecord = {...caseRecord.dataValues};
+        
+//                         if(nCaseRecord.uuid_user === userOptions.uuid) {
+//                             caseRecordRole = 'patient';
+//                         } else if (nCaseRecord.uuid_doctorOrPharmacist === uuid_doctorOrPharmacist) {
+//                             caseRecordRole = 'doctorOrPharmacist';
+//                         }
+            
+//                         res.cookie('caseRecordRole', caseRecordRole, {
+//                             secure: secure_cookie,
+//                             expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+//                         })
+//                         return res.status(200).json({ 
+//                             caseRecord: caseRecord,
+//                             message: "Get case-record successly !",
+//                             success: true
+//                         })
+//                     }
+                    
+//                 }
+//             })
+//         }
+//     }
+
+//     await svMessage.receiveMessage(`feedback__Uuid_doctorOrPharmacist__via__uuid_user___${_id}`, { unsubscribe: true }, getCaseRecord);
+//     svMessage.sendMessage('require__Uuid_doctorOrPharmacist__via__uuid_user', JSON.stringify({ id: _id, uuid_user: userOptions.uuid }));
+// })
+
+router.get('/getCaseRecord', Authentication, async (req, res) => {
     const uuid_caseRecord = req.query.uuid_caseRecord;
     const userOptions = req.decodedToken.data;
     const _id = uuidv4();
@@ -68,31 +139,30 @@ router.get('/caseRecord/get', Authentication, async (req, res) => {
                         success: false
                     })
                 } else {
-                    if (caseRecord===null) return res.status(200).send({ 
-                        message: "Can't get case-record !",
-                        caseRecord: caseRecord,
-                        success: false
-                    })
-                    const nCaseRecord = {...caseRecord.dataValues};
-                    let caseRecordRole;
-        
-                    if(nCaseRecord.uuid_user === userOptions.uuid) {
-                        caseRecordRole = 'patient';
-                    } else if (nCaseRecord.uuid_doctorOrPharmacist === uuid_doctorOrPharmacist) {
-                        caseRecordRole = 'doctorOrPharmacist';
+                    let caseRecordRole = 'notPermission';
+                    if (caseRecord===null) {
+                        return res.status(200).send({ 
+                            caseRecord: caseRecord,
+                            message: "Can't get case-record !",
+                            caseRecordRole: caseRecordRole,
+                            success: false
+                        })
                     } else {
-                        caseRecordRole = 'notPermission';
-                    }
+                        const nCaseRecord = {...caseRecord.dataValues};
         
-                    res.cookie('caseRecordRole', caseRecordRole, {
-                        secure: secure_cookie,
-                        expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
-                    })
-                    return res.status(200).json({ 
-                        caseRecord: caseRecord,
-                        message: "Get case-record successly !",
-                        success: true
-                    })
+                        if(nCaseRecord.uuid_user === userOptions.uuid) {
+                            caseRecordRole = 'patient';
+                        } else if (nCaseRecord.uuid_doctorOrPharmacist === uuid_doctorOrPharmacist) {
+                            caseRecordRole = 'doctorOrPharmacist';
+                        }
+            
+                        return res.status(200).json({ 
+                            caseRecord: caseRecord,
+                            message: "Get case-record successly !",
+                            caseRecordRole: caseRecordRole,
+                            success: true
+                        })
+                    }        
                 }
             })
         }
@@ -100,6 +170,116 @@ router.get('/caseRecord/get', Authentication, async (req, res) => {
 
     await svMessage.receiveMessage(`feedback__Uuid_doctorOrPharmacist__via__uuid_user___${_id}`, { unsubscribe: true }, getCaseRecord);
     svMessage.sendMessage('require__Uuid_doctorOrPharmacist__via__uuid_user', JSON.stringify({ id: _id, uuid_user: userOptions.uuid }));
+})
+
+router.get('/getCaseRecordDescription', Authentication, (req, res) => {
+    const pageNumber = req.query.pageNumber;
+    const uuid_caseRecord = req.query.uuid_caseRecord;
+
+    caseRecordDescription.readWithFk(uuid_caseRecord, pageNumber, (caseRecordDescription, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send({ 
+                message: "Can't get case-record-description !",
+                err: err,
+                success: false
+            })
+        } else {
+            return res.status(200).json({ 
+                caseRecordDescription: caseRecordDescription,
+                message: "Get case-record-description successly !",
+                success: true
+            })
+        }
+    })
+})
+
+router.get('/getCaseRecordImage', Authentication, (req, res) => {
+    const pageNumber = req.query.pageNumber;
+    const uuid_caseRecord = req.query.uuid_caseRecord;
+
+    caseRecordImage.readWithFk(uuid_caseRecord, pageNumber, (caseRecordImage, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send({ 
+                message: "Can't get case-record-image !",
+                err: err,
+                success: false
+            })
+        } else {
+            return res.status(200).json({ 
+                caseRecordImage: caseRecordImage,
+                message: "Get case-record-image successly !",
+                success: true
+            })
+        }
+    })
+})
+
+router.get('/getCaseRecordVideo', Authentication, (req, res) => {
+    const pageNumber = req.query.pageNumber;
+    const uuid_caseRecord = req.query.uuid_caseRecord;
+
+    caseRecordVideo.readWithFk(uuid_caseRecord, pageNumber, (caseRecordVideo, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send({ 
+                message: "Can't get case-record-image !",
+                err: err,
+                success: false
+            })
+        } else {
+            return res.status(200).json({ 
+                caseRecordVideo: caseRecordVideo,
+                message: "Get case-record-image successly !",
+                success: true
+            })
+        }
+    })
+})
+
+router.get('/getCaseRecordPrescription', Authentication, (req, res) => {
+    const pageNumber = req.query.pageNumber;
+    const uuid_caseRecord = req.query.uuid_caseRecord;
+
+    caseRecordPrescription.readWithFk(uuid_caseRecord, pageNumber, (caseRecordPrescription, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send({ 
+                message: "Can't get case-record-image !",
+                err: err,
+                success: false
+            })
+        } else {
+            return res.status(200).json({ 
+                caseRecordPrescription: caseRecordPrescription,
+                message: "Get case-record-image successly !",
+                success: true
+            })
+        }
+    })
+})
+
+router.get('/getCaseRecordMedicationsAll', Authentication, (req, res) => {
+    const pageNumber = req.query.pageNumber;
+    const uuid_caseRecord = req.query.uuid_caseRecord;
+
+    caseRecordMedication.readAllWithFk(uuid_caseRecord, pageNumber, (caseRecordMedications, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send({ 
+                message: "Can't get case-record-medications-all !",
+                err: err,
+                success: false
+            })
+        } else {
+            return res.status(200).json({ 
+                caseRecordMedications: caseRecordMedications,
+                message: "Get case-record-medications-all successly !",
+                success: true
+            })
+        }
+    })
 })
 
 router.get('/caseRecordPage/getList', Authentication, (req, res) => {

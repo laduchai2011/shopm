@@ -13,7 +13,8 @@
     box-sizing: border-box;
 }
 
-.CaseRecord-main1-empty {
+.CaseRecord-main1-empty,
+.CaseRecord-main1-loading {
     font-size: 2em;
     color: blue;
     font-weight: 700;

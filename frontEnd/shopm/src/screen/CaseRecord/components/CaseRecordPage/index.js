@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import './styles.css';
 
 import axios from "axios";
-import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from "react-router-dom";
 
 import { AiFillEdit } from 'react-icons/ai';
 import { CiCircleRemove, CiEdit } from 'react-icons/ci';
@@ -27,66 +27,117 @@ import {
 import { getCookie } from "auth/cookie";
 import myEvents from "utilize/myEvents";
 
+import { 
+    useGetCaseRecordDescriptionQuery,
+    useGetCaseRecordImageQuery 
+} from "reduxStore/RTKQuery/caseRecordRTKQuery";
 
 /**
 *@typedef {
+*title: string,
 *priceTotal: integer,
+*pageTotal: integer,
+*report: text,
 *status: string,
-*description: {
-*   note: string,
-*   images: [],
-*   videos: []
-*},
-*prescription: {
-*   note: text,
-*   medicationList: []    
-*}
-*} dataPage
+*uuid_doctorOrPharmacist: uuid,
+*uuid_user: uuid
+*} caseRecordOptions
 */ 
 
-const CaseRecordPage = () => {
-    const index = 0;
-    const dispatch = useDispatch();
-    const currentIndex = useSelector(state => state.caseRecord.currentIndex);
-    const caseRecordPage = useSelector(state => {
-        const caseRecordPages = state.caseRecord.caseRecords[currentIndex]?.caseRecordPages;
-        if (caseRecordPages && caseRecordPages.length > 0) {
-            return caseRecordPages[index];
-        }
-    });
+/**
+*@typedef {
+*pageNumber: string,
+*description: text,
+*status: string,
+*uuid_caseRecord: uuid
+*} caseRecordDescriptionOptions
+*/
 
-    const [dataPage, setDataPage] = useState();
+/**
+*@typedef {
+*pageNumber: string,
+*images: text,
+*status: string,
+*uuid_caseRecord: uuid
+*} caseRecordImageOptions
+*/  
+
+/**
+*@typedef {
+*pageNumber: string,
+*videos: text,
+*status: string,
+*uuid_caseRecord: uuid
+*} caseRecordVideoOptions
+*/  
+
+/**
+*@typedef {
+*pageNumber: string,
+*prescription: text,
+*status: string,
+*uuid_caseRecord: uuid
+*} caseRecordPrescriptionOptions
+*/  
+
+/**
+*@typedef {
+*pageNumber: string,
+*name: string,
+*amount: INTEGER.UNSIGNED,
+*note: text,
+*price: INTEGER.UNSIGNED,
+*cost: INTEGER.UNSIGNED,
+*status: string,
+*uuid_caseRecord: uuid
+*} caseRecordMedicationOptions
+*/  
+
+const CaseRecordPage = () => {
+    const { id: uuid_caseRecord } = useParams();
+    const index = 0;
+
+    const {
+        data: data_description, 
+        // isFetching: isFetching_description, 
+        isError: isError_description,
+        error: error_description
+    } = useGetCaseRecordDescriptionQuery({uuid_caseRecord: uuid_caseRecord, pageNumber: index + 1});
+    const [description, setDescription] = useState();
+
+    const {
+        data: data_image, 
+        // isFetching: isFetching_image, 
+        isError: isError_image,
+        error: error_image
+    } = useGetCaseRecordImageQuery({uuid_caseRecord: uuid_caseRecord, pageNumber: index + 1});
+    const [images, setImages] = useState([]);
+
+    useEffect(() => {
+        isError_description && console.log(error_description);
+    }, [isError_description, error_description])
+    useEffect(() => {
+        const resData = data_description;
+        setDescription(resData?.caseRecordDescription?.description);
+    }, [data_description])
+
+    useEffect(() => {
+        isError_image && console.log(error_image);
+    }, [isError_image, error_image])
+    useEffect(() => {
+        const resData = data_image;
+        if (resData?.success) {
+            if (resData?.caseRecordImage!==null) {
+                setImages(JSON.parse(resData.caseRecordImage.images).images);
+            }
+        }
+    }, [data_image])
+
     const [newImages, setNewImages] = useState([]); // [{file: '', blob: ''}]
     const [removeImages, setRemoveImages] = useState([]);
     const [editBoolD, setEditBoolD] = useState(false);
     const [editBoolP, setEditBoolP] = useState(false);
     const [dataP, setDataP] = useState('');
-
-    useEffect(() => {
-        if (currentIndex!==null) {
-            dispatch({type: 'loadMoreCaseRecordPage', payload: 'caseRecordPageInit'});
-        }   
-
-        // eslint-disable-next-line
-    }, [currentIndex])
-
-    if (currentIndex!==null) {
-        window.onscroll = function() {
-            const scrollable = window.innerHeight + document.documentElement.scrollTop - document.documentElement.offsetHeight;
-            if(scrollable > -10) {
-                dispatch({type: 'loadMoreCaseRecordPage', payload: 'caseRecordPageLoadMore'});
-            }
-        } 
-    }
-
-    useEffect(() => {
-        if (caseRecordPage) {
-            const dataPage_m = JSON.parse(caseRecordPage.dataPage);
-            setDataPage(dataPage_m);
-        }
-
-        // eslint-disable-next-line
-    }, [caseRecordPage])
 
     useEffect(() => {
         if (!editBoolP) {
@@ -160,19 +211,38 @@ const CaseRecordPage = () => {
 
         // update database
         myEvents.on('updateDB-start', finalImages => {
-            const cpDataPage = {...dataPage};
-            cpDataPage.description.images = finalImages;
             let data;
             let err;
+
+            const caseRecordDescriptionOptions = {
+                pageNumber: index + 1,
+                description: description,
+                status: 'editting',
+                uuid_caseRecord: uuid_caseRecord
+            }
+
+            const caseRecordImageOptions = {
+                pageNumber: index + 1,
+                images: JSON.stringify({images: finalImages}),
+                status: 'editting',
+                uuid_caseRecord: uuid_caseRecord
+            }
+
+            const caseRecordVideoOptions = {
+                pageNumber: index + 1,
+                videos: JSON.stringify({videos: 'videos'}),
+                status: 'editting',
+                uuid_caseRecord: uuid_caseRecord
+            }
 
             axios({
                 method: 'patch',
                 url: SERVER_ADDRESS_PATCH_CASERECORDPAGE,
                 withCredentials: true,
                 data: {
-                    caseRecordRole: getCookie('caseRecordRole'),
-                    uuid_caseRecordPage: caseRecordPage.uuid_caseRecordPage,
-                    dataPage: cpDataPage
+                    caseRecordDescriptionOptions,
+                    caseRecordImageOptions,
+                    caseRecordVideoOptions
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -187,7 +257,7 @@ const CaseRecordPage = () => {
             })
         })
 
-    }, [dataPage, newImages, removeImages, caseRecordPage])
+    }, [newImages, removeImages, description, uuid_caseRecord])
 
     const handleSaveD = () => {
         if (editBoolD) {
@@ -213,7 +283,7 @@ const CaseRecordPage = () => {
             })
 
             const cpNewImages = [...newImages];
-            const cpImages = [...dataPage.description.images];
+            const cpImages = [...images];
             myEvents.emit('filterRemovedImages-start', ({cpNewImages, cpImages}));
         }
     }
@@ -226,15 +296,7 @@ const CaseRecordPage = () => {
 
     const handleEditDesNote = (e) => {
         const value = e.target.value;
-        setDataPage(pre => {
-            return {
-                ...pre,
-                description: {
-                    ...pre.description,
-                    note: value
-                }
-            }
-        })
+        setDescription(value);
     }
 
     const handleUnRemoveImages = (data) => {
@@ -248,24 +310,16 @@ const CaseRecordPage = () => {
         const newImagePaths = [];
         const newImages_m = []; // [{file: '', blob: ''}]
         for (let i = 0; i < files.length; i++) {
-            const path = URL.createObjectURL(files[i]);
-            newImagePaths.push(path);
+            const blob = URL.createObjectURL(files[i]);
+            newImagePaths.push(blob);
             newImages_m.push({
                 file: files[i],
-                blob: path
+                blob: blob
             })
         }
-        const cpImages = [...dataPage.description.images];
+        const cpImages = [...images];
         const finalImages = cpImages.concat(newImagePaths);
-        setDataPage(pre => {
-            return {
-                ...pre,
-                description: {
-                    ...pre.description,
-                    images: finalImages
-                }
-            }
-        })
+        setImages(finalImages);
         setNewImages(pre => pre.concat(newImages_m));
     }
 
@@ -283,7 +337,7 @@ const CaseRecordPage = () => {
         q_medicationEdit.classList.add('show');
     }
 
-    const list_image = dataPage?.description.images.map((data, index) => {
+    const list_image = images.map((data, index) => {
         return (
             <div key={index}>
                 { editBoolD && 
@@ -323,7 +377,8 @@ const CaseRecordPage = () => {
                     <div><span>Name</span><div>laduchai</div></div>
                     <div><span>Amount</span>43</div>
                     <div><span>Note</span>dfgf dsfsdkfh sdfk sdif</div>
-                    <div><span>Price</span>2132</div>
+                    <div><span>Price</span>222.222.132</div>
+                    <div><span>Cost</span>465.123.213</div>
                 </div>
                 <div className="CaseRecordPage-prescription-medicationList-table-icon">
                     <IoCheckmark title="Check medication amount" color="blue" size={ 20 } />
@@ -336,7 +391,7 @@ const CaseRecordPage = () => {
 
     return (
         <div className="CaseRecordPage">
-            <h2>Page { dataPage?.page }</h2>
+            <h2>Page { index + 1 }</h2>
             <div className="CaseRecordPage-description">
                 <div className="CaseRecordPage-description-header">Description of the disease</div>
                 <div className="CaseRecordPage-description-iconContainer">
@@ -358,8 +413,8 @@ const CaseRecordPage = () => {
                     </> }
                 </div>
                 <div className="CaseRecordPage-description-content">
-                    { !editBoolD && <div>{ dataPage?.description.note }</div> }
-                    { editBoolD && <textarea value={ dataPage?.description.note } onChange={(e) => handleEditDesNote(e)} /> }
+                    { !editBoolD && <div>{ description }</div> }
+                    { editBoolD && <textarea value={ description } onChange={(e) => handleEditDesNote(e)} /> }
                 </div>
                 <div className="CaseRecordPage-description-image">
                     { list_image }
@@ -398,6 +453,7 @@ const CaseRecordPage = () => {
                             <div>Amount</div>
                             <div>Note</div>
                             <div>Price</div>
+                            <div>Cost</div>
                         </div>
                         <div className="CaseRecordPage-prescription-medicationList-table-icon">
                             <IoCheckmark title="Check all medication amount" color="blue" size={ 20 } />

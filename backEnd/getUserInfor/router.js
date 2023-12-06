@@ -62,10 +62,10 @@ router.get('/doctorOrPharmacist/getfromCaseRecord', Authentication, (req, res) =
     })
 })
 
-router.get('/sickPerson/getfromCaseRecord', Authentication, (req, res) => {
-    const uuid_user = req.query.uuid_user;
-    // console.log(uuid_user)
-    sickPerson.readWithFk(uuid_user, (sickPerson, err) => {
+router.get('/sickPerson/getFromCaseRecord', Authentication, (req, res) => {
+    const uuid_sickPerson = req.query.uuid_sickPerson;
+
+    sickPerson.readWithFk(uuid_sickPerson, (sickPerson, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send({ 
