@@ -80,6 +80,27 @@
     background-color: rgb(219, 219, 219);
 }
 
+.ProviderBottomProduct-empty > div {
+    display: flex;
+    justify-content: center;
+}
+
+.ProviderBottomProduct-empty > div > h4 {
+    font-size: 1.2em;
+    color: rgb(255, 31, 31);
+}
+
+.ProviderBottomProduct-empty > div > svg {
+    font-size: 200%;
+    aspect-ratio: 1/1;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.ProviderBottomProduct-empty > div > svg:hover {
+    background-color: rgb(230, 230, 230);
+}
+
 .ProviderBottomProduct-container {
     display: grid;
     gap: 10px 10px;

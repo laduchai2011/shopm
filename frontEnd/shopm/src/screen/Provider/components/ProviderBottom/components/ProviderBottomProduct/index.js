@@ -5,7 +5,7 @@ import axios from "axios";
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { FiMoreHorizontal } from 'react-icons/fi';
-import { GrNext } from 'react-icons/gr';
+import { GrNext, GrAddCircle } from 'react-icons/gr';
 import { IoIosArrowBack } from 'react-icons/io';
 
 import { $ } from "utilize/Tricks";
@@ -180,8 +180,12 @@ const ProviderBottomProduct = () => {
                     </div>
                 </div>
             </div>
+            { state.medications.length === 0 && <div className="ProviderBottomProduct-empty">
+                <div><h4>Empty</h4></div>
+                <div><GrAddCircle onClick={() => navigate(`/provider/${params.id}/addMedication`)} /></div>
+            </div> }
             <div className="ProviderBottomProduct-container">
-                { list_medication }
+                { state.medications.length > 0 && <>{ list_medication }</> }
             </div>
             <div className="ProviderBottomProduct-custom">
                 <IoIosArrowBack onClick={() => handleIconChangePage('back')} size={20} />

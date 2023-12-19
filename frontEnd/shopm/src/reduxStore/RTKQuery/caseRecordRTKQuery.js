@@ -1,6 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { baseURL } from 'config/server';
+import { 
+    SERVER_ADDRESS_CASERECORD_SAVE_PRESCRIPTION,
+    SERVER_ADDRESS_CASERECORD_ADD_MEDICATION,
+    SERVER_ADDRESS_CASERECORD_EDIT_MEDICATION,
+    SERVER_ADDRESS_CASERECORD_DELETE_MEDICATION
+ } from 'config/server';
 
 /**
 *@typedef {
@@ -57,9 +63,11 @@ import { baseURL } from 'config/server';
 *amount: INTEGER.UNSIGNED,
 *note: text,
 *price: INTEGER.UNSIGNED,
+*discount: FLOAT,
 *cost: INTEGER.UNSIGNED,
 *status: string,
-*uuid_caseRecord: uuid
+*uuid_caseRecord: uuid,
+*uuid_medication: uuid
 *} caseRecordMedicationOptions
 */  
 
@@ -90,6 +98,7 @@ export const caseRecordRTKQuery = createApi({
         'CaseRecordMedicationsAll'
     ],
     endpoints: (builder) => ({
+        // query
         getCaseRecord: builder.query({
             query: ({uuid_caseRecord}) => ({
                 url: `${baseURL_caseRecord_get}/getCaseRecord?uuid_caseRecord=${uuid_caseRecord}`,
@@ -130,14 +139,96 @@ export const caseRecordRTKQuery = createApi({
             }),
             providesTags: [{type: 'CaseRecordMedicationsAll', bool: true}]
         }),
+
+        // mutation
+        patchCaseRecordPrescription: builder.mutation({
+            query: ({caseRecord, uuid_caseRecordPrescription, prescription}) => ({
+                url: `${SERVER_ADDRESS_CASERECORD_SAVE_PRESCRIPTION}`,
+                method: 'PATCH',
+                body: { 
+                    caseRecord: caseRecord,
+                    uuid_caseRecordPrescription: uuid_caseRecordPrescription,
+                    prescription: prescription 
+                },
+                credentials: "include"
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    return [{type: 'CaseRecordPrescription', bool: result?.success ? true : false}]
+                }
+            }
+        }),
+        addCaseRecordMedications: builder.mutation({
+            query: ({caseRecord, caseRecordMedicationOptions}) => ({
+                url: `${SERVER_ADDRESS_CASERECORD_ADD_MEDICATION}`,
+                method: 'POST',
+                body: { 
+                    caseRecord: caseRecord,
+                    caseRecordMedicationOptions: caseRecordMedicationOptions
+                },
+                credentials: "include"
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    return [{type: 'CaseRecordMedicationsAll', bool: result?.success ? true : false}]
+                }
+            }
+        }),
+        editCaseRecordMedications: builder.mutation({
+            query: ({caseRecord, uuid_caseRecordMedication, amount, note}) => ({
+                url: `${SERVER_ADDRESS_CASERECORD_EDIT_MEDICATION}`,
+                method: 'PATCH',
+                body: { 
+                    caseRecord: caseRecord,
+                    uuid_caseRecordMedication: uuid_caseRecordMedication, 
+                    amount: amount,
+                    note: note
+                },
+                credentials: "include"
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    return [{type: 'CaseRecordMedicationsAll', bool: result?.success ? true : false}]
+                }
+            }
+        }),
+        deleteCaseRecordMedication: builder.mutation({
+            query: ({caseRecord, uuid_caseRecordMedication}) => ({
+                url: `${SERVER_ADDRESS_CASERECORD_DELETE_MEDICATION}`,
+                method: 'DELETE',
+                body: { 
+                    caseRecord: caseRecord,
+                    uuid_caseRecordMedication: uuid_caseRecordMedication
+                },
+                credentials: "include"
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    return [{type: 'CaseRecordMedicationsAll', bool: result?.success ? true : false}]
+                }
+            }
+        })
     }),
 })
 
 export const { 
     useGetCaseRecordQuery,
+    useLazyGetCaseRecordQuery,
     useGetCaseRecordDescriptionQuery,
     useGetCaseRecordImageQuery,
     useGetCaseRecordVideoQuery,
     useGetCaseRecordPrescriptionQuery,
-    useGetCaseRecordMedicationsAllQuery  
+    useGetCaseRecordMedicationsAllQuery,
+    usePatchCaseRecordPrescriptionMutation,
+    useAddCaseRecordMedicationsMutation,
+    useEditCaseRecordMedicationsMutation,
+    useDeleteCaseRecordMedicationMutation
 } = caseRecordRTKQuery;

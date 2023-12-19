@@ -1,3 +1,4 @@
+'use strict';
 const { clientRedis } = require('../../config/serviceRedis');
 const { logEvents } = require('../../../logEvents');
 

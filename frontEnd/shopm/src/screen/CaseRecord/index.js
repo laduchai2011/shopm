@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom";
 import Header from 'screen/Header';
 import CaseRecordInfor from './components/CaseRecordInfor';
 import CaseRecordPage from './components/CaseRecordPage';
+import MedicationTableDelete from './components/CaseRecordPage/components/MedicationTable/MedicationTableDelete';
+import MedicationTableEdit from './components/CaseRecordPage/components/MedicationTable/MedicationTableEdit';
 
 import { useGetCaseRecordQuery } from 'reduxStore/RTKQuery/caseRecordRTKQuery';
 // import { $ } from 'utilize/Tricks';
@@ -57,7 +59,9 @@ const CaseRecord = () => {
                 { caseRecordRoleState ? 
                     <div className='CaseRecord-main1'>
                         <CaseRecordInfor caseRecord={ caseRecord } caseRecordRole={ caseRecordRole } />
-                        <CaseRecordPage />
+                        <CaseRecordPage caseRecord={ caseRecord } caseRecordRole={ caseRecordRole } />
+                        <MedicationTableDelete caseRecord={ caseRecord } />
+                        <MedicationTableEdit caseRecord={ caseRecord } />
                     </div> : <>{
                         isFetching ? 
                         <div className='CaseRecord-main1-loading'>Loading ...</div> :

@@ -65,36 +65,12 @@ import { SERVER_ADDRESS_UPLOADIMAGE, SERVER_ADDRESS_GETIMAGE, SERVER_ADDRESS_POS
 *amount: INTEGER.UNSIGNED,
 *note: text,
 *price: INTEGER.UNSIGNED,
+*discount: FLOAT,
 *cost: INTEGER.UNSIGNED,
 *status: string,
 *uuid_caseRecord: uuid
 *} caseRecordMedicationOptions
 */  
-
-/**
-*@typedef {
-*dataPage: text,
-*priceTotal: integer,
-*status: string,
-*uuid_caseRecord: uuid
-*} caseRecordPageOptions
-*/ 
-
-/**
-*@typedef {
-*priceTotal: integer,
-*status: string,
-*description: {
-*   note: string,
-*   images: [],
-*   videos: []
-*},
-*Prescription: {
-*   note: text,
-*   medicationList: []    
-*}
-*} dataPage
-*/ 
 
 const CaseRecordCreate = () => {
     const [imageList, setImageList] = useState([]); // [{file: '', blob: ''}]
@@ -102,7 +78,6 @@ const CaseRecordCreate = () => {
     const [title, setTitle] = useState('');
     const [titleEmpty, setTitleEmpty] = useState('');
     const [describe, setDescribe] = useState('');
-    // const [creating, setCreating] = useState('');
 
     useEffect(() => {
         return () => {
@@ -230,7 +205,13 @@ const CaseRecordCreate = () => {
                         videos: JSON.stringify({videos: videoList}),
                         status: 'notComplete',
                         uuid_caseRecord: null
-                    } 
+                    },
+                    caseRecordPrescriptionOptions: {
+                        pageNumber: '1',
+                        prescription: '',
+                        status: 'notComplete',
+                        uuid_caseRecord: null
+                    }  
                 }
 
                 axios({

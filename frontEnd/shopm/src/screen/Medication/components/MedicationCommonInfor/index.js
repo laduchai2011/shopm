@@ -1,4 +1,4 @@
-import React, { useContext, useState, memo } from "react";
+import React, { useContext, useState, memo, useEffect } from "react";
 import './styles.css';
 
 import { GrAdd, GrSubtract } from 'react-icons/gr';
@@ -9,6 +9,27 @@ import { MedicationContext } from "screen/Medication/MedicationContext";
 
 import { Timestamp } from "utilize/Timestamp";
 
+import { useGetCurrentCartQuery } from 'reduxStore/RTKQuery/currentCartRTKQuery';
+import { 
+    useLazyGetCaseRecordQuery,
+    useAddCaseRecordMedicationsMutation
+} from "reduxStore/RTKQuery/caseRecordRTKQuery";
+
+
+/**
+*@typedef {
+*pageNumber: string,
+*name: string,
+*amount: INTEGER.UNSIGNED,
+*note: text,
+*price: INTEGER.UNSIGNED,
+*discount: FLOAT,
+*cost: INTEGER.UNSIGNED,
+*status: string,
+*uuid_caseRecord: uuid,
+*uuid_medication: uuid
+*} caseRecordMedicationOptions
+*/  
 
 const MedicationCommonInfor = () => {
     const { medicationSate, setBuyNow } = useContext(MedicationContext);
@@ -23,6 +44,22 @@ const MedicationCommonInfor = () => {
         discount: medicationSate.price * medicationSate.discount/100, 
         finalyPrice: medicationSate.price - medicationSate.price * medicationSate.discount/100
     });
+
+    const [getCaseRecord] = useLazyGetCaseRecordQuery();
+    const [addCaseRecordMedications] = useAddCaseRecordMedicationsMutation();
+
+    const { 
+        data: data_currentCart,
+        isError: isError_currentCart,
+        error: error_currentCart
+    } = useGetCurrentCartQuery();
+
+    useEffect(() => {
+        isError_currentCart && console.log(error_currentCart);
+    }, [isError_currentCart, error_currentCart])
+    useEffect(() => {
+        // console.log('MedicationCommonInfor', data_currentCart)
+    }, [data_currentCart])
 
     const selectImg = (index) => {
         setImgs({
@@ -82,6 +119,44 @@ const MedicationCommonInfor = () => {
         });
     }
 
+    const handleAddCart = () => {
+        // check carrent cart
+        if (data_currentCart?.success) {
+            const currentCart = data_currentCart.currentCart;
+            getCaseRecord({
+                uuid_caseRecord: currentCart.uuid_caseRecord
+            }).then(res => {
+                const resData = res.data;
+                if (resData?.success) {
+                    const caseRecord = resData.caseRecord;
+                    const caseRecordMedicationOptions = {
+                        pageNumber: currentCart.pageNumber,
+                        name: medicationSate.name,
+                        amount: caclPrice.orderAmount,
+                        note: 'chua sot',
+                        price: medicationSate.price,
+                        discount: medicationSate.discount,
+                        cost: caclPrice.finalyPrice,
+                        status: 'notComplete',
+                        uuid_caseRecord: currentCart.uuid_caseRecord,
+                        uuid_medication: medicationSate.uuid_medication
+                    }
+                    addCaseRecordMedications({
+                        caseRecord: caseRecord, 
+                        caseRecordMedicationOptions: caseRecordMedicationOptions
+                    }).then(res1 => {
+                        const resData1 = res1.data;
+                        if (resData1?.success) {} else { alert(resData1?.message) }
+                    }).catch(err => console.error(err));
+                } else {
+                    console.log(resData.message);
+                }
+            }).catch(err => console.error(err));
+        } else {
+            alert('You have NOT current cart !');
+        }
+    }
+
     const listImg = imgs.list.map((data, index) => {
         
         return (
@@ -133,7 +208,7 @@ const MedicationCommonInfor = () => {
                 <div className="MedicationCommonInfor-text-top">
                     <h2>{ medicationSate.name }</h2>
                     <div className="MedicationCommonInfor-listStar">{ list_star }</div>
-                    <h5>Provider:<a href={`http://localhost:3000/provider/${medicationSate.uuid_provider}`}> go to Provider</a></h5>
+                    <h5>Provider:<a href={`http://192.168.5.129:3000/provider/${medicationSate.uuid_provider}`}> go to Provider</a></h5>
                     <h5>Status: { medicationSate.status } / Time: { Timestamp(medicationSate.createdAt) }</h5>
                     <div className="MedicationCommonInfor-warn">
                         Warning: Let select a Doctor/Pharmacist to buy
@@ -168,7 +243,7 @@ const MedicationCommonInfor = () => {
                         </div>
                         <div>
                             <button onClick={() => handleBuyNow()}>Buy Now</button>
-                            <button><AiOutlineShoppingCart /> Add Cart</button>
+                            <button onClick={() => handleAddCart()}><AiOutlineShoppingCart /> Add Cart</button>
                         </div>
                     </div>
                 </div>

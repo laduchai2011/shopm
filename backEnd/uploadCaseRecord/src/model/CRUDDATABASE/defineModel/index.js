@@ -534,6 +534,10 @@ class DefineModel {
                 type: DataTypes.INTEGER.UNSIGNED,
                 allowNull: false
             },
+            discount: {
+                type: DataTypes.FLOAT,
+                allowNull: false
+            },
             cost: {
                 type: DataTypes.INTEGER.UNSIGNED,
                 allowNull: false

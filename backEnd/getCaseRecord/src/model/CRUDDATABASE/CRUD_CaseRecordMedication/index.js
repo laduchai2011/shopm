@@ -10,9 +10,11 @@ const { defineModel } = require('../defineModel');
 *amount: INTEGER.UNSIGNED,
 *note: text,
 *price: INTEGER.UNSIGNED,
+*discount: FLOAT,
 *cost: INTEGER.UNSIGNED,
 *status: string,
-*uuid_caseRecord: uuid
+*uuid_caseRecord: uuid,
+*uuid_medication: uuid
 *} caseRecordMedicationOptions
 */  
 
@@ -21,7 +23,7 @@ class CaseRecordMedication {
         this._CaseRecordMedication = defineModel.getCaseRecordMedication();
     }
 
-    readAllWithFk(uuid_caseRecord, pageNumber) {
+    readAllWithFk(uuid_caseRecord, pageNumber, callback) {
         let caseRecordMedications;
         let err;
         
@@ -33,7 +35,10 @@ class CaseRecordMedication {
                             where: {
                                 pageNumber: pageNumber,
                                 uuid_caseRecord: uuid_caseRecord,
-                            }
+                            },
+                            order: [
+                                ['id', 'DESC']
+                            ]
                         }, { transaction: t });
                         resolve(isCaseRecordMedications);   
                     } catch (error) {

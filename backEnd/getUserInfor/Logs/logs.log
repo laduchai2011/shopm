@@ -1,6 +1,0 @@
-05-12-2023	38:40:18--------/doctorOrPharmacist/getfromCaseRecord/search?uuid_doctorOrPharmacist=7ee-909c1aee1a01---GET---TokenExpiredError: jwt expired: token.verify-accessToken
-05-12-2023	30:52:19--------/doctorOrPharmacist/getfromCaseRecord/search?uuid_doctorOrPharmacist=925ae150-b29e-4714-b7ee-909c1aee1a01---GET---TokenExpiredError: jwt expired: token.verify-accessToken
-06-12-2023	02:27:01--------/doctorOrPharmacist/getfromCaseRecord/search?uuid_doctorOrPharmacist=925ae150-b29e-4714-b7ee-909c1aee1a01---GET---TokenExpiredError: jwt expired: token.verify-accessToken
-07-12-2023	47:50:02--------/getUserWithPk_notification?uuid_user=4189f631-e74b-423e-a52d-d10722ee104c---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-07-12-2023	25:02:03--------/doctorOrPharmacist/getfromCaseRecord?uuid_doctorOrPharmacist=925ae150-b29e-4714-b7ee-909c1aee1a01---GET---TokenExpiredError: jwt expired: token.verify-accessToken
-07-12-2023	53:46:03--------/doctorOrPharmacist/getfromCaseRecord/search?uuid_doctorOrPharmacist=925ae150-b29e-4714-b7ee-909c1aee1a01---GET---TokenExpiredError: jwt expired: token.verify-accessToken

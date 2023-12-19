@@ -17,7 +17,7 @@ class CaseRecordPrescription {
         this._CaseRecordPrescription = defineModel.getCaseRecordPrescription();
     }
 
-    readWithFk(uuid_caseRecord, pageNumber) {
+    readWithFk(uuid_caseRecord, pageNumber, callback) {
         let caseRecordPrescription;
         let err;
         

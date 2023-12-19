@@ -11,6 +11,8 @@ import { notificationRTKQuery } from './RTKQuery/notificationRTKQuery';
 import { userRTKQuery } from './RTKQuery/userRTKQuery';
 import { currentCartRTKQuery } from './RTKQuery/currentCartRTKQuery';
 import { caseRecordRTKQuery } from './RTKQuery/caseRecordRTKQuery';
+import { providerRTKQuery } from './RTKQuery/providerRTKQuery';
+import { medicationRTKQuery } from './RTKQuery/medicationRTKQuery';
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -25,7 +27,9 @@ export const store = configureStore({
     [notificationRTKQuery.reducerPath]: notificationRTKQuery.reducer,
     [userRTKQuery.reducerPath]: userRTKQuery.reducer,
     [currentCartRTKQuery.reducerPath]: currentCartRTKQuery.reducer,
-    [caseRecordRTKQuery.reducerPath]: caseRecordRTKQuery.reducer
+    [caseRecordRTKQuery.reducerPath]: caseRecordRTKQuery.reducer,
+    [providerRTKQuery.reducerPath]: providerRTKQuery.reducer,
+    [medicationRTKQuery.reducerPath]: medicationRTKQuery.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([
     sagaMiddleware, 
@@ -33,7 +37,9 @@ export const store = configureStore({
     notificationRTKQuery.middleware,
     userRTKQuery.middleware,
     currentCartRTKQuery.middleware,
-    caseRecordRTKQuery.middleware
+    caseRecordRTKQuery.middleware,
+    providerRTKQuery.middleware,
+    medicationRTKQuery.middleware
   ])
 })
 

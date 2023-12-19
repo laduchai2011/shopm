@@ -70,8 +70,8 @@ const MedicationProvider = () => {
 
     return (
         <div className="MedicationProvider">
-            <div className="MedicationProvider-avatarContainer" onClick={() => navigate(`/provider/${ medicationSate.uuid_provider }`)}>
-                <img src={provider.avatar.length > 0 ? provider.avatar : 'https://tse3.mm.bing.net/th?id=OIP.JZBTJtNF8UwcrOQhh-UgogAAAA&pid=Api&P=0&h=180' } alt=""/>
+            <div className="MedicationProvider-avatarContainer">
+                <img onClick={() => navigate(`/provider/${ medicationSate.uuid_provider }`)} src={provider.avatar.length > 0 ? provider.avatar : 'https://tse3.mm.bing.net/th?id=OIP.JZBTJtNF8UwcrOQhh-UgogAAAA&pid=Api&P=0&h=180' } alt=""/>
                 <div className="MedicationProvider-inforContainer">
                     <div className="MedicationProvider-name">{ provider.name }</div>
                     <div className="MedicationProvider-listStar">{ list_star }</div>

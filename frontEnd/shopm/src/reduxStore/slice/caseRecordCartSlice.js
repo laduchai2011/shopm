@@ -1,38 +1,11 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     value: 0,
     value1: 'init'
 }
 
-export const fetchUserById = createAsyncThunk(
-    'users/fetchByIdStatus',
-    async (userId, thunkAPI) => {
-        console.log('userid', userId)
-        console.log('thunkAPI', thunkAPI)
-        const promise = new Promise((resolve, reject) => {
-            let i = 0;
-            let interval = setInterval(() => {
-                if (i === 20) {
-                    try {
-                        clearInterval(interval);
-                        resolve(`interval finish ${userId}`);
-                    } catch (error) {
-                        reject(error);
-                    }
-                } else {
-                    console.log('promise')
-                    i++;
-                }
-            }, 1000)
-        })
-        const res = await promise;
-
-        return `fetchUserById ------ ${res}`  // return paload
-    }
-)
-
-export const counterSlice = createSlice({
+export const caseRecordCartSlice = createSlice({
     name: 'caseRecordCart',
     initialState,
     reducers: {
@@ -45,13 +18,6 @@ export const counterSlice = createSlice({
         incrementByAmount: (state, action) => {
             state.value += action.payload
         },
-    },
-    extraReducers: (builder) => {
-        builder.addCase(fetchUserById.fulfilled, (state, action) => {
-            // Add user to the state array
-            console.log('extraReducers', action, state)
-            state.value1 = action.payload;
-        })
     }
 })
 

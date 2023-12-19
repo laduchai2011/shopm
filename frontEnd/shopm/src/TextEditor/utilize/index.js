@@ -1,12 +1,12 @@
-import { $ } from "utilize/Tricks";
+import { $$ } from "utilize/Tricks";
 
-export const TEGetContent = () => {
-    const qTextEditorContent = $('.TextEditor-content');
+export const TEGetContent = (index) => {
+    const qTextEditorContent = $$('.TextEditor-content')[index];
     const contentHTML = qTextEditorContent.innerHTML;
     return contentHTML;
 }
 
-export const TESetContent = ({ content }) => {
-    const qTextEditorContent = $('.TextEditor-content');
+export const TESetContent = ({ content, index }) => {
+    const qTextEditorContent = $$('.TextEditor-content')[index];
     qTextEditorContent.innerHTML = content;
 }

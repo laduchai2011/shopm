@@ -180,6 +180,11 @@
     background-color: rgb(223, 223, 223);
 }
 
+.CaseRecordPage-prescription-medicationList-table.list > div > div:nth-child(7) > div {
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
 .CaseRecordPage-buttonContainer {
     display: flex;
     justify-content: flex-end;

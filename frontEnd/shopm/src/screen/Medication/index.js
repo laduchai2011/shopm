@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './styles.css';
 
-import axios from "axios";
 import { useParams } from "react-router-dom";
 
 import Header from "../Header";
@@ -12,7 +11,7 @@ import MedicationInformation from "./components/MedicationInformation";
 import MedicationPay from "./components/MedicationPay";
 
 import { MedicationContext } from './MedicationContext';
-import { SERVER_ADDRESS_GET_MEDICATION } from "config/server";
+import { useGetMedicationQuery } from "reduxStore/RTKQuery/medicationRTKQuery";
 
 
 /**
@@ -45,19 +44,25 @@ const Medication = () => {
     })
     const {id: uuid_medication} = useParams();
 
+    const {
+        data: data_medicationSate, 
+        // isFetching: isFetching_medicationSate, 
+        isError: isError_medicationSate, 
+        error: error_medicationSate
+    } = useGetMedicationQuery({uuid_medication: uuid_medication});
+
     useEffect(() => {
-        axios({
-            method: 'get',
-            url: `${SERVER_ADDRESS_GET_MEDICATION}/${uuid_medication}`,
-        }).then(res => {
-            const resData = res.data;
-            if (resData.success) {
-                setMedicationState(resData.medication);
-            } else {
-                alert(resData.message)
-            }
-        }).catch(error => console.error(error))
-    }, [uuid_medication])
+        isError_medicationSate && console.log(error_medicationSate);
+    }, [isError_medicationSate, error_medicationSate])
+    useEffect(() => {
+        const resData = data_medicationSate;
+        if (resData?.success) {
+            setMedicationState(resData?.medication);
+        } else {
+            resData?.message && console.log(resData?.message);
+        }
+    }, [data_medicationSate])
+
     return (
         <div className="Medication">
             <Header />

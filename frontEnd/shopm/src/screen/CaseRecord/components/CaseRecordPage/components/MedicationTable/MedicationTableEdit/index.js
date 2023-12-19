@@ -1,22 +1,39 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import './styles.css';
+
+import { useSelector } from 'react-redux';
 
 import { TiDelete } from "react-icons/ti";
 import { CiEdit } from 'react-icons/ci';
 
+import { 
+    useEditCaseRecordMedicationsMutation
+} from "reduxStore/RTKQuery/caseRecordRTKQuery";
+
 import { $ } from "utilize/Tricks";
 
-const MedicationTableEdit = () => {
+const MedicationTableEdit = ({ caseRecord }) => {
+
+    const current_caseRecordMedication = useSelector((state) => state.caseRecord.current_caseRecordMedication);
+    const index = useSelector((state) => state.caseRecord.index);
+
+    const [editCaseRecordMedications] = useEditCaseRecordMedicationsMutation();
 
     const [medication, setMedication] = useState({
         index: 1,
-        uid: 'asfasfsad',
+        uuid_caseRecordMedication: 'asfasfsad',
         name: 'name fasfda',
         amount: 123,
         note: 'asfasfdgdfg'
     });
 
     const [noti, setNoti] = useState();
+
+    useEffect(() => {
+        if (current_caseRecordMedication!==null) {
+            setMedication(current_caseRecordMedication);
+        }
+    }, [current_caseRecordMedication])
 
     const removeShowTableEditMedication = () => {
         const q_medicationEdit = $('.MedicationTableEdit');
@@ -47,6 +64,22 @@ const MedicationTableEdit = () => {
         })
     }
 
+    const handleSaveEdit = () => {
+        editCaseRecordMedications({
+            caseRecord: caseRecord,
+            uuid_caseRecordMedication: medication.uuid_caseRecordMedication,
+            amount: medication.amount,
+            note: medication.note
+        }).then(res => {
+            const resData = res.data;
+            if (resData?.success) {
+                removeShowTableEditMedication();
+            } else {
+                alert(resData?.message);
+            }
+        }).catch(err => console.error(err));
+    }
+
     return (
         <div className="MedicationTableEdit" onClick={() => removeShowTableEditMedication()}>
             <div onClick={(e) => e.stopPropagation()}>
@@ -56,11 +89,11 @@ const MedicationTableEdit = () => {
                 </div>
                 <div>
                     <strong>Index:</strong>
-                    <span>: { medication.index }</span>
+                    <span>: { index }</span>
                 </div>
                 <div>
                     <strong>Uid:</strong>
-                    <span>: { medication.uid }</span>
+                    <span>: { medication.uuid_caseRecordMedication }</span>
                 </div>
                 <div>   
                     <strong>Name:</strong>
@@ -80,8 +113,8 @@ const MedicationTableEdit = () => {
                     { noti }
                 </div>
                 <div>
-                    <button>Oke</button>
-                    <button>Cancel</button>
+                    <button onClick={() => handleSaveEdit()}>Oke</button>
+                    <button onClick={() => removeShowTableEditMedication()}>Cancel</button>
                 </div>
             </div>
         </div>

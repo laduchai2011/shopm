@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState, useLayoutEffect } from "react";
 import './styles.css';
 
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 import { FiMoreHorizontal } from 'react-icons/fi';
 import { HiChevronDown, HiChevronUp } from 'react-icons/hi';
@@ -16,7 +15,7 @@ import ProviderBottomAboutDialog from "./components/ProviderBottomAboutDialog";
 import { $ } from "utilize/Tricks";
 import { getCookie } from "auth/cookie";
 
-import { SERVER_ADDRESS_GET_PROVIDERABOUTLIST } from "config/server";
+import { useGetProviderAboutListQuery } from "reduxStore/RTKQuery/providerRTKQuery";
 
 const fakeData = [{subject: '111',content: '111'}, {subject: '111',content: '111'}, {subject: '111',content: '111'}, {subject: '111',content: '111'}, {subject: '111',content: '111'}, {subject: '111',content: '111'}]
 
@@ -31,23 +30,28 @@ const ProviderBottomAbout = () => {
     });
     const providerRole = getCookie('providerRole');
 
-    useEffect(() => {
-        axios({
-            method: 'get',
-            url: `${SERVER_ADDRESS_GET_PROVIDERABOUTLIST}?uuid_provider=${providerStore.uuid_provider}`,
-            withCredentials: true
-        }).then(res => {
-            const resData = res.data;
-            const showData = [];
-            const allData = resData.providerAbouts;
+    const {
+        data: data_about, 
+        // isFetching: isFetching_about, 
+        isError: isError_about,
+        error: error_about
+    } = useGetProviderAboutListQuery({uuid_provider: providerStore.uuid_provider});
 
-            for(let i = 0; i < allData.length; i++) {
-                if (i < 6) {
-                    showData.push(allData[i])
-                }
-            }
+    useEffect(() => {
+        isError_about && console.log(error_about);
+    }, [isError_about, error_about])
+    useEffect(() => {
+        const resData = data_about;
+        if (resData) {
+            const showData = [];
+            const allData = resData?.providerAbouts;
 
             if (resData.exist) {
+                for(let i = 0; i < allData.length; i++) {
+                    if (i < 6) {
+                        showData.push(allData[i])
+                    }
+                }
                 setData({
                     showData: showData,
                     allData: allData,
@@ -60,8 +64,10 @@ const ProviderBottomAbout = () => {
                     loadData: true
                 });
             }
-        }).catch(error => console.error(error))
+        }
+    }, [data_about])
 
+    useEffect(() => {
         return () => {
             clickDocument.clear();
         }
@@ -146,7 +152,7 @@ const ProviderBottomAbout = () => {
                     </div>
                 </div>
             </div>
-            { data.length === 0 && <div className="ProviderBottomAbout-ifEmpty">
+            { data.allData.length === 0 && <div className="ProviderBottomAbout-ifEmpty">
                 <h4>Empty</h4>
                 { providerRole === 'admin' && <GrAddCircle onClick={() => handleAddInfor()} />}
             </div>}

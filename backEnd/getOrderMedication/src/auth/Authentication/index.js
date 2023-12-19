@@ -43,10 +43,10 @@ async function Authentication(req, res, next) {
                                     newRefreshToken = await token.createRefreshToken(newSecretKey, decodedRefreshToken.data);
                                     newAccessToken = await token.createAccessTokens(newSecretKey, decodedRefreshToken.data);
                                 } catch (error) {
-                                    logEvents(`${req.url}---${req.method}---${error}: Please login !`);
+                                    logEvents(`${req.url}---${req.method}---${error}: Please login 1 !`);
                                     await lock.release();
                                     return res.status(200).json({
-                                        message: 'Please login !',
+                                        message: 'Please login 1 !',
                                         status: false,
                                         error: error,
                                         success: false
@@ -76,10 +76,10 @@ async function Authentication(req, res, next) {
                                 try {
                                     await serviceRedis.setData(keyServiceRedis, jsonValue, timeExpireat);
                                 } catch (error) {
-                                    logEvents(`${req.url}---${req.method}---${error}: Please login !`);
+                                    logEvents(`${req.url}---${req.method}---${error}: Please login 2 !`);
                                     await lock.release();
                                     return res.status(200).json({
-                                        message: 'Please login !',
+                                        message: 'Please login 2 !',
                                         status: false,
                                         error: error,
                                         success: false
@@ -162,19 +162,19 @@ async function Authentication(req, res, next) {
                     }
                 })
             } else {
-                logEvents(`${req.url}---${req.method}: Please login !`);
+                logEvents(`${req.url}---${req.method}: Please login 3 !`);
                 await lock.release();
                 return res.status(200).json({
-                    message: 'Please login !',
+                    message: 'Please login 3 !',
                     status: false,
                     success: false
                 })
             }
         })
     } catch (error) {
-        logEvents(`${req.url}---${req.method}: Please login !`);
+        logEvents(`${req.url}---${req.method}: Please login 4 !`);
         return res.status(200).json({
-            message: 'Please login !',
+            message: 'Please login 4 !',
             status: false, 
             error: error,
             success: false

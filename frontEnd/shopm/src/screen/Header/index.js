@@ -17,9 +17,19 @@ import {
     useLazyGetNotificationListQuery, 
     usePatchNotificationStatusMutation 
 } from 'reduxStore/RTKQuery/notificationRTKQuery';
+import { 
+    useGetCurrentCartQuery,
+    useDeleteCurrentCartMutation
+} from 'reduxStore/RTKQuery/currentCartRTKQuery';
 
 import HeaderNotification from './components/HeaderNotification';
 
+/**
+*@typedef {
+*uuid_caseRecord: string,
+*pageNumber: string,
+*} currentCartOptions
+*/ 
 
 const Header = () => {
     const navigate = useNavigate();
@@ -43,12 +53,23 @@ const Header = () => {
 
     const [getNotificationList, resultNotificationList] = useLazyGetNotificationListQuery();
     const [patchNotificationStatus] = usePatchNotificationStatusMutation();
+    const [deleteCurrentCart] = useDeleteCurrentCartMutation();
 
     const { 
-        data: notification_live_data,
+        // data: notification_live_data,
         isError: notification_live_isError,
         error: notification_live_error
     } = useGetNotificationCountQuery({type: 'type2', status: 'receved'}, {skip: !skipNotification});
+
+    const { 
+        data: data_currentCart,
+        isError: isError_currentCart,
+        error: error_currentCart
+    } = useGetCurrentCartQuery();
+
+    useEffect(() => {
+        // console.log('data_currentCart', data_currentCart);     
+    }, [data_currentCart])
 
     useEffect(() => {
         return () => {
@@ -121,12 +142,17 @@ const Header = () => {
         notificationCount_isError && console.log('Header', notificationCount_error);
         notification_live_isError && console.log('Header', notification_live_error);
         resultNotificationList?.isError && console.log('Header', resultNotificationList?.error);
+    
+        isError_currentCart && console.log('Header', error_currentCart);
     }, [notificationCount_isError, 
         notification_live_isError, 
         resultNotificationList?.isError,
         notificationCount_error,
         notification_live_error,
-        resultNotificationList?.error
+        resultNotificationList?.error,
+
+        isError_currentCart,
+        error_currentCart
     ])
 
     const getStatus = (index) => {
@@ -173,21 +199,26 @@ const Header = () => {
         patchNotificationStatus({type: 'normal', newStatus: 'seen', currentStatus: 'receved'});
     }
 
-    const showDetailMedication = (e) => {
+    const handleDeleteCurrentCart = (e) => {
         e.stopPropagation();
+        deleteCurrentCart();
     }
 
-    const list_contentBox = [
-        1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
-    ].map((data, index) => {
-        return (
-            <div className='Header-contentBox-content-row' key={index}>
-                <div>name name namename</div>
-                <div>{ data }</div>
-                <div><button onClick={(e) => showDetailMedication(e)}>Detail</button></div>
-            </div>
-        ) 
-    })
+    // const showDetailMedication = (e) => {
+    //     e.stopPropagation();
+    // }
+
+    // const list_contentBox = [
+    //     1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
+    // ].map((data, index) => {
+    //     return (
+    //         <div className='Header-contentBox-content-row' key={index}>
+    //             <div>name name namename</div>
+    //             <div>{ data }</div>
+    //             <div><button onClick={(e) => showDetailMedication(e)}>Detail</button></div>
+    //         </div>
+    //     ) 
+    // })
 
     const list_notification = notifyList[notifyIndex.current].dataArray.map((data, index) => {
         return (
@@ -203,14 +234,15 @@ const Header = () => {
             </div>
             <div className="Header-iconContainer">
                 { loginInfor!==null && <div className='Header-iconBox' onClick={(e) => handleShowCartCaseRecord(e)}>
-                    <BsFillCartPlusFill size={30} />
-                    { notification_live_data?.count > 0 && <p>{ notification_live_data?.count }</p> }
-                    <div className='Header-contentBox showCartCaseRecord'>
-                        <div className='Header-contentBox-header'>You are adding case-record that page number is 1</div>
+                    { data_currentCart?.success && <BsFillCartPlusFill size={30} /> }
+                    {/* { notification_live_data?.count > 0 && <p>{ notification_live_data?.count }</p> } */}
+                    { data_currentCart?.success && <div className='Header-contentBox showCartCaseRecord'>
+                        <div className='Header-contentBox-header'>{ `You are adding case-record that page number is ${data_currentCart?.currentCart?.pageNumber}` }</div>
                         <div className='Header-contentBox-content'>
-                            { list_contentBox }
+                            {/* { list_contentBox } */}
+                            <div>Ban co 1 cart <button onClick={(e) => handleDeleteCurrentCart(e)}>Cancel</button> </div>
                         </div>
-                    </div>
+                    </div> }
                 </div> }
                 { loginInfor!==null && <div className='Header-iconBox'>
                     <BsCartPlus size={30} />

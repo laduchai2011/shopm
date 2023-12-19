@@ -83,7 +83,7 @@ const MedicationAdd = () => {
     }, [])
 
     const handleInput = (e, type) => {
-        const value = e.target.value.trim();
+        const value = e.target.value;
         const q_inputBlock = $$('.MedicationAdd-inputBlock');
 
         let new_input = {...inputs};
@@ -178,22 +178,27 @@ const MedicationAdd = () => {
     }
 
     const uploadImage = (files, callback) => {
-        const formData = new FormData();
-        files.forEach(file => formData.append("file", file))
-        axios.post(
-            SERVER_ADDRESS_UPLOADIMAGE,
-            formData,
-            {
-                withCredentials: true, 
-            }
-        ).then(res => {
-            if (res.data.status) {
-                const paths = res.data.paths;
-                const imageUrls = [];
-                paths.forEach(path => imageUrls.push(`${SERVER_ADDRESS_GETIMAGE}/${path}`))
-                callback(imageUrls);
-            }
-        }).catch(err => console.error(err));
+        if (files.length > 0) {
+            const formData = new FormData();
+            files.forEach(file => formData.append("file", file))
+            axios.post(
+                SERVER_ADDRESS_UPLOADIMAGE,
+                formData,
+                {
+                    withCredentials: true, 
+                }
+            ).then(res => {
+                if (res.data.status) {
+                    const paths = res.data.paths;
+                    const imageUrls = [];
+                    paths.forEach(path => imageUrls.push(`${SERVER_ADDRESS_GETIMAGE}/${path}`))
+                    callback(imageUrls);
+                }
+            }).catch(err => console.error(err));
+        }  else {
+            const imageUrls = [];
+            callback(imageUrls);
+        }
     }
 
     const handleSubmit = () => {
@@ -221,7 +226,7 @@ const MedicationAdd = () => {
                 }
                 inputsCoppy.catalog = JSON.stringify({catalogs: newCatalogs})
 
-                inputsCoppy.information = TEGetContent();
+                inputsCoppy.information = TEGetContent(0);
 
                 const imageFiles = [];
                 for (let i = 0; i < images.length; i++) {
@@ -270,7 +275,7 @@ const MedicationAdd = () => {
     }
 
     const handleCatalog = (e, type, index) => {
-        const value = e.target.value.trim();
+        const value = e.target.value;
         const newCatalogs = [...catalogs];
 
         switch(type) {

@@ -48,7 +48,7 @@ const CaseRecordInfor = ({ caseRecord, caseRecordRole }) => {
     }, [isError_doctorOrPharmacist, error_doctorOrPharmacist])
 
     useEffect(() => {
-        console.log('data_doctorOrPharmacist', data_doctorOrPharmacist?.doctorOrPharmacist)
+        // console.log('data_doctorOrPharmacist', data_doctorOrPharmacist?.doctorOrPharmacist)
     }, [data_doctorOrPharmacist?.doctorOrPharmacist])
 
     useEffect(() => {

@@ -61,9 +61,11 @@ const { caseRecordPage } = require('../../model/CRUDDATABASE/CRUDCASERECORDPAGE'
 *amount: INTEGER.UNSIGNED,
 *note: text,
 *price: INTEGER.UNSIGNED,
+*discount: FLOAT,
 *cost: INTEGER.UNSIGNED,
 *status: string,
-*uuid_caseRecord: uuid
+*uuid_caseRecord: uuid,
+*uuid_medication: uuid
 *} caseRecordMedicationOptions
 */ 
 
@@ -128,15 +130,18 @@ const createCaseRecord = (caseRecordData, callback) => {
                 const caseRecordDescriptionOptions = caseRecordData.caseRecordDescriptionOptions;
                 const caseRecordImageOptions = caseRecordData.caseRecordImageOptions;
                 const caseRecordVideoOptions = caseRecordData.caseRecordVideoOptions;
+                const caseRecordPrescriptionOptions = caseRecordData.caseRecordPrescriptionOptions;
 
                 caseRecordDescriptionOptions.uuid_caseRecord = caseRecord.dataValues.uuid_caseRecord;
                 caseRecordImageOptions.uuid_caseRecord = caseRecord.dataValues.uuid_caseRecord;
                 caseRecordVideoOptions.uuid_caseRecord = caseRecord.dataValues.uuid_caseRecord;
+                caseRecordPrescriptionOptions.uuid_caseRecord = caseRecord.dataValues.uuid_caseRecord;
 
                 Promise.all([
                     createCaseRecordDescription(caseRecordDescriptionOptions), 
                     createCaseRecordImage(caseRecordImageOptions), 
-                    createCaseRecordVideo(caseRecordVideoOptions)
+                    createCaseRecordVideo(caseRecordVideoOptions),
+                    createCaseRecordPrescription(caseRecordPrescriptionOptions)
                 ]).then((values) => {
                     data = {
                         caseRecord: values,

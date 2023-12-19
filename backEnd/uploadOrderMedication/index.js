@@ -31,7 +31,6 @@ app.use(cookieParser());
 app.use('/api/svUploadOrderMedication', express.json());
 app.use('/api/svUploadOrderMedication', express.urlencoded({extended: true}));
 
-
 app.use('/api/svUploadOrderMedication', router);
 
 const PORT = process.env.NODE_SERVER_PORT_KEY || 7400;

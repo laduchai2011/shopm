@@ -4,17 +4,24 @@ const express = require('express');
 const router = express.Router();
 
 // const { orderAllMedication } = require('./src/model/CRUDDATABASE/CRUDORDERALLMEDICATION');
-// const { serviceRedis } = require('./src/model/serviceRedis');
+const { serviceRedis } = require('./src/model/serviceRedis');
 const { Authentication } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
 const { orderFinalMedication } = require('./src/middle/orderFinalMedication');
 
 
+/**
+*@typedef {
+*uuid_caseRecord: string,
+*pageNumber: string,
+*} currentCartOptions
+*/ 
+
 router.post('/orderMedication/create', Authentication, (req, res) => {
     const orderFinalMedicationOptions = req.body;
     const userOptions = req.decodedToken.data;
-    console.log(orderFinalMedicationOptions)
+    // console.log(orderFinalMedicationOptions)
     orderFinalMedication(userOptions.uuid, orderFinalMedicationOptions, (data, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
@@ -25,9 +32,49 @@ router.post('/orderMedication/create', Authentication, (req, res) => {
     })
 })
 
-router.post('/orderMedication/createCart', Authentication, (req, res) => {
+router.patch('/patchCurrentCart', Authentication, async (req, res) => {
+    const uuid_caseRecord = req.body.uuid_caseRecord;
+    const pageNumber = req.body.pageNumber;
+    const userOptions = req.decodedToken.data;
+    const currentCartKey = `currentCart-${userOptions.uuid}`;
+    const timeExpireat = 60*60*24*30*12; // 1 year
+    const currentCart_in = {
+        uuid_caseRecord: uuid_caseRecord,
+        pageNumber: pageNumber
+    }
 
+    const currentCart_out = await serviceRedis.setData(currentCartKey, currentCart_in, timeExpireat);
+
+    if (currentCart_out && currentCart_out!==null) {
+        return res.status(200).send({
+            currentCart: JSON.parse(currentCart_out),
+            message: 'patchCurrentCart success',
+            success: true
+        })
+    }
+     
+    return res.status(200).send({
+        currentCart: currentCart_out,
+        message: 'patchCurrentCart NOT success',
+        success: false
+    })
 })
 
+router.delete('/deleteCurrentCart', Authentication, async (req, res) => {
+    const userOptions = req.decodedToken.data;
+    const currentCartKey = `currentCart-${userOptions.uuid}`;
+    const isDeleteKey = await serviceRedis.deleteData(currentCartKey);
+    if (isDeleteKey) {
+        return res.send({
+            message: 'deleteCurrentCart successly',
+            success: true
+        })
+    } else {
+        return res.send({
+            message: 'deleteCurrentCart NOT successly',
+            success: false
+        })
+    }
+})
 
 module.exports = router;

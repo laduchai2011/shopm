@@ -246,14 +246,14 @@ router.get('/getCaseRecordPrescription', Authentication, (req, res) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send({ 
-                message: "Can't get case-record-image !",
+                message: "Can't get case-record-prescription !",
                 err: err,
                 success: false
             })
         } else {
             return res.status(200).json({ 
                 caseRecordPrescription: caseRecordPrescription,
-                message: "Get case-record-image successly !",
+                message: "Get case-record-prescription successly !",
                 success: true
             })
         }
