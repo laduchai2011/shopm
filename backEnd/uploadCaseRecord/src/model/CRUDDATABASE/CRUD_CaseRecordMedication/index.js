@@ -116,7 +116,7 @@ class CaseRecordMedication {
     //     })
     // }
 
-    edit(uuid_caseRecordMedication, amount, note, callback) {
+    edit(uuid_caseRecordMedication, amount, note, cost, callback) {
         let caseRecordMedication;
         let err;
         
@@ -130,6 +130,7 @@ class CaseRecordMedication {
                         );
                         isCaseRecordMedication.amount = amount;
                         isCaseRecordMedication.note = note;
+                        isCaseRecordMedication.cost = cost;
                         await isCaseRecordMedication.save({ transaction:t });
                         resolve(isCaseRecordMedication);   
                     } catch (error) {

@@ -1,0 +1,47 @@
+22-12-2023	04:32:05--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+22-12-2023	34:32:05--------/deleteCurrentCart---DELETE---JsonWebTokenError: invalid signature: token.verify-accessToken
+22-12-2023	27:26:18--------Redis Client Error Error: Connection timeout
+23-12-2023	01:03:02--------/deleteCurrentCart---DELETE---TokenExpiredError: jwt expired: token.verify-accessToken
+27-12-2023	10:02:11--------/patchCurrentCart---PATCH---TokenExpiredError: jwt expired: token.verify-accessToken
+27-12-2023	55:48:11--------Redis Client Error Error: Connection timeout
+27-12-2023	45:04:12--------/patchCurrentCart---PATCH---TokenExpiredError: jwt expired: token.verify-accessToken
+27-12-2023	46:07:12--------/deleteCurrentCart---DELETE---TokenExpiredError: jwt expired: token.verify-accessToken
+28-12-2023	32:12:03--------/patchCurrentCart---PATCH---TokenExpiredError: jwt expired: token.verify-accessToken
+28-12-2023	47:25:03--------/patchCurrentCart---PATCH---TokenExpiredError: jwt expired: token.verify-accessToken
+29-12-2023	17:10:00--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	33:11:00--------/deleteCurrentCart---DELETE---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	33:11:00--------/deleteCurrentCart---DELETE---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	49:11:00--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	51:16:00--------/deleteCurrentCart---DELETE---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	56:16:00--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	13:20:00--------/deleteCurrentCart---DELETE---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	15:20:00--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	49:21:00--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	07:29:00--------/deleteCurrentCart---DELETE---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	11:29:00--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	46:30:00--------/deleteCurrentCart---DELETE---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	49:30:00--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	54:30:00--------/deleteCurrentCart---DELETE---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	32:32:00--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	35:32:00--------/deleteCurrentCart---DELETE---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	20:35:00--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	40:53:02--------/deleteCurrentCart---DELETE---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	43:53:02--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	44:53:02--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	44:53:02--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	44:53:02--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	45:53:02--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	45:53:02--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	45:53:02--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	54:53:02--------/deleteCurrentCart---DELETE---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	27:54:02--------Redis Client Error Error: Connection timeout
+29-12-2023	14:57:02--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	53:58:02--------/deleteCurrentCart---DELETE---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	59:58:02--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	18:59:02--------/deleteCurrentCart---DELETE---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	48:00:03--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	05:02:03--------/deleteCurrentCart---DELETE---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	09:02:03--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	18:02:03--------/deleteCurrentCart---DELETE---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	19:02:03--------/patchCurrentCart---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-12-2023	21:02:03--------/deleteCurrentCart---DELETE---JsonWebTokenError: invalid signature: token.verify-accessToken

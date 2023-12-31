@@ -55,5 +55,6 @@ export const medicationRTKQuery = createApi({
 })
 
 export const { 
-    useGetMedicationQuery
+    useGetMedicationQuery,
+    useLazyGetMedicationQuery
 } = medicationRTKQuery;

@@ -40,21 +40,20 @@ router.patch('/patchCurrentCart', Authentication, async (req, res) => {
     const timeExpireat = 60*60*24*30*12; // 1 year
     const currentCart_in = {
         uuid_caseRecord: uuid_caseRecord,
-        pageNumber: pageNumber
+        pageNumber: pageNumber.toString()
     }
 
-    const currentCart_out = await serviceRedis.setData(currentCartKey, currentCart_in, timeExpireat);
+    const isSetData = await serviceRedis.setData(currentCartKey, currentCart_in, timeExpireat);
 
-    if (currentCart_out && currentCart_out!==null) {
+    console.log(333333333, isSetData)
+    if (isSetData) {
         return res.status(200).send({
-            currentCart: JSON.parse(currentCart_out),
             message: 'patchCurrentCart success',
             success: true
         })
     }
      
     return res.status(200).send({
-        currentCart: currentCart_out,
         message: 'patchCurrentCart NOT success',
         success: false
     })

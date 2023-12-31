@@ -19,34 +19,37 @@ class CaseRecord {
         this._CaseRecord = defineModel.getCaseRecord();
     }
 
-    // create(caseRecordOptions, callback) {
-    //     let caseRecord;
-    //     let err;
+    read(uuid_caseRecord, callback) {
+        let caseRecord;
+        let err;
         
-    //     const caseRecordPromise = new Promise((resolve, reject) => {
-    //         try {
-    //             sequelize.transaction(async (t) => {
-    //                 try {
-    //                     const newCaseRecord = await this._CaseRecord.create(caseRecordOptions, { transaction: t });
-    //                     resolve(newCaseRecord);   
-    //                 } catch (error) {
-    //                     reject(error);
-    //                 }
-    //             });
-    //         } catch (error) {
-    //             reject(error);
-    //         }
-    //     });
+        const caseRecordPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isCaseRecord = await this._CaseRecord.findByPk(
+                            uuid_caseRecord, 
+                            { transaction: t }
+                        );
+                        resolve(isCaseRecord);   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
 
-    //     caseRecordPromise
-    //     .then(newCaseRecord => {
-    //         caseRecord = newCaseRecord;
-    //     }).catch(error => {
-    //         err = error;
-    //     }).finally(() => {
-    //         callback(caseRecord, err);
-    //     })
-    // }
+        caseRecordPromise
+        .then(isCaseRecord => {
+            caseRecord = isCaseRecord;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(caseRecord, err);
+        })
+    }
 
     readWithUuidAndFk(uuid_caseRecord, uuid_user, uuid_doctorOrPharmacist, callback) {
         let caseRecord;

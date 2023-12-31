@@ -11,9 +11,13 @@ class ServiceRedis {
 
     async setData(key, jsonValue, timeExpireat) {
         if (key) {
-           // timeExpireat: { EX: 60*60*24 }
+            // timeExpireat: { EX: 60*60*24 }
             const valueToString = JSON.stringify(jsonValue);
-            await this._clientRedis.set(key, valueToString, { EX: timeExpireat });
+            const isSet = await this._clientRedis.set(key, valueToString, { EX: timeExpireat });
+            if (isSet==='OK') {
+                return true;
+            }
+            return false;
         } else {
             throw new Error('Invalid key type!');
         }

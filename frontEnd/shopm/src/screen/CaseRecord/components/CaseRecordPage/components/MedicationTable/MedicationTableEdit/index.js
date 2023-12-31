@@ -64,12 +64,20 @@ const MedicationTableEdit = ({ caseRecord }) => {
         })
     }
 
+    const caclCost = (medication) => {
+        const allCost = medication?.price*medication.amount;
+        const discountCost = allCost*medication?.discount/100;
+        return allCost - discountCost;
+    }
+
     const handleSaveEdit = () => {
         editCaseRecordMedications({
             caseRecord: caseRecord,
             uuid_caseRecordMedication: medication.uuid_caseRecordMedication,
             amount: medication.amount,
-            note: medication.note
+            note: medication.note,
+            cost: caclCost(medication),
+            pageNumber: medication.pageNumber
         }).then(res => {
             const resData = res.data;
             if (resData?.success) {

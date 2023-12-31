@@ -143,7 +143,8 @@ const MedicationCommonInfor = () => {
                     }
                     addCaseRecordMedications({
                         caseRecord: caseRecord, 
-                        caseRecordMedicationOptions: caseRecordMedicationOptions
+                        caseRecordMedicationOptions: caseRecordMedicationOptions, 
+                        pageNumber: currentCart.pageNumber.toString()
                     }).then(res1 => {
                         const resData1 = res1.data;
                         if (resData1?.success) {} else { alert(resData1?.message) }
@@ -158,7 +159,6 @@ const MedicationCommonInfor = () => {
     }
 
     const listImg = imgs.list.map((data, index) => {
-        
         return (
             <img key={index} src={data} onClick={() => selectImg(index)} alt="" />
         )

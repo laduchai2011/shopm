@@ -5,6 +5,13 @@ import {
     SERVER_ADDRESS_DELETE_CURRENTCART
 } from 'config/server';
 
+/**
+*@typedef {
+*uuid_caseRecord: string,
+*pageNumber: string,
+*} currentCartOptions
+*/ 
+
 // Define a service using a base URL and expected endpoints
 export const currentCartRTKQuery = createApi({
     reducerPath: 'currentCartRTKQuery',
@@ -17,7 +24,13 @@ export const currentCartRTKQuery = createApi({
                 url: `${SERVER_ADDRESS_GET_CURRENTCART}`,
                 credentials: "include"
             }),
-            providesTags: [{type: 'CurrentCart', bool: true}]
+            providesTags: (result, error) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    return [{type: 'CurrentCart'}];
+                }
+            }
         }),
 
         // mutation
@@ -31,11 +44,11 @@ export const currentCartRTKQuery = createApi({
                 },
                 credentials: "include"
             }),
-            invalidatesTags: (result, error, arg) => {
+            invalidatesTags: (result, error) => {
                 if (error) {
                     console.error(error);
                 } else {
-                    return [{type: 'CurrentCart', bool: result?.success ? true : false}]
+                    return [{type: 'CurrentCart'}];
                 }
             }
         }),
@@ -49,7 +62,7 @@ export const currentCartRTKQuery = createApi({
                 if (error) {
                     console.error(error);
                 } else {
-                    return [{type: 'CurrentCart', bool: result?.success ? true : false}]
+                    return [{type: 'CurrentCart'}]
                 }
             }
         })

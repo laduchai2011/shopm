@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import './styles.css';
 
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
 import { useDispatch } from 'react-redux';
-import { setCurrent_caseRecordMedication } from "reduxStore/slice/caseRecordSlice";
+import { 
+    setCurrent_caseRecordMedication,
+    setCaseRecordLockRd 
+} from "reduxStore/slice/caseRecordSlice";
+import { ThemeContextApp } from 'utilize/ContextApp';
 
 import { AiFillEdit } from 'react-icons/ai';
 import { CiCircleRemove, CiEdit } from 'react-icons/ci';
@@ -14,6 +18,7 @@ import { BsFillFileEarmarkImageFill, BsPersonVideo2 } from 'react-icons/bs';
 import { IoCheckmark } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { FaArrowDown } from "react-icons/fa";
+import { IoSend } from "react-icons/io5";
 
 import TextEditor from "TextEditor";
 import { TEGetContent, TESetContent } from "TextEditor/utilize";
@@ -28,13 +33,21 @@ import {
 import myEvents from "utilize/myEvents";
 
 import { 
+    useGetCaseRecordLockQuery,
     useGetCaseRecordDescriptionQuery,
     useGetCaseRecordImageQuery,
     useGetCaseRecordPrescriptionQuery,
+    usePostCaseRecordLockMutation,
     usePatchCaseRecordPrescriptionMutation,
-    useGetCaseRecordMedicationsAllQuery
+    useGetCaseRecordMedicationsAllQuery,
+    useDeleteCaseRecordLockMutation
 } from "reduxStore/RTKQuery/caseRecordRTKQuery";
 import { usePatchCurrentCartMutation } from "reduxStore/RTKQuery/currentCartRTKQuery";
+import { useLazyGetMedicationQuery } from "reduxStore/RTKQuery/medicationRTKQuery";
+import { useCreateNotificationMutation } from 'reduxStore/RTKQuery/notificationRTKQuery';
+import { 
+    useGetDoctorOrPharmacistFromCaseRecordQuery
+} from "reduxStore/RTKQuery/doctorOrPharmacistRTKQuery";
 
 /**
 *@typedef {
@@ -97,18 +110,33 @@ import { usePatchCurrentCartMutation } from "reduxStore/RTKQuery/currentCartRTKQ
 *} caseRecordMedicationOptions
 */  
 
+/**
+*@typedef {
+*caseRecord: caseRecord,
+*caseRecordRole: string, doctorOrPharmacist or patient
+*isLock: boolean,
+*pageNumber: string
+*} caseRecordLockOptions
+*/ 
+
 const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
     const { id: uuid_caseRecord } = useParams();
     const index = 0;
     const dispatch = useDispatch();
+    const { loginInfor } = useContext(ThemeContextApp); 
+
+    const [createNotification] = useCreateNotificationMutation();
 
     const [newImages, setNewImages] = useState([]); // [{file: '', blob: ''}]
     const [removeImages, setRemoveImages] = useState([]);
     const [editBoolD, setEditBoolD] = useState(false);
     const [editBoolP, setEditBoolP] = useState(false);
 
+    const [postCaseRecordLock] = usePostCaseRecordLockMutation();
     const [patchCaseRecordPrescription] = usePatchCaseRecordPrescriptionMutation();
     const [patchCurrentCart] = usePatchCurrentCartMutation();
+    const [getMedication] = useLazyGetMedicationQuery();
+    const [deleteCaseRecordLock] = useDeleteCaseRecordLockMutation();
 
     const {
         data: data_description, 
@@ -132,7 +160,7 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
         isError: isError_prescription,
         error: error_prescription
     } = useGetCaseRecordPrescriptionQuery({uuid_caseRecord: uuid_caseRecord, pageNumber: index + 1});
-    const [prescription, setPrescription] = useState([]);
+    const [prescription, setPrescription] = useState();
 
     const {
         data: data_medicationList, 
@@ -141,6 +169,23 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
         error: error_medicationList
     } = useGetCaseRecordMedicationsAllQuery({uuid_caseRecord: uuid_caseRecord, pageNumber: index + 1});
     const [medicationList, setMedicationList] = useState([]);
+
+    // doctorOrPharmacist
+    const {
+        data: data_doctorOrPharmacist, 
+        // isFetching: isFetching_doctorOrPharmacist, 
+        isError: isError_doctorOrPharmacist, 
+        error: error_doctorOrPharmacist
+    } = useGetDoctorOrPharmacistFromCaseRecordQuery({uuid_doctorOrPharmacist: caseRecord.uuid_doctorOrPharmacist});
+
+    // lock
+    const {
+        data: data_caseRecordLock, 
+        // isFetching: isFetching_data_caseRecordLock, 
+        isError: isError_caseRecordLock, 
+        error: error_caseRecordLock
+    } = useGetCaseRecordLockQuery({uuid_caseRecord: uuid_caseRecord});
+    const [caseRecordLock, setCaseRecordLock] = useState();
 
     // description
     useEffect(() => {
@@ -187,15 +232,37 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
     useEffect(() => {
         isError_medicationList && console.log(error_medicationList);
     }, [isError_medicationList, error_medicationList])
-
     useEffect(() => {
         const resData = data_medicationList;
         if (resData?.success && (resData?.caseRecordMedications!==null)) {
-            setMedicationList(resData?.caseRecordMedications);
+            const new_medicationList = [];
+            for (let i = 0; i < resData?.caseRecordMedications?.length; i++) {
+                const medicationList_m = {
+                    caseRecordMedication: resData?.caseRecordMedications[i],
+                    medication: null
+                }
+                new_medicationList.push(medicationList_m);
+            }
+            setMedicationList(new_medicationList);
         } 
     }, [data_medicationList])
 
-    
+    // doctorOrPharmacist
+    useEffect(() => {
+        isError_doctorOrPharmacist && console.log(error_doctorOrPharmacist);
+    }, [isError_doctorOrPharmacist, error_doctorOrPharmacist])
+    useEffect(() => {
+        // const resData = data_doctorOrPharmacist;
+    }, [data_doctorOrPharmacist])
+
+    // lock
+    useEffect(() => {
+        isError_caseRecordLock && console.log(error_caseRecordLock);
+    }, [isError_caseRecordLock, error_caseRecordLock])
+    useEffect(() => {
+        setCaseRecordLock(data_caseRecordLock?.caseRecordLock);
+    }, [data_caseRecordLock])
+
     useEffect(() => {
         return () => {
             for (let i = 0; i < newImages.length; i++) {
@@ -211,8 +278,14 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
             patchCaseRecordPrescription({
                 caseRecord: caseRecord,
                 uuid_caseRecordPrescription: data_prescription?.caseRecordPrescription?.uuid_caseRecordPrescription,
-                prescription: TEGetContent(index)
-            })
+                prescription: TEGetContent(index),
+                pageNumber: (index + 1).toString()
+            }).then(res => {
+                const resData = res.data
+                if (!resData.success) {
+                    dispatch(setCaseRecordLockRd({caseRecordLockOptions: resData.caseRecordLockOptions}));
+                }
+            }).catch(err => console.error(err))
         }
     }
 
@@ -267,21 +340,21 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
             let err;
 
             const caseRecordDescriptionOptions = {
-                pageNumber: index + 1,
+                pageNumber: (index + 1).toString(),
                 description: description,
                 status: 'editting',
                 uuid_caseRecord: uuid_caseRecord
             }
 
             const caseRecordImageOptions = {
-                pageNumber: index + 1,
+                pageNumber: (index + 1).toString(),
                 images: JSON.stringify({images: finalImages}),
                 status: 'editting',
                 uuid_caseRecord: uuid_caseRecord
             }
 
             const caseRecordVideoOptions = {
-                pageNumber: index + 1,
+                pageNumber: (index + 1).toString(),
                 videos: JSON.stringify({videos: 'videos'}),
                 status: 'editting',
                 uuid_caseRecord: uuid_caseRecord
@@ -315,7 +388,7 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
         if (editBoolD) {
             myEvents.on('updateDB-finally', ({data, err}) => {
                 if (err) console.error(err);
-                console.log(data);
+                // console.log(data);
                 setEditBoolD(false);
             })
 
@@ -378,20 +451,133 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
     const handleAddMedication = () => {
         patchCurrentCart({
             uuid_caseRecord: uuid_caseRecord,
-            pageNumber: index + 1
+            pageNumber: (index + 1).toString()
         });
     }
 
-    const showTableDeleteMedication = (data, index) => {
-        dispatch(setCurrent_caseRecordMedication({caseRecordMedication: data, index: index}));
+    const showTableDeleteMedication = (caseRecordMedication, index) => {
+        dispatch(setCurrent_caseRecordMedication({caseRecordMedication: caseRecordMedication, index: index}));
         const q_medicationDelete = $('.MedicationTableDelete');
         q_medicationDelete.classList.add('show');
     }
 
-    const showTableEditMedication = (data, index) => {
-        dispatch(setCurrent_caseRecordMedication({caseRecordMedication: data, index: index}));
+    const showTableEditMedication = (caseRecordMedication, index) => {
+        dispatch(setCurrent_caseRecordMedication({caseRecordMedication: caseRecordMedication, index: index}));
         const q_medicationEdit = $('.MedicationTableEdit');
         q_medicationEdit.classList.add('show');
+    }
+
+    const handleCheckMedication = (caseRecordMedication, index) => {
+        getMedication({
+            uuid_medication: caseRecordMedication.uuid_medication
+        }).then(res => {
+            const resData = res.data;
+            if (resData?.success) {
+                const medicationList_m = {
+                    caseRecordMedication: caseRecordMedication,
+                    medication: resData.medication
+                }
+
+                const cp_medicationList = [...medicationList];
+                cp_medicationList[index] = medicationList_m;
+
+                setMedicationList(cp_medicationList);
+            } else {
+                alert(resData?.message);
+            }
+        }).catch(err => console.error(err));
+    }
+
+    const handleCheckAllMedication = async () => {
+        const cp_medicationList = [...medicationList];
+        for (let index = 0; index < medicationList.length; index++) {
+            const caseRecordMedication = medicationList[index].caseRecordMedication;   
+            const promise_getMedication = new Promise((resolve, reject) => {
+                getMedication({
+                    uuid_medication: caseRecordMedication.uuid_medication
+                }).then(res => {
+                    const resData = res.data;
+                    if (resData?.success) {
+                        const medicationList_m = {
+                            caseRecordMedication: caseRecordMedication,
+                            medication: resData.medication
+                        }
+                        resolve(medicationList_m);
+                    } else {
+                        alert(resData?.message);
+                    }
+                }).catch(err => reject(err));
+            });
+
+            try {
+                const medicationList_m = await promise_getMedication;
+                cp_medicationList[index] = medicationList_m;
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        setMedicationList(cp_medicationList);
+    }
+
+    const handleRequireDoctorOrPharmacistCheck = (caseRecordMedication) => {
+        const notification = {
+            title: 'Toi can kiem tra lai thuoc',
+            type: 'requireCheckMedication',
+            uuid_userSent: loginInfor?.uuid, 
+            data: {
+                caseRecord: caseRecord, 
+                pageIndex: index + 1,
+                caseRecordMedication: caseRecordMedication
+            }
+        }
+
+        createNotification({
+            type: 'now',
+            notification: JSON.stringify(notification),
+            status: 'sent',
+            uuid_user: data_doctorOrPharmacist?.doctorOrPharmacist?.uuid_user
+        })
+    }
+
+    const handleRequireDoctorOrPharmacistCheckAll = () => {
+        const notification = {
+            title: 'Toi can kiem tra lai tat ca thuoc',
+            type: 'requireCheckAllMedication',
+            uuid_userSent: loginInfor?.uuid, 
+            data: {
+                caseRecord: caseRecord, 
+                pageIndex: index + 1
+            }
+        }
+
+        createNotification({
+            type: 'now',
+            notification: JSON.stringify(notification),
+            status: 'sent',
+            uuid_user: data_doctorOrPharmacist?.doctorOrPharmacist?.uuid_user
+        })
+    }
+
+    const handleLock = () => {
+        postCaseRecordLock({
+            caseRecord: caseRecord,
+            pageNumber: (index + 1).toString()
+        }).then(res => {
+            const resData = res.data
+            if (!resData.success) {
+                dispatch(setCaseRecordLockRd({caseRecordLockOptions: resData.caseRecordLockOptions}));
+            }
+        }).catch(err => console.error(err))
+    }
+
+    const handleUnLock = () => {
+        deleteCaseRecordLock({
+            caseRecord: caseRecord,
+            pageNumber: (index + 1).toString()
+        }).then(res => {
+            console.log('deleteCaseRecordLock', res.data)
+        })
     }
 
     const list_image = images.map((data, index) => {
@@ -425,22 +611,92 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
         )
     })
 
+    const handleCheckColor = (caseRecordMedication, medication, type) => {
+        if (type==='number') {
+            if (caseRecordMedication <= medication) {
+                return 'blue';
+            } else {
+                return 'red';
+            }
+        } else if (type==='string') {
+            if (caseRecordMedication === medication) {
+                return 'blue';
+            } else {
+                return 'red';
+            }
+        }
+    }
+
+    const caclCost = (medication, caseRecordMedication) => {
+        const allCost = medication?.price*caseRecordMedication.amount;
+        const discountCost = allCost*medication?.discount/100;
+        return allCost - discountCost;
+    }
+
     const medication_list = medicationList.map((data, index) => {
+        const caseRecordMedication = data.caseRecordMedication;
+        const medication = data.medication;
         return (
             <div className="CaseRecordPage-prescription-medicationList-table list" key={ index }>
                 <div>
                     <div><span>Index</span><div>{ index }</div></div>
-                    <div><span>Uid</span><div>{ data.uuid_caseRecordMedication }</div></div>
-                    <div><span>Name</span><div>{ data.name }</div></div>
-                    <div><span>Amount</span>{ data.amount }</div>
-                    <div><span>Note</span>{ data.note }</div>
-                    <div><span>Price</span>{ data.price }</div>
-                    <div><span>Cost</span>{ data.cost } <div><FaArrowDown color="blue" />{ `${data.discount}%` }</div></div>
+                    <div>
+                        <span>Uid</span>
+                        <div>{ caseRecordMedication.uuid_caseRecordMedication }</div>
+                    </div>
+                    <div>
+                        <span>Name</span>
+                        <div>
+                            { caseRecordMedication.name }
+                            { medication && <span className={`CaseRecordPage-prescription-medicationList-table-check ${handleCheckColor(caseRecordMedication.name, medication?.name, 'string')}`}>
+                                /{ medication?.name }
+                            </span> }
+                        </div>
+                    </div>
+                    <div>
+                        <span>Amount</span>
+                        <div>
+                            { caseRecordMedication.amount }
+                            { medication && <span className={`CaseRecordPage-prescription-medicationList-table-check ${handleCheckColor(caseRecordMedication.amount, medication?.amount, 'number')}`}>
+                                /{ medication?.amount }
+                            </span> }
+                        </div>
+                    </div>
+                    <div>
+                        <span>Note</span>
+                        { caseRecordMedication.note }
+                    </div>
+                    <div>
+                        <span>Price</span>
+                        <div>
+                            { caseRecordMedication.price }
+                            { medication && <span className={`CaseRecordPage-prescription-medicationList-table-check ${handleCheckColor(caseRecordMedication.price, medication?.price, 'number')}`}>
+                                /{ medication?.price }
+                            </span> }
+                        </div>
+                    </div>
+                    <div>
+                        <span>Cost</span>
+                        <div>
+                            { caseRecordMedication.cost }
+                            { medication && <span className={`CaseRecordPage-prescription-medicationList-table-check ${handleCheckColor(caseRecordMedication.cost, caclCost(medication, caseRecordMedication), 'number')}`}>
+                                /{ caclCost(medication, caseRecordMedication) }
+                            </span> }
+                        </div>
+                        <div>
+                            <FaArrowDown color="blue" />
+                            { `${caseRecordMedication.discount}%` }
+                            { medication && <span className={`CaseRecordPage-prescription-medicationList-table-check ${handleCheckColor(caseRecordMedication.discount, medication?.discount, 'number')}`}>
+                                /{ `${medication?.discount}%` }
+                            </span> }
+                        </div>
+                    </div>
                 </div>
                 <div className="CaseRecordPage-prescription-medicationList-table-icon">
-                    <IoCheckmark title="Check medication amount" color="blue" size={ 20 } />
-                    { caseRecordRole==='doctorOrPharmacist' && <CiEdit onClick={() => showTableEditMedication(data, index)} title="Edit a medication" color="green" size={ 20 } /> }
-                    { caseRecordRole==='doctorOrPharmacist' && <MdDelete onClick={() => showTableDeleteMedication(data, index)} title="Delete a medication" color="red" size={ 20 } /> }
+                    { caseRecordRole==='patient' &&<IoSend onClick={() => handleRequireDoctorOrPharmacistCheck(caseRecordMedication)} title="Send require to doctor or Pharmacist" color="blue" /> }
+                    <IoCheckmark onClick={() => handleCheckMedication(caseRecordMedication, index)} title="Check medication amount" color="blue" size={ 20 } />
+                    { caseRecordRole==='doctorOrPharmacist' && <CiEdit onClick={() => showTableEditMedication(caseRecordMedication, index)} title="Edit a medication" color="green" size={ 20 } /> }
+                    { caseRecordRole==='doctorOrPharmacist' && <MdDelete onClick={() => showTableDeleteMedication(caseRecordMedication, index)} title="Delete a medication" color="red" size={ 20 } /> }
                 </div>
             </div>
         )
@@ -513,7 +769,8 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
                             <div>Cost</div>
                         </div>
                         <div className="CaseRecordPage-prescription-medicationList-table-icon">
-                            <IoCheckmark title="Check all medication amount" color="blue" size={ 20 } />
+                            { caseRecordRole==='patient' &&<IoSend onClick={() => handleRequireDoctorOrPharmacistCheckAll()} title="Send require to doctor or Pharmacist" color="blue" /> }
+                            <IoCheckmark onClick={() => handleCheckAllMedication()} title="Check all medication amount" color="blue" size={ 20 } />
                             { caseRecordRole==='doctorOrPharmacist' && <CiEdit title="Edit all medications" color="green" size={ 20 } /> }
                             { caseRecordRole==='doctorOrPharmacist' && <MdDelete title="Delete all medications" color="red" size={ 20 } /> }
                         </div>
@@ -528,8 +785,10 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
                 { caseRecordRole==='patient' && 
                     <>{ editBoolD && <button onClick={() => handleSaveD()}>Save Description</button> }</> 
                 }
-                <button>Lock</button>
-                <button>Un-Lock</button>
+                { (caseRecordLock?.isLock && caseRecordLock?.caseRecordRole===caseRecordRole) 
+                    ? <button onClick={() => handleUnLock()}>Un-Lock</button>
+                    : <button onClick={() => handleLock()}>Lock</button>
+                } 
             </div>
         </div>
     )

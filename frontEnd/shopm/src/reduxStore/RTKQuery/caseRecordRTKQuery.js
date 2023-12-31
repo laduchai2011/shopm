@@ -2,6 +2,9 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { baseURL } from 'config/server';
 import { 
+    SERVER_ADDRESS_CASERECORD_GET_LOCK,
+    SERVER_ADDRESS_CASERECORD_CREATE_LOCK,
+    SERVER_ADDRESS_CASERECORD_DELETE_LOCK,
     SERVER_ADDRESS_CASERECORD_SAVE_PRESCRIPTION,
     SERVER_ADDRESS_CASERECORD_ADD_MEDICATION,
     SERVER_ADDRESS_CASERECORD_EDIT_MEDICATION,
@@ -71,6 +74,15 @@ import {
 *} caseRecordMedicationOptions
 */  
 
+/**
+*@typedef {
+*caseRecord: caseRecord,
+*caseRecordRole: string, doctorOrPharmacist or patient
+*isLock: boolean,
+*pageNumber: string
+*} caseRecordLockOptions
+*/
+
 const NODE_ENV = process.env.NODE_ENV;
 const PORT = process.env.NODE_PORT;
 
@@ -91,6 +103,7 @@ export const caseRecordRTKQuery = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: '' }),
     tagTypes:[
         'CaseRecord',
+        'CaseRecordDoctorOrPharmacistLock',
         'CaseRecordDescription',
         'CaseRecordImage',
         'CaseRecordVideo',
@@ -104,51 +117,60 @@ export const caseRecordRTKQuery = createApi({
                 url: `${baseURL_caseRecord_get}/getCaseRecord?uuid_caseRecord=${uuid_caseRecord}`,
                 credentials: "include"
             }),
-            providesTags: [{type: 'CaseRecord', bool: true}]
+            providesTags: [{type: 'CaseRecord'}]
         }),
         getCaseRecordDescription: builder.query({
             query: ({uuid_caseRecord, pageNumber}) => ({
                 url: `${baseURL_caseRecord_get}/getCaseRecordDescription?uuid_caseRecord=${uuid_caseRecord}&pageNumber=${pageNumber}`,
                 credentials: "include",
             }),
-            providesTags: [{type: 'CaseRecordDescription', bool: true}]
+            providesTags: [{type: 'CaseRecordDescription'}]
         }),
         getCaseRecordImage: builder.query({
             query: ({uuid_caseRecord, pageNumber}) => ({
                 url: `${baseURL_caseRecord_get}/getCaseRecordImage?uuid_caseRecord=${uuid_caseRecord}&pageNumber=${pageNumber}`,
                 credentials: "include"
             }),
-            providesTags: [{type: 'CaseRecordImage', bool: true}]
+            providesTags: [{type: 'CaseRecordImage'}]
         }),
         getCaseRecordVideo: builder.query({
             query: ({uuid_caseRecord, pageNumber}) => `${baseURL_caseRecord_get}/getCaseRecordVideo?uuid_caseRecord=${uuid_caseRecord}&pageNumber=${pageNumber}`,
             credentials: "include",
-            providesTags: [{type: 'CaseRecordVideo', bool: true}]
+            providesTags: [{type: 'CaseRecordVideo'}]
         }),
         getCaseRecordPrescription: builder.query({
             query: ({uuid_caseRecord, pageNumber}) => ({
                 url: `${baseURL_caseRecord_get}/getCaseRecordPrescription?uuid_caseRecord=${uuid_caseRecord}&pageNumber=${pageNumber}`,
                 credentials: "include"
             }),
-            providesTags: [{type: 'CaseRecordPrescription', bool: true}]
+            providesTags: [{type: 'CaseRecordPrescription'}]
         }),
         getCaseRecordMedicationsAll: builder.query({
             query: ({uuid_caseRecord, pageNumber}) => ({
                 url: `${baseURL_caseRecord_get}/getCaseRecordMedicationsAll?uuid_caseRecord=${uuid_caseRecord}&pageNumber=${pageNumber}`,
                 credentials: "include"
             }),
-            providesTags: [{type: 'CaseRecordMedicationsAll', bool: true}]
+            providesTags: [{type: 'CaseRecordMedicationsAll'}]
+        }),
+
+        getCaseRecordLock: builder.query({
+            query: ({uuid_caseRecord}) => ({
+                url: `${SERVER_ADDRESS_CASERECORD_GET_LOCK}?uuid_caseRecord=${uuid_caseRecord}`,
+                credentials: "include"
+            }),
+            providesTags: [{type: 'CaseRecordLock'}]
         }),
 
         // mutation
         patchCaseRecordPrescription: builder.mutation({
-            query: ({caseRecord, uuid_caseRecordPrescription, prescription}) => ({
+            query: ({caseRecord, uuid_caseRecordPrescription, prescription, pageNumber}) => ({
                 url: `${SERVER_ADDRESS_CASERECORD_SAVE_PRESCRIPTION}`,
                 method: 'PATCH',
                 body: { 
                     caseRecord: caseRecord,
                     uuid_caseRecordPrescription: uuid_caseRecordPrescription,
-                    prescription: prescription 
+                    prescription: prescription,
+                    pageNumber: pageNumber 
                 },
                 credentials: "include"
             }),
@@ -156,17 +178,18 @@ export const caseRecordRTKQuery = createApi({
                 if (error) {
                     console.error(error);
                 } else {
-                    return [{type: 'CaseRecordPrescription', bool: result?.success ? true : false}]
+                    return [{type: 'CaseRecordPrescription'}]
                 }
             }
         }),
         addCaseRecordMedications: builder.mutation({
-            query: ({caseRecord, caseRecordMedicationOptions}) => ({
+            query: ({caseRecord, caseRecordMedicationOptions, pageNumber}) => ({
                 url: `${SERVER_ADDRESS_CASERECORD_ADD_MEDICATION}`,
                 method: 'POST',
                 body: { 
                     caseRecord: caseRecord,
-                    caseRecordMedicationOptions: caseRecordMedicationOptions
+                    caseRecordMedicationOptions: caseRecordMedicationOptions,
+                    pageNumber: pageNumber
                 },
                 credentials: "include"
             }),
@@ -174,19 +197,21 @@ export const caseRecordRTKQuery = createApi({
                 if (error) {
                     console.error(error);
                 } else {
-                    return [{type: 'CaseRecordMedicationsAll', bool: result?.success ? true : false}]
+                    return [{type: 'CaseRecordMedicationsAll'}]
                 }
             }
         }),
         editCaseRecordMedications: builder.mutation({
-            query: ({caseRecord, uuid_caseRecordMedication, amount, note}) => ({
+            query: ({caseRecord, uuid_caseRecordMedication, amount, note, cost, pageNumber}) => ({
                 url: `${SERVER_ADDRESS_CASERECORD_EDIT_MEDICATION}`,
                 method: 'PATCH',
                 body: { 
                     caseRecord: caseRecord,
                     uuid_caseRecordMedication: uuid_caseRecordMedication, 
                     amount: amount,
-                    note: note
+                    note: note,
+                    cost: cost, 
+                    pageNumber: pageNumber
                 },
                 credentials: "include"
             }),
@@ -194,17 +219,18 @@ export const caseRecordRTKQuery = createApi({
                 if (error) {
                     console.error(error);
                 } else {
-                    return [{type: 'CaseRecordMedicationsAll', bool: result?.success ? true : false}]
+                    return [{type: 'CaseRecordMedicationsAll'}]
                 }
             }
         }),
         deleteCaseRecordMedication: builder.mutation({
-            query: ({caseRecord, uuid_caseRecordMedication}) => ({
+            query: ({caseRecord, uuid_caseRecordMedication, pageNumber}) => ({
                 url: `${SERVER_ADDRESS_CASERECORD_DELETE_MEDICATION}`,
                 method: 'DELETE',
                 body: { 
                     caseRecord: caseRecord,
-                    uuid_caseRecordMedication: uuid_caseRecordMedication
+                    uuid_caseRecordMedication: uuid_caseRecordMedication,
+                    pageNumber: pageNumber
                 },
                 credentials: "include"
             }),
@@ -212,7 +238,44 @@ export const caseRecordRTKQuery = createApi({
                 if (error) {
                     console.error(error);
                 } else {
-                    return [{type: 'CaseRecordMedicationsAll', bool: result?.success ? true : false}]
+                    return [{type: 'CaseRecordMedicationsAll'}]
+                }
+            }
+        }),
+
+        postCaseRecordLock: builder.mutation({
+            query: ({caseRecord, pageNumber}) => ({
+                url: `${SERVER_ADDRESS_CASERECORD_CREATE_LOCK}`,
+                method: 'POST',
+                body: { 
+                    caseRecord: caseRecord,
+                    pageNumber: pageNumber
+                },
+                credentials: "include"
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    return [{type: 'CaseRecordLock'}]
+                }
+            }
+        }),
+        deleteCaseRecordLock: builder.mutation({
+            query: ({caseRecord, pageNumber}) => ({
+                url: `${SERVER_ADDRESS_CASERECORD_DELETE_LOCK}`,
+                method: 'DELETE',
+                body: { 
+                    caseRecord: caseRecord,
+                    pageNumber: pageNumber
+                },
+                credentials: "include"
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    return [{type: 'CaseRecordLock'}]
                 }
             }
         })
@@ -221,14 +284,17 @@ export const caseRecordRTKQuery = createApi({
 
 export const { 
     useGetCaseRecordQuery,
+    useGetCaseRecordLockQuery,
     useLazyGetCaseRecordQuery,
     useGetCaseRecordDescriptionQuery,
     useGetCaseRecordImageQuery,
     useGetCaseRecordVideoQuery,
     useGetCaseRecordPrescriptionQuery,
     useGetCaseRecordMedicationsAllQuery,
+    usePostCaseRecordLockMutation,
     usePatchCaseRecordPrescriptionMutation,
     useAddCaseRecordMedicationsMutation,
     useEditCaseRecordMedicationsMutation,
-    useDeleteCaseRecordMedicationMutation
+    useDeleteCaseRecordMedicationMutation,
+    useDeleteCaseRecordLockMutation
 } = caseRecordRTKQuery;

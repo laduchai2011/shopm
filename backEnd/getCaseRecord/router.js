@@ -4,7 +4,8 @@ const express = require('express');
 const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
 
-// const { serviceRedis } = require('./src/model/serviceRedis');
+const { serviceRedis } = require('./src/model/serviceRedis');
+const { serviceRedlock } = require('./src/config/serviceRedlock');
 const { Authentication } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
@@ -15,10 +16,22 @@ const { caseRecordVideo } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordVid
 const { caseRecordPrescription } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordPrescription');
 const { caseRecordMedication } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordMedication');
 const { caseRecordPage } = require('./src/model/CRUDDATABASE/CRUDCASERECORDPAGE');
+const { doctorOrPharmacistAndPatientRole } = require('./src/middle/doctorOrPharmacistAndPatientRole');
+// const { doctorOrPharmacistRole } = require('./src/middle/doctorOrPharmacistRole');
 const { SvMessage } = require('./src/model/svMessge');
 
 const svMessage = new SvMessage();
 svMessage.init();
+
+/**
+*@typedef {
+*caseRecord: caseRecord,
+*caseRecordRole: string, doctorOrPharmacist or patient
+*isLock: boolean,
+*pageNumber: string
+*} caseRecordLockOptions
+*/ 
+
 
 let secure_cookie = false;
 if (process.env.NODE_ENV !== 'development') {
@@ -172,7 +185,7 @@ router.get('/getCaseRecord', Authentication, async (req, res) => {
     svMessage.sendMessage('require__Uuid_doctorOrPharmacist__via__uuid_user', JSON.stringify({ id: _id, uuid_user: userOptions.uuid }));
 })
 
-router.get('/getCaseRecordDescription', Authentication, (req, res) => {
+router.get('/getCaseRecordDescription', Authentication, doctorOrPharmacistAndPatientRole, (req, res) => {
     const pageNumber = req.query.pageNumber;
     const uuid_caseRecord = req.query.uuid_caseRecord;
 
@@ -194,7 +207,7 @@ router.get('/getCaseRecordDescription', Authentication, (req, res) => {
     })
 })
 
-router.get('/getCaseRecordImage', Authentication, (req, res) => {
+router.get('/getCaseRecordImage', Authentication, doctorOrPharmacistAndPatientRole, (req, res) => {
     const pageNumber = req.query.pageNumber;
     const uuid_caseRecord = req.query.uuid_caseRecord;
 
@@ -216,7 +229,7 @@ router.get('/getCaseRecordImage', Authentication, (req, res) => {
     })
 })
 
-router.get('/getCaseRecordVideo', Authentication, (req, res) => {
+router.get('/getCaseRecordVideo', Authentication, doctorOrPharmacistAndPatientRole, (req, res) => {
     const pageNumber = req.query.pageNumber;
     const uuid_caseRecord = req.query.uuid_caseRecord;
 
@@ -238,7 +251,7 @@ router.get('/getCaseRecordVideo', Authentication, (req, res) => {
     })
 })
 
-router.get('/getCaseRecordPrescription', Authentication, (req, res) => {
+router.get('/getCaseRecordPrescription', Authentication, doctorOrPharmacistAndPatientRole, (req, res) => {
     const pageNumber = req.query.pageNumber;
     const uuid_caseRecord = req.query.uuid_caseRecord;
 
@@ -260,7 +273,11 @@ router.get('/getCaseRecordPrescription', Authentication, (req, res) => {
     })
 })
 
-router.get('/getCaseRecordMedicationsAll', Authentication, (req, res) => {
+router.get('/getCaseRecordMedication', Authentication, doctorOrPharmacistAndPatientRole, (req, res) => {
+
+})
+
+router.get('/getCaseRecordMedicationsAll', Authentication, doctorOrPharmacistAndPatientRole, (req, res) => {
     const pageNumber = req.query.pageNumber;
     const uuid_caseRecord = req.query.uuid_caseRecord;
 
@@ -299,6 +316,30 @@ router.get('/caseRecordPage/getList', Authentication, (req, res) => {
                 caseRecordPages: caseRecordPages,
                 message: "Get case-record page successly !",
                 success: true
+            })
+        }
+    })
+})
+
+router.get('/caseRecord/getLock', Authentication, doctorOrPharmacistAndPatientRole, async (req, res) => {
+    const uuid_caseRecord = req.query.uuid_caseRecord;
+    const caseRecordLockKey = `redlock-caseRecordLock-${ uuid_caseRecord }`;
+    const caseRecordLockKey_dataCache = `caseRecordLock-${ uuid_caseRecord }`;
+
+    const doctorOrPharmacistLock = await serviceRedlock.acquire([caseRecordLockKey], 10000);
+
+    serviceRedis.getData(caseRecordLockKey_dataCache, (caseRecordLockOptions) => {
+        doctorOrPharmacistLock.release();
+        if (caseRecordLockOptions) {
+            return res.status(200).send({
+                caseRecordLock: caseRecordLockOptions,
+                message: 'post caseRecordLock success',
+                success: true
+            })
+        } else {
+            return res.status(200).send({
+                message: 'post caseRecordLock NOT success',
+                success: false
             })
         }
     })

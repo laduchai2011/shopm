@@ -185,6 +185,19 @@
     font-style: italic;
 }
 
+.CaseRecordPage-prescription-medicationList-table-check {
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.CaseRecordPage-prescription-medicationList-table-check.blue {
+    color: blue;
+}
+
+.CaseRecordPage-prescription-medicationList-table-check.red {
+    color: red;
+}
+
 .CaseRecordPage-buttonContainer {
     display: flex;
     justify-content: flex-end;

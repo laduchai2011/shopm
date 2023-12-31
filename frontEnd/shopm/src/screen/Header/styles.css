@@ -49,7 +49,7 @@
     margin: 0 5px;
 }
 
-.Header-iconBox p {
+.Header-iconBox > p {
     position: absolute;
     background-color: red;
     width: 14px;
@@ -75,7 +75,7 @@
     }
 }
 
-.Header-iconBox:nth-child(1) p {
+.Header-iconBox:nth-child(1) > p {
     animation: cartAnimationP 5s ease-in-out infinite;
 }
 @keyframes cartAnimationP {

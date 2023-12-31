@@ -69,7 +69,7 @@ export const notificationRTKQuery = createApi({
                 if (error) {
                     console.error(error);
                 } else {
-                    console.log('createNotification', result)
+                    // console.log('createNotification', result)
                 }
             }
         })

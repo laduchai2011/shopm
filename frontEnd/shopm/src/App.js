@@ -79,6 +79,7 @@ function App() {
     useEffect(() => {
         setTimeout(() => {
             loginInfor!==null && patchNotificationStatus({type: 'normal', newStatus: 'receved', currentStatus: 'sent'});
+            loginInfor!==null && patchNotificationStatus({type: 'now', newStatus: 'receved', currentStatus: 'sent'});
         }, 500)
 
         // eslint-disable-next-line

@@ -45,7 +45,10 @@ export const SERVER_ADDRESS_PATCH_CASERECORD_SENDREQUIRETODOCTORPHARMACIST     =
 export const SERVER_ADDRESS_CASERECORD_SAVE_PRESCRIPTION                       = `${baseURL}:7200/api/svUploadCaseRecord/caseRecord/savePrescription`; 
 export const SERVER_ADDRESS_CASERECORD_ADD_MEDICATION                          = `${baseURL}:7200/api/svUploadCaseRecord/caseRecord/addMedication`; 
 export const SERVER_ADDRESS_CASERECORD_EDIT_MEDICATION                         = `${baseURL}:7200/api/svUploadCaseRecord/caseRecord/editMedication`; 
-export const SERVER_ADDRESS_CASERECORD_DELETE_MEDICATION                       = `${baseURL}:7200/api/svUploadCaseRecord/caseRecord/deleteMedication`; 
+export const SERVER_ADDRESS_CASERECORD_DELETE_MEDICATION                       = `${baseURL}:7200/api/svUploadCaseRecord/caseRecord/deleteMedication`;  
+export const SERVER_ADDRESS_CASERECORD_GET_LOCK                                = `${baseURL}:7300/api/svGetCaseRecord/caseRecord/getLock`;                       
+export const SERVER_ADDRESS_CASERECORD_CREATE_LOCK                             = `${baseURL}:7200/api/svUploadCaseRecord/caseRecord/createLock`; 
+export const SERVER_ADDRESS_CASERECORD_DELETE_LOCK                             = `${baseURL}:7200/api/svUploadCaseRecord/caseRecord/deleteLock`; 
 
 export const SERVER_ADDRESS_GET_SOCKETSM_ROOM                                  = `${baseURL}:2000/api/svSocketSM/getRoom`; 
 export const SERVER_ADDRESS_SOCKETSM                                           = `${baseURL_socket}:2100`;

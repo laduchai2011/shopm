@@ -4,7 +4,7 @@ const { caseRecordDescription } = require('../../model/CRUDDATABASE/CRUD_CaseRec
 const { caseRecordImage } = require('../../model/CRUDDATABASE/CRUD_CaseRecordImage');
 const { caseRecordVideo } = require('../../model/CRUDDATABASE/CRUD_CaseRecordVideo');
 const { caseRecordPrescription } = require('../../model/CRUDDATABASE/CRUD_CaseRecordPrescription');
-const { caseRecordPage } = require('../../model/CRUDDATABASE/CRUDCASERECORDPAGE');
+// const { caseRecordPage } = require('../../model/CRUDDATABASE/CRUDCASERECORDPAGE');
 
 /**
 *@typedef {

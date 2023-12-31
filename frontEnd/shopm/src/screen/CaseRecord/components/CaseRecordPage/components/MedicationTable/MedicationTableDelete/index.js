@@ -26,7 +26,8 @@ const MedicationTableDelete = ({ caseRecord }) => {
     const handleDeleteMedication = () => {
         deleteCaseRecordMedication({
             caseRecord: caseRecord,
-            uuid_caseRecordMedication: current_caseRecordMedication?.uuid_caseRecordMedication
+            uuid_caseRecordMedication: current_caseRecordMedication?.uuid_caseRecordMedication,
+            pageNumber: current_caseRecordMedication?.pageNumber
         }).then(res => {
             const resData = res.data;
             if (resData?.success) {
