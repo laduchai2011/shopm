@@ -34,23 +34,33 @@
     margin-top: 5px;
 }
 
-.CaseRecordPage-description-image > div,
+/* .CaseRecordPage-description-image > div, */
 .CaseRecordPage-description-video > div {
     height: 200px;
     width: 100%;
-    background-color: black;
+    background-color: rgb(223, 223, 223);
     position: relative;
 }
 
-.CaseRecordPage-description-image > div > img,
+/* .CaseRecordPage-description-image > div > img, */
 .CaseRecordPage-description-video > div > video {
     width: 100%;
-    height: 100%;
+    height: 85%;
     object-fit: contain;
+    background-color: black;
 }
 
-.CaseRecordPage-description-image > div > svg,
-.CaseRecordPage-description-image > div > div,
+/* .CaseRecordPage-description-image > div > span {
+    box-sizing: border-box;
+    padding: 3px;
+} */
+
+/* .CaseRecordPage-description-image > div > input {
+    width: 100%;
+} */
+
+/* .CaseRecordPage-description-image > div > svg,
+.CaseRecordPage-description-image > div > div, */
 .CaseRecordPage-description-video > div > svg {
     position: absolute;
     background-color: white;
@@ -59,12 +69,12 @@
     right: 0;
 }
 
-.CaseRecordPage-description-image > div > div {
+/* .CaseRecordPage-description-image > div > div {
     border-radius: 10px !important;
     padding: 5px !important;
     background-color: rgb(255, 83, 83);
     color: white;
-}
+} */
 
 .CaseRecordPage-description-iconContainer,
 .CaseRecordPage-prescription-iconContainer {

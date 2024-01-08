@@ -1,12 +1,12 @@
 'use strict';
 const { caseRecordRole } = require('../../middle/caseRecordRole');
-const { caseRecord } = require('../../model/CRUDDATABASE/CRUDCASERECORD');
+const { caseRecordCRUD } = require('../../model/CRUDDATABASE/CRUDCASERECORD');
 const { logEvents } = require('../../../logEvents');
 
 function doctorOrPharmacistRole(req, res, next) {
     const userOptions = req.decodedToken.data;
     const uuid_caseRecord = req.query.uuid_caseRecord;
-    caseRecord.read(uuid_caseRecord, (caseRecord, err) => {
+    caseRecordCRUD.read(uuid_caseRecord, (caseRecord, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send({ 

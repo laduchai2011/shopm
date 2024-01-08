@@ -7,6 +7,7 @@ function patientRole(req, res, next) {
     caseRecordRole.setUp({caseRecord: caseRecord, user: userOptions});
     caseRecordRole.checkRole((isRole, caseRecordRole) => {
         if (isRole && (caseRecordRole==='patient')) {
+            req.caseRecordRole = caseRecordRole;
             next();
         } else {
             return res.status(200).json({

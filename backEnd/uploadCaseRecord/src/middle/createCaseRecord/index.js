@@ -30,7 +30,8 @@ const { caseRecordPrescription } = require('../../model/CRUDDATABASE/CRUD_CaseRe
 /**
 *@typedef {
 *pageNumber: string,
-*images: text,
+*images: string,
+*title: string,
 *status: string,
 *uuid_caseRecord: uuid
 *} caseRecordImageOptions

@@ -21,7 +21,7 @@ const CaseRecordToastMessage = ({ caseRecordRole }) => {
             setMessage('CaseRecord is locked')
             $('.CaseRecordToastMessage').classList.add('show');
         }
-    }, [caseRecordLockOptions])
+    }, [caseRecordLockOptions, caseRecordRole])
 
     return (
         <div className="CaseRecordToastMessage" onClick={() => removeCaseRecordToastMessage()}>

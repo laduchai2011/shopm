@@ -16,7 +16,7 @@
     padding: 10px;
 }
 
-.CaseRecordCreate-title span {
+.CaseRecordCreate-title > span {
     font-style: italic;
     color: red;
     font-size: 0.9em;
@@ -46,7 +46,7 @@
     align-items: center;
 }
 
-.CaseRecordCreate-imageVideo-iconContainer label {
+.CaseRecordCreate-imageVideo-iconContainer > label {
     margin: 0 5px;
     display: flex;
     align-items: center;
@@ -55,23 +55,23 @@
     cursor: pointer;
 }
 
-.CaseRecordCreate-imageVideo-iconContainer label:nth-child(1) {
+.CaseRecordCreate-imageVideo-iconContainer > label:nth-child(1) {
     background-color: greenyellow;
 }
-.CaseRecordCreate-imageVideo-iconContainer label:nth-child(1) svg {
+.CaseRecordCreate-imageVideo-iconContainer > label:nth-child(1) > svg {
     color: green;
     font-size: 20px;
 }
 
-.CaseRecordCreate-imageVideo-iconContainer label:nth-child(2) {
+.CaseRecordCreate-imageVideo-iconContainer > label:nth-child(2) {
     background-color: rgb(255, 95, 127);
 }
-.CaseRecordCreate-imageVideo-iconContainer label:nth-child(2) svg {
+.CaseRecordCreate-imageVideo-iconContainer > label:nth-child(2) > svg {
     color: red;
     font-size: 20px;
 }
 
-.CaseRecordCreate-imageVideo-iconContainer label span {
+.CaseRecordCreate-imageVideo-iconContainer > label > span {
     margin-right: 3px;
 }
 
@@ -85,40 +85,14 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 10px;
-}
-
-.CaseRecordCreate-imageVideo-image div,
-.CaseRecordCreate-imageVideo-video div {
-    height: 200px;
-    width: 100%;
-    position: relative;
-    cursor: pointer;
-}
-
-.CaseRecordCreate-imageVideo-image div img,
-.CaseRecordCreate-imageVideo-video div video  {
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
-    background-color: black;
-    z-index: 1;
-}
-
-.CaseRecordCreate-imageVideo-image div svg,
-.CaseRecordCreate-imageVideo-video div svg {
-    position: absolute;
-    background-color: white;
-    right: 5px;
-    top: 5px;
-    border-radius: 50%;
-    z-index: 2;
+    overflow: hidden;
 }
 
 .CaseRecordCreate-createBtn {
     margin-top: 50px;
 }
 
-.CaseRecordCreate-createBtn button {
+.CaseRecordCreate-createBtn > button {
     border: none;
     background-color: red;
     color: white;

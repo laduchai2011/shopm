@@ -1,0 +1,120 @@
+.CaseRecordCreateImage {
+    height: 250px;
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+    background-color: rgb(216, 216, 216);
+    overflow: hidden;
+    top: 0;
+    z-index: 3;
+
+    transition: top 0.3s linear;
+}
+
+.CaseRecordCreateImage.hidden {
+    top: -100%;
+    z-index: 2;
+}
+
+.CaseRecordCreateImage > img  {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    background-color: black;
+    z-index: 1;
+
+    transition: height 0.3s ease-in-out;
+}
+
+.CaseRecordCreateImage > img.show {
+    height: 70%;
+}
+
+.CaseRecordCreateImage > svg {
+    position: absolute;
+    background-color: white;
+    right: 5px;
+    top: 5px;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.CaseRecordCreateImage > button {
+    position: absolute;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border: 1px solid gray;
+    outline: none;
+    border-radius: 15px;
+    box-sizing: border-box;
+    padding: 5px;
+    font-size: 1.1rem;
+}
+
+.CaseRecordCreateImage > button:active {
+    background-color: rgb(224, 224, 224);
+}
+
+.CaseRecordCreateImage > input {
+    width: 100%;
+    border-radius: 15px;
+    box-sizing: border-box;
+    padding: 5px;
+    border: 0.5px solid gray;
+}
+
+.CaseRecordCreateImage > span {
+    box-sizing: border-box;
+    padding: 3px;
+}
+
+.CaseRecordCreateImage > div:nth-child(5) {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.CaseRecordCreateImage > div:nth-child(5) > div > button {
+    margin: 5px;
+    box-sizing: border-box;
+    padding: 5px;
+    border: none;
+}
+
+.CaseRecordCreateImage-custom {
+    background-color: greenyellow;
+}
+
+.CaseRecordCreateImage-custom:active {
+    background-color: #eee;
+}
+
+.CaseRecordCreateImage-ok {
+    background-color: blue;
+    color: white;
+}
+
+.CaseRecordCreateImage-ok:active {
+    background-color: #eee;
+    color: black;
+}
+
+.CaseRecordCreateImage-del {
+    background-color: red;
+    color: white;
+}
+
+.CaseRecordCreateImage-del:active {
+    background-color: #eee;
+    color: black;
+}
+
+.CaseRecordCreateImage-cancel {
+    background-color: gray;
+    color: white;
+}
+
+.CaseRecordCreateImage-cancel:active {
+    background-color: #eee;
+    color: black;
+}

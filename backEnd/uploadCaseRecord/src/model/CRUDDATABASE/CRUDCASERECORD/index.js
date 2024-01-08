@@ -49,6 +49,45 @@ class CaseRecord {
         })
     }
 
+    patchStatusCRC(uuid_caseRecord, callback) {
+        let caseRecord;
+        let err;
+        
+        const caseRecordPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isCaseRecord = await this._CaseRecord.findByPk(
+                            uuid_caseRecord,
+                            {
+                                where: {
+                                    status: 'notYetCreate'
+                                }
+                            },
+                            { lock: true, transaction: t },
+                        );
+                        isCaseRecord.status = 'notComplete';
+                        await isCaseRecord.save({ transaction:t });
+                        resolve(isCaseRecord);   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        caseRecordPromise
+        .then(isCaseRecord => {
+            caseRecord = isCaseRecord;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(caseRecord, err);
+        })
+    }
+
     updateDoctorPharmacist(uuid_user, uuid_caseRecord, uuid_doctorOrPharmacist, callback) {
         let caseRecord;
         let err;
@@ -129,6 +168,6 @@ class CaseRecord {
     }
 }
 
-const caseRecord = new CaseRecord();
+const caseRecordCRUD = new CaseRecord();
 
-module.exports = { caseRecord }
+module.exports = { caseRecordCRUD }

@@ -47,3 +47,6 @@ CREATE TABLE Users (
 
 	CONSTRAINT PK_id PRIMARY KEY(id),
 );
+
+DELETE FROM CaseRecords
+go

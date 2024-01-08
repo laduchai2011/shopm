@@ -126,6 +126,13 @@ class CaseRecordMedication {
                     try {
                         const isCaseRecordMedication = await this._CaseRecordMedication.findByPk(
                             uuid_caseRecordMedication,
+                            {
+                                where: {
+                                    [Op.not]: {
+                                        status: 'complete'
+                                    }
+                                }
+                            },
                             { lock: true, transaction: t },
                         );
                         isCaseRecordMedication.amount = amount;

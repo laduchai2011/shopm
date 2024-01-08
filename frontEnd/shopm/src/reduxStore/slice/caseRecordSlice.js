@@ -12,7 +12,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     current_caseRecordMedication: null, 
     index: 0, 
-    caseRecordLockOptions: null
+    caseRecordLockOptions: null,
+    current_caseRecordImage: null
 }
 
 export const caseRecordSlice = createSlice({
@@ -26,12 +27,16 @@ export const caseRecordSlice = createSlice({
         setCaseRecordLockRd: (state, action) => {
             state.caseRecordLockOptions = action.payload.caseRecordLockOptions;
         },
+        setCurrent_caseRecordImage: (state, action) => {
+            state.current_caseRecordImage = action.payload.caseRecordImage;
+        }
     }
 })
 
 export const { 
     setCurrent_caseRecordMedication,
-    setCaseRecordLockRd
+    setCaseRecordLockRd,
+    setCurrent_caseRecordImage
 } = caseRecordSlice.actions;
 
 const caseRecordReducer = caseRecordSlice.reducer;

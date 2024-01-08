@@ -407,8 +407,11 @@ class DefineModel {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            images: {
-                type: Sequelize.TEXT
+            image: {
+                type: DataTypes.STRING
+            },
+            title: {
+                type: DataTypes.STRING
             },
             status: {
                 type: DataTypes.STRING,

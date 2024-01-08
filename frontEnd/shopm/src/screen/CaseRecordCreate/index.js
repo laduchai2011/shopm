@@ -1,14 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useCallback } from 'react';
 import './styles.css';
 
 import axios from 'axios';
+
+import CaseRecordCreateToastMessage from './components/CaseRecordCreateToastMessage';
+import CaseRecordCreateImage from './components/CaseRecordCreateImage';
 
 import { BsFillImageFill, BsFillCameraVideoFill } from 'react-icons/bs';
 import { TiDeleteOutline } from 'react-icons/ti';
 
 import Header from 'screen/Header';
 
-import { SERVER_ADDRESS_UPLOADIMAGE, SERVER_ADDRESS_GETIMAGE, SERVER_ADDRESS_POST_CASERECORD } from 'config/server';
+import { 
+    SERVER_ADDRESS_CREATE_CASERECORD,
+    SERVER_ADDRESS_PATCH_STATUS_CRC_CASERECORD,
+    SERVER_ADDRESS_CASERECORD_CREATE_DESCRIPTION,
+    SERVER_ADDRESS_CASERECORD_BULKCREATE_IMAGE,
+    SERVER_ADDRESS_CASERECORD_CREATE_PRESCRIPTION,
+    SERVER_ADDRESS_UPLOADIMAGE, 
+    SERVER_ADDRESS_GETIMAGE, 
+    // SERVER_ADDRESS_POST_CASERECORD 
+} from 'config/server';
+
+import { $, $$ } from 'utilize/Tricks';
 
 /**
 *@typedef {
@@ -34,7 +48,8 @@ import { SERVER_ADDRESS_UPLOADIMAGE, SERVER_ADDRESS_GETIMAGE, SERVER_ADDRESS_POS
 /**
 *@typedef {
 *pageNumber: string,
-*images: text,
+*image: string,
+*title: string,
 *status: string,
 *uuid_caseRecord: uuid
 *} caseRecordImageOptions
@@ -73,11 +88,15 @@ import { SERVER_ADDRESS_UPLOADIMAGE, SERVER_ADDRESS_GETIMAGE, SERVER_ADDRESS_POS
 */  
 
 const CaseRecordCreate = () => {
-    const [imageList, setImageList] = useState([]); // [{file: '', blob: ''}]
-    const [videoList, setVideoList] = useState([]); // [{file: '', blob: ''}]
+    const [imageList, setImageList] = useState([]); // [{title: '', file: '', blob: ''}]
+    const [videoList, setVideoList] = useState([]); // [{title: '', file: '', blob: ''}]
     const [title, setTitle] = useState('');
     const [titleEmpty, setTitleEmpty] = useState('');
     const [describe, setDescribe] = useState('');
+
+    const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
 
     useEffect(() => {
         return () => {
@@ -92,6 +111,13 @@ const CaseRecordCreate = () => {
         // eslint-disable-next-line
     }, [])
 
+    useLayoutEffect(() => {
+        const q_imageContainers = $('.CaseRecordCreate-imageVideo-image').children;
+        for(let i = 0; i < q_imageContainers.length; i++) {
+            q_imageContainers[i].classList.remove('hidden');
+        }
+    }, [imageList])
+
     const handleImageInput = (e) => {
         const files = e.target.files;
 
@@ -99,6 +125,7 @@ const CaseRecordCreate = () => {
 
         for (let i = 0; i < files.length; i++) {
             const newImage = {
+                title: '',
                 file: files[i],
                 blob: URL.createObjectURL(files[i])
             }
@@ -107,15 +134,6 @@ const CaseRecordCreate = () => {
         }
 
         setImageList(pre => pre.concat(newImages));
-    }
-
-    const handleDeleteImage = (index) => {
-        const cp_imageList = [...imageList];
-
-        URL.revokeObjectURL(cp_imageList[index].blob);
-        cp_imageList.splice(index, 1);
-
-        setImageList(cp_imageList);
     }
 
     const handleVideoInput = (e) => {
@@ -164,78 +182,247 @@ const CaseRecordCreate = () => {
         }).catch(err => console.error(err));
     }
 
-    const handleCreate = () => {
+    const promiseUpLoadImage = () => {
+        const imageFiles = [];
+        for (let i = 0; i < imageList.length; i++) {
+            imageFiles.push(imageList[i].file)
+        }
+        return new Promise((resolve, reject) => {
+            if (imageList.length > 0) {
+                uploadImage(imageFiles, (imageUrls) => {
+                    resolve(imageUrls);
+                })
+            } else {
+                resolve();
+            }
+        });
+    }
+
+    const promiseCreateCaseRecord = () => {
         if (title.length === 0) {
-            setTitleEmpty('must is a string NOT empty !')
+            setTitleEmpty('must is a string NOT empty !');
         } else {
-            const imageFiles = [];
-            const videoFiles = [];
-            for (let i = 0; i < imageList.length; i++) {
-                imageFiles.push(imageList[i].file)
+            const caseRecordOptions = {
+                title: title,
+                priceTotal: 0,
+                pageTotal: 1,
+                report: null,
+                status: 'notYetCreate',
+                uuid_doctorOrPharmacist: null,
+                uuid_user: null
             }
-            for (let i = 0; i < videoList.length; i++) {
-                videoFiles.push(videoList[i].file)
-            }
-
-            uploadImage(imageFiles, (imageUrls) => {
-                const data = {
-                    caseRecordOptions: {
-                        title: title,
-                        priceTotal: 0,
-                        pageTotal: 1,
-                        report: null,
-                        status: 'notComplete',
-                        uuid_doctorOrPharmacist: null,
-                        uuid_user: null
-                    },
-                    caseRecordDescriptionOptions: {
-                        pageNumber: '1',
-                        description: describe,
-                        status: 'notComplete',
-                        uuid_caseRecord: null
-                    },
-                    caseRecordImageOptions: {
-                        pageNumber: '1',
-                        images: JSON.stringify({images: imageUrls}),
-                        status: 'notComplete',
-                        uuid_caseRecord: null
-                    },
-                    caseRecordVideoOptions: {
-                        pageNumber: '1',
-                        videos: JSON.stringify({videos: videoList}),
-                        status: 'notComplete',
-                        uuid_caseRecord: null
-                    },
-                    caseRecordPrescriptionOptions: {
-                        pageNumber: '1',
-                        prescription: '',
-                        status: 'notComplete',
-                        uuid_caseRecord: null
-                    }  
-                }
-
+    
+            return new Promise((resolve, reject) => {
                 axios({
                     method: 'post',
-                    url: SERVER_ADDRESS_POST_CASERECORD,
+                    url: SERVER_ADDRESS_CREATE_CASERECORD,
                     withCredentials: true,
-                    data: data,
+                    data: {
+                        caseRecordOptions: caseRecordOptions
+                    },
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 }).then(res => {
                     const resData = res.data;
-                    console.log(resData);
-                }).catch(error => console.error(error))
+                    if (resData.success) {
+                        resolve(resData.caseRecord);
+                    } else {
+                        reject(resData.message);
+                    }
+                }).catch(error => reject(error))
             })
         }
     }
 
+    const promiseCreateDescription = (uuid_caseRecord) => {
+        const caseRecordDescriptionOptions = {
+            pageNumber: '1',
+            description: describe,
+            status: 'notComplete',
+            uuid_caseRecord: uuid_caseRecord
+        }
+
+        return new Promise((resolve, reject) => {
+            axios({
+                method: 'post',
+                url: SERVER_ADDRESS_CASERECORD_CREATE_DESCRIPTION,
+                withCredentials: true,
+                data: {
+                    caseRecordDescriptionOptions: caseRecordDescriptionOptions
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                const resData = res.data;
+                if (resData.success) {
+                    resolve(resData.caseRecordDescription);
+                } else {
+                    reject(resData.message);
+                }
+            }).catch(error => reject(error))
+        })
+    }
+
+    const promiseCreateImage = (uuid_caseRecord, imageUrls) => {
+        if (imageUrls) {
+            const caseRecordImageOptionsArray = [];
+
+            for (let i = 0; i < imageUrls.length; i++) {
+                const caseRecordImageOptions = {
+                    pageNumber: '1',
+                    image: imageUrls[i],
+                    title: imageList[i].title,
+                    status: 'notComplete',
+                    uuid_caseRecord: uuid_caseRecord
+                }
+
+                caseRecordImageOptionsArray.push(caseRecordImageOptions);
+            }
+
+            return new Promise((resolve, reject) => {
+                axios({
+                    method: 'post',
+                    url: SERVER_ADDRESS_CASERECORD_BULKCREATE_IMAGE,
+                    withCredentials: true,
+                    data: {
+                        caseRecordImageOptionsArray: caseRecordImageOptionsArray
+                    },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(res => {
+                    const resData = res.data;
+                    if (resData.success) {
+                        console.log('promiseCreateImage', resData)
+                        resolve(resData.caseRecordImages);
+                    } else {
+                        reject(resData.message);
+                    }
+                }).catch(error => reject(error))
+            })
+        }
+    }
+
+    const promiseCreatePrescription = (uuid_caseRecord) => {
+        const caseRecordPrescriptionOptions = {
+            pageNumber: '1',
+            prescription: '',
+            status: 'notComplete',
+            uuid_caseRecord: uuid_caseRecord
+        }  
+
+        return new Promise((resolve, reject) => {
+            axios({
+                method: 'post',
+                url: SERVER_ADDRESS_CASERECORD_CREATE_PRESCRIPTION,
+                withCredentials: true,
+                data: {
+                    caseRecordPrescriptionOptions: caseRecordPrescriptionOptions
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                const resData = res.data;
+                if (resData.success) {
+                    resolve(resData.caseRecordPrescription);
+                } else {
+                    reject(resData.message);
+                }
+            }).catch(error => reject(error))
+        })
+    }
+
+    const handleCreate = async () => {
+        try {
+            setMessage('Waiting ... !');
+            setLoading(true);
+            setSuccess(false);
+            $('.CaseRecordCreateToastMessage').classList.add('show');
+
+            const imageUrls = await promiseUpLoadImage();
+            const caseRecord = await promiseCreateCaseRecord();
+            const uuid_caseRecord = caseRecord.uuid_caseRecord;
+            // const caseRecordDescription_promise = promiseCreateDescription(uuid_caseRecord);
+            // const caseRecordImages_promise = promiseCreateImage(uuid_caseRecord, imageUrls);
+            // const caseRecordPrescription_promise = promiseCreatePrescription(uuid_caseRecord);
+            Promise.all([
+                promiseCreateDescription(uuid_caseRecord), 
+                promiseCreateImage(uuid_caseRecord, imageUrls), 
+                promiseCreatePrescription(uuid_caseRecord)
+            ]).then((values) => {
+                if (values[0] && values[2]) {
+                    if ((imageUrls && values[1]) || (!imageUrls && !values[1])) {
+                        axios({
+                            method: 'patch',
+                            url: SERVER_ADDRESS_PATCH_STATUS_CRC_CASERECORD,
+                            withCredentials: true,
+                            data: {
+                                caseRecord: caseRecord
+                            },
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        }).then(res => {
+                            const resData = res.data;
+                            if (resData.success) {
+                                setMessage('Success !');
+                                setLoading(false);
+                            } else {
+                                setMessage('Failure !');
+                                setLoading(false);
+                            }
+                            setSuccess(resData.success);
+                        }).catch(error => console.error(error))
+                    }
+                }
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const handleDeleteImage = useCallback((index) => {
+        // const cp_imageList = [...imageList];
+        const q_imageContainers = $$('.CaseRecordCreateImage');
+
+        q_imageContainers[index].classList.add('hidden');
+        // URL.revokeObjectURL(cp_imageList[index].blob);
+        // cp_imageList.splice(index, 1);
+
+        setTimeout(() => {
+            if (index < (q_imageContainers.length - 1)) {
+                for (let i = 0; i < q_imageContainers.length - 1; i++) {
+                    if (i >= index) {
+                        if (q_imageContainers[i + 1].children[1].classList.contains("show")) {
+                            q_imageContainers[i].children[1].classList.add("show");
+                        } else {
+                            q_imageContainers[i].children[1].classList.remove("show");
+                        }
+                    }
+                }
+            }
+            // setImageList(cp_imageList);
+            setImageList(pre => {
+                const cp_imageList = [...pre];
+                URL.revokeObjectURL(cp_imageList[index].blob);
+                cp_imageList.splice(index, 1);
+                return cp_imageList
+            })
+        }, 300)
+    }, [])  
+
     const list_image = imageList.map((data, index) => {
         return (
-            <div key={ index }>
-                <TiDeleteOutline size={20} onClick={() => handleDeleteImage(index)} />
-                <img src={ data.blob } alt=''/>
-            </div>
+            <CaseRecordCreateImage 
+                key={ index } 
+                index={ index } 
+                onData={ data } 
+                setDatas={ setImageList }
+                onHandleDeleteImage={() => handleDeleteImage(index)} 
+            />
         )
     })
 
@@ -284,6 +471,7 @@ const CaseRecordCreate = () => {
                     <div className='CaseRecordCreate-createBtn'><button onClick={() => handleCreate()}>Create</button></div>
                 </div>
             </div>
+            <CaseRecordCreateToastMessage message={ message } loading={ loading } success={ success }/>
         </div>
     )
 }

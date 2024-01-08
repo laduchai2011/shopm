@@ -56,6 +56,13 @@ class CaseRecordPrescription {
                     try {
                         const isCaseRecordPrescription = await this._CaseRecordPrescription.findByPk(
                             uuid_caseRecordPrescription,
+                            {
+                                where: {
+                                    [Op.not]: {
+                                        status: 'complete'
+                                    }
+                                }
+                            },
                             { lock: true, transaction: t },
                         );
                         isCaseRecordPrescription.prescription = prescription;

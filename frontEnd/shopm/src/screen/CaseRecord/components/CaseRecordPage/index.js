@@ -20,6 +20,8 @@ import { MdDelete } from "react-icons/md";
 import { FaArrowDown } from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
 
+import CaseRecordPageImage from "./components/CaseRecordPageImage";
+
 import TextEditor from "TextEditor";
 import { TEGetContent, TESetContent } from "TextEditor/utilize";
 import { $, $$ } from "utilize/Tricks";
@@ -36,8 +38,11 @@ import {
     useGetCaseRecordLockQuery,
     useGetCaseRecordDescriptionQuery,
     useGetCaseRecordImageQuery,
+    useGetCaseRecordImageAllQuery,
     useGetCaseRecordPrescriptionQuery,
     usePostCaseRecordLockMutation,
+    // usePatchCaseRecordDescriptionMutation,
+    usePatchCaseRecordImagesMutation,
     usePatchCaseRecordPrescriptionMutation,
     useGetCaseRecordMedicationsAllQuery,
     useDeleteCaseRecordLockMutation
@@ -73,7 +78,8 @@ import {
 /**
 *@typedef {
 *pageNumber: string,
-*images: text,
+*image: string,
+*title: string,
 *status: string,
 *uuid_caseRecord: uuid
 *} caseRecordImageOptions
@@ -133,6 +139,8 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
     const [editBoolP, setEditBoolP] = useState(false);
 
     const [postCaseRecordLock] = usePostCaseRecordLockMutation();
+    // const [patchCaseRecordDescription] = usePatchCaseRecordDescriptionMutation();
+    const [patchCaseRecordImages] = usePatchCaseRecordImagesMutation();
     const [patchCaseRecordPrescription] = usePatchCaseRecordPrescriptionMutation();
     const [patchCurrentCart] = usePatchCurrentCartMutation();
     const [getMedication] = useLazyGetMedicationQuery();
@@ -153,6 +161,14 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
         error: error_image
     } = useGetCaseRecordImageQuery({uuid_caseRecord: uuid_caseRecord, pageNumber: index + 1});
     const [images, setImages] = useState([]);
+
+    const {
+        data: data_imageAll, 
+        // isFetching: isFetching_imageAll, 
+        isError: isError_imageAll,
+        error: error_imageAll
+    } = useGetCaseRecordImageAllQuery({uuid_caseRecord: uuid_caseRecord, pageNumber: index + 1});
+    const [imageAll, setImageAll] = useState([]);
 
     const {
         data: data_prescription, 
@@ -201,13 +217,24 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
         isError_image && console.log(error_image);
     }, [isError_image, error_image])
     useEffect(() => {
-        const resData = data_image;
-        if (resData?.success) {
-            if (resData?.caseRecordImage !== null) {
-                setImages(JSON.parse(resData.caseRecordImage.images).images);
-            }
-        }
+        // const resData = data_image;
+        // if (resData?.success) {
+        //     if (resData?.caseRecordImage !== null) {
+        //         setImages(JSON.parse(resData.caseRecordImage.images).images);
+        //     }
+        // }
     }, [data_image])
+
+    useEffect(() => {
+        isError_imageAll && console.log(error_imageAll);
+    }, [isError_imageAll, error_imageAll])
+    useEffect(() => {
+        const resData = data_imageAll;
+        console.log('imageAll', resData)
+        if (resData?.success) {
+            setImageAll(resData.caseRecordImageAll);
+        }
+    }, [data_imageAll])
 
     // prescription
     useEffect(() => {
@@ -360,6 +387,18 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
                 uuid_caseRecord: uuid_caseRecord
             }
 
+            patchCaseRecordImages({
+                caseRecord: caseRecord,
+                uuid_caseRecordImage: data_image?.caseRecordImage?.uuid_caseRecordImage,
+                images: JSON.stringify({images: finalImages}),
+                pageNumber: (index + 1).toString()
+            }).then(res => {
+                const resData = res.data
+                if (!resData.success) {
+                    dispatch(setCaseRecordLockRd({caseRecordLockOptions: resData.caseRecordLockOptions}));
+                }
+            }).catch(err => console.error(err))
+
             axios({
                 method: 'patch',
                 url: SERVER_ADDRESS_PATCH_CASERECORDPAGE,
@@ -382,7 +421,7 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
             })
         })
 
-    }, [newImages, removeImages, description, uuid_caseRecord])
+    }, [newImages, removeImages, description, uuid_caseRecord, caseRecord, data_image?.caseRecordImage?.uuid_caseRecordImage, dispatch, patchCaseRecordImages])
 
     const handleSaveD = () => {
         if (editBoolD) {
@@ -410,6 +449,18 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
             const cpNewImages = [...newImages];
             const cpImages = [...images];
             myEvents.emit('filterRemovedImages-start', ({cpNewImages, cpImages}));
+        
+            // patchCaseRecordDescription({
+            //     caseRecord: caseRecord,
+            //     uuid_caseRecordDescription: data_description?.caseRecordDescription?.uuid_caseRecordDescription,
+            //     prescription: TEGetContent(index),
+            //     pageNumber: (index + 1).toString()
+            // }).then(res => {
+            //     const resData = res.data
+            //     if (!resData.success) {
+            //         dispatch(setCaseRecordLockRd({caseRecordLockOptions: resData.caseRecordLockOptions}));
+            //     }
+            // }).catch(err => console.error(err))
         }
     }
 
@@ -424,16 +475,16 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
         setDescription(value);
     }
 
-    const handleUnRemoveImages = (data) => {
-        const cpRemoveImages = [...removeImages];
-        cpRemoveImages.splice(cpRemoveImages.indexOf(data), 1);
-        setRemoveImages(cpRemoveImages);
-    }
+    // const handleUnRemoveImages = (data) => {
+    //     const cpRemoveImages = [...removeImages];
+    //     cpRemoveImages.splice(cpRemoveImages.indexOf(data), 1);
+    //     setRemoveImages(cpRemoveImages);
+    // }
 
     const handleAddImages = (e) => {
         const files = e.target.files;
         const newImagePaths = [];
-        const newImages_m = []; // [{file: '', blob: ''}]
+        const newImages_m = []; // [{title: '', file: '', blob: ''}]
         for (let i = 0; i < files.length; i++) {
             const blob = URL.createObjectURL(files[i]);
             newImagePaths.push(blob);
@@ -580,20 +631,38 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
         })
     }
 
-    const list_image = images.map((data, index) => {
+    // const handleEditImageTitle = (e) => {
+    //     const value = e.target.value;
+    // }
+
+    // const list_image = imageAll.map((data, index) => {
+    //     return (
+    //         <div key={index}>
+    //             { editBoolD && 
+    //                 <>
+    //                     { 
+    //                         removeImages.indexOf(data) < 0 ?  
+    //                         <CiCircleRemove onClick={() => setRemoveImages(pre => [...pre, data])} size={25} /> : 
+    //                         <div onClick={() => handleUnRemoveImages(data)}>Un-Remove</div>
+    //                     }
+    //                 </>
+    //             }
+    //             <img src={ data.image } alt="" />
+    //             { !editBoolD && <span>{ data.title }</span> }
+    //             { editBoolD && <input value={ data.title } onChange={(e) => handleEditImageTitle(e)} />}
+    //         </div>
+    //     )
+    // })
+
+    const list_image = imageAll.map((data, index) => {
         return (
-            <div key={index}>
-                { editBoolD && 
-                    <>
-                        { 
-                            removeImages.indexOf(data) < 0 ?  
-                            <CiCircleRemove onClick={() => setRemoveImages(pre => [...pre, data])} size={25} /> : 
-                            <div onClick={() => handleUnRemoveImages(data)}>Un-Remove</div>
-                        }
-                    </>
-                }
-                <img src={data} alt="" />
-            </div>
+            <CaseRecordPageImage 
+                key={ index }
+                editBoolD={ editBoolD }
+                onData={ data }
+                removeImages={removeImages}
+                setRemoveImages={ setRemoveImages }
+            />
         )
     })
 

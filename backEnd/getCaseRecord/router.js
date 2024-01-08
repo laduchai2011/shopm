@@ -9,13 +9,13 @@ const { serviceRedlock } = require('./src/config/serviceRedlock');
 const { Authentication } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
-const { caseRecord } = require('./src/model/CRUDDATABASE/CRUDCASERECORD');
+const { caseRecordCRUD } = require('./src/model/CRUDDATABASE/CRUDCASERECORD');
 const { caseRecordDescription } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordDescription');
-const { caseRecordImage } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordImage');
+const { caseRecordImageCRUD } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordImage');
 const { caseRecordVideo } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordVideo');
 const { caseRecordPrescription } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordPrescription');
 const { caseRecordMedication } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordMedication');
-const { caseRecordPage } = require('./src/model/CRUDDATABASE/CRUDCASERECORDPAGE');
+// const { caseRecordPage } = require('./src/model/CRUDDATABASE/CRUDCASERECORDPAGE');
 const { doctorOrPharmacistAndPatientRole } = require('./src/middle/doctorOrPharmacistAndPatientRole');
 // const { doctorOrPharmacistRole } = require('./src/middle/doctorOrPharmacistRole');
 const { SvMessage } = require('./src/model/svMessge');
@@ -42,7 +42,7 @@ router.get('/caseRecord/getList', (req, res) => {
     const pageIndex = req.query.pageIndex;
     const pageSize = req.query.pageSize;
     const uuid_user = req.query.uuid_user;
-    caseRecord.bulkReadWithFk(uuid_user, Number(pageIndex), Number(pageSize), (caseRecords, err) => {
+    caseRecordCRUD.bulkReadWithFk(uuid_user, Number(pageIndex), Number(pageSize), (caseRecords, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send({ 
@@ -143,7 +143,7 @@ router.get('/getCaseRecord', Authentication, async (req, res) => {
                 uuid_doctorOrPharmacist_m = userOptions.uuid;
             }
     
-            caseRecord.readWithUuidAndFk(uuid_caseRecord, userOptions.uuid, uuid_doctorOrPharmacist_m, (caseRecord, err) => {
+            caseRecordCRUD.readWithUuidAndFk(uuid_caseRecord, userOptions.uuid, uuid_doctorOrPharmacist_m, (caseRecord, err) => {
                 if (err) {
                     logEvents(`${req.url}---${req.method}---${err}`);
                     return res.status(500).send({ 
@@ -211,7 +211,7 @@ router.get('/getCaseRecordImage', Authentication, doctorOrPharmacistAndPatientRo
     const pageNumber = req.query.pageNumber;
     const uuid_caseRecord = req.query.uuid_caseRecord;
 
-    caseRecordImage.readWithFk(uuid_caseRecord, pageNumber, (caseRecordImage, err) => {
+    caseRecordImageCRUD.readWithFk(uuid_caseRecord, pageNumber, (caseRecordImage, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send({ 
@@ -223,6 +223,28 @@ router.get('/getCaseRecordImage', Authentication, doctorOrPharmacistAndPatientRo
             return res.status(200).json({ 
                 caseRecordImage: caseRecordImage,
                 message: "Get case-record-image successly !",
+                success: true
+            })
+        }
+    })
+})
+
+router.get('/getCaseRecordImageAll', Authentication, doctorOrPharmacistAndPatientRole, (req, res) => {
+    const pageNumber = req.query.pageNumber;
+    const uuid_caseRecord = req.query.uuid_caseRecord;
+
+    caseRecordImageCRUD.readAllWithFk(uuid_caseRecord, pageNumber, (caseRecordImageAll, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send({ 
+                message: "Can't get case-record-imageAll !",
+                err: err,
+                success: false
+            })
+        } else {
+            return res.status(200).json({ 
+                caseRecordImageAll: caseRecordImageAll,
+                message: "Get case-record-imageAll successly !",
                 success: true
             })
         }
@@ -299,27 +321,27 @@ router.get('/getCaseRecordMedicationsAll', Authentication, doctorOrPharmacistAnd
     })
 })
 
-router.get('/caseRecordPage/getList', Authentication, (req, res) => {
-    const pageIndex = req.query.pageIndex;
-    const pageSize = req.query.pageSize;
-    const uuid_caseRecord = req.query.uuid_caseRecord;
-    caseRecordPage.bulkReadWithFk(uuid_caseRecord, Number(pageIndex), Number(pageSize), (caseRecordPages, err) => {
-        if (err) {
-            logEvents(`${req.url}---${req.method}---${err}`);
-            return res.status(500).send({ 
-                message: "Can't get case-record page !",
-                err: err,
-                success: false
-            })
-        } else {
-            return res.status(200).json({ 
-                caseRecordPages: caseRecordPages,
-                message: "Get case-record page successly !",
-                success: true
-            })
-        }
-    })
-})
+// router.get('/caseRecordPage/getList', Authentication, (req, res) => {
+//     const pageIndex = req.query.pageIndex;
+//     const pageSize = req.query.pageSize;
+//     const uuid_caseRecord = req.query.uuid_caseRecord;
+//     caseRecordPage.bulkReadWithFk(uuid_caseRecord, Number(pageIndex), Number(pageSize), (caseRecordPages, err) => {
+//         if (err) {
+//             logEvents(`${req.url}---${req.method}---${err}`);
+//             return res.status(500).send({ 
+//                 message: "Can't get case-record page !",
+//                 err: err,
+//                 success: false
+//             })
+//         } else {
+//             return res.status(200).json({ 
+//                 caseRecordPages: caseRecordPages,
+//                 message: "Get case-record page successly !",
+//                 success: true
+//             })
+//         }
+//     })
+// })
 
 router.get('/caseRecord/getLock', Authentication, doctorOrPharmacistAndPatientRole, async (req, res) => {
     const uuid_caseRecord = req.query.uuid_caseRecord;

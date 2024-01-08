@@ -70,7 +70,13 @@ class CaseRecord {
                                         uuid_caseRecord: uuid_caseRecord,
                                         uuid_doctorOrPharmacist: uuid_doctorOrPharmacist
                                     }}
-                                ]
+                                ],
+                                [Op.not]: {
+                                    [Op.or]: [
+                                        { status: 'notYetCreate' },
+                                        { status: 'delete' }
+                                    ]
+                                }
                             },
                             attributes: {
                                 exclude: ['report']
@@ -106,7 +112,13 @@ class CaseRecord {
                     try {
                         const isCaseRecords = await this._CaseRecord.findAndCountAll({
                             where: {
-                                uuid_user: uuid_user
+                                uuid_user: uuid_user,
+                                [Op.not]: {
+                                    [Op.or]: [
+                                        { status: 'notYetCreate' },
+                                        { status: 'delete' }
+                                    ]
+                                }
                             },
                             attributes: {
                                 exclude: ['report']
@@ -138,6 +150,6 @@ class CaseRecord {
     }
 }
 
-const caseRecord = new CaseRecord();
+const caseRecordCRUD = new CaseRecord();
 
-module.exports = { caseRecord }
+module.exports = { caseRecordCRUD }
