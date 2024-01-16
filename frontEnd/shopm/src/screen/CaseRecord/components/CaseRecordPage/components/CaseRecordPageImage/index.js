@@ -21,14 +21,12 @@ import { $ } from "utilize/Tricks";
 *} caseRecordImageOptions
 */ 
 
-const CaseRecordPageImage = ({ editBoolD, onData, removeImages, setRemoveImages }) => {
+const CaseRecordPageImage = ({ index, editBoolD, onData }) => {
     const dispatch = useDispatch();
 
-    const handleUnRemoveImages = (data) => {
-        const cpRemoveImages = [...removeImages];
-        cpRemoveImages.splice(cpRemoveImages.indexOf(data), 1);
-        setRemoveImages(cpRemoveImages);
-    }
+    // const handleUnRemoveImages = (data) => {
+        
+    // }
 
     const handleRemoveImage = () => {
         $('.CaseRecordToastDelImage').classList.add('show');
@@ -40,9 +38,9 @@ const CaseRecordPageImage = ({ editBoolD, onData, removeImages, setRemoveImages 
         dispatch(setCurrent_caseRecordImage({caseRecordImage: onData}));
     }
 
-    const handleEditImageTitle = (e) => {
-        // const value = e.target.value;
-    }
+    // const handleEditImageTitle = (e) => {
+    //     // const value = e.target.value;
+    // }
 
     return (
         <div className="CaseRecordPageImage">
@@ -51,7 +49,7 @@ const CaseRecordPageImage = ({ editBoolD, onData, removeImages, setRemoveImages 
                 <CiCircleRemove onClick={() => handleRemoveImage()} size={ 25 } /> 
             </div> }
             <img src={ onData.image } alt="" />
-            <div className="CaseRecordPageImage-title">{ `${onData.title} dfgsnb sdn sdf kjsbdkfgsdkbksdbn kjsdb sdbkjbsd kbsdsbdfb sfd` }</div>
+            <div className="CaseRecordPageImage-title">{ onData.title }</div>
         </div>
     )
 }

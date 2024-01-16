@@ -8,19 +8,20 @@ const { serviceRedlock } = require('./src/config/serviceRedlock');
 const { Authentication } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
-const { createCaseRecord } = require('./src/middle/createCaseRecord');
 const { caseRecordCRUD } = require('./src/model/CRUDDATABASE/CRUDCASERECORD');
 // const { caseRecordRole } = require('./src/middle/caseRecordRole');
-const { caseRecordDescription } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordDescription');
+const { caseRecordDescriptionCRUD } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordDescription');
 const { caseRecordImageCRUD } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordImage');
 const { caseRecordPrescription } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordPrescription');
 const { caseRecordMedication } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordMedication');
-const { caseRecordPage } = require('./src/model/CRUDDATABASE/CRUDCASERECORDPAGE');
+// const { caseRecordPage } = require('./src/model/CRUDDATABASE/CRUDCASERECORDPAGE');
 const { doctorOrPharmacistAndPatientRole } = require('./src/middle/doctorOrPharmacistAndPatientRole');
 const { doctorOrPharmacistRole } = require('./src/middle/doctorOrPharmacistRole');
 const { patientRole } = require('./src/middle/patientRole');
 const { currentCart } = require('./src/middle/currentCart');
 const { caseRecordCheckLock } = require('./src/middle/caseRecordCheckLock');
+const { checkCurrentPage } = require('./src/middle/checkCurrentPage');
+const { completedPrescription, completed, isCompletedPrescription } = require('./src/middle/checkComplete');
 const { SvMessage } = require('./src/model/svMessge');
 
 const svMessage = new SvMessage();
@@ -34,20 +35,6 @@ svMessage.init();
 *pageNumber: string
 *} caseRecordLockOptions
 */ 
-
-// router.post('/caseRecord/create', Authentication, (req, res) => {
-//     const caseRecordData = req.body;
-//     const userOptions = req.decodedToken.data;
-//     caseRecordData.caseRecordOptions.uuid_user = userOptions.uuid;
-//     createCaseRecord(caseRecordData, (data, err) => {
-//         if (err) {
-//             logEvents(`${req.url}---${req.method}---${err}`);
-//             return res.status(500).send(err);
-//         } else {
-//             return res.status(200).json(data);
-//         }
-//     })
-// })
 
 router.post('/caseRecord/createCaseRecord', Authentication, (req, res) => {
     const caseRecordOptions = req.body.caseRecordOptions;
@@ -77,7 +64,7 @@ router.post('/caseRecord/createCaseRecord', Authentication, (req, res) => {
 
 router.post('/caseRecord/createDescription', Authentication, (req, res) => {
     const caseRecordDescriptionOptions = req.body.caseRecordDescriptionOptions;
-    caseRecordDescription.create(caseRecordDescriptionOptions, (caseRecordDescription, err) => {
+    caseRecordDescriptionCRUD.create(caseRecordDescriptionOptions, (caseRecordDescription, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
@@ -117,6 +104,32 @@ router.post('/caseRecord/bulkCreateImage', Authentication, (req, res) => {
                     caseRecordImages: caseRecordImages,
                     success: false,
                     message: 'create caseRecordImages bulkCreateImage NOT successly !'
+                });
+            } 
+        }
+    })
+})
+
+router.post('/caseRecord/createImage', Authentication, patientRole, checkCurrentPage, caseRecordCheckLock, (req, res) => {
+    const caseRecordImageOptions = req.body.caseRecordImageOptions;
+    const pageNumber = req.currentPage;
+    caseRecordImageOptions.pageNumber = pageNumber;
+    caseRecordImageCRUD.create(caseRecordImageOptions, (caseRecordImage, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send(err);
+        } else {
+            if (caseRecordImage && caseRecordImage!==null) {
+                return res.status(200).json({
+                    caseRecordImage: caseRecordImage,
+                    success: true,
+                    message: 'create caseRecordImage createImage successly !'
+                });
+            } else {
+                return res.status(200).json({
+                    caseRecordImage: caseRecordImage,
+                    success: false,
+                    message: 'create caseRecordImage createImage NOT successly !'
                 });
             } 
         }
@@ -191,32 +204,6 @@ router.patch('/caseRecord/patchDoctorPharmacist', Authentication, (req, res) => 
     })
 })
 
-// router.patch('/caseRecordPage/patch', Authentication, (req, res) => {
-//     const caseRecordRole = req.body.caseRecordRole;
-//     const uuid_caseRecordPage = req.body.uuid_caseRecordPage;
-//     const dataPage = req.body.dataPage;
-//     switch(caseRecordRole) {
-//         case 'patient':
-//             caseRecordPage.update_withSickPerson(uuid_caseRecordPage, JSON.stringify(dataPage), (data, err) => {
-//                 if (err) {
-//                     logEvents(`${req.url}---${req.method}---${err}`);
-//                     return res.status(500).send(err);
-//                 } else {
-//                     return res.status(200).json(data);
-//                 }
-//             })
-//             break;
-//         case 'doctorOrPharmacist':
-//             // code block
-//             break;
-//         default:
-//             return res.status(404).json({
-//                 success: false,
-//                 message: 'Parameter invalid !'
-//             })
-//     }
-// })
-
 router.patch('/caseRecord/patchStatusCRCCaseRecord', Authentication, patientRole, (req, res) => {
     const caseRecordOptions = req.body.caseRecord;
     const uuid_caseRecord = caseRecordOptions.uuid_caseRecord;
@@ -242,12 +229,12 @@ router.patch('/caseRecord/patchStatusCRCCaseRecord', Authentication, patientRole
     })
 })
 
-router.patch('/caseRecord/patchDescription', Authentication, patientRole, caseRecordCheckLock, (req, res) => {
+router.patch('/caseRecord/patchDescription', Authentication, patientRole, caseRecordCheckLock, completed, completedPrescription, (req, res) => {
     const caseRecord = req.body.caseRecord;
     const uuid_caseRecordDescription = req.body.uuid_caseRecordDescription;
     const description = req.body.description;
 
-    caseRecordDescription.updateWithCaseRecord(uuid_caseRecordDescription, description, (caseRecordDescription, err) => {
+    caseRecordDescriptionCRUD.updateWithCaseRecord(uuid_caseRecordDescription, description, (caseRecordDescription, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
@@ -261,26 +248,44 @@ router.patch('/caseRecord/patchDescription', Authentication, patientRole, caseRe
     })
 })
 
-router.patch('/caseRecord/patchImages', Authentication, patientRole, caseRecordCheckLock, (req, res) => {
+// router.patch('/caseRecord/patchImages', Authentication, patientRole, caseRecordCheckLock, (req, res) => {
+//     const caseRecord = req.body.caseRecord;
+//     const uuid_caseRecordImage = req.body.uuid_caseRecordImage;
+//     const images = req.body.images;
+
+//     caseRecordImageCRUD.updateWithCaseRecord(uuid_caseRecordImage, images, (caseRecordImages, err) => {
+//         if (err) {
+//             logEvents(`${req.url}---${req.method}---${err}`);
+//             return res.status(500).send(err);
+//         } else {
+//             return res.status(200).json({
+//                 caseRecordImages: caseRecordImages,
+//                 success: true,
+//                 message: `Patch caseRecordDescription ( ${uuid_caseRecordImage} ) for case-record ( ${caseRecord.uuid_caseRecord} ) successly !`
+//             });
+//         }
+//     })
+// })
+
+router.patch('/caseRecord/patchCaseRecordImageTitle', Authentication, patientRole, caseRecordCheckLock, completed, completedPrescription, (req, res) => {
     const caseRecord = req.body.caseRecord;
     const uuid_caseRecordImage = req.body.uuid_caseRecordImage;
-    const images = req.body.images;
-
-    caseRecordImageCRUD.updateWithCaseRecord(uuid_caseRecordImage, images, (caseRecordImages, err) => {
+    const title = req.body.title;
+    caseRecordImageCRUD.updateImageTitleWithCaseRecord(uuid_caseRecordImage, title, (caseRecordImage, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
         } else {
             return res.status(200).json({
-                caseRecordImages: caseRecordImages,
+                caseRecordImage: caseRecordImage,
                 success: true,
-                message: `Patch caseRecordDescription ( ${uuid_caseRecordImage} ) for case-record ( ${caseRecord.uuid_caseRecord} ) successly !`
+                message: `Patch patchCaseRecordImageTitle ( ${uuid_caseRecordImage} ) for case-record ( ${caseRecord.uuid_caseRecord} ) successly !`
             });
         }
     })
 })
 
-router.patch('/caseRecord/deleteCaseRecordImage', Authentication, patientRole, caseRecordCheckLock, (req, res) => {
+router.patch('/caseRecord/deleteCaseRecordImage', Authentication, patientRole, caseRecordCheckLock, completed, completedPrescription, (req, res) => {
     const caseRecord = req.body.caseRecord;
     const uuid_caseRecordImage = req.body.uuid_caseRecordImage;
     caseRecordImageCRUD.deleteWithCaseRecord(uuid_caseRecordImage, (caseRecordImage, err) => {
@@ -297,7 +302,7 @@ router.patch('/caseRecord/deleteCaseRecordImage', Authentication, patientRole, c
     })
 })
 
-router.patch('/caseRecord/savePrescription', Authentication, doctorOrPharmacistRole, caseRecordCheckLock, (req, res) => {
+router.patch('/caseRecord/savePrescription', Authentication, doctorOrPharmacistRole, caseRecordCheckLock, completed, completedPrescription, (req, res) => {
     const caseRecord = req.body.caseRecord;
     const uuid_caseRecordPrescription = req.body.uuid_caseRecordPrescription;
     const prescription = req.body.prescription;
@@ -316,7 +321,7 @@ router.patch('/caseRecord/savePrescription', Authentication, doctorOrPharmacistR
     })
 })
 
-router.post('/caseRecord/addMedication', Authentication, doctorOrPharmacistRole, currentCart, caseRecordCheckLock, (req, res) => {
+router.post('/caseRecord/addMedication', Authentication, doctorOrPharmacistRole, currentCart, caseRecordCheckLock, completed, completedPrescription, (req, res) => {
     const currentCart = req.currentCart;
     const caseRecordMedicationOptions = req.body.caseRecordMedicationOptions;
     caseRecordMedicationOptions.pageNumber = currentCart.pageNumber;
@@ -343,7 +348,7 @@ router.post('/caseRecord/addMedication', Authentication, doctorOrPharmacistRole,
     })
 })
 
-router.patch('/caseRecord/editMedication', Authentication, doctorOrPharmacistRole, caseRecordCheckLock, (req, res) => {
+router.patch('/caseRecord/editMedication', Authentication, doctorOrPharmacistRole, caseRecordCheckLock, completed, completedPrescription, (req, res) => {
     const uuid_caseRecordMedication = req.body.uuid_caseRecordMedication;
     const amount = req.body.amount;
     const note = req.body.note;
@@ -370,7 +375,7 @@ router.patch('/caseRecord/editMedication', Authentication, doctorOrPharmacistRol
     })
 })
 
-router.delete('/caseRecord/deleteMedication', Authentication, doctorOrPharmacistRole, caseRecordCheckLock, (req, res) => {
+router.delete('/caseRecord/deleteMedication', Authentication, doctorOrPharmacistRole, caseRecordCheckLock, completed, completedPrescription, (req, res) => {
     const uuid_caseRecordMedication = req.body.uuid_caseRecordMedication;
     caseRecordMedication.delete(uuid_caseRecordMedication, (caseRecordMedication, err) => {
         if (err) {
@@ -448,6 +453,56 @@ router.delete('/caseRecord/deleteLock', Authentication, doctorOrPharmacistAndPat
             success: false
         })
     }
+})
+
+router.patch('/caseRecord/patchSatusIsCompletedPrescription', Authentication, doctorOrPharmacistRole, caseRecordCheckLock, completed, completedPrescription, (req, res) => {
+    const caseRecord = req.body.caseRecord;
+    const uuid_caseRecord = caseRecord.uuid_caseRecord;
+    caseRecordCRUD.completedPrescription(uuid_caseRecord, (caseRecord, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send(err);
+        } else {
+            if (caseRecord && caseRecord === null) {
+                return res.status(200).json({
+                    caseRecord: caseRecord,
+                    success: false,
+                    message: 'completedPrescription NOT successly !'
+                });
+            } else {
+                return res.status(200).json({
+                    caseRecord: caseRecord,
+                    success: true,
+                    message: 'completedPrescription successly !'
+                });
+            }
+        }
+    })
+})
+
+router.patch('/caseRecord/patchSatusIsCompleted', Authentication, patientRole, caseRecordCheckLock, completed, isCompletedPrescription, (req, res) => {
+    const caseRecord = req.body.caseRecord;
+    const uuid_caseRecord = caseRecord.uuid_caseRecord;
+    caseRecordCRUD.completed(uuid_caseRecord, (caseRecord, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send(err);
+        } else {
+            if (caseRecord && caseRecord === null) {
+                return res.status(200).json({
+                    caseRecord: caseRecord,
+                    success: false,
+                    message: 'completed NOT successly !'
+                });
+            } else {
+                return res.status(200).json({
+                    caseRecord: caseRecord,
+                    success: true,
+                    message: 'completed successly !'
+                });
+            }
+        }
+    })
 })
 
 module.exports = router;

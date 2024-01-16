@@ -59,7 +59,10 @@ class CaseRecordPrescription {
                             {
                                 where: {
                                     [Op.not]: {
-                                        status: 'complete'
+                                        [Op.or]: [
+                                            { status: 'complete' },
+                                            { status: 'delete' }
+                                        ]
                                     }
                                 }
                             },

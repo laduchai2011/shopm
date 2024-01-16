@@ -4,7 +4,7 @@
     bottom: 0;
     left: -100%;
     background-color: rgb(0, 0, 0, 0.3);
-    z-index: 5;
+    z-index: 1000;
     width: 100%;
 
     transition: left 0.3s ease-in-out;

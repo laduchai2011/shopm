@@ -1,7 +1,9 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect } from "react";
 import './styles.css';
 
 import { useSelector } from "react-redux";
+
+import { usePatchCaseRecordImageTitleMutation } from "reduxStore/RTKQuery/caseRecordRTKQuery";
 
 import { TiDelete } from "react-icons/ti";
 import { MdEdit } from "react-icons/md";
@@ -9,26 +11,34 @@ import { $ } from "utilize/Tricks";
 
 const CaseRecordEditImage = ({ caseRecord }) => {
     const current_caseRecordImage = useSelector((state) => state.caseRecord.current_caseRecordImage);
-    
+    const [title, setTitle] = useState('123');
+
+    const [patchCaseRecordImageTitle] = usePatchCaseRecordImageTitleMutation();
+
+    useEffect(() => {
+        setTitle(current_caseRecordImage?.title);
+    }, [current_caseRecordImage])
+
     const removeCaseRecordEditImage = () => {
         $('.CaseRecordEditImage').classList.remove('show');
     }
 
     const handlEditImage = () => {
-        // deleteCaseRecordImage({
-        //     caseRecord: caseRecord,
-        //     uuid_caseRecordImage: current_caseRecordImage.uuid_caseRecordImage
-        // }).then(res => {
-        //     const resData = res.data;
-        //     if (resData?.success) {
-        //         $('.CaseRecordEditImage').classList.remove('show');
-        //     }
-        // }).catch(err => console.error(err))
+        patchCaseRecordImageTitle({
+            caseRecord: caseRecord,
+            uuid_caseRecordImage: current_caseRecordImage.uuid_caseRecordImage,
+            title: title.trim()
+        }).then(res => {
+            const resData = res.data;
+            if (resData?.success) {
+                $('.CaseRecordEditImage').classList.remove('show');
+            }
+        }).catch(err => console.error(err))
     }
 
     const handleChangeTitle = (e) => {
         const value = e.target.value;
-        console.log(value)
+        setTitle(value);
     }
 
     return (
@@ -39,8 +49,8 @@ const CaseRecordEditImage = ({ caseRecord }) => {
                     <TiDelete onClick={() => removeCaseRecordEditImage()} size={ 25 } />
                 </div>
                 <div>
-                    <img src={ current_caseRecordImage?.image } alt="CaseRecordToastDelImage"/>
-                    <input value={ current_caseRecordImage?.title } onChange={(e) => handleChangeTitle(e)} alt="CaseRecordToastDelImage"/>
+                    <img src={ current_caseRecordImage?.image } alt=""/>
+                    <input value={`${title}`} onChange={(e) => handleChangeTitle(e)} />
                 </div>
                 <div>
                     <button onClick={() => handlEditImage()}>Oke</button>

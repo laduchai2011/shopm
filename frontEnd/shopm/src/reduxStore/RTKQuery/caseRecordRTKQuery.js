@@ -6,13 +6,16 @@ import {
     SERVER_ADDRESS_CASERECORD_CREATE_LOCK,
     SERVER_ADDRESS_CASERECORD_DELETE_LOCK,
     SERVER_ADDRESS_CASERECORD_PATCH_DESCRIPTION,
-    SERVER_ADDRESS_CASERECORD_PATCH_IMAGES, 
+    SERVER_ADDRESS_CASERECORD_CREATE_IMAGE,
+    SERVER_ADDRESS_CASERECORD_PATCH_IMAGE_TITLE, 
     SERVER_ADDRESS_CASERECORD_DELETE_IMAGE,
     SERVER_ADDRESS_CASERECORD_READ_IMAGEALL,
     SERVER_ADDRESS_CASERECORD_SAVE_PRESCRIPTION,
     SERVER_ADDRESS_CASERECORD_ADD_MEDICATION,
     SERVER_ADDRESS_CASERECORD_EDIT_MEDICATION,
-    SERVER_ADDRESS_CASERECORD_DELETE_MEDICATION
+    SERVER_ADDRESS_CASERECORD_DELETE_MEDICATION,
+    SERVER_ADDRESS_CASERECORD_COMPLETE_PRESCRIPTION,
+    SERVER_ADDRESS_CASERECORD_COMPLETE
  } from 'config/server';
 
 /**
@@ -20,6 +23,7 @@ import {
 *title: string,
 *priceTotal: integer,
 *pageTotal: integer,
+*currentPage: string,
 *report: text,
 *status: string,
 *uuid_doctorOrPharmacist: uuid,
@@ -175,14 +179,13 @@ export const caseRecordRTKQuery = createApi({
 
         // mutation
         patchCaseRecordDescription: builder.mutation({
-            query: ({caseRecord, uuid_caseRecordDescription, description, pageNumber}) => ({
+            query: ({caseRecord, uuid_caseRecordDescription, description}) => ({
                 url: `${SERVER_ADDRESS_CASERECORD_PATCH_DESCRIPTION}`,
                 method: 'PATCH',
                 body: { 
                     caseRecord: caseRecord,
                     uuid_caseRecordDescription: uuid_caseRecordDescription,
-                    description: description,
-                    pageNumber: pageNumber 
+                    description: description
                 },
                 credentials: "include"
             }),
@@ -194,15 +197,33 @@ export const caseRecordRTKQuery = createApi({
                 }
             }
         }),
-        patchCaseRecordImages: builder.mutation({
-            query: ({caseRecord, uuid_caseRecordImage, images, pageNumber}) => ({
-                url: `${SERVER_ADDRESS_CASERECORD_PATCH_IMAGES}`,
+        addCaseRecordImage: builder.mutation({
+            query: ({caseRecord, caseRecordImageOptions, pageNumber}) => ({
+                url: `${SERVER_ADDRESS_CASERECORD_CREATE_IMAGE}`,
+                method: 'POST',
+                body: { 
+                    caseRecord: caseRecord,
+                    caseRecordImageOptions: caseRecordImageOptions,
+                    pageNumber: pageNumber
+                },
+                credentials: "include"
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    return [{type: 'CaseRecordImage'}]
+                }
+            }
+        }),
+        patchCaseRecordImageTitle: builder.mutation({
+            query: ({caseRecord, uuid_caseRecordImage, title}) => ({
+                url: `${SERVER_ADDRESS_CASERECORD_PATCH_IMAGE_TITLE}`,
                 method: 'PATCH',
                 body: { 
                     caseRecord: caseRecord,
                     uuid_caseRecordImage: uuid_caseRecordImage,
-                    images: images,
-                    pageNumber: pageNumber 
+                    title: title
                 },
                 credentials: "include"
             }),
@@ -215,7 +236,7 @@ export const caseRecordRTKQuery = createApi({
             }
         }),
         deleteCaseRecordImage: builder.mutation({
-            query: ({caseRecord, uuid_caseRecordImage, images, pageNumber}) => ({
+            query: ({caseRecord, uuid_caseRecordImage}) => ({
                 url: `${SERVER_ADDRESS_CASERECORD_DELETE_IMAGE}`,
                 method: 'PATCH',
                 body: { 
@@ -327,7 +348,16 @@ export const caseRecordRTKQuery = createApi({
                 if (error) {
                     console.error(error);
                 } else {
-                    return [{type: 'CaseRecordLock'}]
+                    return [
+                        {type: 'CaseRecordLock'},
+                        {type: 'CaseRecord'},
+                        {type: 'CaseRecordDoctorOrPharmacistLock'},
+                        {type: 'CaseRecordDescription'},
+                        {type: 'CaseRecordImage'},
+                        {type: 'CaseRecordVideo'},
+                        {type: 'CaseRecordPrescription'},
+                        {type: 'CaseRecordMedicationsAll'}
+                    ]
                 }
             }
         }),
@@ -348,6 +378,42 @@ export const caseRecordRTKQuery = createApi({
                     return [{type: 'CaseRecordLock'}]
                 }
             }
+        }),
+        completedPrescription: builder.mutation({
+            query: ({caseRecord, pageNumber}) => ({
+                url: `${SERVER_ADDRESS_CASERECORD_COMPLETE_PRESCRIPTION}`,
+                method: 'PATCH',
+                body: { 
+                    caseRecord: caseRecord,
+                    pageNumber: pageNumber
+                },
+                credentials: "include"
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    return [{type: 'CaseRecord'}]
+                }
+            }
+        }),
+        completed: builder.mutation({
+            query: ({caseRecord, pageNumber}) => ({
+                url: `${SERVER_ADDRESS_CASERECORD_COMPLETE}`,
+                method: 'PATCH',
+                body: { 
+                    caseRecord: caseRecord,
+                    pageNumber: pageNumber
+                },
+                credentials: "include"
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    return [{type: 'CaseRecord'}]
+                }
+            }
         })
     }),
 })
@@ -357,6 +423,7 @@ export const {
     useGetCaseRecordLockQuery,
     useLazyGetCaseRecordQuery,
     useGetCaseRecordDescriptionQuery,
+    useAddCaseRecordImageMutation,
     useGetCaseRecordImageQuery,
     useGetCaseRecordImageAllQuery,
     useGetCaseRecordVideoQuery,
@@ -364,11 +431,13 @@ export const {
     useGetCaseRecordMedicationsAllQuery,
     usePostCaseRecordLockMutation,
     usePatchCaseRecordDescriptionMutation,
-    usePatchCaseRecordImagesMutation,
+    usePatchCaseRecordImageTitleMutation,
     useDeleteCaseRecordImageMutation,
     usePatchCaseRecordPrescriptionMutation,
     useAddCaseRecordMedicationsMutation,
     useEditCaseRecordMedicationsMutation,
     useDeleteCaseRecordMedicationMutation,
-    useDeleteCaseRecordLockMutation
+    useDeleteCaseRecordLockMutation,
+    useCompletedPrescriptionMutation,
+    useCompletedMutation
 } = caseRecordRTKQuery;

@@ -8,6 +8,7 @@ const { options } = require('../../../../router');
 *title: string,
 *priceTotal: integer,
 *pageTotal: integer,
+*currentPage: string,
 *report: text,
 *status: string,
 *uuid_doctorOrPharmacist: uuid,
@@ -18,6 +19,38 @@ const { options } = require('../../../../router');
 class CaseRecord {
     constructor() {
         this._CaseRecord = defineModel.getCaseRecord();
+    }
+
+    read(uuid_caseRecord, callback) {
+        let caseRecord;
+        let err;
+        
+        const caseRecordPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isCaseRecord = await this._CaseRecord.findByPk(
+                            uuid_caseRecord, 
+                            { transaction: t }
+                        );
+                        resolve(isCaseRecord);   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        caseRecordPromise
+        .then(isCaseRecord => {
+            caseRecord = isCaseRecord;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(caseRecord, err);
+        })
     }
 
     create(caseRecordOptions, callback) {
@@ -146,6 +179,84 @@ class CaseRecord {
                         );
                         isCaseRecord.status = 'wait';
                         isCaseRecord.uuid_doctorOrPharmacist = uuid_doctorOrPharmacist;
+                        await isCaseRecord.save({ transaction:t });
+                        resolve(isCaseRecord);   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        caseRecordPromise
+        .then(isCaseRecord => {
+            caseRecord = isCaseRecord;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(caseRecord, err);
+        })
+    }
+
+    completedPrescription(uuid_caseRecord, callback) {
+        let caseRecord;
+        let err;
+        
+        const caseRecordPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isCaseRecord = await this._CaseRecord.findByPk(
+                            uuid_caseRecord,
+                            {
+                                where: {
+                                    status: 'notComplete'
+                                }
+                            },
+                            { lock: true, transaction: t },
+                        );
+                        isCaseRecord.status = 'completedPrescription';
+                        await isCaseRecord.save({ transaction:t });
+                        resolve(isCaseRecord);   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        caseRecordPromise
+        .then(isCaseRecord => {
+            caseRecord = isCaseRecord;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(caseRecord, err);
+        })
+    }
+
+    completed(uuid_caseRecord, callback) {
+        let caseRecord;
+        let err;
+        
+        const caseRecordPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isCaseRecord = await this._CaseRecord.findByPk(
+                            uuid_caseRecord,
+                            {
+                                where: {
+                                    status: 'completedPrescription'
+                                }
+                            },
+                            { lock: true, transaction: t },
+                        );
+                        isCaseRecord.status = 'completed';
                         await isCaseRecord.save({ transaction:t });
                         resolve(isCaseRecord);   
                     } catch (error) {

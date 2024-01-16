@@ -13,7 +13,8 @@ const initialState = {
     current_caseRecordMedication: null, 
     index: 0, 
     caseRecordLockOptions: null,
-    current_caseRecordImage: null
+    current_caseRecordImage: null,
+    current_pageNumber: null
 }
 
 export const caseRecordSlice = createSlice({
@@ -29,14 +30,18 @@ export const caseRecordSlice = createSlice({
         },
         setCurrent_caseRecordImage: (state, action) => {
             state.current_caseRecordImage = action.payload.caseRecordImage;
-        }
+        },
+        setCurrent_pageNumber: (state, action) => {
+            state.current_pageNumber = action.payload.current_pageNumber;
+        },
     }
 })
 
 export const { 
     setCurrent_caseRecordMedication,
     setCaseRecordLockRd,
-    setCurrent_caseRecordImage
+    setCurrent_caseRecordImage,
+    setCurrent_pageNumber
 } = caseRecordSlice.actions;
 
 const caseRecordReducer = caseRecordSlice.reducer;

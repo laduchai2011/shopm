@@ -30,7 +30,8 @@ async function caseRecordCheckLock (req, res, next) {
             return res.status(200).send({
                 caseRecordLockOptions: caseRecordLockOptions,
                 message: 'caseRecordCheckLock NOT success',
-                success: false
+                success: false,
+                lock: true
             })
         }
     });

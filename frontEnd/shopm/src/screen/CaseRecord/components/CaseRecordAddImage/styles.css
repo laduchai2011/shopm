@@ -1,0 +1,81 @@
+.CaseRecordAddImage {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: -100%;
+    background-color: rgb(0, 0, 0, 0.3);
+    z-index: 5;
+    width: 100%;
+
+    transition: left 0.3s ease-in-out;
+}
+
+.CaseRecordAddImage.show {
+    left: 0;
+}
+
+.CaseRecordAddImage > div {
+    background-color: white;
+    width: 300px;
+    aspect-ratio: 4/2;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding: 10px;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+} 
+
+
+.CaseRecordAddImage > div > div:nth-child(1) {
+    display: flex;
+    justify-content: space-between;
+}
+
+.CaseRecordAddImage > div > div:nth-child(1) > svg:nth-child(2) {
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.CaseRecordAddImage > div > div:nth-child(1) > svg:nth-child(2):hover {
+    background-color: rgb(230, 230, 230);
+}
+
+.CaseRecordAddImage > div > div:nth-child(2) {
+    text-align: center;
+} 
+
+.CaseRecordAddImage > div > div:nth-child(2) > input {
+    border-radius: 15px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.CaseRecordAddImage > div > div:nth-child(3) > input {
+    font-size: 1.1rem;
+    width: 100%;
+    padding: 3px;
+    border: 1px solid gray;
+    border-radius: 15px;
+    box-sizing: border-box;
+}
+
+.CaseRecordAddImage > div > div:nth-child(3) > img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    margin-top: 10px;
+}
+
+.CaseRecordAddImage > div > div:nth-child(4) {
+    box-sizing: border-box;
+    padding: 5px;
+    text-align: center;
+}
+
+.CaseRecordAddImage > div > div:nth-child(4) > button {
+    margin: 5px;
+}

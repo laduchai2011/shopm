@@ -50,3 +50,11 @@ CREATE TABLE Users (
 
 DELETE FROM CaseRecords
 go
+
+DROP TABLE CaseRecords
+go
+
+UPDATE CaseRecords
+SET status='notComplete'
+WHERE id=1
+go

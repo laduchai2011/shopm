@@ -65,7 +65,10 @@ class CaseRecordImage {
                                 uuid_caseRecord: uuid_caseRecord,
                                 pageNumber: pageNumber,
                                 [Op.not]: { status: 'delete' }
-                            }
+                            },
+                            order: [
+                                ['id', 'DESC']
+                            ]
                         }, { transaction: t });
                         resolve(isCaseRecordImages);   
                     } catch (error) {

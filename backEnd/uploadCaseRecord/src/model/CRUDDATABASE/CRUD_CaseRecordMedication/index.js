@@ -129,7 +129,10 @@ class CaseRecordMedication {
                             {
                                 where: {
                                     [Op.not]: {
-                                        status: 'complete'
+                                        [Op.or]: [
+                                            { status: 'complete' },
+                                            { status: 'delete' }
+                                        ]
                                     }
                                 }
                             },
@@ -173,9 +176,12 @@ class CaseRecordMedication {
                                     where: {
                                         [Op.and]: [
                                             { uuid_caseRecordMedication: uuid_caseRecordMedication },
-                                            { [Op.not]: [
-                                                {status: 'complete'} 
-                                            ]}
+                                            { [Op.not]: {
+                                                [Op.or]: [
+                                                    { status: 'complete' },
+                                                    { status: 'delete' }
+                                                ]
+                                            }}
                                         ]
                                     }
                                 }, { transaction: t });

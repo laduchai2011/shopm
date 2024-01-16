@@ -29,6 +29,7 @@ import { $, $$ } from 'utilize/Tricks';
 *title: string,
 *priceTotal: integer,
 *pageTotal: integer,
+*currentPage: string,
 *report: string,
 *status: string,
 *uuid_doctorOrPharmacist: uuid,
@@ -206,6 +207,7 @@ const CaseRecordCreate = () => {
                 title: title,
                 priceTotal: 0,
                 pageTotal: 1,
+                currentPage: '1',
                 report: null,
                 status: 'notYetCreate',
                 uuid_doctorOrPharmacist: null,
@@ -295,7 +297,6 @@ const CaseRecordCreate = () => {
                 }).then(res => {
                     const resData = res.data;
                     if (resData.success) {
-                        console.log('promiseCreateImage', resData)
                         resolve(resData.caseRecordImages);
                     } else {
                         reject(resData.message);

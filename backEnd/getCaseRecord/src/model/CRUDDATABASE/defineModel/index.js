@@ -324,6 +324,10 @@ class DefineModel {
                 type: DataTypes.INTEGER,
                 allowNull: false
             },
+            currentPage: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
             report: {
                 type: DataTypes.TEXT
             },
@@ -382,11 +386,17 @@ class DefineModel {
                 allowNull: false
             }
         }, {
-            indexes: [{
-                name: 'uuid_caseRecord_indexes',
-                using: 'BTREE',
-                fields: ['uuid_caseRecord']
-            }]
+            indexes: [
+                {
+                    name: 'uuid_caseRecord_indexes',
+                    using: 'BTREE',
+                    fields: ['uuid_caseRecord']
+                },
+                {
+                    unique: true,
+                    fields: ['uuid_caseRecord', 'pageNumber']
+                }
+            ]
         })
         this._CaseRecord.hasMany(this._CaseRecordDescription, { foreignKey: 'uuid_caseRecord' })
         this._CaseRecordDescription.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord' })
@@ -496,11 +506,17 @@ class DefineModel {
                 allowNull: false
             }
         }, {
-            indexes: [{
-                name: 'uuid_caseRecord_indexes',
-                using: 'BTREE',
-                fields: ['uuid_caseRecord']
-            }]
+            indexes: [
+                {
+                    name: 'uuid_caseRecord_indexes',
+                    using: 'BTREE',
+                    fields: ['uuid_caseRecord']
+                },
+                {
+                    unique: true,
+                    fields: ['uuid_caseRecord', 'pageNumber']
+                }
+            ]
         })
         this._CaseRecord.hasMany(this._CaseRecordPrescription, { foreignKey: 'uuid_caseRecord' })
         this._CaseRecordPrescription.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord' })
@@ -573,70 +589,70 @@ class DefineModel {
         this._Medication.hasMany(this._CaseRecordMedication, { foreignKey: 'uuid_medication' })
         this._CaseRecordMedication.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication' })
 
-        this._CaseRecordPage = sequelize.define('CaseRecordPage', {
-            id: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-                autoIncrement: true,
-                unique: 'UQ__CaseRecordPages__id'
-            },
-            uuid_caseRecordPage: {
-                type: Sequelize.UUID,
-                defaultValue: Sequelize.UUIDV4,
-                primaryKey: true
-            },
-            priceTotal: {
-                type: DataTypes.INTEGER
-            },
-            dataPage: {
-                type: DataTypes.TEXT
-            },
-            status: {
-                type: DataTypes.STRING,
-                allowNull: false
-            },
-            uuid_caseRecord: {
-                type: Sequelize.UUID,
-                allowNull: false
-            }
-        }, {
-            indexes: [{
-                name: 'uuid_caseRecord_indexes',
-                using: 'BTREE',
-                fields: ['uuid_caseRecord']
-            }]
-        })
-        this._CaseRecord.hasMany(this._CaseRecordPage, { foreignKey: 'uuid_caseRecord' })
-        this._CaseRecordPage.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord' })
+        // this._CaseRecordPage = sequelize.define('CaseRecordPage', {
+        //     id: {
+        //         type: DataTypes.INTEGER,
+        //         allowNull: false,
+        //         autoIncrement: true,
+        //         unique: 'UQ__CaseRecordPages__id'
+        //     },
+        //     uuid_caseRecordPage: {
+        //         type: Sequelize.UUID,
+        //         defaultValue: Sequelize.UUIDV4,
+        //         primaryKey: true
+        //     },
+        //     priceTotal: {
+        //         type: DataTypes.INTEGER
+        //     },
+        //     dataPage: {
+        //         type: DataTypes.TEXT
+        //     },
+        //     status: {
+        //         type: DataTypes.STRING,
+        //         allowNull: false
+        //     },
+        //     uuid_caseRecord: {
+        //         type: Sequelize.UUID,
+        //         allowNull: false
+        //     }
+        // }, {
+        //     indexes: [{
+        //         name: 'uuid_caseRecord_indexes',
+        //         using: 'BTREE',
+        //         fields: ['uuid_caseRecord']
+        //     }]
+        // })
+        // this._CaseRecord.hasMany(this._CaseRecordPage, { foreignKey: 'uuid_caseRecord' })
+        // this._CaseRecordPage.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord' })
 
-        this._CaseRecordPageEH = sequelize.define('CaseRecordPageEH', {
-            id: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-                autoIncrement: true,
-                unique: 'UQ__CaseRecordPagesEH__id'
-            },
-            uuid_caseRecordPageEH: {
-                type: Sequelize.UUID,
-                defaultValue: Sequelize.UUIDV4,
-                primaryKey: true
-            },
-            dataPage: {
-                type: DataTypes.TEXT
-            },
-            uuid_caseRecordPage: {
-                type: Sequelize.UUID,
-                allowNull: false
-            }
-        }, {
-            indexes: [{
-                name: 'uuid_caseRecordPage_indexes',
-                using: 'BTREE',
-                fields: ['uuid_caseRecordPage']
-            }]
-        })
-        this._CaseRecordPage.hasMany(this._CaseRecordPageEH, { foreignKey: 'uuid_caseRecordPage' })
-        this._CaseRecordPageEH.belongsTo(this._CaseRecordPage, { foreignKey: 'uuid_caseRecordPage', targetKey: 'uuid_caseRecordPage', as: 'uuid_CaseRecordPage' })
+        // this._CaseRecordPageEH = sequelize.define('CaseRecordPageEH', {
+        //     id: {
+        //         type: DataTypes.INTEGER,
+        //         allowNull: false,
+        //         autoIncrement: true,
+        //         unique: 'UQ__CaseRecordPagesEH__id'
+        //     },
+        //     uuid_caseRecordPageEH: {
+        //         type: Sequelize.UUID,
+        //         defaultValue: Sequelize.UUIDV4,
+        //         primaryKey: true
+        //     },
+        //     dataPage: {
+        //         type: DataTypes.TEXT
+        //     },
+        //     uuid_caseRecordPage: {
+        //         type: Sequelize.UUID,
+        //         allowNull: false
+        //     }
+        // }, {
+        //     indexes: [{
+        //         name: 'uuid_caseRecordPage_indexes',
+        //         using: 'BTREE',
+        //         fields: ['uuid_caseRecordPage']
+        //     }]
+        // })
+        // this._CaseRecordPage.hasMany(this._CaseRecordPageEH, { foreignKey: 'uuid_caseRecordPage' })
+        // this._CaseRecordPageEH.belongsTo(this._CaseRecordPage, { foreignKey: 'uuid_caseRecordPage', targetKey: 'uuid_caseRecordPage', as: 'uuid_CaseRecordPage' })
 
         this._OrderAllMedication = sequelize.define('OrderAllMedication', {
             id: {

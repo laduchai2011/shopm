@@ -59,7 +59,10 @@ class CaseRecordDescription {
                             {
                                 where: {
                                     [Op.not]: {
-                                        status: 'complete'
+                                        [Op.or]: [
+                                            { status: 'complete' },
+                                            { status: 'delete' }
+                                        ]
                                     }
                                 }
                             },
@@ -89,6 +92,6 @@ class CaseRecordDescription {
     }
 }
 
-const caseRecordDescription = new CaseRecordDescription();
+const caseRecordDescriptionCRUD = new CaseRecordDescription();
 
-module.exports = { caseRecordDescription }
+module.exports = { caseRecordDescriptionCRUD }

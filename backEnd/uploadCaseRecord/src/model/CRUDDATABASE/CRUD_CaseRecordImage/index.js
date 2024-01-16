@@ -76,7 +76,52 @@ class CaseRecordImage {
         })
     }
 
-    updateWithCaseRecord(uuid_caseRecordImage, images, callback) {
+    // updateWithCaseRecord(uuid_caseRecordImage, images, callback) {
+    //     let caseRecordImage;
+    //     let err;
+        
+    //     const caseRecordImagePromise = new Promise((resolve, reject) => {
+    //         try {
+    //             sequelize.transaction(async (t) => {
+    //                 try {
+    //                     const isCaseRecordImage = await this._CaseRecordImage.findByPk(
+    //                         uuid_caseRecordImage,
+    //                         {
+    //                             where: {
+    //                                 [Op.not]: {
+    //                                     [Op.or]: [
+    //                                         { status: 'complete' },
+    //                                         { status: 'delete' }
+    //                                     ]
+    //                                 }
+    //                             }
+    //                         },
+    //                         { lock: true, transaction: t },
+    //                     );
+    //                     isCaseRecordImage.images = images;
+    //                     isCaseRecordImage.status = 'edit';
+    //                     await isCaseRecordImage.save({ transaction:t });
+    //                     resolve(isCaseRecordImage);   
+    //                 } catch (error) {
+    //                     reject(error);
+    //                 }
+    //             });
+    //         } catch (error) {
+    //             reject(error);
+    //         }
+    //     });
+
+    //     caseRecordImagePromise
+    //     .then(isCaseRecordImage => {
+    //         caseRecordImage = isCaseRecordImage;
+    //     }).catch(error => {
+    //         err = error;
+    //     }).finally(() => {
+    //         callback(caseRecordImage, err);
+    //     })
+    // }
+
+    updateImageTitleWithCaseRecord(uuid_caseRecordImage, title, callback) {
         let caseRecordImage;
         let err;
         
@@ -89,14 +134,16 @@ class CaseRecordImage {
                             {
                                 where: {
                                     [Op.not]: {
-                                        status: 'complete'
+                                        [Op.or]: [
+                                            { status: 'complete' },
+                                            { status: 'delete' }
+                                        ]
                                     }
                                 }
                             },
                             { lock: true, transaction: t },
                         );
-                        isCaseRecordImage.images = images;
-                        isCaseRecordImage.status = 'edit';
+                        isCaseRecordImage.title = title;
                         await isCaseRecordImage.save({ transaction:t });
                         resolve(isCaseRecordImage);   
                     } catch (error) {
@@ -131,7 +178,10 @@ class CaseRecordImage {
                             {
                                 where: {
                                     [Op.not]: {
-                                        status: 'complete'
+                                        [Op.or]: [
+                                            { status: 'complete' },
+                                            { status: 'delete' }
+                                        ]
                                     }
                                 }
                             },
