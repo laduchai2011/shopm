@@ -90,6 +90,50 @@ class CaseRecordPrescription {
             callback(caseRecordPrescription, err);
         })
     }
+
+    complete(uuid_caseRecordPrescription, callback) {
+        let caseRecordPrescription;
+        let err;
+        
+        const caseRecordPrescriptionPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isCaseRecordPrescription = await this._CaseRecordPrescription.findByPk(
+                            uuid_caseRecordPrescription,
+                            {
+                                where: {
+                                    [Op.not]: {
+                                        [Op.or]: [
+                                            { status: 'notComplete' },
+                                            { status: 'delete' }
+                                        ]
+                                    }
+                                }
+                            },
+                            { lock: true, transaction: t },
+                        );
+                        isCaseRecordPrescription.status = 'completed';
+                        await isCaseRecordPrescription.save({ transaction:t });
+                        resolve(isCaseRecordPrescription);   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        caseRecordPrescriptionPromise
+        .then(isCaseRecordPrescription => {
+            caseRecordPrescription = isCaseRecordPrescription;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(caseRecordPrescription, err);
+        })
+    }
 }
 
 const caseRecordPrescription = new CaseRecordPrescription();

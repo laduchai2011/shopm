@@ -208,6 +208,50 @@ class CaseRecordImage {
             callback(caseRecordImage, err);
         })
     }
+
+    complete(uuid_caseRecordImage, callback) {
+        let caseRecordImage;
+        let err;
+        
+        const caseRecordImagePromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isCaseRecordImage = await this._CaseRecordImage.findByPk(
+                            uuid_caseRecordImage,
+                            {
+                                where: {
+                                    [Op.not]: {
+                                        [Op.or]: [
+                                            { status: 'notComplete' },
+                                            { status: 'delete' }
+                                        ]
+                                    }
+                                }
+                            },
+                            { lock: true, transaction: t },
+                        );
+                        isCaseRecordImage.status = 'completed';
+                        await isCaseRecordImage.save({ transaction:t });
+                        resolve(isCaseRecordImage);   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        caseRecordImagePromise
+        .then(isCaseRecordImage => {
+            caseRecordImage = isCaseRecordImage;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(caseRecordImage, err);
+        })
+    }
 }
 
 const caseRecordImageCRUD = new CaseRecordImage();

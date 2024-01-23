@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from "react";
 import './styles.css';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { TiDelete } from "react-icons/ti";
 import { CiEdit } from 'react-icons/ci';
@@ -9,11 +9,14 @@ import { CiEdit } from 'react-icons/ci';
 import { 
     useEditCaseRecordMedicationsMutation
 } from "reduxStore/RTKQuery/caseRecordRTKQuery";
+import { 
+    setToastCompletedPrescriptionPage 
+} from "reduxStore/slice/caseRecordSlice";
 
 import { $ } from "utilize/Tricks";
 
 const MedicationTableEdit = ({ caseRecord }) => {
-
+    const dispatch = useDispatch();
     const current_caseRecordMedication = useSelector((state) => state.caseRecord.current_caseRecordMedication);
     const index = useSelector((state) => state.caseRecord.index);
 
@@ -83,7 +86,16 @@ const MedicationTableEdit = ({ caseRecord }) => {
             if (resData?.success) {
                 removeShowTableEditMedication();
             } else {
-                alert(resData?.message);
+                console.log(resData)
+                if (resData?.completedPrescription) {
+                    dispatch(setToastCompletedPrescriptionPage({
+                        toastCompletedPrescriptionPage: {
+                            message: 'This page is completed Prescription !!! You can NOT change it'
+                        }
+                    }))
+                    $('.CaseRecordToastCompletedPrescriptionPage').classList.add('show');
+                }
+                // alert(resData?.message);
             }
         }).catch(err => console.error(err));
     }

@@ -29,6 +29,7 @@ class CaseRecordDescription {
                             where: {
                                 pageNumber: pageNumber,
                                 uuid_caseRecord: uuid_caseRecord,
+                                [Op.not]: { status: 'delete' }
                             }
                         }, { transaction: t });
                         resolve(isCaseRecordDescription);   

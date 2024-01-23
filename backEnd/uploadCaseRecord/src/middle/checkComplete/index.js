@@ -1,5 +1,5 @@
 'use strict';
-const { caseRecordCRUD } = require('../../model/CRUDDATABASE/CRUDCASERECORD');
+const { caseRecordCRUD } = require('../../model/CRUDDATABASE/CRUD_CaseRecord');
 const { logEvents } = require('../../../logEvents');
 
 function completedPrescription(req, res, next) {
@@ -64,7 +64,7 @@ function completed(req, res, next) {
                         caseRecord: caseRecord,
                         message: `This page is ${ caseRecord.status } !`,
                         success: false,
-                        complete: true
+                        completed: true
                     })
                 } else {
                     next();

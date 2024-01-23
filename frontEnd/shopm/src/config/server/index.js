@@ -66,7 +66,9 @@ export const SERVER_ADDRESS_CASERECORD_COMPLETE                                =
 export const SERVER_ADDRESS_GET_SOCKETSM_ROOM                                  = `${baseURL}:2000/api/svSocketSM/getRoom`; 
 export const SERVER_ADDRESS_SOCKETSM                                           = `${baseURL_socket}:2100`;
 
-export const SERVER_ADDRESS_GET_ORDER_MEDICATION                               = `${baseURL}:8400/api/svGetOrderMedication`;
+export const SERVER_ADDRESS_ORDERMEDICATION_CREATE_WITH_CASERECORD             = `${baseURL}:7400/api/svUploadOrderMedication/orderMedication/createWithCaseRecord`;
+// export const SERVER_ADDRESS_ORDERMEDICATION_CREATE                             = `${baseURL}:8400/api/svGetOrderMedication`;
+export const SERVER_ADDRESS_ORDERMEDICATION_GET_WITH_CASERECORD                = `${baseURL}:8400/api/svGetOrderMedication/orderMedication/readWithCaseRecord`;
 export const SERVER_ADDRESS_GET_CURRENTCART                                    = `${baseURL}:8400/api/svGetOrderMedication/getCurrentCart`; 
 export const SERVER_ADDRESS_PATCH_CURRENTCART                                  = `${baseURL}:7400/api/svUploadOrderMedication/patchCurrentCart`; 
 export const SERVER_ADDRESS_DELETE_CURRENTCART                                 = `${baseURL}:7400/api/svUploadOrderMedication/deleteCurrentCart`; 

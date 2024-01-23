@@ -3,12 +3,14 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 
-// const { orderAllMedication } = require('./src/model/CRUDDATABASE/CRUDORDERALLMEDICATION');
+const { orderMedicationCRUD } = require('./src/model/CRUDDATABASE/CRUD_OrderMedication');
 const { serviceRedis } = require('./src/model/serviceRedis');
 const { Authentication } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
-const { orderFinalMedication } = require('./src/middle/orderFinalMedication');
+// const { orderFinalMedication } = require('./src/middle/orderFinalMedication');
+const { patientRole } = require('./src/middle/patientRole');
+const { checkOrderMedicationWithCaseRecord } = require('./src/middle/checkOrderMedication');
 
 
 /**
@@ -22,12 +24,35 @@ router.post('/orderMedication/create', Authentication, (req, res) => {
     const orderFinalMedicationOptions = req.body;
     const userOptions = req.decodedToken.data;
     // console.log(orderFinalMedicationOptions)
-    orderFinalMedication(userOptions.uuid, orderFinalMedicationOptions, (data, err) => {
+    // orderFinalMedication(userOptions.uuid, orderFinalMedicationOptions, (data, err) => {
+    //     if (err) {
+    //         logEvents(`${req.url}---${req.method}---${err}`);
+    //         return res.status(500).send(err);
+    //     } else {
+    //         return res.status(200).json(data)
+    //     }
+    // })
+})
+
+router.post('/orderMedication/createWithCaseRecord', Authentication, patientRole, checkOrderMedicationWithCaseRecord, (req, res) => {
+    const orderMedicationOptions = req.body.orderMedicationOptions;
+    const uuid_caseRecord = req.body.uuid_caseRecord;
+    const userOptions = req.decodedToken.data;
+    orderMedicationOptions.uuid_user = userOptions.uuid;
+    orderMedicationOptions.type = 'caseRecord';
+    orderMedicationOptions.uuid_caseRecord = uuid_caseRecord;
+    orderMedicationOptions.status = 'notCreateYet';
+
+    orderMedicationCRUD.create(orderMedicationOptions, (orderMedication, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
         } else {
-            return res.status(200).json(data)
+            return res.status(200).json({ 
+                orderMedication: orderMedication,
+                message: "createWithCaseRecord successly !",
+                success: true
+            })
         }
     })
 })

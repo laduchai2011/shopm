@@ -19,6 +19,10 @@ const { options } = require('../../../../router');
 class CaseRecord {
     constructor() {
         this._CaseRecord = defineModel.getCaseRecord();
+        this._CaseRecordDescription = defineModel.getCaseRecordDescription();
+        this._CaseRecordImage = defineModel.getCaseRecordImage();
+        this._CaseRecordPrescription = defineModel.getCaseRecordPrescription();
+        this._CaseRecordMedication = defineModel.getCaseRecordMedication();
     }
 
     read(uuid_caseRecord, callback) {
@@ -203,28 +207,96 @@ class CaseRecord {
     completedPrescription(uuid_caseRecord, callback) {
         let caseRecord;
         let err;
-        
-        const caseRecordPromise = new Promise((resolve, reject) => {
+
+        const caseRecordPromise = new Promise(async (resolve, reject) => {
+            const caseRecord_t = await sequelize.transaction();
             try {
-                sequelize.transaction(async (t) => {
-                    try {
-                        const isCaseRecord = await this._CaseRecord.findByPk(
-                            uuid_caseRecord,
-                            {
-                                where: {
-                                    status: 'notComplete'
-                                }
-                            },
-                            { lock: true, transaction: t },
-                        );
-                        isCaseRecord.status = 'completedPrescription';
-                        await isCaseRecord.save({ transaction:t });
-                        resolve(isCaseRecord);   
-                    } catch (error) {
-                        reject(error);
-                    }
-                });
+                const isCaseRecordDescription = await this._CaseRecordDescription.findOne(
+                    {
+                        where: {
+                            uuid_caseRecord: uuid_caseRecord,
+                            [Op.not]: {
+                                [Op.or]: [
+                                    { status: 'delete' }
+                                ]
+                            }
+                        }
+                    },
+                    { limit: 1, lock: true, transaction: caseRecord_t },
+                );
+                isCaseRecordDescription.status = 'completed';
+                await isCaseRecordDescription.save({ transaction: caseRecord_t });
+
+                const isCaseRecordImage = await this._CaseRecordImage.update({
+                    status: 'completed'
+                },
+                    {
+                        where: {
+                            uuid_caseRecord: uuid_caseRecord,
+                            [Op.not]: {
+                                [Op.or]: [
+                                    { status: 'delete' }
+                                ]
+                            }
+                        }
+                    },
+                    { limit: 1, lock: true, transaction: caseRecord_t },
+                );
+                // isCaseRecordImage.status = 'completed';
+                // await isCaseRecordImage.save({ transaction:t });
+
+                const isCaseRecordPrescription = await this._CaseRecordPrescription.findOne(
+                    {
+                        where: {
+                            uuid_caseRecord: uuid_caseRecord,
+                            [Op.not]: {
+                                [Op.or]: [
+                                    { status: 'delete' }
+                                ]
+                            }
+                        }
+                    },
+                    { limit: 1, lock: true, transaction: caseRecord_t },
+                );
+                isCaseRecordPrescription.status = 'completed';
+                await isCaseRecordPrescription.save({ transaction: caseRecord_t });
+
+                const isCaseRecordMedication = await this._CaseRecordMedication.update({
+                    status: 'completed'
+                },
+                    {
+                        where: {
+                            uuid_caseRecord: uuid_caseRecord,
+                            [Op.not]: {
+                                [Op.or]: [
+                                    { status: 'delete' }
+                                ]
+                            }
+                        }
+                    },
+                    { limit: 1, lock: true, transaction: caseRecord_t },
+                );
+                // isCaseRecordMedication.status = 'completed';
+                // await isCaseRecordMedication.save({ transaction: caseRecord_t });
+
+                const isCaseRecord = await this._CaseRecord.findByPk(
+                    uuid_caseRecord,
+                    {
+                        where: {
+                            status: 'notComplete'
+                        }
+                    },
+                    { limit: 1, lock: true, transaction: caseRecord_t },
+                );
+                isCaseRecord.status = 'completedPrescription';
+                await isCaseRecord.save({ transaction: caseRecord_t });
+
+                await caseRecord_t.commit();
+
+                resolve(isCaseRecord);   
+
             } catch (error) {
+                await caseRecord_t.rollback();
                 reject(error);
             }
         });

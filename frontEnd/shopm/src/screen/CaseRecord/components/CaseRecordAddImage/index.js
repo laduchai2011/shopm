@@ -14,6 +14,9 @@ import {
     SERVER_ADDRESS_UPLOADIMAGE,
     SERVER_ADDRESS_GETIMAGE
 } from "config/server";
+import { 
+    setToastCompletedPrescriptionPage 
+} from "reduxStore/slice/caseRecordSlice";
 
 import { $ } from "utilize/Tricks";
 
@@ -98,12 +101,20 @@ const CaseRecordAddImage = ({ caseRecord }) => {
                 pageNumber: current_pageNumber
             }).then(res => {
                 const resData = res.data;
-                if (resData.success) {} else {
+                if (resData?.success) {} else {
                     if (resData?.lock) {
                         dispatch(setCaseRecordLockRd({caseRecordLockOptions: resData?.caseRecordLockOptions}));
                     }
                     if (resData?.completedPage) {
                         $('.CaseRecordToastCompletedPage').classList.add('show');
+                    }
+                    if (resData?.completedPrescription) {
+                        dispatch(setToastCompletedPrescriptionPage({
+                            toastCompletedPrescriptionPage: {
+                                message: 'This page is completed Prescription !!! You can NOT change it'
+                            }
+                        }))
+                        $('.CaseRecordToastCompletedPrescriptionPage').classList.add('show');
                     }
                 }
                 removeCaseRecordAddImage();

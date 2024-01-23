@@ -16,7 +16,7 @@ import {
     SERVER_ADDRESS_CASERECORD_DELETE_MEDICATION,
     SERVER_ADDRESS_CASERECORD_COMPLETE_PRESCRIPTION,
     SERVER_ADDRESS_CASERECORD_COMPLETE
- } from 'config/server';
+} from 'config/server';
 
 /**
 *@typedef {

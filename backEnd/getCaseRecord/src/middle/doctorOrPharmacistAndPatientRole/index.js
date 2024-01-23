@@ -1,6 +1,6 @@
 'use strict';
 const { caseRecordRole } = require('../../middle/caseRecordRole');
-const { caseRecordCRUD } = require('../../model/CRUDDATABASE/CRUDCASERECORD');
+const { caseRecordCRUD } = require('../../model/CRUDDATABASE/CRUD_CaseRecod');
 const { logEvents } = require('../../../logEvents');
 
 function doctorOrPharmacistAndPatientRole(req, res, next) {

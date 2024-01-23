@@ -8,7 +8,7 @@ const { serviceRedlock } = require('./src/config/serviceRedlock');
 const { Authentication } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
-const { caseRecordCRUD } = require('./src/model/CRUDDATABASE/CRUDCASERECORD');
+const { caseRecordCRUD } = require('./src/model/CRUDDATABASE/CRUD_CaseRecord');
 // const { caseRecordRole } = require('./src/middle/caseRecordRole');
 const { caseRecordDescriptionCRUD } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordDescription');
 const { caseRecordImageCRUD } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordImage');
@@ -110,7 +110,7 @@ router.post('/caseRecord/bulkCreateImage', Authentication, (req, res) => {
     })
 })
 
-router.post('/caseRecord/createImage', Authentication, patientRole, checkCurrentPage, caseRecordCheckLock, (req, res) => {
+router.post('/caseRecord/createImage', Authentication, patientRole, checkCurrentPage, caseRecordCheckLock, completed, completedPrescription, (req, res) => {
     const caseRecordImageOptions = req.body.caseRecordImageOptions;
     const pageNumber = req.currentPage;
     caseRecordImageOptions.pageNumber = pageNumber;
@@ -399,7 +399,7 @@ router.delete('/caseRecord/deleteMedication', Authentication, doctorOrPharmacist
     })
 })
 
-router.post('/caseRecord/createLock', Authentication, doctorOrPharmacistAndPatientRole, caseRecordCheckLock, async (req, res) => {
+router.post('/caseRecord/createLock', Authentication, doctorOrPharmacistAndPatientRole, caseRecordCheckLock, completed, completedPrescription, async (req, res) => {
     const caseRecord = req.body.caseRecord;
     const pageNumber = req.body.pageNumber;
     const caseRecordLockKey = `redlock-caseRecordLock-${ caseRecord.uuid_caseRecord }`;
@@ -435,7 +435,7 @@ router.post('/caseRecord/createLock', Authentication, doctorOrPharmacistAndPatie
     })
 })
 
-router.delete('/caseRecord/deleteLock', Authentication, doctorOrPharmacistAndPatientRole, caseRecordCheckLock, async (req, res) => {
+router.delete('/caseRecord/deleteLock', Authentication, doctorOrPharmacistAndPatientRole, caseRecordCheckLock, completed, completedPrescription, async (req, res) => {
     const caseRecord = req.body.caseRecord;
     const caseRecordLockKey = `redlock-caseRecordLock-${ caseRecord.uuid_caseRecord }`;
     const caseRecordLockKey_dataCache = `caseRecordLock-${ caseRecord.uuid_caseRecord }`;

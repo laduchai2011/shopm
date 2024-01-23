@@ -208,6 +208,50 @@ class CaseRecordMedication {
             callback(caseRecordMedication, err);
         })
     }
+
+    complete(uuid_caseRecordMedication, callback) {
+        let caseRecordMedication;
+        let err;
+        
+        const caseRecordMedicationPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isCaseRecordMedication = await this._CaseRecordMedication.findByPk(
+                            uuid_caseRecordMedication,
+                            {
+                                where: {
+                                    [Op.not]: {
+                                        [Op.or]: [
+                                            { status: 'notComplete' },
+                                            { status: 'delete' }
+                                        ]
+                                    }
+                                }
+                            },
+                            { lock: true, transaction: t },
+                        );
+                        isCaseRecordMedication.status = 'completed';
+                        await isCaseRecordMedication.save({ transaction:t });
+                        resolve(isCaseRecordMedication);   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        caseRecordMedicationPromise
+        .then(isCaseRecordMedication => {
+            caseRecordMedication = isCaseRecordMedication;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(caseRecordMedication, err);
+        })
+    }
 }
 
 const caseRecordMedication = new CaseRecordMedication();

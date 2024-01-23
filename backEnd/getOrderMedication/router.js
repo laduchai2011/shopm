@@ -10,7 +10,8 @@ const { Authentication } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
 const { readFinalMedicationOrder } = require('./src/middle/readFinalMedicationOrder');
-
+// const { patientRole } = require('./src/middle/patientRole');
+const { orderMedicationCRUD } = require('./src/model/CRUDDATABASE/CRUD_OrderMedication');
 
 /**
 *@typedef {
@@ -28,6 +29,30 @@ router.get('/orderMedication/read', Authentication, (req, res) => {
             return res.status(500).send(err);
         } else {
             return res.status(200).json(data);
+        }
+    })
+})
+
+router.get('/orderMedication/readWithCaseRecord', Authentication, (req, res) => {
+    const pageNumber = req.query.pageNumber;
+    const uuid_caseRecord = req.query.uuid_caseRecord;
+    orderMedicationCRUD.readWithCaseRecord(uuid_caseRecord, pageNumber, (orderMedication, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send(err);
+        } else {
+            if (orderMedication && orderMedication!==null) {
+                return res.status(200).json({ 
+                    orderMedication: orderMedication,
+                    message: "readWithCaseRecord successly !",
+                    success: true
+                })
+            }
+            return res.status(200).json({ 
+                orderMedication: orderMedication,
+                message: "readWithCaseRecord NOT successly !",
+                success: false
+            })
         }
     })
 })

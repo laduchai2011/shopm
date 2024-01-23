@@ -1,5 +1,5 @@
 const { orderAllMedication } = require('../../model/CRUDDATABASE/CRUDORDERALLMEDICATION');
-const { orderMedication } = require('../../model/CRUDDATABASE/CRUDORDERMEDICATION');
+const { orderMedicationCRUD } = require('../../model/CRUDDATABASE/CRUD_OrderMedication');
 const { paymentMedication } = require('../../model/CRUDDATABASE/CRUDPAYMENTMEDICATION');
 const { transport } = require('../../model/CRUDDATABASE/CRUDTRANSPORT');
 
@@ -14,7 +14,7 @@ const orderAllMedicationPromise_read = (uuid_user, uuid_orderAllMedication) => {
 
 const orderMedicationPromise_bulkRead_withFkOrderAllMedication = (uuid_orderAllMedication) => {
     return new Promise((resolve, reject) => {
-        orderMedication.bulkRead(uuid_orderAllMedication, (orderMedications, err) => {
+        orderMedicationCRUD.bulkRead(uuid_orderAllMedication, (orderMedications, err) => {
             if (err) reject(err);
             resolve(orderMedications);
         })

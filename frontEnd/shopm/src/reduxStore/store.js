@@ -13,6 +13,7 @@ import { currentCartRTKQuery } from './RTKQuery/currentCartRTKQuery';
 import { caseRecordRTKQuery } from './RTKQuery/caseRecordRTKQuery';
 import { providerRTKQuery } from './RTKQuery/providerRTKQuery';
 import { medicationRTKQuery } from './RTKQuery/medicationRTKQuery';
+import { orderMedicationRTKQuery } from './RTKQuery/orderMedicationRTKQuery';
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -29,7 +30,8 @@ export const store = configureStore({
     [currentCartRTKQuery.reducerPath]: currentCartRTKQuery.reducer,
     [caseRecordRTKQuery.reducerPath]: caseRecordRTKQuery.reducer,
     [providerRTKQuery.reducerPath]: providerRTKQuery.reducer,
-    [medicationRTKQuery.reducerPath]: medicationRTKQuery.reducer
+    [medicationRTKQuery.reducerPath]: medicationRTKQuery.reducer,
+    [orderMedicationRTKQuery.reducerPath]: orderMedicationRTKQuery.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([
     sagaMiddleware, 
@@ -39,7 +41,8 @@ export const store = configureStore({
     currentCartRTKQuery.middleware,
     caseRecordRTKQuery.middleware,
     providerRTKQuery.middleware,
-    medicationRTKQuery.middleware
+    medicationRTKQuery.middleware,
+    orderMedicationRTKQuery.middleware
   ])
 })
 

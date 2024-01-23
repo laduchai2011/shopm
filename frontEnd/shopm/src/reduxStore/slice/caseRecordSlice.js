@@ -14,7 +14,10 @@ const initialState = {
     index: 0, 
     caseRecordLockOptions: null,
     current_caseRecordImage: null,
-    current_pageNumber: null
+    current_pageNumber: null,
+    toastCompletedPrescriptionPage: {
+        message: ''
+    }
 }
 
 export const caseRecordSlice = createSlice({
@@ -34,6 +37,9 @@ export const caseRecordSlice = createSlice({
         setCurrent_pageNumber: (state, action) => {
             state.current_pageNumber = action.payload.current_pageNumber;
         },
+        setToastCompletedPrescriptionPage: (state, action) => {
+            state.toastCompletedPrescriptionPage = action.payload.toastCompletedPrescriptionPage;
+        }
     }
 })
 
@@ -41,7 +47,8 @@ export const {
     setCurrent_caseRecordMedication,
     setCaseRecordLockRd,
     setCurrent_caseRecordImage,
-    setCurrent_pageNumber
+    setCurrent_pageNumber,
+    setToastCompletedPrescriptionPage
 } = caseRecordSlice.actions;
 
 const caseRecordReducer = caseRecordSlice.reducer;

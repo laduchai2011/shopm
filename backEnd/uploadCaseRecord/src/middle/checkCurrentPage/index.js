@@ -1,5 +1,5 @@
 'use strict';
-const { caseRecordCRUD } = require('../../model/CRUDDATABASE/CRUDCASERECORD');
+const { caseRecordCRUD } = require('../../model/CRUDDATABASE/CRUD_CaseRecord');
 const { logEvents } = require('../../../logEvents');
 
 function checkCurrentPage(req, res, next) {

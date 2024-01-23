@@ -34,3 +34,7 @@
 13-01-2024	00:41:01--------/image/upload---POST---TokenExpiredError: jwt expired: token.verify-accessToken
 13-01-2024	09:31:03--------/image/upload---POST---TokenExpiredError: jwt expired: token.verify-accessToken
 13-01-2024	47:50:03--------/image/upload---POST---TokenExpiredError: jwt expired: token.verify-accessToken
+17-01-2024	11:09:06--------/image/upload---POST---JsonWebTokenError: invalid signature: token.verify-accessToken
+17-01-2024	38:10:06--------/image/upload---POST---JsonWebTokenError: invalid signature: token.verify-accessToken
+17-01-2024	27:12:06--------/image/upload---POST---JsonWebTokenError: invalid signature: token.verify-accessToken
+17-01-2024	06:19:06--------/image/upload---POST---JsonWebTokenError: invalid signature: token.verify-accessToken

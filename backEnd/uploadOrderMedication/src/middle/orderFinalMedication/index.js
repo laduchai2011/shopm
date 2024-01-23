@@ -1,5 +1,5 @@
 const { orderAllMedication } = require('../../model/CRUDDATABASE/CRUDORDERALLMEDICATION');
-const { orderMedication } = require('../../model/CRUDDATABASE/CRUDORDERMEDICATION');
+const { orderMedicationCRUD } = require('../../model/CRUDDATABASE/CRUD_OrderMedication');
 const { paymentMedication } = require('../../model/CRUDDATABASE/CRUDPAYMENTMEDICATION');
 const { transport } = require('../../model/CRUDDATABASE/CRUDTRANSPORT');
 
@@ -23,7 +23,7 @@ const orderAllMedicationPromise_create = (orderAllMedicationOptions) => {
 
 const orderMedicationPromise_bulkCreate = (orderMedicationOptionsList) => {
     return new Promise((resolve, reject) => {
-        orderMedication.bulkCreate(orderMedicationOptionsList, (orderMedications, err) => {
+        orderMedicationCRUD.bulkCreate(orderMedicationOptionsList, (orderMedications, err) => {
             if (err) reject(err);
             resolve(orderMedications);
         })

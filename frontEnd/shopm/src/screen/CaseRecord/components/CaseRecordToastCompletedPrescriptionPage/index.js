@@ -1,11 +1,14 @@
 import React, { memo } from "react";
 import './styles.css';
 
+import { useSelector } from "react-redux";
 import { TiDelete } from "react-icons/ti";
 
 import { $ } from "utilize/Tricks";
 
 const CaseRecordToastCompletedPrescriptionPage = () => {
+    const toastCompletedPrescriptionPage = useSelector(state => state.caseRecord.toastCompletedPrescriptionPage);
+
     const removeCaseRecordToastCompletedPrescriptionPage = () => {
         $('.CaseRecordToastCompletedPrescriptionPage').classList.remove('show');
     }
@@ -16,10 +19,7 @@ const CaseRecordToastCompletedPrescriptionPage = () => {
                 <div>
                     <TiDelete onClick={() => removeCaseRecordToastCompletedPrescriptionPage()} size={ 25 } />
                 </div>
-                <div>
-                    This page is NOT completed Prescription yet !
-                    You need to wait it complete
-                </div>
+                <div>{ toastCompletedPrescriptionPage?.message }</div>
             </div>
         </div>
     )

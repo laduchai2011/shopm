@@ -90,6 +90,50 @@ class CaseRecordDescription {
             callback(caseRecordDescription, err);
         })
     }
+
+    complete(uuid_caseRecordDescription, callback) {
+        let caseRecordDescription;
+        let err;
+        
+        const caseRecordDescriptionPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isCaseRecordDescription = await this._CaseRecordDescription.findByPk(
+                            uuid_caseRecordDescription,
+                            {
+                                where: {
+                                    [Op.not]: {
+                                        [Op.or]: [
+                                            { status: 'notComplete' },
+                                            { status: 'delete' }
+                                        ]
+                                    }
+                                }
+                            },
+                            { lock: true, transaction: t },
+                        );
+                        isCaseRecordDescription.status = 'completed';
+                        await isCaseRecordDescription.save({ transaction:t });
+                        resolve(isCaseRecordDescription);   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        caseRecordDescriptionPromise
+        .then(isCaseRecordDescription => {
+            caseRecordDescription = isCaseRecordDescription;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(caseRecordDescription, err);
+        })
+    }
 }
 
 const caseRecordDescriptionCRUD = new CaseRecordDescription();
