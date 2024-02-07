@@ -12,8 +12,7 @@ import CaseRecordToastMessage from './components/CaseRecordToastMessage';
 import CaseRecordToastDelImage from './components/CaseRecordToastDelImage';
 import CaseRecordEditImage from './components/CaseRecordEditImage';
 import CaseRecordAddImage from './components/CaseRecordAddImage';
-import CaseRecordToastCompletedPage from './components/CaseRecordToastCompletedPage';
-import CaseRecordToastCompletedPrescriptionPage from './components/CaseRecordToastCompletedPrescriptionPage';
+import CaseRecordOrder from './components/CaseRecordOrder';
 
 import { useGetCaseRecordQuery } from 'reduxStore/RTKQuery/caseRecordRTKQuery';
 // import { $ } from 'utilize/Tricks';
@@ -68,12 +67,11 @@ const CaseRecord = () => {
                         <CaseRecordPage caseRecord={ caseRecord } caseRecordRole={ caseRecordRole } />
                         <MedicationTableDelete caseRecord={ caseRecord } />
                         <MedicationTableEdit caseRecord={ caseRecord } />
-                        <CaseRecordToastMessage caseRecordRole={ caseRecordRole } />
+                        <CaseRecordToastMessage />
                         <CaseRecordToastDelImage caseRecord={ caseRecord } />
                         <CaseRecordEditImage caseRecord={ caseRecord } />
                         <CaseRecordAddImage caseRecord={ caseRecord } />
-                        <CaseRecordToastCompletedPage />
-                        <CaseRecordToastCompletedPrescriptionPage />
+                        <CaseRecordOrder caseRecord={ caseRecord } />
                     </div> : <>{
                         isFetching ? 
                         <div className='CaseRecord-main1-loading'>Loading ...</div> :

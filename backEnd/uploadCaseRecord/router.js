@@ -15,13 +15,21 @@ const { caseRecordImageCRUD } = require('./src/model/CRUDDATABASE/CRUD_CaseRecor
 const { caseRecordPrescription } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordPrescription');
 const { caseRecordMedication } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordMedication');
 // const { caseRecordPage } = require('./src/model/CRUDDATABASE/CRUDCASERECORDPAGE');
+const { getCaseRecordMid } = require('./src/middle/getDatabaseMid');
 const { doctorOrPharmacistAndPatientRole } = require('./src/middle/doctorOrPharmacistAndPatientRole');
 const { doctorOrPharmacistRole } = require('./src/middle/doctorOrPharmacistRole');
 const { patientRole } = require('./src/middle/patientRole');
 const { currentCart } = require('./src/middle/currentCart');
 const { caseRecordCheckLock } = require('./src/middle/caseRecordCheckLock');
-const { checkCurrentPage } = require('./src/middle/checkCurrentPage');
-const { completedPrescription, completed, isCompletedPrescription } = require('./src/middle/checkComplete');
+const { isCurrentPage } = require('./src/middle/checkCurrentPage');
+const { 
+    isNotCompletedPrescription, 
+    isNotCompletedPrescriptionWithDop,
+    isNotCompleted, 
+    isCompletedPrescription, 
+    isCompleted,
+    isCompletedOrIsCompletedPrescription 
+} = require('./src/middle/checkComplete');
 const { SvMessage } = require('./src/model/svMessge');
 
 const svMessage = new SvMessage();
@@ -29,9 +37,9 @@ svMessage.init();
 
 /**
 *@typedef {
-*caseRecord: caseRecord,
+*uuid_caseRecord: uuid_caseRecord,
 *caseRecordRole: string, doctorOrPharmacist or patient
-*isLock: boolean,
+*isLocked: boolean,
 *pageNumber: string
 *} caseRecordLockOptions
 */ 
@@ -110,7 +118,15 @@ router.post('/caseRecord/bulkCreateImage', Authentication, (req, res) => {
     })
 })
 
-router.post('/caseRecord/createImage', Authentication, patientRole, checkCurrentPage, caseRecordCheckLock, completed, completedPrescription, (req, res) => {
+router.post('/caseRecord/createImage', 
+    Authentication, 
+    getCaseRecordMid, 
+    patientRole, 
+    isCurrentPage, 
+    isNotCompleted, 
+    isNotCompletedPrescription, 
+    caseRecordCheckLock, 
+    (req, res) => {
     const caseRecordImageOptions = req.body.caseRecordImageOptions;
     const pageNumber = req.currentPage;
     caseRecordImageOptions.pageNumber = pageNumber;
@@ -204,7 +220,10 @@ router.patch('/caseRecord/patchDoctorPharmacist', Authentication, (req, res) => 
     })
 })
 
-router.patch('/caseRecord/patchStatusCRCCaseRecord', Authentication, patientRole, (req, res) => {
+router.patch('/caseRecord/patchStatusCRCCaseRecord', 
+    Authentication, 
+    patientRole, 
+    (req, res) => {
     const caseRecordOptions = req.body.caseRecord;
     const uuid_caseRecord = caseRecordOptions.uuid_caseRecord;
     caseRecordCRUD.patchStatusCRC(uuid_caseRecord, (caseRecord, err) => {
@@ -229,8 +248,16 @@ router.patch('/caseRecord/patchStatusCRCCaseRecord', Authentication, patientRole
     })
 })
 
-router.patch('/caseRecord/patchDescription', Authentication, patientRole, caseRecordCheckLock, completed, completedPrescription, (req, res) => {
-    const caseRecord = req.body.caseRecord;
+router.patch('/caseRecord/patchDescription', 
+    Authentication, 
+    getCaseRecordMid, 
+    patientRole, 
+    isCurrentPage, 
+    isNotCompleted, 
+    isNotCompletedPrescription, 
+    caseRecordCheckLock, 
+    (req, res) => {
+    const uuid_caseRecord = req.body.uuid_caseRecord;
     const uuid_caseRecordDescription = req.body.uuid_caseRecordDescription;
     const description = req.body.description;
 
@@ -242,7 +269,7 @@ router.patch('/caseRecord/patchDescription', Authentication, patientRole, caseRe
             return res.status(200).json({
                 caseRecordDescription: caseRecordDescription,
                 success: true,
-                message: `Patch caseRecordDescription ( ${uuid_caseRecordDescription} ) for case-record ( ${caseRecord.uuid_caseRecord} ) successly !`
+                message: `Patch caseRecordDescription ( ${uuid_caseRecordDescription} ) for case-record ( ${uuid_caseRecord} ) successly !`
             });
         }
     })
@@ -267,8 +294,16 @@ router.patch('/caseRecord/patchDescription', Authentication, patientRole, caseRe
 //     })
 // })
 
-router.patch('/caseRecord/patchCaseRecordImageTitle', Authentication, patientRole, caseRecordCheckLock, completed, completedPrescription, (req, res) => {
-    const caseRecord = req.body.caseRecord;
+router.patch('/caseRecord/patchCaseRecordImageTitle', 
+    Authentication, 
+    getCaseRecordMid, 
+    patientRole, 
+    isCurrentPage, 
+    isNotCompleted, 
+    isNotCompletedPrescription, 
+    caseRecordCheckLock, 
+    (req, res) => {
+    const uuid_caseRecord = req.body.uuid_caseRecord;
     const uuid_caseRecordImage = req.body.uuid_caseRecordImage;
     const title = req.body.title;
     caseRecordImageCRUD.updateImageTitleWithCaseRecord(uuid_caseRecordImage, title, (caseRecordImage, err) => {
@@ -279,14 +314,22 @@ router.patch('/caseRecord/patchCaseRecordImageTitle', Authentication, patientRol
             return res.status(200).json({
                 caseRecordImage: caseRecordImage,
                 success: true,
-                message: `Patch patchCaseRecordImageTitle ( ${uuid_caseRecordImage} ) for case-record ( ${caseRecord.uuid_caseRecord} ) successly !`
+                message: `Patch patchCaseRecordImageTitle ( ${uuid_caseRecordImage} ) for case-record ( ${uuid_caseRecord} ) successly !`
             });
         }
     })
 })
 
-router.patch('/caseRecord/deleteCaseRecordImage', Authentication, patientRole, caseRecordCheckLock, completed, completedPrescription, (req, res) => {
-    const caseRecord = req.body.caseRecord;
+router.patch('/caseRecord/deleteCaseRecordImage', 
+    Authentication, 
+    getCaseRecordMid, 
+    patientRole, 
+    isCurrentPage,  
+    isNotCompleted, 
+    isNotCompletedPrescription, 
+    caseRecordCheckLock,
+    (req, res) => {
+    const uuid_caseRecord = req.body.uuid_aseRecord;
     const uuid_caseRecordImage = req.body.uuid_caseRecordImage;
     caseRecordImageCRUD.deleteWithCaseRecord(uuid_caseRecordImage, (caseRecordImage, err) => {
         if (err) {
@@ -296,14 +339,22 @@ router.patch('/caseRecord/deleteCaseRecordImage', Authentication, patientRole, c
             return res.status(200).json({
                 caseRecordImage: caseRecordImage,
                 success: true,
-                message: `Patch deleteCaseRecordImage ( ${uuid_caseRecordImage} ) for case-record ( ${caseRecord.uuid_caseRecord} ) successly !`
+                message: `Patch deleteCaseRecordImage ( ${uuid_caseRecordImage} ) for case-record ( ${uuid_caseRecord} ) successly !`
             });
         }
     })
 })
 
-router.patch('/caseRecord/savePrescription', Authentication, doctorOrPharmacistRole, caseRecordCheckLock, completed, completedPrescription, (req, res) => {
-    const caseRecord = req.body.caseRecord;
+router.patch('/caseRecord/savePrescription', 
+    Authentication, 
+    getCaseRecordMid, 
+    doctorOrPharmacistRole, 
+    isCurrentPage, 
+    isNotCompleted, 
+    isNotCompletedPrescription, 
+    caseRecordCheckLock, 
+    (req, res) => {
+    const uuid_caseRecord = req.body.uuid_caseRecord;
     const uuid_caseRecordPrescription = req.body.uuid_caseRecordPrescription;
     const prescription = req.body.prescription;
 
@@ -315,13 +366,22 @@ router.patch('/caseRecord/savePrescription', Authentication, doctorOrPharmacistR
             return res.status(200).json({
                 caseRecordPrescription: caseRecordPrescription,
                 success: true,
-                message: `Patch caseRecordPrescription ( ${uuid_caseRecordPrescription} ) for case-record ( ${caseRecord.uuid_caseRecord} ) successly !`
+                message: `Patch caseRecordPrescription ( ${uuid_caseRecordPrescription} ) for case-record ( ${uuid_caseRecord} ) successly !`
             });
         }
     })
 })
 
-router.post('/caseRecord/addMedication', Authentication, doctorOrPharmacistRole, currentCart, caseRecordCheckLock, completed, completedPrescription, (req, res) => {
+router.post('/caseRecord/addMedication', 
+    Authentication, 
+    getCaseRecordMid, 
+    doctorOrPharmacistRole, 
+    isCurrentPage, 
+    isNotCompleted, 
+    isNotCompletedPrescription, 
+    currentCart, 
+    caseRecordCheckLock, 
+    (req, res) => {
     const currentCart = req.currentCart;
     const caseRecordMedicationOptions = req.body.caseRecordMedicationOptions;
     caseRecordMedicationOptions.pageNumber = currentCart.pageNumber;
@@ -348,7 +408,15 @@ router.post('/caseRecord/addMedication', Authentication, doctorOrPharmacistRole,
     })
 })
 
-router.patch('/caseRecord/editMedication', Authentication, doctorOrPharmacistRole, caseRecordCheckLock, completed, completedPrescription, (req, res) => {
+router.patch('/caseRecord/editMedication', 
+    Authentication, 
+    getCaseRecordMid, 
+    doctorOrPharmacistRole, 
+    isCurrentPage, 
+    isNotCompleted, 
+    isNotCompletedPrescription, 
+    caseRecordCheckLock, 
+    (req, res) => {
     const uuid_caseRecordMedication = req.body.uuid_caseRecordMedication;
     const amount = req.body.amount;
     const note = req.body.note;
@@ -375,7 +443,15 @@ router.patch('/caseRecord/editMedication', Authentication, doctorOrPharmacistRol
     })
 })
 
-router.delete('/caseRecord/deleteMedication', Authentication, doctorOrPharmacistRole, caseRecordCheckLock, completed, completedPrescription, (req, res) => {
+router.delete('/caseRecord/deleteMedication', 
+    Authentication, 
+    getCaseRecordMid, 
+    doctorOrPharmacistRole, 
+    isCurrentPage, 
+    isNotCompleted, 
+    isNotCompletedPrescription, 
+    caseRecordCheckLock, 
+    (req, res) => {
     const uuid_caseRecordMedication = req.body.uuid_caseRecordMedication;
     caseRecordMedication.delete(uuid_caseRecordMedication, (caseRecordMedication, err) => {
         if (err) {
@@ -399,18 +475,27 @@ router.delete('/caseRecord/deleteMedication', Authentication, doctorOrPharmacist
     })
 })
 
-router.post('/caseRecord/createLock', Authentication, doctorOrPharmacistAndPatientRole, caseRecordCheckLock, completed, completedPrescription, async (req, res) => {
-    const caseRecord = req.body.caseRecord;
+router.post('/caseRecord/createLock', 
+    Authentication, 
+    getCaseRecordMid, 
+    doctorOrPharmacistAndPatientRole, 
+    isCurrentPage, 
+    isNotCompleted, 
+    // isNotCompletedPrescription, 
+    isNotCompletedPrescriptionWithDop,
+    caseRecordCheckLock, 
+    async (req, res) => {
+    const uuid_caseRecord = req.body.uuid_caseRecord;
     const pageNumber = req.body.pageNumber;
-    const caseRecordLockKey = `redlock-caseRecordLock-${ caseRecord.uuid_caseRecord }`;
-    const caseRecordLockKey_dataCache = `caseRecordLock-${ caseRecord.uuid_caseRecord }`;
+    const caseRecordLockKey = `redlock-caseRecordLock-${ uuid_caseRecord }`;
+    const caseRecordLockKey_dataCache = `caseRecordLock-${ uuid_caseRecord }`;
     const caseRecordRole = req.caseRecordRole;
 
     const timeExpireat = 60*60*24*30*12; // 1 year
     const caseRecordLockOptions = {
-        caseRecord: caseRecord,
+        uuid_caseRecord: uuid_caseRecord,
         caseRecordRole: caseRecordRole, 
-        isLock: true,
+        isLocked: true,
         pageNumber: pageNumber
     }
 
@@ -435,10 +520,18 @@ router.post('/caseRecord/createLock', Authentication, doctorOrPharmacistAndPatie
     })
 })
 
-router.delete('/caseRecord/deleteLock', Authentication, doctorOrPharmacistAndPatientRole, caseRecordCheckLock, completed, completedPrescription, async (req, res) => {
-    const caseRecord = req.body.caseRecord;
-    const caseRecordLockKey = `redlock-caseRecordLock-${ caseRecord.uuid_caseRecord }`;
-    const caseRecordLockKey_dataCache = `caseRecordLock-${ caseRecord.uuid_caseRecord }`;
+router.delete('/caseRecord/deleteLock', 
+    Authentication, 
+    getCaseRecordMid, 
+    doctorOrPharmacistAndPatientRole, 
+    isCurrentPage, 
+    // isNotCompleted, 
+    // isNotCompletedPrescription, 
+    caseRecordCheckLock, 
+    async (req, res) => {
+    const uuid_caseRecord = req.body.uuid_caseRecord;
+    const caseRecordLockKey = `redlock-caseRecordLock-${ uuid_caseRecord }`;
+    const caseRecordLockKey_dataCache = `caseRecordLock-${ uuid_caseRecord }`;
     const doctorOrPharmacistLock = await serviceRedlock.acquire([caseRecordLockKey], 10000);
     const isDeleteKey = await serviceRedis.deleteData(caseRecordLockKey_dataCache);
     await doctorOrPharmacistLock.release();
@@ -455,9 +548,16 @@ router.delete('/caseRecord/deleteLock', Authentication, doctorOrPharmacistAndPat
     }
 })
 
-router.patch('/caseRecord/patchSatusIsCompletedPrescription', Authentication, doctorOrPharmacistRole, caseRecordCheckLock, completed, completedPrescription, (req, res) => {
-    const caseRecord = req.body.caseRecord;
-    const uuid_caseRecord = caseRecord.uuid_caseRecord;
+router.patch('/caseRecord/patchStatusIsCompletedPrescription', 
+    Authentication, 
+    getCaseRecordMid, 
+    doctorOrPharmacistRole, 
+    isCurrentPage, 
+    isNotCompleted, 
+    isNotCompletedPrescription, 
+    caseRecordCheckLock, 
+    (req, res) => {
+    const uuid_caseRecord = req.body.uuid_caseRecord;
     caseRecordCRUD.completedPrescription(uuid_caseRecord, (caseRecord, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
@@ -480,10 +580,19 @@ router.patch('/caseRecord/patchSatusIsCompletedPrescription', Authentication, do
     })
 })
 
-router.patch('/caseRecord/patchSatusIsCompleted', Authentication, patientRole, caseRecordCheckLock, completed, isCompletedPrescription, (req, res) => {
-    const caseRecord = req.body.caseRecord;
-    const uuid_caseRecord = caseRecord.uuid_caseRecord;
-    caseRecordCRUD.completed(uuid_caseRecord, (caseRecord, err) => {
+router.patch('/caseRecord/patchStatusIsCompleted', 
+    Authentication, 
+    getCaseRecordMid, 
+    patientRole, 
+    isCurrentPage, 
+    isNotCompleted, 
+    isCompletedPrescription, 
+    caseRecordCheckLock, 
+    (req, res) => {
+    const uuid_caseRecord = req.body.uuid_caseRecord;
+    const pageNumber = req.body.pageNumber;
+    const newCurrentPage = (Number(pageNumber) + 1).toString();
+    caseRecordCRUD.completed(uuid_caseRecord, newCurrentPage, (caseRecord, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
@@ -499,6 +608,71 @@ router.patch('/caseRecord/patchSatusIsCompleted', Authentication, patientRole, c
                     caseRecord: caseRecord,
                     success: true,
                     message: 'completed successly !'
+                });
+            }
+        }
+    })
+})
+
+router.patch('/caseRecord/doctorOrPharmacistRequirePrescriptionAgain', 
+    Authentication, 
+    getCaseRecordMid, 
+    doctorOrPharmacistRole, 
+    isCurrentPage, 
+    isCompletedOrIsCompletedPrescription,
+    (req, res) => {
+    const uuid_caseRecord = req.body.uuid_caseRecord;
+
+    caseRecordCRUD.doctorOrPharmacistRequirePrescriptionAgain(uuid_caseRecord, (caseRecord, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send(err);
+        } else {
+            if (caseRecord && caseRecord === null) {
+                return res.status(200).json({
+                    caseRecord: caseRecord,
+                    success: false,
+                    message: 'doctorOrPharmacistRequirePrescriptionAgain NOT successly !'
+                });
+            } else {
+                return res.status(200).json({
+                    caseRecord: caseRecord,
+                    success: true,
+                    message: 'doctorOrPharmacistRequirePrescriptionAgain successly !'
+                });
+            }
+        }
+    })
+})
+
+router.patch('/caseRecord/patientAgreeRequirePrescriptionAgain', 
+    Authentication, 
+    getCaseRecordMid, 
+    doctorOrPharmacistRole, 
+    isCurrentPage,
+    isCompletedOrIsCompletedPrescription, 
+    (req, res) => {
+    const caseRecord = req.body.caseRecord;
+    const uuid_caseRecord = caseRecord.uuid_caseRecord;
+    const currentPage = req.currentPage;
+    const newCurrentPage = (Number(currentPage) - 1).toString();
+
+    caseRecordCRUD.patientAgreeRequirePrescriptionAgain(uuid_caseRecord, newCurrentPage, (caseRecord, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send(err);
+        } else {
+            if (caseRecord && caseRecord === null) {
+                return res.status(200).json({
+                    caseRecord: caseRecord,
+                    success: false,
+                    message: 'doctorOrPharmacistRequirePrescriptionAgain NOT successly !'
+                });
+            } else {
+                return res.status(200).json({
+                    caseRecord: caseRecord,
+                    success: true,
+                    message: 'doctorOrPharmacistRequirePrescriptionAgain successly !'
                 });
             }
         }

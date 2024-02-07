@@ -35,6 +35,11 @@ class CaseRecord {
                     try {
                         const isCaseRecord = await this._CaseRecord.findByPk(
                             uuid_caseRecord, 
+                            {
+                                where: {
+                                    status: 'delete'
+                                }
+                            },
                             { transaction: t }
                         );
                         resolve(isCaseRecord);   
@@ -311,7 +316,7 @@ class CaseRecord {
         })
     }
 
-    completed(uuid_caseRecord, callback) {
+    completed(uuid_caseRecord, newCurrentPage, callback) {
         let caseRecord;
         let err;
         
@@ -328,6 +333,7 @@ class CaseRecord {
                             },
                             { lock: true, transaction: t },
                         );
+                        isCaseRecord.currentPage = newCurrentPage;
                         isCaseRecord.status = 'completed';
                         await isCaseRecord.save({ transaction:t });
                         resolve(isCaseRecord);   
@@ -336,6 +342,221 @@ class CaseRecord {
                     }
                 });
             } catch (error) {
+                reject(error);
+            }
+        });
+
+        caseRecordPromise
+        .then(isCaseRecord => {
+            caseRecord = isCaseRecord;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(caseRecord, err);
+        })
+    }
+
+    doctorOrPharmacistRequirePrescriptionAgain(uuid_caseRecord, callback) {
+        let caseRecord;
+        let err;
+
+        const caseRecordPromise = new Promise(async (resolve, reject) => {
+            const caseRecord_t = await sequelize.transaction();
+            try {
+                // const isCaseRecordDescription = await this._CaseRecordDescription.findOne(
+                //     {
+                //         where: {
+                //             uuid_caseRecord: uuid_caseRecord,
+                //             [Op.not]: {
+                //                 [Op.or]: [
+                //                     { status: 'delete' }
+                //                 ]
+                //             }
+                //         }
+                //     },
+                //     { limit: 1, lock: true, transaction: caseRecord_t },
+                // );
+                // isCaseRecordDescription.status = 'notYetComplete';
+                // await isCaseRecordDescription.save({ transaction: caseRecord_t });
+
+                // const isCaseRecordImage = await this._CaseRecordImage.update({
+                //     status: 'notYetComplete'
+                // },
+                //     {
+                //         where: {
+                //             uuid_caseRecord: uuid_caseRecord,
+                //             [Op.not]: {
+                //                 [Op.or]: [
+                //                     { status: 'delete' }
+                //                 ]
+                //             }
+                //         }
+                //     },
+                //     { limit: 1, lock: true, transaction: caseRecord_t },
+                // );
+                // // isCaseRecordImage.status = 'completed';
+                // // await isCaseRecordImage.save({ transaction:t });
+
+                // const isCaseRecordPrescription = await this._CaseRecordPrescription.findOne(
+                //     {
+                //         where: {
+                //             uuid_caseRecord: uuid_caseRecord,
+                //             [Op.not]: {
+                //                 [Op.or]: [
+                //                     { status: 'delete' }
+                //                 ]
+                //             }
+                //         }
+                //     },
+                //     { limit: 1, lock: true, transaction: caseRecord_t },
+                // );
+                // isCaseRecordPrescription.status = 'notYetComplete';
+                // await isCaseRecordPrescription.save({ transaction: caseRecord_t });
+
+                // const isCaseRecordMedication = await this._CaseRecordMedication.update({
+                //     status: 'notYetComplete'
+                // },
+                //     {
+                //         where: {
+                //             uuid_caseRecord: uuid_caseRecord,
+                //             [Op.not]: {
+                //                 [Op.or]: [
+                //                     { status: 'delete' }
+                //                 ]
+                //             }
+                //         }
+                //     },
+                //     { limit: 1, lock: true, transaction: caseRecord_t },
+                // );
+                // // isCaseRecordMedication.status = 'completed';
+                // // await isCaseRecordMedication.save({ transaction: caseRecord_t });
+
+                const isCaseRecord = await this._CaseRecord.findByPk(
+                    uuid_caseRecord,
+                    {
+                        where: {
+                            status: 'notComplete'
+                        }
+                    },
+                    { limit: 1, lock: true, transaction: caseRecord_t },
+                );
+                isCaseRecord.status = 'doctorOrPharmacistRequirePrescribeAgain';
+                await isCaseRecord.save({ transaction: caseRecord_t });
+
+                await caseRecord_t.commit();
+
+                resolve(isCaseRecord);   
+
+            } catch (error) {
+                await caseRecord_t.rollback();
+                reject(error);
+            }
+        });
+
+        caseRecordPromise
+        .then(isCaseRecord => {
+            caseRecord = isCaseRecord;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(caseRecord, err);
+        })
+    }
+
+    patientAgreeRequirePrescriptionAgain(uuid_caseRecord, newCurrentPage, callback) {
+        let caseRecord;
+        let err;
+
+        const caseRecordPromise = new Promise(async (resolve, reject) => {
+            const caseRecord_t = await sequelize.transaction();
+            try {
+                const isCaseRecordDescription = await this._CaseRecordDescription.findOne(
+                    {
+                        where: {
+                            uuid_caseRecord: uuid_caseRecord,
+                            [Op.not]: {
+                                [Op.or]: [
+                                    { status: 'delete' }
+                                ]
+                            }
+                        }
+                    },
+                    { limit: 1, lock: true, transaction: caseRecord_t },
+                );
+                isCaseRecordDescription.status = 'notYetComplete';
+                await isCaseRecordDescription.save({ transaction: caseRecord_t });
+
+                const isCaseRecordImage = await this._CaseRecordImage.update({
+                    status: 'notYetComplete'
+                },
+                    {
+                        where: {
+                            uuid_caseRecord: uuid_caseRecord,
+                            [Op.not]: {
+                                [Op.or]: [
+                                    { status: 'delete' }
+                                ]
+                            }
+                        }
+                    },
+                    { limit: 1, lock: true, transaction: caseRecord_t },
+                );
+                // isCaseRecordImage.status = 'completed';
+                // await isCaseRecordImage.save({ transaction:t });
+
+                const isCaseRecordPrescription = await this._CaseRecordPrescription.findOne(
+                    {
+                        where: {
+                            uuid_caseRecord: uuid_caseRecord,
+                            [Op.not]: {
+                                [Op.or]: [
+                                    { status: 'delete' }
+                                ]
+                            }
+                        }
+                    },
+                    { limit: 1, lock: true, transaction: caseRecord_t },
+                );
+                isCaseRecordPrescription.status = 'notYetComplete';
+                await isCaseRecordPrescription.save({ transaction: caseRecord_t });
+
+                const isCaseRecordMedication = await this._CaseRecordMedication.update({
+                    status: 'notYetComplete'
+                },
+                    {
+                        where: {
+                            uuid_caseRecord: uuid_caseRecord,
+                            [Op.not]: {
+                                [Op.or]: [
+                                    { status: 'delete' }
+                                ]
+                            }
+                        }
+                    },
+                    { limit: 1, lock: true, transaction: caseRecord_t },
+                );
+                // isCaseRecordMedication.status = 'completed';
+                // await isCaseRecordMedication.save({ transaction: caseRecord_t });
+
+                const isCaseRecord = await this._CaseRecord.findByPk(
+                    uuid_caseRecord,
+                    {
+                        where: {
+                            status: 'notComplete'
+                        }
+                    },
+                    { limit: 1, lock: true, transaction: caseRecord_t },
+                );
+                isCaseRecord.currentPage = newCurrentPage;
+                isCaseRecord.status = 'notYetComplete';
+                await isCaseRecord.save({ transaction: caseRecord_t });
+
+                await caseRecord_t.commit();
+
+                resolve(isCaseRecord);   
+
+            } catch (error) {
+                await caseRecord_t.rollback();
                 reject(error);
             }
         });

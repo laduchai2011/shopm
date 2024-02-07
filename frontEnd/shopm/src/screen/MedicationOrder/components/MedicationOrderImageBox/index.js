@@ -11,8 +11,8 @@ const MedicationOrderImageBox = ({ data, setToastImage }) => {
 
     return (
         <div className='MedicationOrder-Image-list-imageBox'>
-            <img src={data} alt=''/>
-            <div className='MedicationOrder-Image-list-imageBox-overlay'><strong onClick={() => handleViewImage(data)}>View</strong></div>
+            <img src={ data?.image } alt=''/>
+            <div className='MedicationOrder-Image-list-imageBox-overlay'><strong onClick={() => handleViewImage(data?.image)}>View</strong></div>
         </div>
     )
 }

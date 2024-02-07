@@ -4,6 +4,7 @@ const { defineModel } = require('../defineModel');
 
 /**
 *@typedef {
+*title: string,
 *type: string,
 *pageNumber: string,
 *status: string,
@@ -28,6 +29,56 @@ class ORDERMEDICATION {
                     try {
                         const newOrderMedication = await this._OrderMedication.findByPk(
                             uuid_orderMedication, 
+                            {
+                                where: {
+                                    [Op.not]: {
+                                        [Op.or]: [
+                                            { status: 'notYetCreate' },
+                                            { status: 'delete' }
+                                        ]
+                                    }
+                                }
+                            },
+                            { transaction: t }
+                        );
+                        resolve(newOrderMedication);  
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        orderMedicationPromise
+        .then(newOrderMedication => {
+            orderMedication = newOrderMedication;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(orderMedication, err);
+        })
+    }
+
+    readWithUuid(uuid_orderMedication, callback) {
+        let orderMedication;
+        let err;
+        
+        const orderMedicationPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const newOrderMedication = await this._OrderMedication.findByPk(
+                            uuid_orderMedication,
+                            {
+                                where: {
+                                    [Op.or]: [
+                                        {[Op.not]: { status: 'notYetCreate' }},
+                                        {[Op.not]: { status: 'delete' }}
+                                    ]
+                                }
+                            },
                             { transaction: t }
                         );
                         resolve(newOrderMedication);  
@@ -62,7 +113,11 @@ class ORDERMEDICATION {
                             {
                                 where: {
                                     pageNumber: pageNumber,
-                                    uuid_caseRecord: uuid_caseRecord
+                                    uuid_caseRecord: uuid_caseRecord,
+                                    [Op.or]: [
+                                        {[Op.not]: { status: 'notYetCreate' }},
+                                        {[Op.not]: { status: 'delete' }}
+                                    ]
                                 }
                             },
                             { transaction: t }
@@ -97,7 +152,13 @@ class ORDERMEDICATION {
                     try {
                         const newOrderMedications = await this._OrderMedication.findAll({
                             where: {
-                                uuid_orderAllMedication: uuid_orderAllMedication
+                                uuid_orderAllMedication: uuid_orderAllMedication,
+                                [Op.not]: {
+                                    [Op.or]: [
+                                        { status: 'notYetCreate' },
+                                        { status: 'delete' }
+                                    ]
+                                }
                             }
                         }, { transaction: t });
                         resolve(newOrderMedications);  

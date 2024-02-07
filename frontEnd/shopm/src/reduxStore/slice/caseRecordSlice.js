@@ -12,11 +12,21 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     current_caseRecordMedication: null, 
     index: 0, 
-    caseRecordLockOptions: null,
     current_caseRecordImage: null,
     current_pageNumber: null,
-    toastCompletedPrescriptionPage: {
-        message: ''
+    caseRecord_orderMedication: {
+        caseRecord: null,
+        pageNumber: null
+    },
+    caseRecordToastMessageOptions: {
+        currentPage: null,
+        completed: null,
+        completedPrescription: null,
+        completedOrCompletedPrescription: null,
+        doctorOrPharmacistRequirePrescriptionAgain: null,
+        locked: null,
+        orderMedication: null,
+        type: null
     }
 }
 
@@ -28,27 +38,58 @@ export const caseRecordSlice = createSlice({
             state.current_caseRecordMedication = action.payload.caseRecordMedication;
             state.index = action.payload.index;
         },
-        setCaseRecordLockRd: (state, action) => {
-            state.caseRecordLockOptions = action.payload.caseRecordLockOptions;
-        },
         setCurrent_caseRecordImage: (state, action) => {
             state.current_caseRecordImage = action.payload.caseRecordImage;
         },
         setCurrent_pageNumber: (state, action) => {
             state.current_pageNumber = action.payload.current_pageNumber;
         },
-        setToastCompletedPrescriptionPage: (state, action) => {
-            state.toastCompletedPrescriptionPage = action.payload.toastCompletedPrescriptionPage;
-        }
+        setCaseRecord_orderMedication: (state, action) => {
+            state.caseRecord_orderMedication = action.payload;
+        },
+
+        setIsCurrentPage: (state, action) => {
+            state.caseRecordToastMessageOptions.currentPage = action.payload;
+            state.caseRecordToastMessageOptions.type = action.payload.checkedType;
+        },
+        setIsCompleted: (state, action) => {
+            state.caseRecordToastMessageOptions.completed = action.payload;
+            state.caseRecordToastMessageOptions.type = action.payload.checkedType;
+        },
+        setIsCompletedPrescription: (state, action) => {
+            state.caseRecordToastMessageOptions.completedPrescription = action.payload;
+            state.caseRecordToastMessageOptions.type = action.payload.checkedType;
+        },
+        setIsCompletedOrIsCompletedPrescription: (state, action) => {
+            state.caseRecordToastMessageOptions.completedPrescription = action.payload;
+            state.caseRecordToastMessageOptions.type = action.payload.checkedType;
+        },
+        setIsLocked: (state, action) => {
+            state.caseRecordToastMessageOptions.locked = action.payload;
+            state.caseRecordToastMessageOptions.type = action.payload.checkedType;
+        },
+        setIsOrderMedicationWithCaseRecord: (state, action) => {
+            state.caseRecordToastMessageOptions.orderMedication = action.payload;
+            state.caseRecordToastMessageOptions.type = action.payload.checkedType;
+        },
+        setCaseRecordToastMessageType: (state, action) => {
+            state.caseRecordToastMessageOptions.type = action.payload;
+        },
     }
 })
 
 export const { 
     setCurrent_caseRecordMedication,
-    setCaseRecordLockRd,
     setCurrent_caseRecordImage,
     setCurrent_pageNumber,
-    setToastCompletedPrescriptionPage
+    setCaseRecord_orderMedication,
+    setIsCurrentPage,
+    setIsCompleted,
+    setIsCompletedPrescription,
+    setIsCompletedOrIsCompletedPrescription,
+    setIsLocked,
+    setIsOrderMedicationWithCaseRecord,
+    setCaseRecordToastMessageType
 } = caseRecordSlice.actions;
 
 const caseRecordReducer = caseRecordSlice.reducer;

@@ -2,7 +2,7 @@
 const { orderMedicationCRUD } = require('../../model/CRUDDATABASE/CRUD_OrderMedication');
 const { logEvents } = require('../../../logEvents');
 
-function checkOrderMedicationWithCaseRecord(req, res, next) {
+function isOrderMedicationWithCaseRecord(req, res, next) {
     const uuid_caseRecord = req.body.uuid_caseRecord;
     const pageNumber = req.body.pageNumber;
 
@@ -14,9 +14,10 @@ function checkOrderMedicationWithCaseRecord(req, res, next) {
             if (orderMedication && orderMedication!==null) {
                 return res.status(200).json({ 
                     orderMedication: orderMedication,
-                    message: "OrderMedicationWithCaseRecord is exist !",
+                    message: "This order is exist !",
                     success: false,
-                    isOrderMedication: true
+                    isOrderMedication: true,
+                    checkedType: 'orderMedication',
                 })
             }
             next();
@@ -24,4 +25,4 @@ function checkOrderMedicationWithCaseRecord(req, res, next) {
     })
 }
 
-module.exports = { checkOrderMedicationWithCaseRecord }
+module.exports = { isOrderMedicationWithCaseRecord }

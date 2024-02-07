@@ -2,7 +2,7 @@
 const { caseRecordRole } = require('../../middle/caseRecordRole');
 
 function patientRole(req, res, next) {
-    const caseRecord = req.body.caseRecord;
+    const caseRecord = req.caseRecordMid;
     const userOptions = req.decodedToken.data;
     caseRecordRole.setUp({caseRecord: caseRecord, user: userOptions});
     caseRecordRole.checkRole((isRole, caseRecordRole) => {

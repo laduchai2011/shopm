@@ -8,15 +8,13 @@ import { TiDelete } from "react-icons/ti";
 import { IoIosAddCircleOutline } from "react-icons/io";
 
 import { useAddCaseRecordImageMutation } from "reduxStore/RTKQuery/caseRecordRTKQuery";
-import { setCaseRecordLockRd } from "reduxStore/slice/caseRecordSlice";
+
+import { handleCaseRecordMid } from "../utilize";
 
 import { 
     SERVER_ADDRESS_UPLOADIMAGE,
     SERVER_ADDRESS_GETIMAGE
 } from "config/server";
-import { 
-    setToastCompletedPrescriptionPage 
-} from "reduxStore/slice/caseRecordSlice";
 
 import { $ } from "utilize/Tricks";
 
@@ -29,6 +27,16 @@ import { $ } from "utilize/Tricks";
 *uuid_caseRecord: uuid
 *} caseRecordImageOptions
 */  
+
+/**
+*@typedef {
+*isCheckCurrentPage: boolean,
+*isCheckCompleted: boolean,
+*isCheckCompletedPrescription: boolean,
+*isCheckCompletedOrCompletedPrescription: boolean,
+*isCheckLock: boolean
+*} isCheckCaseRecordMidOptions
+*/ 
 
 const CaseRecordAddImage = ({ caseRecord }) => {
     const dispatch = useDispatch();
@@ -96,28 +104,26 @@ const CaseRecordAddImage = ({ caseRecord }) => {
                 uuid_caseRecord: caseRecord.uuid_caseRecord
             }
             addCaseRecordImage({
-                caseRecord: caseRecord,
-                caseRecordImageOptions: caseRecordImageOptions,
-                pageNumber: current_pageNumber
+                uuid_caseRecord: caseRecord.uuid_caseRecord,
+                pageNumber: current_pageNumber,
+                caseRecordImageOptions: caseRecordImageOptions
             }).then(res => {
                 const resData = res.data;
-                if (resData?.success) {} else {
-                    if (resData?.lock) {
-                        dispatch(setCaseRecordLockRd({caseRecordLockOptions: resData?.caseRecordLockOptions}));
+                if (resData?.success===false) {
+                    const isCheckCaseRecordMidOptions = {
+                        isCheckCurrentPage: true,
+                        isCheckCompleted: true,
+                        isCheckCompletedPrescription: true,
+                        isCheckCompletedOrCompletedPrescription: false,
+                        isCheckLocked: true,
+                        isCheckOrderMedication: false
                     }
-                    if (resData?.completedPage) {
-                        $('.CaseRecordToastCompletedPage').classList.add('show');
-                    }
-                    if (resData?.completedPrescription) {
-                        dispatch(setToastCompletedPrescriptionPage({
-                            toastCompletedPrescriptionPage: {
-                                message: 'This page is completed Prescription !!! You can NOT change it'
-                            }
-                        }))
-                        $('.CaseRecordToastCompletedPrescriptionPage').classList.add('show');
-                    }
+                    handleCaseRecordMid({
+                        isCheckCaseRecordMidOptions: isCheckCaseRecordMidOptions,
+                        resData: resData,
+                        dispatch: dispatch
+                    })
                 }
-                removeCaseRecordAddImage();
             }).catch(err => console.error(err))
         } catch (error) {
             console.error(error);

@@ -1,11 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { 
     SERVER_ADDRESS_ORDERMEDICATION_GET_WITH_CASERECORD,
-    SERVER_ADDRESS_ORDERMEDICATION_CREATE_WITH_CASERECORD
+    SERVER_ADDRESS_ORDERMEDICATION_CREATE_WITH_CASERECORD,
+    SERVER_ADDRESS_ORDERMEDICATION_GET_WITH_UUID,
+    SERVER_ADDRESS_ORDERMEDICATION_GET_HISTORIES_WITH_FK
 } from 'config/server';
 
 /**
 *@typedef {
+*title: string,
 *type: string,
 *pageNumber: string,
 *status: string,
@@ -20,9 +23,26 @@ import {
 *step: string,
 *isCompleted: text,
 *status: string,
-*uuid_orderMedication: uuid,
-*uuid_user: uuid
+*uuid_orderMedication: uuid
 *} historyOptions
+*/ 
+
+/**
+*@typedef {
+*type: string,
+*information: text,
+*status: string,
+*uuid_orderMedication: uuid
+*} transportOptions
+*/ 
+    
+/**
+*@typedef {
+*type: string,
+*information: text,
+*status: string,
+*uuid_orderMedication: uuid
+*} paymentMedicationOptions
 */ 
 
 // Define a service using a base URL and expected endpoints
@@ -30,10 +50,25 @@ export const orderMedicationRTKQuery = createApi({
     reducerPath: 'orderMedicationRTKQuery',
     baseQuery: fetchBaseQuery({ baseUrl: '' }),
     tagTypes:[
-        'orderMedication'
+        'orderMedication',
+        'history'
     ],
     endpoints: (builder) => ({
         // query
+        getOrderMedicationWithUuid: builder.query({
+            query: ({uuid_orderMedication}) => ({
+                url: `${SERVER_ADDRESS_ORDERMEDICATION_GET_WITH_UUID}?uuid_orderMedication=${ uuid_orderMedication }`,
+                credentials: "include"
+            }),
+            providesTags: [{type: 'orderMedication'}]
+        }),
+        getHistoriesWithFK: builder.query({
+            query: ({uuid_orderMedication}) => ({
+                url: `${SERVER_ADDRESS_ORDERMEDICATION_GET_HISTORIES_WITH_FK}?uuid_orderMedication=${ uuid_orderMedication }`,
+                credentials: "include"
+            }),
+            providesTags: [{type: 'history'}]
+        }),
         getOrderMedicationWithCaseRecord: builder.query({
             query: ({uuid_caseRecord, pageNumber}) => ({
                 url: `${SERVER_ADDRESS_ORDERMEDICATION_GET_WITH_CASERECORD}?pageNumber=${ pageNumber }&uuid_caseRecord=${ uuid_caseRecord }`,
@@ -66,6 +101,8 @@ export const orderMedicationRTKQuery = createApi({
 })
 
 export const { 
+    useGetOrderMedicationWithUuidQuery,
+    useGetHistoriesWithFKQuery,
     useGetOrderMedicationWithCaseRecordQuery,
     useCreateOrderMedicationWithCaseRecordMutation
 } = orderMedicationRTKQuery;

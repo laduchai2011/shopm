@@ -25,9 +25,9 @@ svMessage.init();
 
 /**
 *@typedef {
-*caseRecord: caseRecord,
+*uuid_caseRecord: uuid_caseRecord,
 *caseRecordRole: string, doctorOrPharmacist or patient
-*isLock: boolean,
+*isLocked: boolean,
 *pageNumber: string
 *} caseRecordLockOptions
 */ 

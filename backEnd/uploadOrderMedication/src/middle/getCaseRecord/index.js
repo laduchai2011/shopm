@@ -9,7 +9,6 @@ async function getCaseRecord(uuid_caseRecord) {
         function getCaseRecordFc(message) {
             const caseRecord = JSON.parse(message).caseRecord;
             const id = JSON.parse(message).id;
-            console.log(222222222222222, JSON.parse(message))
             if (_id === id) {
                 resolve(caseRecord);
             }

@@ -5,8 +5,7 @@ import { useParams } from "react-router-dom";
 
 import { useDispatch } from 'react-redux';
 import { 
-    setCurrent_caseRecordMedication,
-    setCaseRecordLockRd 
+    setCurrent_caseRecordMedication
 } from "reduxStore/slice/caseRecordSlice";
 import { ThemeContextApp } from 'utilize/ContextApp';
 
@@ -40,11 +39,11 @@ import {
     useGetCaseRecordMedicationsAllQuery,
     useDeleteCaseRecordLockMutation,
     useCompletedPrescriptionMutation,
-    useCompletedMutation
+    useCompletedMutation,
+    useDopReqPrescriptionAgainMutation
 } from "reduxStore/RTKQuery/caseRecordRTKQuery";
 import { 
-    useGetOrderMedicationWithCaseRecordQuery,
-    useCreateOrderMedicationWithCaseRecordMutation
+    useGetOrderMedicationWithCaseRecordQuery
 } from "reduxStore/RTKQuery/orderMedicationRTKQuery";
 import { usePatchCurrentCartMutation } from "reduxStore/RTKQuery/currentCartRTKQuery";
 import { useLazyGetMedicationQuery } from "reduxStore/RTKQuery/medicationRTKQuery";
@@ -54,8 +53,21 @@ import {
 } from "reduxStore/RTKQuery/doctorOrPharmacistRTKQuery";
 import { 
     setCurrent_pageNumber,
-    setToastCompletedPrescriptionPage 
+    setCaseRecord_orderMedication
 } from "reduxStore/slice/caseRecordSlice";
+
+import { 
+    handleCaseRecordMid,
+    handleCaseRecordCondition,
+    isCurrentPage,
+    isCompleted, 
+    // isNotCompleted, 
+    // isCompletedPrescription,
+    // isNotCompletedPrescription,
+    isCompletedOrIsCompletedPrescription,
+    isLocked,
+    isNotLocked 
+} from "../utilize";
 
 /**
 *@typedef {
@@ -122,15 +134,7 @@ import {
 
 /**
 *@typedef {
-*caseRecord: caseRecord,
-*caseRecordRole: string, doctorOrPharmacist or patient
-*isLock: boolean,
-*pageNumber: string
-*} caseRecordLockOptions
-*/ 
-
-/**
-*@typedef {
+*title: string,
 *type: string,
 *pageNumber: string,
 *status: string,
@@ -140,27 +144,58 @@ import {
 *} orderMedicationOptions
 */ 
 
+/**
+*@typedef {
+*uuid_caseRecord: uuid_caseRecord,
+*caseRecordRole: string, doctorOrPharmacist or patient
+*isLocked: boolean,
+*pageNumber: string
+*} caseRecordLockOptions
+*/ 
+
+/**
+*@typedef {
+*isCheckCurrentPage: boolean,
+*isCheckCompleted: boolean,
+*isCheckCompletedPrescription: boolean,
+*isCheckCompletedOrCompletedPrescription: boolean,
+*isCheckOrderMedication: boolean
+*isCheckLock: boolean
+*} isCheckCaseRecordMidOptions
+*/ 
+
+/**
+*@typedef {
+*type: string,
+*notification: text,
+*status: string,  // sent - receved - seen - read - deleted / 1 - 2 - 3 - 4 - 5
+*uuid_user: uuid
+*} notificationOptions
+*/  
+
+/**
+*@typedef {
+*title: string, 
+*type: string,
+*uuid_userSent: string,
+*data: json
+*} notification
+*/
+
 const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
     const { id: uuid_caseRecord } = useParams();
     const index = 0;
     const dispatch = useDispatch();
     const { loginInfor } = useContext(ThemeContextApp);
-    const completedPrescriptionStatus = caseRecordRole==='doctorOrPharmacist' && caseRecord?.status!=='completedPrescription' && caseRecord?.status!=='completed'; 
-    const completedStatus = caseRecordRole==='patient' && caseRecord?.status!=='completed';
-    const rescriptionAgainStatus = caseRecordRole==='doctorOrPharmacist' && (caseRecord?.status==='completedPrescription' || caseRecord?.status==='completed'); 
-    const orderStatus = caseRecordRole==='patient' && caseRecord?.status==='completed';
-    const completedOrCompletedPrescriptionStatus = () => {
-        if (caseRecord?.status==='completed' || caseRecord?.status!=='completedPrescription') {
-            return true;
-        }
-        return false;
-    }
 
-    const [createNotification] = useCreateNotificationMutation();
-
+    const [completedStatus, setCompletedStatus] = useState(false);
+    const [completedOrCompletedPrescriptionStatus, setCompletedOrCompletedPrescriptionStatus] = useState(false);
+    const [orderStatus, setOrderStatus] = useState(false);
+    const [lockedStatus, setLockedStatus] = useState(false);
     const [editBoolD, setEditBoolD] = useState(false);
     const [editBoolP, setEditBoolP] = useState(false);
 
+    const [createNotification] = useCreateNotificationMutation();
     const [postCaseRecordLock] = usePostCaseRecordLockMutation();
     const [patchCaseRecordDescription] = usePatchCaseRecordDescriptionMutation();
     const [patchCaseRecordPrescription] = usePatchCaseRecordPrescriptionMutation();
@@ -169,7 +204,7 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
     const [deleteCaseRecordLock] = useDeleteCaseRecordLockMutation();
     const [completedPrescription] = useCompletedPrescriptionMutation();
     const [completed] = useCompletedMutation();
-    const [createOrderMedicationWithCaseRecord] = useCreateOrderMedicationWithCaseRecordMutation();
+    const [dopReqPrescriptionAgain] = useDopReqPrescriptionAgainMutation();
 
     const {
         data: data_description, 
@@ -299,6 +334,7 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
         isError_caseRecordLock && console.log(error_caseRecordLock);
     }, [isError_caseRecordLock, error_caseRecordLock])
     useEffect(() => {
+        // console.log('caseRecordLock', data_caseRecordLock?.caseRecordLock)
         setCaseRecordLock(data_caseRecordLock?.caseRecordLock);
     }, [data_caseRecordLock])
 
@@ -317,14 +353,27 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
         if (editBoolP) {
             setEditBoolP(false);
             patchCaseRecordPrescription({
-                caseRecord: caseRecord,
+                uuid_caseRecord: uuid_caseRecord,
+                pageNumber: (index + 1).toString(),
                 uuid_caseRecordPrescription: data_prescription?.caseRecordPrescription?.uuid_caseRecordPrescription,
-                prescription: TEGetContent(index),
-                pageNumber: (index + 1).toString()
+                prescription: TEGetContent(index)
             }).then(res => {
                 const resData = res.data
-                if (!resData.success) {
-                    dispatch(setCaseRecordLockRd({caseRecordLockOptions: resData.caseRecordLockOptions}));
+                if (resData?.success===false) {
+                    const isCheckCaseRecordMidOptions = {
+                        isCheckCurrentPage: true,
+                        isCheckCompleted: true,
+                        isCheckCompletedPrescription: false,
+                        isCheckCompletedOrCompletedPrescription: false,
+                        isCheckLocked: true,
+                        isCheckOrderMedication: false
+                    }
+    
+                    handleCaseRecordMid({
+                        isCheckCaseRecordMidOptions: isCheckCaseRecordMidOptions,
+                        resData: resData,
+                        dispatch: dispatch
+                    })
                 }
             }).catch(err => console.error(err))
         }
@@ -333,20 +382,29 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
     const handleSaveD = () => {
         if (editBoolD) {
             patchCaseRecordDescription({
-                caseRecord: caseRecord,
+                uuid_caseRecord: uuid_caseRecord,
+                pageNumber: (index + 1).toString(),
                 uuid_caseRecordDescription: data_description?.caseRecordDescription?.uuid_caseRecordDescription,
                 description: description
             }).then(res => {
                 const resData = res.data
-                if (resData.success) {
+                if (resData?.success) {
                     setEditBoolD(false);
-                } else {
-                    if (resData?.lock) {
-                        dispatch(setCaseRecordLockRd({caseRecordLockOptions: resData.caseRecordLockOptions}));
+                } else if (resData?.success===false) {
+                    const isCheckCaseRecordMidOptions = {
+                        isCheckCurrentPage: true,
+                        isCheckCompleted: true,
+                        isCheckCompletedPrescription: true,
+                        isCheckCompletedOrCompletedPrescription: false,
+                        isCheckLocked: true,
+                        isCheckOrderMedication: false
                     }
-                    if (resData?.completedPage) {
-                        $('.CaseRecordToastCompletedPage').classList.add('show');
-                    }
+    
+                    handleCaseRecordMid({
+                        isCheckCaseRecordMidOptions: isCheckCaseRecordMidOptions,
+                        resData: resData,
+                        dispatch: dispatch
+                    })
                 }
             }).catch(err => console.error(err))
         }
@@ -364,7 +422,7 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
     }
 
     const handleAddImages = () => {
-        dispatch(setCurrent_pageNumber({current_pageNumber: index + 1}));
+        dispatch(setCurrent_pageNumber({current_pageNumber: (index + 1).toString()}));
         $('.CaseRecordAddImage').classList.add('show');
     }
 
@@ -447,7 +505,7 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
             uuid_userSent: loginInfor?.uuid, 
             data: {
                 caseRecord: caseRecord, 
-                pageIndex: index + 1,
+                pageNumber: (index + 1).toString(),
                 caseRecordMedication: caseRecordMedication
             }
         }
@@ -467,7 +525,7 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
             uuid_userSent: loginInfor?.uuid, 
             data: {
                 caseRecord: caseRecord, 
-                pageIndex: index + 1
+                pageIndex: (index + 1).toString()
             }
         }
 
@@ -481,51 +539,150 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
 
     const handleLock = () => {
         postCaseRecordLock({
-            caseRecord: caseRecord,
+            uuid_caseRecord: uuid_caseRecord,
             pageNumber: (index + 1).toString()
         }).then(res => {
-            const resData = res.data
-            if (!resData.success) {
-                dispatch(setCaseRecordLockRd({caseRecordLockOptions: resData.caseRecordLockOptions}));
+            const resData = res.data;
+            if (resData?.success===false) {
+                const isCheckCaseRecordMidOptions = {
+                    isCheckCurrentPage: true,
+                    isCheckCompleted: true,
+                    isCheckCompletedPrescription: true,
+                    isCheckCompletedOrCompletedPrescription: false,
+                    isCheckLocked: true,
+                    isCheckOrderMedication: false
+                }
+
+                handleCaseRecordMid({
+                    isCheckCaseRecordMidOptions: isCheckCaseRecordMidOptions,
+                    resData: resData,
+                    dispatch: dispatch
+                })
             }
         }).catch(err => console.error(err))
     }
 
     const handleUnLock = () => {
         deleteCaseRecordLock({
-            caseRecord: caseRecord,
+            uuid_caseRecord: uuid_caseRecord,
             pageNumber: (index + 1).toString()
         }).then(res => {
-            console.log('deleteCaseRecordLock', res.data)
+            const resData = res.data;
+            if (resData?.success===false) {
+                const isCheckCaseRecordMidOptions = {
+                    isCheckCurrentPage: true,
+                    isCheckCompleted: false,
+                    isCheckCompletedPrescription: false,
+                    isCheckCompletedOrCompletedPrescription: false,
+                    isCheckLocked: true,
+                    isCheckOrderMedication: false
+                }
+
+                handleCaseRecordMid({
+                    isCheckCaseRecordMidOptions: isCheckCaseRecordMidOptions,
+                    resData: resData,
+                    dispatch: dispatch
+                })
+            }
         }).catch(err => console.error(err))
     }
 
     const handleComplete = () => {
         if (caseRecordRole==='doctorOrPharmacist') {
             completedPrescription({
-                caseRecord: caseRecord,
+                uuid_caseRecord: uuid_caseRecord,
                 pageNumber: (index + 1).toString()
             }).then(res => {
-                // const resData = res.data;
+                const resData = res.data;
+                if (resData?.success===false) {
+                    const isCheckCaseRecordMidOptions = {
+                        isCheckCurrentPage: true,
+                        isCheckCompleted: true,
+                        isCheckCompletedPrescription: true,
+                        isCheckCompletedOrCompletedPrescription: false,
+                        isCheckLocked: true,
+                        isCheckOrderMedication: false
+                    }
+                    handleCaseRecordMid({
+                        isCheckCaseRecordMidOptions: isCheckCaseRecordMidOptions,
+                        resData: resData,
+                        dispatch: dispatch
+                    })
+                }
             }).catch(error => console.error(error))
+            .finally(() => {
+                handleUnLock();
+            })
         }
 
         if (caseRecordRole==='patient') {
             completed({
-                caseRecord: caseRecord,
+                uuid_caseRecord: uuid_caseRecord,
                 pageNumber: (index + 1).toString()
             }).then(res => {
                 const resData = res.data;
-                if (resData?.completedPrescription===false) {
-                    dispatch(setToastCompletedPrescriptionPage({
-                        toastCompletedPrescriptionPage: {
-                            message: 'This page is NOT completed Prescription yet !!! You need to wait it complete'
-                        }
-                    }))
-                    $('.CaseRecordToastCompletedPrescriptionPage').classList.add('show');
+                if (resData?.success===false) {
+                    const isCheckCaseRecordMidOptions = {
+                        isCheckCurrentPage: true,
+                        isCheckCompleted: true,
+                        isCheckCompletedPrescription: true,
+                        isCheckCompletedOrCompletedPrescription: false,
+                        isCheckLocked: true,
+                        isCheckOrderMedication: false
+                    }
+                    handleCaseRecordMid({
+                        isCheckCaseRecordMidOptions: isCheckCaseRecordMidOptions,
+                        resData: resData,
+                        dispatch: dispatch
+                    })
                 }
             }).catch(error => console.error(error))
+            .finally(() => {
+                handleUnLock();
+            })
         }
+
+        
+    }
+
+    const handleDopReqPrescriptionAgain = () => {
+        dopReqPrescriptionAgain({
+            uuid_caseRecord: uuid_caseRecord,
+            pageNumber: (index + 1).toString()
+        }).then(res => {
+            const resData = res.data;
+                if (resData?.success===false) {
+                    const isCheckCaseRecordMidOptions = {
+                        isCheckCurrentPage: true,
+                        isCheckCompleted: false,
+                        isCheckCompletedPrescription: false,
+                        isCheckCompletedOrCompletedPrescription: true,
+                        isCheckLocked: false,
+                        isCheckOrderMedication: false
+                    }
+                    handleCaseRecordMid({
+                        isCheckCaseRecordMidOptions: isCheckCaseRecordMidOptions,
+                        resData: resData,
+                        dispatch: dispatch
+                    })
+                } else if (resData?.success) {
+                    const notification = {
+                        title: 'Doctor or Pharmacist want to prescribe again !',
+                        type: 'dopReqPrescribeAgain',
+                        uuid_userSent: loginInfor?.uuid, 
+                        data: {
+                            caseRecord: caseRecord, 
+                            pageIndex: (index + 1).toString()
+                        }
+                    }
+                    createNotification({
+                        type: 'now',
+                        notification: JSON.stringify(notification),
+                        status: 'sent',
+                        uuid_user: data_doctorOrPharmacist?.doctorOrPharmacist?.uuid_user
+                    })
+                }
+        })
     }
 
     const list_image = imageAll.map((data, index) => {
@@ -576,23 +733,81 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
     }
 
     const handleOrder = () => {
-        const orderMedicationOptions = {
-            type: 'caseRecord',
-            pageNumber: (index + 1).toString(),
-            status: 'notCreateYet',
-            uuid_caseRecord: null,
-            uuid_orderMyself: null,
-            uuid_user: null
-        }
-
-        createOrderMedicationWithCaseRecord({
-            uuid_caseRecord: caseRecord.uuid_caseRecord,
-            pageNumber: (index + 1).toString(),
-            orderMedicationOptions: orderMedicationOptions
-        }).then(res => {
-            console.log('createOrderMedicationWithCaseRecord', res.data)
-        }).catch(err => console.error(err))
+        dispatch(setCaseRecord_orderMedication({
+            caseRecord: caseRecord,
+            pageNumber: (index + 1).toString()
+        }))
+        $('.CaseRecordOrder').classList.add('show');
     }
+
+    // check condition for case-record
+    useEffect(() => {
+        handleCondition_completedStatus();
+        handleCondition_completedOrCompletedPrescriptionStatus();
+        handleCondition_orderStatus();
+        handleCondition_lockedStatus();
+
+        // eslint-disable-next-line
+    }, [caseRecord, caseRecordRole, index, caseRecordLock])
+
+    function setUpDataForCRCondition (data, next) {
+        data.caseRecord = caseRecord;
+        data.caseRecordRole = caseRecordRole;
+        data.pageNumber = (index + 1).toString();
+        data.caseRecordLockOptions = caseRecordLock;
+        next();
+    }
+    const handleCondition_completedStatus = () => {
+        handleCaseRecordCondition(
+            setUpDataForCRCondition,
+            isCurrentPage,
+            isCompleted,
+            () => {
+                setCompletedStatus(true);
+            }
+        )
+    }
+    const handleCondition_completedOrCompletedPrescriptionStatus = () => {
+        handleCaseRecordCondition(
+            setUpDataForCRCondition,
+            isCurrentPage,
+            isCompletedOrIsCompletedPrescription,
+            () => {
+                setCompletedOrCompletedPrescriptionStatus(true);
+            }
+        )
+    }
+    const handleCondition_orderStatus = () => {
+        handleCaseRecordCondition(
+            setUpDataForCRCondition,
+            isCurrentPage,
+            isCompleted,
+            () => {
+                if (caseRecordRole==='patient') {
+                    setOrderStatus(true);
+                }
+            }
+        )
+    }
+    const handleCondition_lockedStatus = () => {
+        !lockedStatus && handleCaseRecordCondition(
+            setUpDataForCRCondition,
+            isCurrentPage,
+            isLocked,
+            () => {
+                setLockedStatus(true);
+            }
+        )
+        lockedStatus && handleCaseRecordCondition(
+            setUpDataForCRCondition,
+            isCurrentPage,
+            isNotLocked,
+            () => {
+                setLockedStatus(false);
+            }
+        )
+    }
+    ///
 
     const medication_list = medicationList.map((data, index) => {
         const caseRecordMedication = data.caseRecordMedication;
@@ -669,7 +884,7 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
             <div className="CaseRecordPage-description">
                 <div className="CaseRecordPage-description-header">Description of the disease</div>
                 <div className="CaseRecordPage-description-iconContainer">
-                    { caseRecordRole==='patient' && <>
+                    { caseRecordRole==='patient' && !completedOrCompletedPrescriptionStatus && <>
                         { editBoolD && <div className="CaseRecordPage-description-icon image" onClick={() => handleAddImages()}>
                             <span>Image</span>
                             <BsFillFileEarmarkImageFill color="white" size={25} />
@@ -679,10 +894,10 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
                             <BsPersonVideo2 color="white" size={25} />
                             <input id='inputVideo' type='file' hidden="hidden" accept="video/mp4, video/mov" multiple />
                         </label> }
-                        { completedOrCompletedPrescriptionStatus && <div className="CaseRecordPage-description-icon editor" onClick={() => setEditBoolD(true)}>
+                        <div className="CaseRecordPage-description-icon editor" onClick={() => setEditBoolD(true)}>
                             <span>Edit</span>
                             <AiFillEdit color="green" size={25} />
-                        </div> }
+                        </div>
                     </> }
                 </div>
                 <div className="CaseRecordPage-description-content">
@@ -699,12 +914,12 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
             <div className="CaseRecordPage-prescription">
                 <div className="CaseRecordPage-prescription-header">Prescription</div>
                 <div className="CaseRecordPage-prescription-iconContainer">
-                    { completedOrCompletedPrescriptionStatus && (caseRecordRole!=='patient' &&
+                    { caseRecordRole==='doctorOrPharmacist' && !completedOrCompletedPrescriptionStatus && <>
                         <div className="CaseRecordPage-prescription-icon" onClick={() => handeleEditP()}>
                             <span>Edit</span>
                             <AiFillEdit color="green" size={25} />
                         </div>
-                    )}
+                    </> }
                 </div>
                 <div className="CaseRecordPage-prescription-content">
                     { !editBoolP && <div></div> }
@@ -739,27 +954,19 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
                 </div>
             </div>
             <div className="CaseRecordPage-buttonContainer">
-                { caseRecordRole!=='patient' && 
+                { caseRecordRole==='doctorOrPharmacist' && 
                     <>{ editBoolP && <button onClick={() => handleSaveP()}>Save Prescription</button> }</> 
                 }
                 { caseRecordRole==='patient' && 
                     <>{ editBoolD && <button onClick={() => handleSaveD()}>Save Description</button> }</> 
                 }
-                {/* { completedPrescriptionStatus && ((caseRecordLock?.isLock && caseRecordLock?.caseRecordRole===caseRecordRole) 
+                { lockedStatus 
                     ? <button onClick={() => handleUnLock()}>Un-Lock</button>
                     : <button onClick={() => handleLock()}>Lock</button>
-                )} 
-                { completedStatus && ((caseRecordLock?.isLock && caseRecordLock?.caseRecordRole===caseRecordRole) 
-                    ? <button onClick={() => handleUnLock()}>Un-Lock</button>
-                    : <button onClick={() => handleLock()}>Lock</button>
-                )}  */}
-                { !completedOrCompletedPrescriptionStatus() && ((caseRecordLock?.isLock && caseRecordLock?.caseRecordRole===caseRecordRole) 
-                    ? <button onClick={() => handleUnLock()}>Un-Lock</button>
-                    : <button onClick={() => handleLock()}>Lock</button>
-                )}
-                { completedPrescriptionStatus && <button onClick={() => handleComplete()}>Complete</button> }
-                { completedStatus && <button onClick={() => handleComplete()}>Complete</button> }
-                { rescriptionAgainStatus && !orderMedication && <button>Require prescription again</button> }
+                }
+                { caseRecordRole==='patient' && lockedStatus && !completedStatus && <button onClick={() => handleComplete()}>Complete</button> }
+                { caseRecordRole==='doctorOrPharmacist' && lockedStatus && !completedOrCompletedPrescriptionStatus && <button onClick={() => handleComplete()}>Complete</button> }
+                { caseRecordRole==='doctorOrPharmacist' && completedOrCompletedPrescriptionStatus && <button onClick={() => handleDopReqPrescriptionAgain()}>Require prescription again</button> }
                 { orderStatus && !orderMedication && <button onClick={() => handleOrder()}>Order</button> }
                 { orderMedication && <p>Medications of this page is order</p> }
             </div>

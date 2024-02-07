@@ -58,6 +58,22 @@ SET status='notComplete'
 WHERE id=1
 go
 
+UPDATE CaseRecordDescriptions
+SET status='notComplete'
+go
+
+UPDATE CaseRecordImages
+SET status='notComplete'
+go
+
+UPDATE CaseRecordPrescriptions
+SET status='notComplete'
+go
+
+UPDATE CaseRecordMedications
+SET status='notComplete'
+go
+
 DELETE FROM OrderMedications
 go
 UPDATE OrderMedications

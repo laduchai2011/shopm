@@ -17,6 +17,7 @@ const { defineModel } = require('../defineModel');
 *title: string, 
 *type: string,
 *uuid_userSent: string,
+*data: json
 *} notification
 */
 

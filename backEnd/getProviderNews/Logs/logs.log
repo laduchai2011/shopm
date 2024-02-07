@@ -1,1 +1,0 @@
-25-12-2023	46:02:03--------/provider/news/list?uuid_provider=5a5cb043-7a86-435b-88eb-7443b3687585&pageIndex=0&pageSize=5---GET---SequelizeDatabaseError: The offset specified in a OFFSET clause may not be negative.

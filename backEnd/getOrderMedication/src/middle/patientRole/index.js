@@ -3,10 +3,10 @@ const { caseRecordRole } = require('../../middle/caseRecordRole');
 const { getCaseRecord } = require('../../middle/getCaseRecord');
 const { logEvents } = require('../../../logEvents');
 
-function patientRole(req, res, next) {
+async function patientRole(req, res, next) {
     try {
-        const uuid_caseRecord = req.body.uuid_caseRecord;
-        const caseRecord = getCaseRecord(uuid_caseRecord);
+        const uuid_caseRecord = req.query.uuid_caseRecord;
+        const caseRecord = await getCaseRecord(uuid_caseRecord);
         const userOptions = req.decodedToken.data;
         caseRecordRole.setUp({caseRecord: caseRecord, user: userOptions});
         caseRecordRole.checkRole((isRole, caseRecordRole) => {

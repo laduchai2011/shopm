@@ -1,41 +1,51 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useCallback } from "react";
 import './styles.css';
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import { TiDelete } from "react-icons/ti";
-import { IoIosLock } from "react-icons/io";
+import { 
+    setCaseRecordToastMessageType
+} from "reduxStore/slice/caseRecordSlice";
 
 import { $ } from "utilize/Tricks";
 
-const CaseRecordToastMessage = ({ caseRecordRole }) => {
-    const caseRecordLockOptions = useSelector(state => state.caseRecord.caseRecordLockOptions)
-    const [message, setMessage] = useState();
+import CaseRecordToastMessageCurrentPage from "./components/CaseRecordToastMessageCurrentPage";
+import CaseRecordToastMessageCompleted from "./components/CaseRecordToastMessageCompleted";
+import CaseRecordToastMessageCompletedPrescription from "./components/CaseRecordToastMessageCompletedPrescription";
+import CaseRecordToastMessageLocked from "./components/CaseRecordToastMessageLocked";
 
-    const removeCaseRecordToastMessage = () => {
+const CaseRecordToastMessage = () => {
+    const dispatch = useDispatch();
+    // const caseRecordLockOptions = useSelector(state => state.caseRecord.caseRecordLockOptions);
+    const type = useSelector(state => state.caseRecord.caseRecordToastMessageOptions.type);
+
+    const removeCaseRecordToastMessage = useCallback(() => {
         $('.CaseRecordToastMessage').classList.remove('show');
-    }
+        setTimeout(() => {
+            dispatch(setCaseRecordToastMessageType(null));
+        }, 300)
+    }, [dispatch])
+
+    // useEffect(() => {
+    //     if (caseRecordLockOptions?.isLock && (caseRecordLockOptions?.caseRecordRole!==caseRecordRole)) {
+    //         $('.CaseRecordToastMessage').classList.add('show');
+    //     }
+    // }, [caseRecordLockOptions, caseRecordRole])
 
     useEffect(() => {
-        if (caseRecordLockOptions?.isLock && (caseRecordLockOptions?.caseRecordRole!==caseRecordRole)) {
-            setMessage('CaseRecord is locked')
+        if (type!==null) {
             $('.CaseRecordToastMessage').classList.add('show');
         }
-    }, [caseRecordLockOptions, caseRecordRole])
+    }, [type])
 
     return (
         <div className="CaseRecordToastMessage" onClick={() => removeCaseRecordToastMessage()}>
-            <div onClick={(e) => e.stopPropagation()}>
-                <div>
-                    <TiDelete onClick={() => removeCaseRecordToastMessage()} size={ 25 } />
-                </div>
-                <div>
-                    { message }
-                </div>
-                <div>
-                    <IoIosLock size={ 60 } color="red"/>
-                </div>
-            </div>
+            { type==='currentPage' && <CaseRecordToastMessageCurrentPage removeCaseRecordToastMessage={ removeCaseRecordToastMessage } /> }
+            { type==='completed' && <CaseRecordToastMessageCompleted removeCaseRecordToastMessage={ removeCaseRecordToastMessage } /> }
+            { type==='completedPrescription' && <CaseRecordToastMessageCompletedPrescription removeCaseRecordToastMessage={ removeCaseRecordToastMessage } /> }
+            { type==='completedOrCompletedPrescription' && <CaseRecordToastMessageCompletedPrescription removeCaseRecordToastMessage={ removeCaseRecordToastMessage } /> }
+            { type==='locked' && <CaseRecordToastMessageLocked removeCaseRecordToastMessage={ removeCaseRecordToastMessage } /> }
+            { type==='orderMedication' && <CaseRecordToastMessageCompletedPrescription removeCaseRecordToastMessage={ removeCaseRecordToastMessage } /> }
         </div>
     )
 }

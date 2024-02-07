@@ -40,7 +40,7 @@
     align-items: center;
 }
 
-.MedicationOrderImage-imageBox-iconContainer div {
+.MedicationOrderImage-imageBox-iconContainer > div {
     display: flex;
     align-items: center;
     margin: 0 5px;
@@ -51,27 +51,27 @@
     font-weight: 500;
 }
 
-.MedicationOrderImage-imageBox-iconContainer div:nth-child(1) {
+.MedicationOrderImage-imageBox-iconContainer > div:nth-child(1) {
     background-color: blue;
 }
 
-.MedicationOrderImage-imageBox-iconContainer div:nth-child(2) {
+.MedicationOrderImage-imageBox-iconContainer > div:nth-child(2) {
     background-color: red;
 }
 
-.MedicationOrderImage-imageBox-iconContainer div span {
+.MedicationOrderImage-imageBox-iconContainer > div > span {
     margin: 0 3px;
 }
 
 .MedicationOrderImage-imageBox-bottom {
     margin: 5px 0;
-    height: 94%;
+    height: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.MedicationOrderImage-imageBox-bottom img {
+.MedicationOrderImage-imageBox-bottom > img {
     height: 100%;
     width: 100%;
     object-fit: contain;

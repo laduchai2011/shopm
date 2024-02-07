@@ -60,41 +60,18 @@ export const SERVER_ADDRESS_CASERECORD_DELETE_MEDICATION                       =
 export const SERVER_ADDRESS_CASERECORD_GET_LOCK                                = `${baseURL}:7300/api/svGetCaseRecord/caseRecord/getLock`;                       
 export const SERVER_ADDRESS_CASERECORD_CREATE_LOCK                             = `${baseURL}:7200/api/svUploadCaseRecord/caseRecord/createLock`; 
 export const SERVER_ADDRESS_CASERECORD_DELETE_LOCK                             = `${baseURL}:7200/api/svUploadCaseRecord/caseRecord/deleteLock`; 
-export const SERVER_ADDRESS_CASERECORD_COMPLETE_PRESCRIPTION                   = `${baseURL}:7200/api/svUploadCaseRecord/caseRecord/patchSatusIsCompletedPrescription`; 
-export const SERVER_ADDRESS_CASERECORD_COMPLETE                                = `${baseURL}:7200/api/svUploadCaseRecord/caseRecord/patchSatusIsCompleted`; 
+export const SERVER_ADDRESS_CASERECORD_COMPLETE_PRESCRIPTION                   = `${baseURL}:7200/api/svUploadCaseRecord/caseRecord/patchStatusIsCompletedPrescription`; 
+export const SERVER_ADDRESS_CASERECORD_COMPLETE                                = `${baseURL}:7200/api/svUploadCaseRecord/caseRecord/patchStatusIsCompleted`; 
+export const SERVER_ADDRESS_CASERECORD_DOP_REQ_PRESCRIPTION_AGAIN              = `${baseURL}:7200/api/svUploadCaseRecord/caseRecord/doctorOrPharmacistRequirePrescriptionAgain`; 
+export const SERVER_ADDRESS_CASERECORD_PATIENT_AGREE_PRESCRIPTION_AGAIN        = `${baseURL}:7200/api/svUploadCaseRecord/caseRecord/patientAgreeRequirePrescriptionAgain`; 
 
 export const SERVER_ADDRESS_GET_SOCKETSM_ROOM                                  = `${baseURL}:2000/api/svSocketSM/getRoom`; 
 export const SERVER_ADDRESS_SOCKETSM                                           = `${baseURL_socket}:2100`;
 
 export const SERVER_ADDRESS_ORDERMEDICATION_CREATE_WITH_CASERECORD             = `${baseURL}:7400/api/svUploadOrderMedication/orderMedication/createWithCaseRecord`;
-// export const SERVER_ADDRESS_ORDERMEDICATION_CREATE                             = `${baseURL}:8400/api/svGetOrderMedication`;
 export const SERVER_ADDRESS_ORDERMEDICATION_GET_WITH_CASERECORD                = `${baseURL}:8400/api/svGetOrderMedication/orderMedication/readWithCaseRecord`;
+export const SERVER_ADDRESS_ORDERMEDICATION_GET_WITH_UUID                      = `${baseURL}:8400/api/svGetOrderMedication/orderMedication/readWithUuid`;
+export const SERVER_ADDRESS_ORDERMEDICATION_GET_HISTORIES_WITH_FK              = `${baseURL}:8400/api/svGetOrderMedication/orderMedication/readHistoriesWithFK`;
 export const SERVER_ADDRESS_GET_CURRENTCART                                    = `${baseURL}:8400/api/svGetOrderMedication/getCurrentCart`; 
 export const SERVER_ADDRESS_PATCH_CURRENTCART                                  = `${baseURL}:7400/api/svUploadOrderMedication/patchCurrentCart`; 
 export const SERVER_ADDRESS_DELETE_CURRENTCART                                 = `${baseURL}:7400/api/svUploadOrderMedication/deleteCurrentCart`; 
-
-
-// ---------------------------------------
-
-// export const SERVER_ADDRESS_SIGNUP                     = 'http://localhost:4000/api/svUploadUserInfor/signup';
-// export const SERVER_ADDRESS_LOGIN                      = 'http://localhost:4000/api/svUploadUserInfor/login';
-
-// export const SERVER_ADDRESS_UPLOADIMAGE                = 'http://localhost:4000/api/svUploadImage/image/upload';
-// export const SERVER_ADDRESS_GETIMAGE                   = 'http://localhost:4000/api/svGetImage/image';
-
-// export const SERVER_ADDRESS_GET_PROVIDERLIST           = 'http://localhost:4000/api/svGetProvider/provider/list';
-// export const SERVER_ADDRESS_CREATEPROVIDER             = 'http://localhost:4000/api/svUploadProvider/provider/create';
-// export const SERVER_ADDRESS_GET_PROVIDER               = 'http://localhost:4000/api/svGetProvider/provider';
-
-// export const SERVER_ADDRESS_GET_PROVIDERABOUTLIST      = 'http://localhost:4000/api/svGetProvider/provider/about/list';
-// export const SERVER_ADDRESS_CREATEPROVIDERABOUT        = 'http://localhost:4000/api/svUploadProvider/provider/about/create';
-
-// export const SERVER_ADDRESS_ADD_MEDICATION             = 'http://localhost:4000/api/svUploadMedication/provider/medication/add';
-// export const SERVER_ADDRESS_GET_MEDICATION             = 'http://localhost:4000/api/svGetMedication/medication';
-// export const SERVER_ADDRESS_GET_MEDICATION_LIST        = 'http://localhost:4000/api/svGetMedication/provider/medication/list';
-// export const SERVER_ADDRESS_GET_MEDICATIONMANAGER_LIST = 'http://localhost:4000/api/svGetMedication/provider/medicationManager/list';
-// export const SERVER_ADDRESS_GET_MEDICATION_HOME        = 'http://localhost:4000/api/svGetMedication/home/medication/list';
-// export const SERVER_ADDRESS_PATCH_MEDICATION           = 'http://localhost:4000/api/svUploadMedication/provider/medication/patch';
-
-// export const SERVER_ADDRESS_POST_PROVIDER_NEWS         = 'http://localhost:4000/api/svUploadProviderNews/provider/news/add';
-// export const SERVER_ADDRESS_GET_PROVIDER_NEWS_LIST     = 'http://localhost:4000/api/svGetProviderNews/provider/news/list';

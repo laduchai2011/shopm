@@ -7,8 +7,7 @@ const { defineModel } = require('../defineModel');
 *step: string,
 *isCompleted: text,
 *status: string,
-*uuid_orderMedication: uuid,
-*uuid_user: uuid
+*uuid_orderMedication: uuid
 *} historyOptions
 */ 
 
@@ -18,7 +17,7 @@ class HISTORY {
     }
 
     create(historyOptions, callback) {
-        let historyOptions;
+        let history;
         let err;
         
         const historyPromise = new Promise((resolve, reject) => {
@@ -38,46 +37,42 @@ class HISTORY {
 
         historyPromise
         .then(newHistory => {
-            historyOptions = newHistory;
+            history = newHistory;
         }).catch(error => {
             err = error;
         }).finally(() => {
-            callback(historyOptions, err);
+            callback(history, err);
         })
     }
 
-    // update(uuid_orderAllMedication, orderAllMedicationOptions, callback) {
-    //     let orderAllMedication;
-    //     let err;
+    bulkCreate(historyOptionsArray, callback) {
+        let historyOptionsList;
+        let err;
         
-    //     const orderAllMedicationPromise = new Promise((resolve, reject) => {
-    //         try {
-    //             sequelize.transaction(async (t) => {
-    //                 try {
-    //                     const newOrderAllMedication = await this._OrderAllMedication.update(orderAllMedicationOptions, {
-    //                         where: {
-    //                             uuid_orderAllMedication: uuid_orderAllMedication
-    //                         }
-    //                     }, { transaction: t });
-    //                     resolve(newOrderAllMedication);   
-    //                 } catch (error) {
-    //                     reject(error);
-    //                 }
-    //             });
-    //         } catch (error) {
-    //             reject(error);
-    //         }
-    //     });
+        const historyPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const newHistorys = await this._History.bulkCreate(historyOptionsArray, { transaction: t });
+                        resolve(newHistorys);   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
 
-    //     orderAllMedicationPromise
-    //     .then(newOrderAllMedication => {
-    //         orderAllMedication = newOrderAllMedication;
-    //     }).catch(error => {
-    //         err = error;
-    //     }).finally(() => {
-    //         callback(orderAllMedication, err);
-    //     })
-    // }
+        historyPromise
+        .then(newHistorys => {
+            historyOptionsList = newHistorys;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(historyOptionsList, err);
+        })
+    }
 }
 
 const historyCRUD = new HISTORY();
