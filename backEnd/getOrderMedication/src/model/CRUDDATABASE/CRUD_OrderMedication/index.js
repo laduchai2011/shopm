@@ -61,6 +61,50 @@ class ORDERMEDICATION {
         })
     }
 
+    bulkReadWithFkUser(uuid_user, pageIndex, pageSize, callback) {
+        let orderMedications;
+        let err;
+        
+        const orderMedicationPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isOrderMedicationPromises = await this._OrderMedication.findAndCountAll({
+                            where: {
+                                uuid_user: uuid_user,
+                                [Op.not]: {
+                                    [Op.or]: [
+                                        { status: 'notYetCreate' },
+                                        { status: 'delete' }
+                                    ]
+                                }
+                            },
+                            order: [
+                                ['id', 'DESC']
+                            ],
+                            offset: pageSize * (pageIndex - 1),
+                            limit: pageSize
+                        }, { transaction: t });
+                        resolve(isOrderMedicationPromises);   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        orderMedicationPromise
+        .then(isOrderMedicationPromises => {
+            orderMedications = isOrderMedicationPromises;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(orderMedications, err);
+        })
+    }
+
     readWithUuid(uuid_orderMedication, callback) {
         let orderMedication;
         let err;

@@ -13,7 +13,7 @@ const { caseRecordCRUD } = require('./src/model/CRUDDATABASE/CRUD_CaseRecord');
 const { caseRecordDescriptionCRUD } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordDescription');
 const { caseRecordImageCRUD } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordImage');
 const { caseRecordPrescription } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordPrescription');
-const { caseRecordMedication } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordMedication');
+const { caseRecordMedicationCRUD } = require('./src/model/CRUDDATABASE/CRUD_CaseRecordMedication');
 // const { caseRecordPage } = require('./src/model/CRUDDATABASE/CRUDCASERECORDPAGE');
 const { getCaseRecordMid } = require('./src/middle/getDatabaseMid');
 const { doctorOrPharmacistAndPatientRole } = require('./src/middle/doctorOrPharmacistAndPatientRole');
@@ -386,7 +386,7 @@ router.post('/caseRecord/addMedication',
     const caseRecordMedicationOptions = req.body.caseRecordMedicationOptions;
     caseRecordMedicationOptions.pageNumber = currentCart.pageNumber;
     caseRecordMedicationOptions.uuid_caseRecord = currentCart.uuid_caseRecord;
-    caseRecordMedication.create(caseRecordMedicationOptions, (caseRecordMedication, err) => {
+    caseRecordMedicationCRUD.create(caseRecordMedicationOptions, (caseRecordMedication, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
@@ -421,7 +421,7 @@ router.patch('/caseRecord/editMedication',
     const amount = req.body.amount;
     const note = req.body.note;
     const cost = req.body.cost;
-    caseRecordMedication.edit(uuid_caseRecordMedication, amount, note, cost, (caseRecordMedication, err) => {
+    caseRecordMedicationCRUD.edit(uuid_caseRecordMedication, amount, note, cost, (caseRecordMedication, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
@@ -453,7 +453,7 @@ router.delete('/caseRecord/deleteMedication',
     caseRecordCheckLock, 
     (req, res) => {
     const uuid_caseRecordMedication = req.body.uuid_caseRecordMedication;
-    caseRecordMedication.delete(uuid_caseRecordMedication, (caseRecordMedication, err) => {
+    caseRecordMedicationCRUD.delete(uuid_caseRecordMedication, (caseRecordMedication, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);

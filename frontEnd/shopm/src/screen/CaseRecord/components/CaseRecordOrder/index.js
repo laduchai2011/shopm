@@ -88,7 +88,8 @@ const CaseRecordOrder = () => {
                 const res_createOrderMedication = await createOrderMedicationWithCaseRecord({
                     uuid_caseRecord: caseRecord_orderMedication?.caseRecord?.uuid_caseRecord,
                     pageNumber: caseRecord_orderMedication?.pageNumber,
-                    orderMedicationOptions: orderMedicationOptions
+                    orderMedicationOptions: orderMedicationOptions,
+                    soldMedicationList: caseRecord_orderMedication.soldMedicationList
                 })
                 setLoading(false);
                 const resData = res_createOrderMedication?.data;
@@ -101,7 +102,8 @@ const CaseRecordOrder = () => {
                         isCheckCompletedPrescription: false,
                         isCheckCompletedOrCompletedPrescription: false,
                         isCheckLocked: false,
-                        isCheckOrderMedication: true
+                        isCheckOrderMedication: true,
+                        isCheckOutOfMedication: true
                     }
     
                     handleCaseRecordMid({
@@ -109,6 +111,9 @@ const CaseRecordOrder = () => {
                         resData: resData,
                         dispatch: dispatch
                     })
+
+                    removeCaseRecordOrder();
+
                     setSuccess(false);
                 }
             } catch (error) {

@@ -4,7 +4,8 @@ import {
     setIsCompletedPrescription,
     setIsCompletedOrIsCompletedPrescription,
     setIsLocked,
-    setIsOrderMedicationWithCaseRecord 
+    setIsOrderMedicationWithCaseRecord ,
+    setIsOutOfMedication
 } from "reduxStore/slice/caseRecordSlice";
 
 
@@ -15,7 +16,8 @@ import {
 *isCheckCompletedPrescription: boolean,
 *isCheckCompletedOrCompletedPrescription: boolean,
 *isCheckLocked: boolean,
-*isCheckOrderMedication: boolean
+*isCheckOrderMedication: boolean,
+*isCheckOutOfMedication: boolean
 *} isCheckCaseRecordMidOptions
 */ 
 
@@ -67,6 +69,13 @@ export function handleCaseRecordMid({isCheckCaseRecordMidOptions, resData, dispa
     if ((isCheckCaseRecordMidOptions.isCheckOrderMedication) && (resData?.checkedType==='orderMedication')) {
         dispatch(setIsOrderMedicationWithCaseRecord({
             isOrderMedication: resData?.isOrderMedication,
+            message: resData?.message,
+            checkedType: resData?.checkedType
+        }))
+    }
+    if ((isCheckCaseRecordMidOptions.isCheckOutOfMedication) && (resData?.checkedType==='outOfMedication')) {
+        dispatch(setIsOutOfMedication({
+            isOutOfMedication: resData?.isOutOfMedication,
             message: resData?.message,
             checkedType: resData?.checkedType
         }))

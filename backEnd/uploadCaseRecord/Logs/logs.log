@@ -1,0 +1,11 @@
+08-02-2024	43:11:09--------Redis Client Error Error: Connection timeout
+08-02-2024	03:33:17--------Redis Client Error Error: Connection timeout
+09-02-2024	47:16:05--------/caseRecord/createLock---POST---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	48:18:05--------/caseRecord/deleteMedication---DELETE---TokenExpiredError: jwt expired: token.verify-accessToken
+09-02-2024	43:14:09--------Redis Client Error Error: Connection timeout
+09-02-2024	11:23:09--------/caseRecord/deleteMedication---DELETE---TokenExpiredError: jwt expired: token.verify-accessToken
+09-02-2024	15:29:09--------/caseRecord/deleteMedication---DELETE---TokenExpiredError: jwt expired: token.verify-accessToken
+09-02-2024	49:33:09--------/caseRecord/createLock---POST---TokenExpiredError: jwt expired: token.verify-accessToken
+09-02-2024	51:09:22--------Redis Client Error Error: Connection timeout
+10-02-2024	24:50:04--------Redis Client Error Error: Connection timeout
+10-02-2024	34:46:09--------Redis Client Error Error: Connection timeout

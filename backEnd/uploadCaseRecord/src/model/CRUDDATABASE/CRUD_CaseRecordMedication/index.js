@@ -254,6 +254,6 @@ class CaseRecordMedication {
     }
 }
 
-const caseRecordMedication = new CaseRecordMedication();
+const caseRecordMedicationCRUD = new CaseRecordMedication();
 
-module.exports = { caseRecordMedication }
+module.exports = { caseRecordMedicationCRUD }

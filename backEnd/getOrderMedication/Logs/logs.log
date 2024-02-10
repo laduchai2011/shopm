@@ -1,0 +1,108 @@
+07-02-2024	36:11:20--------/getCurrentCart---GET: Please login 3 !
+07-02-2024	08:20:20--------/orderMedication/readWithUuid?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+07-02-2024	08:20:20--------/orderMedication/readHistoriesWithFK?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+07-02-2024	08:20:20--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+07-02-2024	22:20:20--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+07-02-2024	42:22:20--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+07-02-2024	50:23:20--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+07-02-2024	50:23:20--------/orderMedication/readWithUuid?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+07-02-2024	50:23:20--------/orderMedication/readHistoriesWithFK?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+07-02-2024	05:27:20--------/orderMedication/readWithUuid?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+07-02-2024	05:27:20--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+07-02-2024	05:27:20--------/orderMedication/readHistoriesWithFK?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+07-02-2024	53:29:20--------/getCurrentCart---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+07-02-2024	53:29:20--------/orderMedication/readHistoriesWithFK?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+07-02-2024	53:29:20--------/orderMedication/readWithUuid?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+07-02-2024	47:10:23--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	33:10:09--------Redis Client Error Error: Connection timeout
+08-02-2024	33:10:09--------Redis Client Error Error: Connection timeout (publisher)
+08-02-2024	49:12:09--------/getCurrentCart---GET: Please login 3 !
+08-02-2024	49:12:09--------/orderMedication/readWithUuid?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET: Please login 3 !
+08-02-2024	49:12:09--------/orderMedication/readHistoriesWithFK?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET: Please login 3 !
+08-02-2024	59:12:09--------/getCurrentCart---GET: Please login 3 !
+08-02-2024	00:13:09--------/getCurrentCart---GET: Please login 3 !
+08-02-2024	16:13:09--------/getCurrentCart---GET: Please login 3 !
+08-02-2024	16:13:09--------/orderMedication/readWithUuid?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET: Please login 3 !
+08-02-2024	16:13:09--------/orderMedication/readHistoriesWithFK?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET: Please login 3 !
+08-02-2024	58:15:09--------/getCurrentCart---GET: Please login 3 !
+08-02-2024	58:15:09--------/orderMedication/readHistoriesWithFK?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET: Please login 3 !
+08-02-2024	58:15:09--------/orderMedication/readWithUuid?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET: Please login 3 !
+08-02-2024	19:16:09--------/getCurrentCart---GET: Please login 3 !
+08-02-2024	19:16:09--------/orderMedication/readHistoriesWithFK?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET: Please login 3 !
+08-02-2024	19:16:09--------/orderMedication/readWithUuid?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET: Please login 3 !
+08-02-2024	32:17:09--------/getCurrentCart---GET: Please login 3 !
+08-02-2024	12:20:09--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	12:20:09--------/orderMedication/readWithUuid?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	12:20:09--------/orderMedication/readHistoriesWithFK?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	12:23:09--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	30:23:09--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	57:35:17--------/getCurrentCart---GET: Please login 3 !
+08-02-2024	57:35:17--------/orderMedication/readWithUuid?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET: Please login 3 !
+08-02-2024	57:35:17--------/orderMedication/readHistoriesWithFK?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET: Please login 3 !
+08-02-2024	31:36:17--------/getCurrentCart---GET: Please login 3 !
+08-02-2024	50:21:23--------/orderMedication/readHistoriesWithFK?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	50:21:23--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	50:21:23--------/orderMedication/readWithUuid?uuid_orderMedication=60e81e0a-9814-43d4-80fb-b40817669ba9---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	30:22:23--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	51:22:23--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	33:24:23--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	37:25:23--------/getCurrentCart---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+08-02-2024	35:57:23--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	43:24:02--------/getCurrentCart---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+09-02-2024	56:25:04--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	56:25:04--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	28:31:04--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	52:33:04--------/getCurrentCart---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+09-02-2024	08:35:04--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	11:38:04--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	11:38:04--------/orderMedication/readWithCaseRecord?pageNumber=1&uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	18:47:04--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	18:47:04--------/orderMedication/readWithCaseRecord?pageNumber=1&uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	31:54:04--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	32:54:04--------/orderMedication/readWithCaseRecord?pageNumber=1&uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	10:16:05--------/getCurrentCart---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+09-02-2024	14:16:05--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	14:16:05--------/orderMedication/readWithCaseRecord?pageNumber=1&uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	40:16:05--------/orderMedication/readWithCaseRecord?pageNumber=1&uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	40:16:05--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	46:13:09--------Redis Client Error Error: Connection timeout
+09-02-2024	46:13:09--------Redis Client Error Error: Connection timeout (publisher)
+09-02-2024	19:16:09--------/getCurrentCart---GET: Please login 3 !
+09-02-2024	59:16:09--------/getCurrentCart---GET: Please login 3 !
+09-02-2024	21:10:12--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	22:10:12--------/orderMedication/readWithCaseRecord?pageNumber=1&uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	27:19:12--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	07:29:12--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	59:39:17--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	30:26:21--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	53:30:21--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	53:10:22--------Redis Client Error Error: Connection timeout
+09-02-2024	53:10:22--------Redis Client Error Error: Connection timeout (publisher)
+09-02-2024	19:12:22--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	06:15:04--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	23:51:04--------Redis Client Error Error: Connection timeout
+10-02-2024	23:51:04--------Redis Client Error Error: Connection timeout (publisher)
+10-02-2024	45:52:04--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	49:52:04--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	37:02:05--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	35:19:05--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	06:24:05--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	47:27:05--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	47:27:05--------/orderMedication/readWithUuid?uuid_orderMedication=0b1f5da0-7caa-4fe0-b998-9d8a8f8f81d4---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	47:27:05--------/orderMedication/readHistoriesWithFK?uuid_orderMedication=0b1f5da0-7caa-4fe0-b998-9d8a8f8f81d4---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	11:33:05--------/getCurrentCart---GET: Please login 3 !
+10-02-2024	52:00:06--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	51:08:06--------/orderMedication/getListFromProfile?uuid_user=undefined&pageIndex=undefined&pageSize=undefined---GET---SequelizeDatabaseError: The number of rows provided for a TOP or FETCH clauses row count parameter must be an integer.
+10-02-2024	24:12:06--------/orderMedication/getListFromProfile?uuid_user=4189f631-e74b-423e-a52d-d10722ee104c&pageIndex=1&pageSize=10---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+10-02-2024	24:12:06--------/orderMedication/getListFromProfile?uuid_user=4189f631-e74b-423e-a52d-d10722ee104c&pageIndex=1&pageSize=10---GET---SequelizeDatabaseError: The number of rows provided for a TOP or FETCH clauses row count parameter must be an integer.
+10-02-2024	32:12:06--------/orderMedication/getListFromProfile?uuid_user=4189f631-e74b-423e-a52d-d10722ee104c&pageIndex=1&pageSize=10---GET---SequelizeDatabaseError: The number of rows provided for a TOP or FETCH clauses row count parameter must be an integer.
+10-02-2024	39:12:06--------/orderMedication/getListFromProfile?uuid_user=4189f631-e74b-423e-a52d-d10722ee104c&pageIndex=1&pageSize=10---GET---SequelizeDatabaseError: The number of rows provided for a TOP or FETCH clauses row count parameter must be an integer.
+10-02-2024	54:14:06--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	54:14:06--------/orderMedication/getListFromProfile?uuid_user=4189f631-e74b-423e-a52d-d10722ee104c&pageIndex=1&pageSize=10---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	35:16:06--------/orderMedication/getListFromProfile?uuid_user=4189f631-e74b-423e-a52d-d10722ee104c&pageIndex=1&pageSize=10---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+10-02-2024	23:18:06--------/orderMedication/getListFromProfile?uuid_user=4189f631-e74b-423e-a52d-d10722ee104c&pageIndex=1&pageSize=10---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+10-02-2024	30:21:06--------/orderMedication/readWithUuid?uuid_orderMedication=0b1f5da0-7caa-4fe0-b998-9d8a8f8f81d4---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+10-02-2024	30:21:06--------/orderMedication/readHistoriesWithFK?uuid_orderMedication=0b1f5da0-7caa-4fe0-b998-9d8a8f8f81d4---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	01:47:09--------Redis Client Error Error: Connection timeout
+10-02-2024	01:47:09--------Redis Client Error Error: Connection timeout (publisher)
+10-02-2024	48:47:09--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken

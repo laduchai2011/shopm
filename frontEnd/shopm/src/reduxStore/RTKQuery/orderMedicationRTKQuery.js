@@ -3,7 +3,8 @@ import {
     SERVER_ADDRESS_ORDERMEDICATION_GET_WITH_CASERECORD,
     SERVER_ADDRESS_ORDERMEDICATION_CREATE_WITH_CASERECORD,
     SERVER_ADDRESS_ORDERMEDICATION_GET_WITH_UUID,
-    SERVER_ADDRESS_ORDERMEDICATION_GET_HISTORIES_WITH_FK
+    SERVER_ADDRESS_ORDERMEDICATION_GET_HISTORIES_WITH_FK,
+    SERVER_ADDRESS_ORDERMEDICATION_GETLIST_FROM_PROFILE
 } from 'config/server';
 
 /**
@@ -45,16 +46,31 @@ import {
 *} paymentMedicationOptions
 */ 
 
+/**
+*@typedef {
+*uuid_medication: uuid,
+*sold: int
+*} soldMedicationList
+*/ 
+
 // Define a service using a base URL and expected endpoints
 export const orderMedicationRTKQuery = createApi({
     reducerPath: 'orderMedicationRTKQuery',
     baseQuery: fetchBaseQuery({ baseUrl: '' }),
     tagTypes:[
+        'orderMedications',
         'orderMedication',
         'history'
     ],
     endpoints: (builder) => ({
         // query
+        getOrderMedicationsFromProfile: builder.query({
+            query: ({uuid_user, pageIndex, pageSize}) => ({
+                url: `${SERVER_ADDRESS_ORDERMEDICATION_GETLIST_FROM_PROFILE}?uuid_user=${ uuid_user }&pageIndex=${ pageIndex }&pageSize=${ pageSize }`,
+                credentials: "include"
+            }),
+            providesTags: [{type: 'orderMedications'}]
+        }),
         getOrderMedicationWithUuid: builder.query({
             query: ({uuid_orderMedication}) => ({
                 url: `${SERVER_ADDRESS_ORDERMEDICATION_GET_WITH_UUID}?uuid_orderMedication=${ uuid_orderMedication }`,
@@ -79,13 +95,14 @@ export const orderMedicationRTKQuery = createApi({
 
         // mutation
         createOrderMedicationWithCaseRecord: builder.mutation({
-            query: ({uuid_caseRecord, pageNumber, orderMedicationOptions}) => ({
+            query: ({uuid_caseRecord, pageNumber, orderMedicationOptions, soldMedicationList}) => ({
                 url: `${SERVER_ADDRESS_ORDERMEDICATION_CREATE_WITH_CASERECORD}`,
                 method: 'POST',
                 body: { 
                     uuid_caseRecord: uuid_caseRecord,
                     pageNumber: pageNumber,
-                    orderMedicationOptions: orderMedicationOptions
+                    orderMedicationOptions: orderMedicationOptions,
+                    soldMedicationList: soldMedicationList
                 },
                 credentials: "include"
             }),
@@ -101,6 +118,7 @@ export const orderMedicationRTKQuery = createApi({
 })
 
 export const { 
+    useLazyGetOrderMedicationsFromProfileQuery,
     useGetOrderMedicationWithUuidQuery,
     useGetHistoriesWithFKQuery,
     useGetOrderMedicationWithCaseRecordQuery,

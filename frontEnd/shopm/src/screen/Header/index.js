@@ -104,54 +104,56 @@ const Header = () => {
     }, [data_notifyNowCount])
 
     useEffect(() => {
-        const notifyOptions_normal = $$('.Header-contentBox-options')[1].children;
-        notifyOptions_normal[notifyIndexNormal.current].classList.add('active');
-        notifyOptions_normal.forEach(notifyOption => {
-            notifyOption.onclick = function(e) {
-                e.stopPropagation();
-                let index_m = notifyIndexNormal.current;
-                for (let i = 0; i < notifyOptions_normal.length; i++) {
-                    if (notifyOptions_normal[i] !== notifyOption) {
-                        notifyOptions_normal[i].classList.remove('active');
-                    } else {
-                        index_m = i;
+        if (loginInfor!==null) {
+            const notifyOptions_normal = $$('.Header-contentBox-options')[1].children;
+            notifyOptions_normal[notifyIndexNormal.current].classList.add('active');
+            notifyOptions_normal.forEach(notifyOption => {
+                notifyOption.onclick = function(e) {
+                    e.stopPropagation();
+                    let index_m = notifyIndexNormal.current;
+                    for (let i = 0; i < notifyOptions_normal.length; i++) {
+                        if (notifyOptions_normal[i] !== notifyOption) {
+                            notifyOptions_normal[i].classList.remove('active');
+                        } else {
+                            index_m = i;
+                        }
                     }
+                    notifyOptions_normal[index_m].classList.add('active');
+                    notifyIndexNormal.current = index_m;
+                    getNotificationList({
+                        type: 'normal',
+                        status: getStatus(index_m),
+                        pageIndex: 1,
+                        pageSize: 10
+                    }, true)
                 }
-                notifyOptions_normal[index_m].classList.add('active');
-                notifyIndexNormal.current = index_m;
-                getNotificationList({
-                    type: 'normal',
-                    status: getStatus(index_m),
-                    pageIndex: 1,
-                    pageSize: 10
-                }, true)
-            }
-        })
+            })
 
-        const notifyOptions_now = $$('.Header-contentBox-options')[0].children;
-        notifyOptions_now[notifyIndexNow.current].classList.add('active');
-        notifyOptions_now.forEach(notifyOption => {
-            notifyOption.onclick = function(e) {
-                e.stopPropagation();
-                let index_m = notifyIndexNow.current;
-                for (let i = 0; i < notifyOptions_now.length; i++) {
-                    if (notifyOptions_now[i] !== notifyOption) {
-                        notifyOptions_now[i].classList.remove('active');
-                    } else {
-                        index_m = i;
+            const notifyOptions_now = $$('.Header-contentBox-options')[0].children;
+            notifyOptions_now[notifyIndexNow.current].classList.add('active');
+            notifyOptions_now.forEach(notifyOption => {
+                notifyOption.onclick = function(e) {
+                    e.stopPropagation();
+                    let index_m = notifyIndexNow.current;
+                    for (let i = 0; i < notifyOptions_now.length; i++) {
+                        if (notifyOptions_now[i] !== notifyOption) {
+                            notifyOptions_now[i].classList.remove('active');
+                        } else {
+                            index_m = i;
+                        }
                     }
+                    notifyOptions_now[index_m].classList.add('active');
+                    notifyIndexNow.current = index_m;
+                    getNotificationList({
+                        type: 'now',
+                        status: getStatus(index_m),
+                        pageIndex: 1,
+                        pageSize: 10
+                    }, true)
                 }
-                notifyOptions_now[index_m].classList.add('active');
-                notifyIndexNow.current = index_m;
-                getNotificationList({
-                    type: 'now',
-                    status: getStatus(index_m),
-                    pageIndex: 1,
-                    pageSize: 10
-                }, true)
-            }
-        })
-
+            })
+        }
+        
         // eslint-disable-next-line
     }, [])
 

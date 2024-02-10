@@ -17,6 +17,7 @@ const { getCaseRecordMid } = require('./src/middle/getDatabaseMid');
 const { isCurrentPage } = require('./src/middle/checkCurrentPage');
 const { isCompleted } = require('./src/middle/checkComplete');
 const { isOrderMedicationWithCaseRecord } = require('./src/middle/checkOrderMedication');
+const { bulkUpdateSold } = require('./src/middle/updateMedication');
 
 
 /**
@@ -47,6 +48,7 @@ router.post('/orderMedication/createWithCaseRecord',
     isCurrentPage,
     isCompleted,
     isOrderMedicationWithCaseRecord, 
+    bulkUpdateSold,
     (req, res) => {
     const orderMedicationOptions = req.body.orderMedicationOptions;
     const uuid_caseRecord = req.body.uuid_caseRecord;

@@ -34,7 +34,9 @@ import { $ } from "utilize/Tricks";
 *isCheckCompleted: boolean,
 *isCheckCompletedPrescription: boolean,
 *isCheckCompletedOrCompletedPrescription: boolean,
-*isCheckLock: boolean
+*isCheckLock: boolean,
+*isCheckOrderMedication: boolean,
+*isCheckOutOfMedication: boolean
 *} isCheckCaseRecordMidOptions
 */ 
 
@@ -116,7 +118,8 @@ const CaseRecordAddImage = ({ caseRecord }) => {
                         isCheckCompletedPrescription: true,
                         isCheckCompletedOrCompletedPrescription: false,
                         isCheckLocked: true,
-                        isCheckOrderMedication: false
+                        isCheckOrderMedication: false,
+                        isCheckOutOfMedication: false
                     }
                     handleCaseRecordMid({
                         isCheckCaseRecordMidOptions: isCheckCaseRecordMidOptions,

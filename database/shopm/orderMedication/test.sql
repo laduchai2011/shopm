@@ -76,6 +76,12 @@ go
 
 DELETE FROM OrderMedications
 go
+DELETE FROM Histories
+go
+DELETE FROM Transports
+go
+DELETE FROM PaymentMedications
+go
 UPDATE OrderMedications
 SET status='notComplete'
 WHERE id=1

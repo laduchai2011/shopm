@@ -45,6 +45,30 @@ router.get('/orderMedication/readWithUuid', Authentication, (req, res) => {
     })
 })
 
+router.get('/orderMedication/getListFromProfile', Authentication, (req, res) => {
+    const uuid_user = req.query.uuid_user;
+    const pageIndex = req.query.pageIndex;
+    const pageSize = req.query.pageSize;
+    orderMedicationCRUD.bulkReadWithFkUser(uuid_user, Number(pageIndex), Number(pageSize), (orderMedications, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send(err);
+        } else {
+            if (orderMedications && orderMedications!==null) {
+                return res.status(200).json({ 
+                    orderMedications: orderMedications,
+                    message: "getListFromProfile successly !",
+                    success: true
+                })
+            }
+            return res.status(200).json({ 
+                message: "getListFromProfile NOT successly !",
+                success: false
+            })
+        }
+    })
+})
+
 router.get('/orderMedication/readHistoriesWithFK', Authentication, (req, res) => {
     const uuid_orderMedication = req.query.uuid_orderMedication;
     historyCRUD.realAll(uuid_orderMedication, (historyOptionsList, err) => {

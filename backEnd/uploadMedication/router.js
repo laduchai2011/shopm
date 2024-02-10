@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 
-const { crudMedication } = require('./src/model/CRUDDATABASE/CRUDMEDICATION');
+const { medicationCRUD } = require('./src/model/CRUDDATABASE/CRUD_Medication');
 const { crudProvider } = require('./src/model/CRUDDATABASE/CRUDPROVIDER');
 // const { serviceRedis } = require('./src/model/serviceRedis');
 const { Authentication } = require('./src/auth/Authentication');
@@ -26,7 +26,7 @@ router.post('/provider/medication/add', Authentication, (req, res) => {
                 message: 'There are not this provider in your list!'
             });
     
-            crudMedication.create(medicateOptions, (medication, err) => {
+            medicationCRUD.create(medicateOptions, (medication, err) => {
                 if (err) {
                     logEvents(`${req.url}---${req.method}---${err}`);
                     return res.status(500).send(err);
@@ -68,7 +68,7 @@ router.patch('/provider/medication/patch', Authentication, (req, res) => {
                 message: 'There are not this provider in your list!'
             });
     
-            crudMedication.update(medicateOptions.uuid_medication, medicateOptionsPatch, (medication, err) => {
+            medicationCRUD.update(medicateOptions.uuid_medication, medicateOptionsPatch, (medication, err) => {
                 if (err) {
                     logEvents(`${req.url}---${req.method}---${err}`);
                     return res.status(500).send(err);

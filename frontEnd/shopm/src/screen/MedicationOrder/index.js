@@ -148,7 +148,7 @@ const MedicationOrder = () => {
     useEffect(() => {
         const resData = data_imageAll;
         if (resData?.success) {
-            setImageAll(resData.caseRecordImageAll);
+            setImageAll(resData?.caseRecordImageAll);
         }
     }, [data_imageAll])
 
@@ -208,6 +208,21 @@ const MedicationOrder = () => {
         })
     }, [orderMedication, getCaseRecordDescription, getCaseRecordImageAll, getCaseRecordPrescription])
 
+    const list_medication = [1,2,3,4,5,6,7,8,9].map((data, index) => {
+        return (
+            <div className='MedicationOrder-medicateList-medicate' key={ index }>
+                <div>Name</div>
+                <div>Symptom</div>
+                <div>
+                    <span>30</span>
+                    <span>30</span>
+                    <span>3000000</span>
+                    <button>Detail</button>
+                </div>
+            </div>
+        )
+    })
+
     const list_image = imageAll.map((data, index) => {
         return <MedicationOrderImageBox key={index} data={data} setToastImage={setToastImage} />
     })
@@ -261,46 +276,7 @@ const MedicationOrder = () => {
                 <div className='MedicationOrder-MedicateList'>
                     <div className='MedicationOrder-MedicateList-header'>Medicate List</div>
                     <div className='MedicationOrder-MedicateList-list'>
-                        <div className='MedicationOrder-medicateList-medicate'>
-                            <div>Name</div>
-                            <div>Symptom</div>
-                            <div>
-                                <span>30</span>
-                                <button>Detail</button>
-                            </div>
-                        </div>
-                        <div className='MedicationOrder-medicateList-medicate'>
-                            <div>Name</div>
-                            <div>Symptom</div>
-                            <div>
-                                <span>30</span>
-                                <button>Detail</button>
-                            </div>
-                        </div>
-                        <div className='MedicationOrder-medicateList-medicate'>
-                            <div>Name</div>
-                            <div>Symptom</div>
-                            <div>
-                                <span>30</span>
-                                <button>Detail</button>
-                            </div>
-                        </div>
-                        <div className='MedicationOrder-medicateList-medicate'>
-                            <div>Name</div>
-                            <div>Symptom</div>
-                            <div>
-                                <span>30</span>
-                                <button>Detail</button>
-                            </div>
-                        </div>
-                        <div className='MedicationOrder-medicateList-medicate'>
-                            <div>Name</div>
-                            <div>Symptom</div>
-                            <div>
-                                <span>30</span>
-                                <button>Detail</button>
-                            </div>
-                        </div>
+                        { list_medication }
                     </div>
                 </div>
                 <div className='MedicationOrder-Support'>

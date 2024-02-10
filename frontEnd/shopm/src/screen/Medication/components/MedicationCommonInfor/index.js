@@ -15,6 +15,8 @@ import {
     useAddCaseRecordMedicationsMutation
 } from "reduxStore/RTKQuery/caseRecordRTKQuery";
 
+import { baseURL } from "config/server";
+
 
 /**
 *@typedef {
@@ -142,9 +144,9 @@ const MedicationCommonInfor = () => {
                         uuid_medication: medicationSate.uuid_medication
                     }
                     addCaseRecordMedications({
-                        caseRecord: caseRecord, 
-                        caseRecordMedicationOptions: caseRecordMedicationOptions, 
-                        pageNumber: currentCart.pageNumber.toString()
+                        uuid_caseRecord: currentCart.uuid_caseRecord, 
+                        pageNumber: currentCart.pageNumber.toString(),
+                        caseRecordMedicationOptions: caseRecordMedicationOptions
                     }).then(res1 => {
                         const resData1 = res1.data;
                         if (resData1?.success) {} else { alert(resData1?.message) }
@@ -208,7 +210,7 @@ const MedicationCommonInfor = () => {
                 <div className="MedicationCommonInfor-text-top">
                     <h2>{ medicationSate.name }</h2>
                     <div className="MedicationCommonInfor-listStar">{ list_star }</div>
-                    <h5>Provider:<a href={`http://192.168.5.129:3000/provider/${medicationSate.uuid_provider}`}> go to Provider</a></h5>
+                    <h5>Provider:<a href={`${baseURL}:3000/provider/${medicationSate.uuid_provider}`}> go to Provider</a></h5>
                     <h5>Status: { medicationSate.status } / Time: { Timestamp(medicationSate.createdAt) }</h5>
                     <div className="MedicationCommonInfor-warn">
                         Warning: Let select a Doctor/Pharmacist to buy

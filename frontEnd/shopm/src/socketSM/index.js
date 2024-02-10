@@ -24,7 +24,7 @@ class SocketSM {
 
     connect(callback) {
         this.getSocketSMRoom((resData) => {
-            if (resData.success) {
+            if (resData?.success) {
                 this._socket = io(this._socketUrl, {
                     path: `/${this._roomType}`,
                     // transports: ['polling'],
@@ -50,7 +50,7 @@ class SocketSM {
                     console.error('Error SocketSM', error);
                 })
             } else {
-                console.log(`socketSM: ${resData.message}`)
+                console.log(`socketSM: ${resData?.message}`)
                 // alert(`socketSM: ${resData.message}`);
             }
         })

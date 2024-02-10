@@ -13,6 +13,7 @@ import CaseRecordToastMessageCurrentPage from "./components/CaseRecordToastMessa
 import CaseRecordToastMessageCompleted from "./components/CaseRecordToastMessageCompleted";
 import CaseRecordToastMessageCompletedPrescription from "./components/CaseRecordToastMessageCompletedPrescription";
 import CaseRecordToastMessageLocked from "./components/CaseRecordToastMessageLocked";
+import CaseRecordToastMessageOutOfMedication from "./components/CaseRecordToastMessageOutOfMedication";
 
 const CaseRecordToastMessage = () => {
     const dispatch = useDispatch();
@@ -46,6 +47,7 @@ const CaseRecordToastMessage = () => {
             { type==='completedOrCompletedPrescription' && <CaseRecordToastMessageCompletedPrescription removeCaseRecordToastMessage={ removeCaseRecordToastMessage } /> }
             { type==='locked' && <CaseRecordToastMessageLocked removeCaseRecordToastMessage={ removeCaseRecordToastMessage } /> }
             { type==='orderMedication' && <CaseRecordToastMessageCompletedPrescription removeCaseRecordToastMessage={ removeCaseRecordToastMessage } /> }
+            { type==='outOfMedication' && <CaseRecordToastMessageOutOfMedication removeCaseRecordToastMessage={ removeCaseRecordToastMessage } /> }
         </div>
     )
 }

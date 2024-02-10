@@ -1,0 +1,92 @@
+07-02-2024	40:59:19--------Redis Client Error Error: Connection timeout
+07-02-2024	36:11:20--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET: Please login 3 !
+07-02-2024	22:20:20--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+07-02-2024	42:22:20--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+07-02-2024	12:07:22--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+08-02-2024	43:09:09--------Redis Client Error Error: Connection timeout
+08-02-2024	59:12:09--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET: Please login 3 !
+08-02-2024	12:20:09--------/getCaseRecordImageAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	12:20:09--------/getCaseRecordPrescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	12:20:09--------/getCaseRecordDescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	12:23:09--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	30:23:09--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	38:31:17--------Redis Client Error Error: Connection timeout
+08-02-2024	30:22:23--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	51:22:23--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	32:24:23--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	38:25:23--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+08-02-2024	35:57:23--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	43:24:02--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	56:25:04--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	52:33:04--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	08:35:04--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	11:38:04--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	11:38:04--------/getCaseRecordMedicationsAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	11:38:04--------/caseRecord/getLock?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	11:38:04--------/getCaseRecordPrescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	11:38:04--------/getCaseRecordImageAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	12:38:04--------/getCaseRecordDescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	18:47:04--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	18:47:04--------/getCaseRecordDescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	18:47:04--------/getCaseRecordImageAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	18:47:04--------/getCaseRecordPrescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	18:47:04--------/caseRecord/getLock?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	19:47:04--------/getCaseRecordMedicationsAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	31:54:04--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	32:54:04--------/getCaseRecordPrescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	32:54:04--------/getCaseRecordImageAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	32:54:04--------/getCaseRecordDescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	32:54:04--------/getCaseRecordMedicationsAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	32:54:04--------/caseRecord/getLock?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	10:16:05--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	14:16:05--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	14:16:05--------/getCaseRecordDescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	14:16:05--------/getCaseRecordMedicationsAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	15:16:05--------/getCaseRecordPrescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	15:16:05--------/caseRecord/getLock?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	15:16:05--------/getCaseRecordImageAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	39:16:05--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	40:16:05--------/getCaseRecordImageAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	40:16:05--------/getCaseRecordDescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	40:16:05--------/getCaseRecordMedicationsAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	40:16:05--------/caseRecord/getLock?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	40:16:05--------/getCaseRecordPrescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	47:16:05--------/caseRecord/getLock?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	47:16:05--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	47:16:05--------/getCaseRecordDescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	48:16:05--------/getCaseRecordPrescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	48:16:05--------/getCaseRecordImageAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	48:16:05--------/getCaseRecordMedicationsAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	43:12:09--------Redis Client Error Error: Connection timeout
+09-02-2024	19:16:09--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET: Please login 3 !
+09-02-2024	59:16:09--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET: Please login 3 !
+09-02-2024	20:10:12--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	22:10:12--------/caseRecord/getLock?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	22:10:12--------/getCaseRecordMedicationsAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	22:10:12--------/getCaseRecordPrescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	22:10:12--------/getCaseRecordDescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	22:10:12--------/getCaseRecordImageAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	27:19:12--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	07:29:12--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	59:39:17--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+09-02-2024	30:26:21--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	53:30:21--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	38:11:22--------Redis Client Error Error: Connection timeout
+09-02-2024	19:12:22--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+09-02-2024	35:56:22--------/getCaseRecordDescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+09-02-2024	35:56:22--------/getCaseRecordImageAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	07:15:04--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	11:52:04--------Redis Client Error Error: Connection timeout
+10-02-2024	45:52:04--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	49:52:04--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	37:02:05--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	35:19:05--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	06:24:05--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	56:31:05--------/getCaseRecordImageAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+10-02-2024	56:31:05--------/getCaseRecordPrescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	56:31:05--------/getCaseRecordDescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	53:00:06--------/getCaseRecord?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	16:18:07--------/getCaseRecordImageAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+10-02-2024	16:18:07--------/getCaseRecordDescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	17:18:07--------/getCaseRecordPrescription?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	27:47:09--------Redis Client Error Error: Connection timeout

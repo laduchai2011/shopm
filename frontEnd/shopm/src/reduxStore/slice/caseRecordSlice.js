@@ -16,7 +16,8 @@ const initialState = {
     current_pageNumber: null,
     caseRecord_orderMedication: {
         caseRecord: null,
-        pageNumber: null
+        pageNumber: null,
+        soldMedicatedList: []   // medicaation: { uuid_medication, sold }
     },
     caseRecordToastMessageOptions: {
         currentPage: null,
@@ -26,6 +27,7 @@ const initialState = {
         doctorOrPharmacistRequirePrescriptionAgain: null,
         locked: null,
         orderMedication: null,
+        outOfMedication: null,
         type: null
     }
 }
@@ -72,6 +74,10 @@ export const caseRecordSlice = createSlice({
             state.caseRecordToastMessageOptions.orderMedication = action.payload;
             state.caseRecordToastMessageOptions.type = action.payload.checkedType;
         },
+        setIsOutOfMedication: (state, action) => {
+            state.caseRecordToastMessageOptions.outOfMedication = action.payload;
+            state.caseRecordToastMessageOptions.type = action.payload.checkedType;
+        },
         setCaseRecordToastMessageType: (state, action) => {
             state.caseRecordToastMessageOptions.type = action.payload;
         },
@@ -89,6 +95,7 @@ export const {
     setIsCompletedOrIsCompletedPrescription,
     setIsLocked,
     setIsOrderMedicationWithCaseRecord,
+    setIsOutOfMedication,
     setCaseRecordToastMessageType
 } = caseRecordSlice.actions;
 

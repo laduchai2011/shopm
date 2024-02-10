@@ -126,9 +126,11 @@ import {
 *amount: INTEGER.UNSIGNED,
 *note: text,
 *price: INTEGER.UNSIGNED,
+*discount: FLOAT,
 *cost: INTEGER.UNSIGNED,
 *status: string,
-*uuid_caseRecord: uuid
+*uuid_caseRecord: uuid,
+*uuid_medication: uuid
 *} caseRecordMedicationOptions
 */  
 
@@ -160,7 +162,9 @@ import {
 *isCheckCompletedPrescription: boolean,
 *isCheckCompletedOrCompletedPrescription: boolean,
 *isCheckOrderMedication: boolean
-*isCheckLock: boolean
+*isCheckLock: boolean,
+*isCheckOrderMedication: boolean,
+*isCheckOutOfMedication: boolean
 *} isCheckCaseRecordMidOptions
 */ 
 
@@ -366,7 +370,8 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
                         isCheckCompletedPrescription: false,
                         isCheckCompletedOrCompletedPrescription: false,
                         isCheckLocked: true,
-                        isCheckOrderMedication: false
+                        isCheckOrderMedication: false,
+                        isCheckOutOfMedication: false
                     }
     
                     handleCaseRecordMid({
@@ -397,7 +402,8 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
                         isCheckCompletedPrescription: true,
                         isCheckCompletedOrCompletedPrescription: false,
                         isCheckLocked: true,
-                        isCheckOrderMedication: false
+                        isCheckOrderMedication: false,
+                        isCheckOutOfMedication: false
                     }
     
                     handleCaseRecordMid({
@@ -550,7 +556,8 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
                     isCheckCompletedPrescription: true,
                     isCheckCompletedOrCompletedPrescription: false,
                     isCheckLocked: true,
-                    isCheckOrderMedication: false
+                    isCheckOrderMedication: false,
+                    isCheckOutOfMedication: false
                 }
 
                 handleCaseRecordMid({
@@ -575,7 +582,8 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
                     isCheckCompletedPrescription: false,
                     isCheckCompletedOrCompletedPrescription: false,
                     isCheckLocked: true,
-                    isCheckOrderMedication: false
+                    isCheckOrderMedication: false,
+                    isCheckOutOfMedication: false
                 }
 
                 handleCaseRecordMid({
@@ -601,7 +609,8 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
                         isCheckCompletedPrescription: true,
                         isCheckCompletedOrCompletedPrescription: false,
                         isCheckLocked: true,
-                        isCheckOrderMedication: false
+                        isCheckOrderMedication: false,
+                        isCheckOutOfMedication: false
                     }
                     handleCaseRecordMid({
                         isCheckCaseRecordMidOptions: isCheckCaseRecordMidOptions,
@@ -628,7 +637,8 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
                         isCheckCompletedPrescription: true,
                         isCheckCompletedOrCompletedPrescription: false,
                         isCheckLocked: true,
-                        isCheckOrderMedication: false
+                        isCheckOrderMedication: false,
+                        isCheckOutOfMedication: false
                     }
                     handleCaseRecordMid({
                         isCheckCaseRecordMidOptions: isCheckCaseRecordMidOptions,
@@ -658,7 +668,8 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
                         isCheckCompletedPrescription: false,
                         isCheckCompletedOrCompletedPrescription: true,
                         isCheckLocked: false,
-                        isCheckOrderMedication: false
+                        isCheckOrderMedication: false,
+                        isCheckOutOfMedication: false
                     }
                     handleCaseRecordMid({
                         isCheckCaseRecordMidOptions: isCheckCaseRecordMidOptions,
@@ -733,9 +744,20 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
     }
 
     const handleOrder = () => {
+        const medicatedList_new = []
+        for (let i = 0; i <  medicationList.length; i++) {
+            const medicated_new = {
+                uuid_medication: null,
+                sold: null
+            }
+            medicated_new.uuid_medication = medicationList[i].caseRecordMedication.uuid_medication;
+            medicated_new.sold = medicationList[i].caseRecordMedication.amount;
+            medicatedList_new.push(medicated_new);
+        }
         dispatch(setCaseRecord_orderMedication({
             caseRecord: caseRecord,
-            pageNumber: (index + 1).toString()
+            pageNumber: (index + 1).toString(),
+            soldMedicationList: medicatedList_new
         }))
         $('.CaseRecordOrder').classList.add('show');
     }
@@ -869,10 +891,10 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
                     </div>
                 </div>
                 <div className="CaseRecordPage-prescription-medicationList-table-icon">
-                    { completedOrCompletedPrescriptionStatus && caseRecordRole==='patient' &&<IoSend onClick={() => handleRequireDoctorOrPharmacistCheck(caseRecordMedication)} title="Send require to doctor or Pharmacist" color="blue" /> }
+                    { !completedOrCompletedPrescriptionStatus && caseRecordRole==='patient' &&<IoSend onClick={() => handleRequireDoctorOrPharmacistCheck(caseRecordMedication)} title="Send require to doctor or Pharmacist" color="blue" /> }
                     <IoCheckmark onClick={() => handleCheckMedication(caseRecordMedication, index)} title="Check medication amount" color="blue" size={ 20 } />
-                    { completedOrCompletedPrescriptionStatus && caseRecordRole==='doctorOrPharmacist' && <CiEdit onClick={() => showTableEditMedication(caseRecordMedication, index)} title="Edit a medication" color="green" size={ 20 } /> }
-                    { completedOrCompletedPrescriptionStatus && caseRecordRole==='doctorOrPharmacist' && <MdDelete onClick={() => showTableDeleteMedication(caseRecordMedication, index)} title="Delete a medication" color="red" size={ 20 } /> }
+                    { !completedOrCompletedPrescriptionStatus && caseRecordRole==='doctorOrPharmacist' && <CiEdit onClick={() => showTableEditMedication(caseRecordMedication, index)} title="Edit a medication" color="green" size={ 20 } /> }
+                    { !completedOrCompletedPrescriptionStatus && caseRecordRole==='doctorOrPharmacist' && <MdDelete onClick={() => showTableDeleteMedication(caseRecordMedication, index)} title="Delete a medication" color="red" size={ 20 } /> }
                 </div>
             </div>
         )

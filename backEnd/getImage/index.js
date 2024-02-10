@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const app = express();
 const cookieParser = require('cookie-parser');
 
-const baseURL_shopm = 'http://192.168.5.129:3000';
+const baseURL_shopm = 'http://192.168.1.12:3000';
 
 //add other middleware
 app.use('/api/svGetImage', function (req, res, next) {
