@@ -6,6 +6,7 @@ const { defineModel } = require('../defineModel');
 *@typedef {
 *type: string,
 *information: text,
+*cost: int,
 *status: string,
 *uuid_orderMedication: uuid
 *} transportOptions

@@ -521,6 +521,10 @@ class DefineModel {
             information: {
                 type: DataTypes.TEXT
             },
+            cost: {
+                type: DataTypes.INTEGER,
+                allowNull: false
+            },
             status: {
                 type: DataTypes.STRING,
                 allowNull: false
@@ -559,6 +563,10 @@ class DefineModel {
             information: {
                 type: DataTypes.TEXT
             },
+            cost: {
+                type: DataTypes.INTEGER,
+                allowNull: false
+            },
             status: {
                 type: DataTypes.STRING,
                 allowNull: false
@@ -577,6 +585,71 @@ class DefineModel {
         })
         this._OrderMedication.hasOne(this._PaymentMedication, { foreignKey: 'uuid_orderMedication' })
         this._PaymentMedication.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication' })
+
+        this._MedicationsOfOrderMyself = sequelize.define('MedicationsOfOrderMyself', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                autoIncrement: true,
+                unique: 'UQ__MedicationsOfOrderMyselfs__id'
+            },
+            uuid_medicationsOfOrderMyself: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            amount: {
+                type: DataTypes.INTEGER.UNSIGNED,
+                allowNull: false
+            },
+            note: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            price: {
+                type: DataTypes.INTEGER.UNSIGNED,
+                allowNull: false
+            },
+            discount: {
+                type: DataTypes.FLOAT,
+                allowNull: false
+            },
+            cost: {
+                type: DataTypes.INTEGER.UNSIGNED,
+                allowNull: false
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_orderMyself: {
+                type: Sequelize.UUID,
+                allowNull: false
+            },
+            uuid_medication: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [{
+                name: 'uuid_orderMyself_indexes',
+                using: 'BTREE',
+                fields: ['uuid_orderMyself']
+            }, {
+                name: 'uuid_medication_indexes',
+                using: 'BTREE',
+                fields: ['uuid_medication']
+            }]
+        })
+        // this._OrderMyself.hasMany(this._MedicationsOfOrderMyself, { foreignKey: 'uuid_orderMyself' })
+        this._MedicationsOfOrderMyself.belongsTo(this._OrderMyself, { foreignKey: 'uuid_orderMyself', targetKey: 'uuid_orderMyself', as: 'uuid_OrderMyself' })
+        // this._Medication.hasMany(this._MedicationsOfOrderMyself, { foreignKey: 'uuid_medication' })
+        this._MedicationsOfOrderMyself.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication' })
+
 
         sequelize.sync();
     }
@@ -607,6 +680,10 @@ class DefineModel {
 
     getTransport() {
         return this._Transport;
+    }
+
+    getMedicationsOfOrderMyself() {
+        return this._MedicationsOfOrderMyself;
     }
 }
 

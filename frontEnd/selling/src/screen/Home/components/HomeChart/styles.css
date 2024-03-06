@@ -1,0 +1,8 @@
+.HomeChart-today {
+    display: flex;
+    justify-content: space-between;
+}
+
+.HomeChart-today > div {
+    width: 50%;
+}

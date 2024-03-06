@@ -198,6 +198,7 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
     const [lockedStatus, setLockedStatus] = useState(false);
     const [editBoolD, setEditBoolD] = useState(false);
     const [editBoolP, setEditBoolP] = useState(false);
+    const [costTotal, setCostTotal] = useState();
 
     const [createNotification] = useCreateNotificationMutation();
     const [postCaseRecordLock] = usePostCaseRecordLockMutation();
@@ -324,6 +325,15 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
             setMedicationList(new_medicationList);
         } 
     }, [data_medicationList])
+    useEffect(() => {
+        let costTotal_m = 0;
+        for (let i = 0; i < medicationList.length; i++) {
+            const caseRecordMedication = medicationList[i].caseRecordMedication;
+            costTotal_m = costTotal_m + caseRecordMedication.cost;
+        }
+        
+        setCostTotal(costTotal_m);
+    }, [medicationList])
 
     // doctorOrPharmacist
     useEffect(() => {
@@ -902,7 +912,7 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
 
     return (
         <div className="CaseRecordPage">
-            <h2>Page { index + 1 }</h2>
+            <h2>Page { index + 1 } <span className="CaseRecordPage-smallNote">{ costTotal } $</span></h2>
             <div className="CaseRecordPage-description">
                 <div className="CaseRecordPage-description-header">Description of the disease</div>
                 <div className="CaseRecordPage-description-iconContainer">
@@ -982,13 +992,13 @@ const CaseRecordPage = ({caseRecord, caseRecordRole}) => {
                 { caseRecordRole==='patient' && 
                     <>{ editBoolD && <button onClick={() => handleSaveD()}>Save Description</button> }</> 
                 }
-                { lockedStatus 
+                { !completedStatus && <>{ lockedStatus
                     ? <button onClick={() => handleUnLock()}>Un-Lock</button>
                     : <button onClick={() => handleLock()}>Lock</button>
-                }
+                }</> }
                 { caseRecordRole==='patient' && lockedStatus && !completedStatus && <button onClick={() => handleComplete()}>Complete</button> }
                 { caseRecordRole==='doctorOrPharmacist' && lockedStatus && !completedOrCompletedPrescriptionStatus && <button onClick={() => handleComplete()}>Complete</button> }
-                { caseRecordRole==='doctorOrPharmacist' && completedOrCompletedPrescriptionStatus && <button onClick={() => handleDopReqPrescriptionAgain()}>Require prescription again</button> }
+                { !orderStatus && <>{ caseRecordRole==='doctorOrPharmacist' && completedOrCompletedPrescriptionStatus && <button onClick={() => handleDopReqPrescriptionAgain()}>Require prescription again</button> }</> }
                 { orderStatus && !orderMedication && <button onClick={() => handleOrder()}>Order</button> }
                 { orderMedication && <p>Medications of this page is order</p> }
             </div>

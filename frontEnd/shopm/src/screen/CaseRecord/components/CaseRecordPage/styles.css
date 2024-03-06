@@ -5,6 +5,14 @@
     padding: 10px;
 }
 
+.CaseRecordPage-smallNote {
+    color: blue;
+    font-style: italic;
+    margin: -3px 0;
+    padding: -3px 0;
+    font-size: 0.9rem;
+}
+
 .CaseRecordPage-description,
 .CaseRecordPage-prescription {
     margin-top: 10px;

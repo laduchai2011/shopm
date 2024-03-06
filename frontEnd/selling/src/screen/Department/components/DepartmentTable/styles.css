@@ -1,0 +1,49 @@
+.DepartmentTable-depart {
+    position: relative;
+    padding-bottom: 50px;
+    overflow-x: scroll;
+}
+
+.DepartmentTable-depart::-webkit-scrollbar {
+    height: 7px;
+}
+
+.DepartmentTable-depart::-webkit-scrollbar-thumb {
+    background-color: gray;
+}
+
+.DepartmentTable-depart > div:nth-child(1) {
+    display: flex;
+    width: max-content;
+}
+
+
+.DepartmentTable-depart-cell {
+    border: 1px solid gray;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.DepartmentTable-depart-cell:nth-child(1) > div:nth-child(1){
+    width: 50px;
+}
+
+.DepartmentTable-depart-cell > div:nth-child(1) {
+    width: 200px;
+    text-align: center;
+}
+
+.DepartmentTable-depart-cell > div:nth-child(2) {
+    height: 100%;
+    width: 5px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: col-resize;
+    z-index: 2;
+}
+
+.DepartmentTable-depart-cell > div:nth-child(2):hover {
+    background-color: blue;
+}

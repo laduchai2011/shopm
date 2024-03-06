@@ -35,7 +35,9 @@ import { SERVER_ADDRESS_CREATE_ORDERMEDICATION } from 'config/server';
 *@typedef {
 *type: string,
 *information: text,
-*uuid_orderAllMedication: uuid
+*cost: int,
+*status: string,
+*uuid_orderMedication: uuid
 *} paymentMedicationOptions
 */ 
 
@@ -43,7 +45,9 @@ import { SERVER_ADDRESS_CREATE_ORDERMEDICATION } from 'config/server';
 *@typedef {
 *type: string,
 *information: text,
-*uuid_orderAllMedication: uuid
+*cost: int,
+*status: string,
+*uuid_orderMedication: uuid
 *} transportOptions
 */ 
 
@@ -109,12 +113,16 @@ const MedicationPay = () => {
             paymentMedicationOptions: {
                 type: 'cash',
                 information: null,
+                cost: 0,
+                status: 'normal',
                 uuid_orderAllMedication: ''
             },
             transportOptions: {
                 type: 'normal',
                 information: JSON.stringify({transportCost: [medicationPayState.transportCost]}),
-                uuid_orderAllMedication: ''
+                cost: 100,
+                status: 'normal',
+                uuid_orderMedication: ''
             }
         }
         axios({

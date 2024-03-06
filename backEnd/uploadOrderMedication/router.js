@@ -7,6 +7,7 @@ const { orderMedicationCRUD } = require('./src/model/CRUDDATABASE/CRUD_OrderMedi
 const { historyCRUD } = require('./src/model/CRUDDATABASE/CRUD_History');
 const { transportCRUD } = require('./src/model/CRUDDATABASE/CRUD_Transport');
 const { paymentMedicationCRUD } = require('./src/model/CRUDDATABASE/CRUD_PaymentMedication');
+const { medicationsOfOrderMyselfCRUD } = require('./src/model/CRUDDATABASE/CRUD_MedicationsOfOrderMyself');
 const { serviceRedis } = require('./src/model/serviceRedis');
 const { Authentication } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
@@ -85,7 +86,6 @@ router.patch('/patchCurrentCart', Authentication, async (req, res) => {
 
     const isSetData = await serviceRedis.setData(currentCartKey, currentCart_in, timeExpireat);
 
-    console.log(333333333, isSetData)
     if (isSetData) {
         return res.status(200).send({
             message: 'patchCurrentCart success',

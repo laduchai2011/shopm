@@ -482,6 +482,7 @@ export const {
     useLazyGetCaseRecordPrescriptionQuery,
     useGetCaseRecordPrescriptionQuery,
     useGetCaseRecordMedicationsAllQuery,
+    useLazyGetCaseRecordMedicationsAllQuery,
     usePostCaseRecordLockMutation,
     usePatchCaseRecordDescriptionMutation,
     usePatchCaseRecordImageTitleMutation,

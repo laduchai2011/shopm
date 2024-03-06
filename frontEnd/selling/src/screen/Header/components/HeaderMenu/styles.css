@@ -1,0 +1,57 @@
+.HeaderMenu {
+    position: fixed;
+    top: 0;
+    left: -230px;
+    bottom: 0;
+    width: 230px;
+    background-color: white;
+    z-index: 101;
+
+    transition: left 0.3s linear;
+}
+
+.HeaderMenu.show {
+    left: 0;
+}
+
+.HeaderMenu-top {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 45px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom: 1px dashed rgb(167, 167, 167);
+}
+
+.HeaderMenu-top > svg {
+    margin: 0 10px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.HeaderMenu-top > svg:hover {
+    background-color: rgb(214, 214, 214);
+}
+
+.HeaderMenu-top > p {
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.HeaderMenu-option {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.HeaderMenu-option:hover {
+    background-color: rgb(221, 221, 221);
+}
+
+.HeaderMenu-option > svg {
+    margin-right: 20px;
+}

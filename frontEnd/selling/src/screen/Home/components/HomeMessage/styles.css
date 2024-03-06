@@ -1,0 +1,114 @@
+.HomeMessage {
+    background-color: white;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 250px;
+    box-sizing: border-box;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid rgb(218, 218, 218);
+}
+
+.HomeMessage-top {
+    border-bottom: 1px solid rgb(218, 218, 218);
+}
+
+.HomeMessage-top > input {
+    border-radius: 100%;
+}
+
+.HomeMessage-top > span:nth-child(3) {
+    margin-left: 20px;
+}
+
+.HomeMessage-top > span:nth-child(4) {
+    margin-left: 40px;
+}
+
+.HomeMessage-top > span:nth-child(4) > svg {
+    padding: 2px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.HomeMessage-top > span:nth-child(4) > svg:hover {
+    background-color: rgb(212, 212, 212);
+}
+
+.HomeMessage-body {
+    overflow-y: scroll;
+    height: 0;
+
+    transition: height 0.5s linear;
+}
+
+.HomeMessage-body.show {
+    height: 50vh;
+}
+
+.HomeMessage-body::-webkit-scrollbar {
+    width: 3px;
+}
+
+.HomeMessage-body::-webkit-scrollbar-thumb {
+    background-color: gray;
+}
+
+.HomeMessage-userContainer {
+    height: 50px;
+    box-sizing: border-box;
+    padding: 5px;
+    background-color: rgb(240, 240, 240);
+    border-radius: 10px;
+    margin-top: 2px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.HomeMessage-userContainer > img {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50px;
+    border: 1px solid gray;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.HomeMessage-userContainer > img:hover {
+    border: 3px solid gray;
+}
+
+.HomeMessage-userContainer-onlineDot {
+    background-color: greenyellow;
+    width: 15px;
+    aspect-ratio: 1/1;
+    position: absolute;
+    border-radius: 50%;
+    top: 35px;
+    left: 35px;
+}
+
+.HomeMessage-userContainer-name {
+    margin-left: 15px;
+    white-space: nowrap; 
+    width: 130px; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    font-size: 1.2rem;
+}
+
+.HomeMessage-userContainer-amountNotRead {
+    margin-left: 15px;
+    background-color: red;
+    box-sizing: border-box;
+    padding: 3px;
+    border-radius: 50%;
+    color: white;
+    aspect-ratio: 1/1;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

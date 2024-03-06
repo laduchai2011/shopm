@@ -6,6 +6,7 @@ const { defineModel } = require('../defineModel');
 *@typedef {
 *type: string,
 *information: text,
+*cost: int,
 *status: string,
 *uuid_orderMedication: uuid
 *} transportOptions
@@ -16,7 +17,7 @@ class TRANSPORT {
         this._Transport = defineModel.getTransport();
     }
 
-    create(transportOptions, callback) {
+    readWithFk(uuid_orderMedication, callback) {
         let transport;
         let err;
         
@@ -24,7 +25,17 @@ class TRANSPORT {
             try {
                 sequelize.transaction(async (t) => {
                     try {
-                        const newTransport = await this._Transport.create(transportOptions, { transaction: t });
+                        const newTransport = await this._Transport.findOne(
+                            {
+                                where: {
+                                    uuid_orderMedication: uuid_orderMedication,
+                                    [Op.or]: [
+                                        {[Op.not]: { status: 'delete' }}
+                                    ]
+                                }
+                            },
+                            { transaction: t }
+                        );
                         resolve(newTransport);   
                     } catch (error) {
                         reject(error);

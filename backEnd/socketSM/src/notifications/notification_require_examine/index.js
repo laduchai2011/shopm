@@ -8,7 +8,7 @@ function notification_require_examine () {
     const cookieParser = require('socket.io-cookie-parser');
     const { Notification_Authentication } = require('../../auth/Notification_Authentication');
 
-    const baseURL_shopm = process.env.NODE_ENV_BASEURL_SHOPM || 'http://192.168.1.12:3000';
+    const baseURL_shopm = process.env.NODE_ENV_BASEURL_SHOPM || 'http://192.168.5.129:3000';
     
     let secure_cookie = false;
     if (process.env.NODE_ENV !== 'development') {

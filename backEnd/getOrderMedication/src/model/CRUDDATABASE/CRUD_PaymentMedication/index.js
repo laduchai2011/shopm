@@ -6,6 +6,7 @@ const { defineModel } = require('../defineModel');
 *@typedef {
 *type: string,
 *information: text,
+*cost: int,
 *status: string,
 *uuid_orderMedication: uuid
 *} paymentMedicationOptions
@@ -16,7 +17,7 @@ class PAYMENTMEDICATION {
         this._PaymentMedication = defineModel.getPaymentMedication();
     }
 
-    create(paymentMedicationOptions, callback) {
+    readWithFk(uuid_orderMedication, callback) {
         let paymentMedication;
         let err;
         
@@ -24,12 +25,22 @@ class PAYMENTMEDICATION {
             try {
                 sequelize.transaction(async (t) => {
                     try {
-                        const newPaymentMedication = await this._PaymentMedication.create(paymentMedicationOptions, { transaction: t });
-                        resolve(newPaymentMedication); 
+                        const newPaymentMedication = await this._PaymentMedication.findOne(
+                            {
+                                where: {
+                                    uuid_orderMedication: uuid_orderMedication,
+                                    [Op.or]: [
+                                        {[Op.not]: { status: 'delete' }}
+                                    ]
+                                }
+                            },
+                            { transaction: t }
+                        );
+                        resolve(newPaymentMedication);   
                     } catch (error) {
                         reject(error);
                     }
-                });  
+                });
             } catch (error) {
                 reject(error);
             }

@@ -146,6 +146,7 @@ class ORDERMEDICATION {
                 const transportOptions = {
                     type: 'normal',
                     information: 'NOT',
+                    cost: 100,
                     status: 'normal',
                     uuid_orderMedication: newOrderMedication.uuid_orderMedication
                 }
@@ -154,6 +155,7 @@ class ORDERMEDICATION {
                 const paymentMedicationOptions = {
                     type: 'cash',
                     information: 'NOT',
+                    cost: 500,
                     status: 'normal',
                     uuid_orderMedication: newOrderMedication.uuid_orderMedication
                 }

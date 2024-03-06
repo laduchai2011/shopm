@@ -1,0 +1,60 @@
+.HeaderProviderDialog {
+    width: 300px;
+    height: 400px;
+    background-color: white;
+    position: fixed;
+    left: 50%;
+    bottom: calc(-50% - 400px);
+    transform: translate(-50%, 50%);
+    border: 1px solid gray;
+    box-sizing: border-box;
+    border-radius: 15px;
+    padding: 5px;
+    z-index: 101;
+
+    transition: bottom 0.3s linear;
+}
+
+.HeaderProviderDialog.show {
+    bottom: 50%;
+}
+
+.HeaderProviderDialog-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed gray;
+}
+
+.HeaderProviderDialog-top > svg {
+    padding: 2px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.HeaderProviderDialog-top > svg:hover {
+    background-color: rgb(218, 218, 218);
+}
+
+.HeaderProviderDialog-providerContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.HeaderProviderDialog-providerContainer > img {
+    height: 50px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: 1px solid rgb(219, 219, 219);
+    margin: 0 10px;
+}
+
+.HeaderProviderDialog-providerContainer > span {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    line-clamp: 2; 
+    -webkit-box-orient: vertical;
+}   

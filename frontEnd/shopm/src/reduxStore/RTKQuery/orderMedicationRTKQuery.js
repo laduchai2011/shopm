@@ -4,7 +4,9 @@ import {
     SERVER_ADDRESS_ORDERMEDICATION_CREATE_WITH_CASERECORD,
     SERVER_ADDRESS_ORDERMEDICATION_GET_WITH_UUID,
     SERVER_ADDRESS_ORDERMEDICATION_GET_HISTORIES_WITH_FK,
-    SERVER_ADDRESS_ORDERMEDICATION_GETLIST_FROM_PROFILE
+    SERVER_ADDRESS_ORDERMEDICATION_GETLIST_FROM_PROFILE,
+    SERVER_ADDRESS_ORDERMEDICATION_GET_TRANSPORT_WITH_FK,
+    SERVER_ADDRESS_ORDERMEDICATION_GET_PAYMENTMEDICATION_WITH_FK
 } from 'config/server';
 
 /**
@@ -32,6 +34,7 @@ import {
 *@typedef {
 *type: string,
 *information: text,
+*cost: int,
 *status: string,
 *uuid_orderMedication: uuid
 *} transportOptions
@@ -41,6 +44,7 @@ import {
 *@typedef {
 *type: string,
 *information: text,
+*cost: int,
 *status: string,
 *uuid_orderMedication: uuid
 *} paymentMedicationOptions
@@ -60,7 +64,9 @@ export const orderMedicationRTKQuery = createApi({
     tagTypes:[
         'orderMedications',
         'orderMedication',
-        'history'
+        'history',
+        'transport',
+        'paymentMedication'
     ],
     endpoints: (builder) => ({
         // query
@@ -84,6 +90,20 @@ export const orderMedicationRTKQuery = createApi({
                 credentials: "include"
             }),
             providesTags: [{type: 'history'}]
+        }),
+        getTransportWithFK: builder.query({
+            query: ({uuid_orderMedication}) => ({
+                url: `${SERVER_ADDRESS_ORDERMEDICATION_GET_TRANSPORT_WITH_FK}?uuid_orderMedication=${ uuid_orderMedication }`,
+                credentials: "include"
+            }),
+            providesTags: [{type: 'transport'}]
+        }),
+        getPaymentMedicationWithFK: builder.query({
+            query: ({uuid_orderMedication}) => ({
+                url: `${SERVER_ADDRESS_ORDERMEDICATION_GET_PAYMENTMEDICATION_WITH_FK}?uuid_orderMedication=${ uuid_orderMedication }`,
+                credentials: "include"
+            }),
+            providesTags: [{type: 'paymentMedication'}]
         }),
         getOrderMedicationWithCaseRecord: builder.query({
             query: ({uuid_caseRecord, pageNumber}) => ({
@@ -121,6 +141,8 @@ export const {
     useLazyGetOrderMedicationsFromProfileQuery,
     useGetOrderMedicationWithUuidQuery,
     useGetHistoriesWithFKQuery,
+    useGetTransportWithFKQuery,
     useGetOrderMedicationWithCaseRecordQuery,
+    useGetPaymentMedicationWithFKQuery,
     useCreateOrderMedicationWithCaseRecordMutation
 } = orderMedicationRTKQuery;

@@ -1,0 +1,38 @@
+.HomeFooter {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 10px;
+}
+
+.HomeFooter > div {
+    background-color: black;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    cursor: pointer;
+}
+
+.HomeFooter > div > span {
+    color: white;
+}
+
+.HomeFooter > div > div {
+    position: relative;
+}
+
+.HomeFooter > div > div > div {
+    background-color: red;
+    color: white;
+    aspect-ratio: 1/1;
+    width: 25px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 15px;
+    right: -7px;
+}

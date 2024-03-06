@@ -48,3 +48,5 @@
 10-02-2024	49:14:05--------/orderMedication/createWithCaseRecord---POST---TokenExpiredError: jwt expired: token.verify-accessToken
 10-02-2024	15:16:05--------/orderMedication/createWithCaseRecord---POST---TokenExpiredError: jwt expired: token.verify-accessToken
 10-02-2024	41:20:05--------/orderMedication/createWithCaseRecord---POST---TokenExpiredError: jwt expired: token.verify-accessToken
+10-02-2024	47:21:22--------/orderMedication/createWithCaseRecord---POST---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-02-2024	54:15:23--------/orderMedication/createWithCaseRecord---POST---JsonWebTokenError: invalid signature: token.verify-accessToken

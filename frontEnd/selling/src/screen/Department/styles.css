@@ -1,0 +1,21 @@
+.Department {
+    background-color: #eee;
+    height: 100vh;
+}
+
+.Department-main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.Department-center {
+    width: 1200px;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.Department-center > div {
+    margin: 20px 0;
+}

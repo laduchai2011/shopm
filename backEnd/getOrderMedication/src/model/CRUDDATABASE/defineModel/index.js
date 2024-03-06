@@ -521,6 +521,10 @@ class DefineModel {
             information: {
                 type: DataTypes.TEXT
             },
+            cost: {
+                type: DataTypes.INTEGER,
+                allowNull: false
+            },
             status: {
                 type: DataTypes.STRING,
                 allowNull: false
@@ -558,6 +562,10 @@ class DefineModel {
             },
             information: {
                 type: DataTypes.TEXT
+            },
+            cost: {
+                type: DataTypes.INTEGER,
+                allowNull: false
             },
             status: {
                 type: DataTypes.STRING,

@@ -38,12 +38,14 @@ import { $ } from "utilize/Tricks";
 *status: string,
 *uuid_orderMedication: uuid
 *} historyOptions
+
 */ 
 
 /**
 *@typedef {
 *type: string,
 *information: text,
+*cost: int,
 *status: string,
 *uuid_orderMedication: uuid
 *} transportOptions
@@ -53,6 +55,7 @@ import { $ } from "utilize/Tricks";
 *@typedef {
 *type: string,
 *information: text,
+*cost: int,
 *status: string,
 *uuid_orderMedication: uuid
 *} paymentMedicationOptions

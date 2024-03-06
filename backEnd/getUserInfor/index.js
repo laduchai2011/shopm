@@ -5,7 +5,7 @@ const app = express();
 const cookieParser = require('cookie-parser');
 require('./serviceMessage');
 
-const baseURL_shopm = process.env.NODE_ENV_BASEURL_SHOPM || 'http://192.168.1.12:3000';
+const baseURL_shopm = process.env.NODE_ENV_BASEURL_SHOPM || 'http://192.168.5.129:3000';
 
 //add other middleware
 app.use('/api/svGetUserInfor', function (req, res, next) {

@@ -21,7 +21,7 @@
     justify-content: space-around;
 }
 
-.Header-menu-logo svg, h4 {
+.Header-menu-logo > svg, h4 {
     cursor: pointer;
 }
 

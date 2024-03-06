@@ -15,13 +15,16 @@ import MedicationOrderImageBox from './components/MedicationOrderImageBox';
 
 import { 
     useGetOrderMedicationWithUuidQuery,
-    useGetHistoriesWithFKQuery 
+    useGetHistoriesWithFKQuery,
+    useGetTransportWithFKQuery,
+    useGetPaymentMedicationWithFKQuery 
 } from 'reduxStore/RTKQuery/orderMedicationRTKQuery';
 
 import { 
     useLazyGetCaseRecordImageAllQuery,
     useLazyGetCaseRecordDescriptionQuery,
-    useLazyGetCaseRecordPrescriptionQuery
+    useLazyGetCaseRecordPrescriptionQuery,
+    useLazyGetCaseRecordMedicationsAllQuery
 } from 'reduxStore/RTKQuery/caseRecordRTKQuery';
 
 
@@ -51,6 +54,7 @@ import {
 *@typedef {
 *type: string,
 *information: text,
+*cost: int,
 *status: string,
 *uuid_orderMedication: uuid
 *} transportOptions
@@ -60,6 +64,7 @@ import {
 *@typedef {
 *type: string,
 *information: text,
+*cost: int,
 *status: string,
 *uuid_orderMedication: uuid
 *} paymentMedicationOptions
@@ -70,6 +75,7 @@ const MedicationOrder = () => {
     const { id: uuid_orderMedication } = useParams();
 
     const [toastImage, setToastImage] = useState('');
+    const [costTotal, setCostTotal] = useState();
 
     // oderMedication
     const {
@@ -134,6 +140,42 @@ const MedicationOrder = () => {
         }
     }, [data_histories])
 
+    // transport
+    const {
+        data: data_transport, 
+        // isFetching: isFetching_transport, 
+        isError: isError_transport,
+        error: error_transport
+    } = useGetTransportWithFKQuery({uuid_orderMedication: uuid_orderMedication});
+    const [transport, setTransport] = useState();
+    useEffect(() => {
+        isError_transport && console.log(error_transport);
+    }, [isError_transport, error_transport])
+    useEffect(() => {
+        const resData = data_transport;
+        if (resData?.success) {
+            setTransport(resData?.transport);
+        }
+    }, [data_transport])
+
+    // paymentMedication
+    const {
+        data: data_paymentMedication, 
+        // isFetching: isFetching_paymentMedication, 
+        isError: isError_paymentMedication,
+        error: error_paymentMedication
+    } = useGetPaymentMedicationWithFKQuery({uuid_orderMedication: uuid_orderMedication});
+    const [paymentMedication, setPaymentMedication] = useState();
+    useEffect(() => {
+        isError_paymentMedication && console.log(error_paymentMedication);
+    }, [isError_paymentMedication, error_paymentMedication])
+    useEffect(() => {
+        const resData = data_paymentMedication;
+        if (resData?.success) {
+            setPaymentMedication(resData?.paymentMedication);
+        }
+    }, [data_paymentMedication])
+
     // all images
     const [getCaseRecordImageAll, {
         data: data_imageAll, 
@@ -192,6 +234,32 @@ const MedicationOrder = () => {
         q_prescription.children.innerHTML = prescription;
     }, [prescription])
 
+    // medication
+    const [getCaseRecordMedicationsAll, {
+        data: data_medicationsAll, 
+        // isFetching: isFetching_medicationsAll, 
+        isError: isError_medicationsAll,
+        error: error_medicationsAll
+    }] = useLazyGetCaseRecordMedicationsAllQuery();
+    const [medicationsAll, setMedicationsAll] = useState([]);
+    useEffect(() => {
+        isError_medicationsAll && console.log(error_medicationsAll);
+    }, [isError_medicationsAll, error_medicationsAll])
+    useEffect(() => {
+        const resData = data_medicationsAll;
+        if (resData?.success && (resData?.caseRecordMedications!==null)) {
+            const new_medicationList = [];
+            for (let i = 0; i < resData?.caseRecordMedications?.length; i++) {
+                const medicationList_m = {
+                    caseRecordMedication: resData?.caseRecordMedications[i],
+                    medication: null
+                }
+                new_medicationList.push(medicationList_m);
+            }
+            setMedicationsAll(new_medicationList);
+        } 
+    }, [data_medicationsAll])
+
     // trigger data
     useEffect(() => {
         orderMedication && getCaseRecordImageAll({
@@ -206,18 +274,46 @@ const MedicationOrder = () => {
             uuid_caseRecord: orderMedication.uuid_caseRecord, 
             pageNumber: orderMedication.pageNumber
         })
-    }, [orderMedication, getCaseRecordDescription, getCaseRecordImageAll, getCaseRecordPrescription])
+        orderMedication && getCaseRecordMedicationsAll({
+            uuid_caseRecord: orderMedication.uuid_caseRecord, 
+            pageNumber: orderMedication.pageNumber
+        })
+    }, [orderMedication, 
+        getCaseRecordDescription, 
+        getCaseRecordImageAll, 
+        getCaseRecordPrescription,
+        getCaseRecordMedicationsAll
+    ])
 
-    const list_medication = [1,2,3,4,5,6,7,8,9].map((data, index) => {
+    useEffect(() => {
+        let costTotal_m = 0;
+        for (let i = 0; i < medicationsAll.length; i++) {
+            const caseRecordMedication = medicationsAll[i].caseRecordMedication;
+            costTotal_m = costTotal_m + caseRecordMedication.cost;
+        }
+        
+        setCostTotal(costTotal_m);
+    }, [medicationsAll])
+
+    const handleGotoMedication = (uuid_medication) => {
+        window.open(`/medication/${uuid_medication}`, 'rel=noopener noreferrer')
+    }
+
+    const handleGoToCaseRecord = (uuid_caseRecord) => {
+        window.open(`/caseRecord/${uuid_caseRecord}`, 'rel=noopener noreferrer')
+    }
+
+    const list_medication = medicationsAll.map((data, index) => {
+        const caseRecordMedication = data.caseRecordMedication;
         return (
             <div className='MedicationOrder-medicateList-medicate' key={ index }>
-                <div>Name</div>
-                <div>Symptom</div>
+                <div>{ caseRecordMedication.name }</div>
+                <div>{ caseRecordMedication.note }</div>
                 <div>
-                    <span>30</span>
-                    <span>30</span>
-                    <span>3000000</span>
-                    <button>Detail</button>
+                    <span>{ caseRecordMedication.amount }</span>
+                    <span>{ caseRecordMedication.discount }%</span>
+                    <span>{ caseRecordMedication.price }</span>
+                    <button onClick={() => handleGotoMedication(caseRecordMedication.uuid_medication)}>Detail</button>
                 </div>
             </div>
         )
@@ -281,43 +377,58 @@ const MedicationOrder = () => {
                 </div>
                 <div className='MedicationOrder-Support'>
                     <div className='MedicationOrder-Support-header'>Support</div>
-                    <div className='MedicationOrder-Support-list'>
+                    { orderMedication?.uuid_caseRecord!==null && <div className='MedicationOrder-Support-list'>
                         <div>Case-Record: <strong>{`${orderMedication?.uuid_caseRecord}`}</strong> -- Page number: <strong>{`${orderMedication?.pageNumber}`}</strong></div>
                         <div>
-                            <button>Go to caseRecord</button>
+                            <button onClick={() => handleGoToCaseRecord(orderMedication?.uuid_caseRecord)}>Go to caseRecord</button>
                         </div>
-                    </div>
+                    </div> }
+                    { orderMedication?.uuid_orderMyself!==null && <div className='MedicationOrder-Support-list'>
+                        Not is a medicated order by case-record
+                    </div> }
                 </div>
                 <div className='MedicationOrder-Image'>
                     <div className='MedicationOrder-Image-header'>Image</div>
-                    <div className='MedicationOrder-Image-list'>
+                    { orderMedication?.uuid_caseRecord!==null && <div className='MedicationOrder-Image-list'>
                         { list_image }
-                    </div>
+                    </div> }
+                    { orderMedication?.uuid_orderMyself!==null && <div className='MedicationOrder-Image-list'>
+                        Not is a medicated order by case-record
+                    </div> }
                 </div>
                 <div className='MedicationOrder-Video'>
                     <div className='MedicationOrder-Video-header'>Video</div>
-                    <div className='MedicationOrder-Video-list'>
+                    { orderMedication?.uuid_caseRecord!==null && <div className='MedicationOrder-Video-list'>
                         { list_video }
-                    </div>
+                    </div> }
+                    { orderMedication?.uuid_orderMyself!==null && <div className='MedicationOrder-Video-list'>
+                        Not is a medicated order by case-record
+                    </div> }
                 </div>
                 <div className='MedicationOrder-Note'>
                     <div className='MedicationOrder-Note-header'>Note (<span>You</span>)</div>
-                    <div className='MedicationOrder-Note-list'>
+                    { orderMedication?.uuid_caseRecord!==null && <div className='MedicationOrder-Note-list'>
                         <div>{ description }</div>
-                    </div>
+                    </div> }
+                    { orderMedication?.uuid_orderMyself!==null && <div className='MedicationOrder-Note-list'>
+                        Not is a medicated order by case-record
+                    </div> }
                 </div>
                 <div className='MedicationOrder-Note'>
                     <div className='MedicationOrder-Note-header'>Note (<span>Doctor or Pharmacist</span>)</div>
-                    <div className='MedicationOrder-Note-list'>
+                    { orderMedication?.uuid_caseRecord!==null && <div className='MedicationOrder-Note-list'>
                         <div>{ prescription }</div>
-                    </div>
+                    </div> }
+                    { orderMedication?.uuid_orderMyself!==null && <div className='MedicationOrder-Note-list'>
+                        Not is a medicated order by case-record
+                    </div> }
                 </div>
                 <div className='MedicationOrder-Transport'>
                     <div className='MedicationOrder-Transport-header'>Transport</div>
                     <div className='MedicationOrder-Transport-list'>
                         <div className='MedicationOrder-Transport-step'>
-                            <div>Normal</div>
-                            <div>: 10$</div>
+                            <div>{ transport?.type }</div>
+                            <div>: { transport?.cost } $</div>
                         </div>
                     </div>
                 </div>
@@ -326,7 +437,7 @@ const MedicationOrder = () => {
                     <div className='MedicationOrder-Pay-list'>
                         <div className='MedicationOrder-Pay-step'>
                             <div><span>1</span></div>
-                            <div>Cash</div>
+                            <div>{ paymentMedication?.type }</div>
                             <div><HiCheck size={25} color='green' /></div>
                         </div>
                     </div>
@@ -337,9 +448,9 @@ const MedicationOrder = () => {
                         <div>Medication</div>
                         <div>Transport</div>
                         <div>Total</div>
-                        <div>10$</div>
-                        <div>1$</div> 
-                        <div>11$</div> 
+                        <div>{ costTotal } $</div>
+                        <div>{ transport?.cost } $</div> 
+                        <div>{ costTotal + transport?.cost } $</div> 
                     </div>
                 </div>
                 <div className='MedicationOrder-Report'>

@@ -38,7 +38,6 @@ const ProfileBottomHistory = () => {
     }, [isError_orderMedications, error_orderMedications])
     useEffect(() => {
         const resData = data_orderMedications;
-        console.log(resData)
         if (resData?.success) {
             setOrderMedications(resData?.orderMedications?.rows);
         }
@@ -50,7 +49,7 @@ const ProfileBottomHistory = () => {
             pageIndex: pageIndex, 
             pageSize: pageSize
         })
-    }, [getOrderMedications])
+    }, [getOrderMedications, loginInfor?.uuid])
 
     const list_orderMedication = orderMedications.map((data, index) => {
         return (

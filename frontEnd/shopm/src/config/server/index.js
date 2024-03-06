@@ -1,5 +1,5 @@
-export const baseURL                                                           = 'http://192.168.1.12';
-export const baseURL_socket                                                    = 'ws://192.168.1.12';
+export const baseURL                                                           = 'http://192.168.5.129';
+export const baseURL_socket                                                    = 'ws://192.168.5.129';
 
 
 export const SERVER_ADDRESS_SIGNUP                                             = `${baseURL}:7000/api/svUploadUserInfor/signup`;
@@ -73,6 +73,8 @@ export const SERVER_ADDRESS_ORDERMEDICATION_GET_WITH_CASERECORD                =
 export const SERVER_ADDRESS_ORDERMEDICATION_GET_WITH_UUID                      = `${baseURL}:8400/api/svGetOrderMedication/orderMedication/readWithUuid`;
 export const SERVER_ADDRESS_ORDERMEDICATION_GETLIST_FROM_PROFILE               = `${baseURL}:8400/api/svGetOrderMedication/orderMedication/getListFromProfile`;
 export const SERVER_ADDRESS_ORDERMEDICATION_GET_HISTORIES_WITH_FK              = `${baseURL}:8400/api/svGetOrderMedication/orderMedication/readHistoriesWithFK`;
+export const SERVER_ADDRESS_ORDERMEDICATION_GET_TRANSPORT_WITH_FK              = `${baseURL}:8400/api/svGetOrderMedication/orderMedication/getTransportWithFk`;
+export const SERVER_ADDRESS_ORDERMEDICATION_GET_PAYMENTMEDICATION_WITH_FK      = `${baseURL}:8400/api/svGetOrderMedication/orderMedication/getPaymentMedicationtWithFk`;
 export const SERVER_ADDRESS_GET_CURRENTCART                                    = `${baseURL}:8400/api/svGetOrderMedication/getCurrentCart`; 
 export const SERVER_ADDRESS_PATCH_CURRENTCART                                  = `${baseURL}:7400/api/svUploadOrderMedication/patchCurrentCart`; 
 export const SERVER_ADDRESS_DELETE_CURRENTCART                                 = `${baseURL}:7400/api/svUploadOrderMedication/deleteCurrentCart`; 
