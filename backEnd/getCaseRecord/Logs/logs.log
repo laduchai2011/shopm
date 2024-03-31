@@ -453,3 +453,4 @@
 28-02-2024	04:42:07--------/caseRecord/getLock?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
 28-02-2024	05:42:07--------/getCaseRecordImageAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
 28-02-2024	05:42:07--------/getCaseRecordMedicationsAll?uuid_caseRecord=870ae6b8-038b-47b5-a555-a6a497817006&pageNumber=1---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-03-2024	08:13:19--------Redis Client Error Error: Connection timeout

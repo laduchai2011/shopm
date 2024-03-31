@@ -130,7 +130,7 @@ const MedicationCommonInfor = () => {
             }).then(res => {
                 const resData = res.data;
                 if (resData?.success) {
-                    const caseRecord = resData.caseRecord;
+                    // const caseRecord = resData.caseRecord;
                     const caseRecordMedicationOptions = {
                         pageNumber: currentCart.pageNumber,
                         name: medicationSate.name,

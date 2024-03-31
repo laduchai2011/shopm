@@ -619,3 +619,4 @@
 05-03-2024	44:13:12--------( SocketSM_Authentication ) Error: Socket-accessToken invalid or not created ( SocketSM_Authentication ) !
 06-03-2024	48:37:09--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
 06-03-2024	48:37:09--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-03-2024	37:16:19--------Redis Client Error Error: Connection timeout

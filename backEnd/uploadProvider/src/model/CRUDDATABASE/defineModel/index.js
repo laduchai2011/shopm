@@ -126,6 +126,321 @@ class DefineModel {
         this._Provider.hasMany(this._ProviderAbout, { foreignKey: 'uuid_provider' })
         this._ProviderAbout.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider' })
 
+        this._ChestGroup = sequelize.define('ChestGroup', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                autoIncrement: true,
+                unique: 'UQ__ChestGroups__id'
+            },
+            uuid_chestGroup: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            title: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            address: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            note: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_provider: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [{
+                name: 'uuid_provider_indexes',
+                using: 'BTREE',
+                fields: ['uuid_provider']
+            }]
+        })
+        this._Provider.hasMany(this._ChestGroup, { foreignKey: 'uuid_provider' })
+        this._ChestGroup.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider' })
+
+        this._Chest = sequelize.define('Chest', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                autoIncrement: true,
+                unique: 'UQ__Chests__id'
+            },
+            uuid_chest: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            title: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            type: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            size: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            maxAmount: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            note: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_chestGroup: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [{
+                name: 'uuid_chestGroup_indexes',
+                using: 'BTREE',
+                fields: ['uuid_chestGroup']
+            }]
+        })
+        this._ChestGroup.hasMany(this._Chest, { foreignKey: 'uuid_chestGroup' })
+        this._Chest.belongsTo(this._ChestGroup, { foreignKey: 'uuid_chestGroup', targetKey: 'uuid_chestGroup', as: 'uuid_ChestGroup' })
+
+        this._DepartmentGroup = sequelize.define('DepartmentGroup', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                autoIncrement: true,
+                unique: 'UQ__DepartmentGroups__id'
+            },
+            uuid_departmentGroup: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            title: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            note: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_provider: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [{
+                name: 'uuid_provider_indexes',
+                using: 'BTREE',
+                fields: ['uuid_provider']
+            }]
+        })
+        this._DepartmentGroup.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider' })
+
+        this._Department = sequelize.define('Department', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                autoIncrement: true,
+                unique: 'UQ__Departments__id'
+            },
+            uuid_department: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            title: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            amount: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            sold: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            remain: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            recover: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            turnover: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            return: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            firstTime: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            lastTime: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            note: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_departmentGroup: {
+                type: Sequelize.UUID,
+                allowNull: true
+            },
+            uuid_provider: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [
+                {
+                    name: 'uuid_departmentGroup_indexes',
+                    using: 'BTREE',
+                    fields: ['uuid_departmentGroup']
+                },
+                {
+                    name: 'uuid_provider_indexes',
+                    using: 'BTREE',
+                    fields: ['uuid_provider']
+                }
+            ]
+        })
+        this._Department.belongsTo(this._DepartmentGroup, { foreignKey: 'uuid_departmentGroup', targetKey: 'uuid_departmentGroup', as: 'uuid_DepartmentGroup' })
+        this._Department.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider' })
+
+        this._DepartmentChest = sequelize.define('DepartmentChest', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                autoIncrement: true,
+                unique: 'UQ__DepartmentChests__id'
+            },
+            uuid_departmentChest: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            title: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            type: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            size: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            amount: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            sold: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            maxAmount: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            remain: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            recover: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            turnover: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            return: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            note: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_department: {
+                type: Sequelize.UUID,
+                allowNull: true
+            },
+            uuid_chest: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [
+                {
+                    name: 'uuid_department_indexes',
+                    using: 'BTREE',
+                    fields: ['uuid_department']
+                },
+                {
+                    name: 'uuid_provider_indexes',
+                    using: 'BTREE',
+                    fields: ['uuid_provider']
+                }
+            ]
+        })
+        this._DepartmentChest.belongsTo(this._Department, { foreignKey: 'uuid_department', targetKey: 'uuid_department', as: 'uuid_Department' })
+        this._DepartmentChest.belongsTo(this._Provider, { foreignKey: 'uuid_chest', targetKey: 'uuid_chest', as: 'uuid_Chest' })
+
         sequelize.sync();
     }
 
