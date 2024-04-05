@@ -50,3 +50,9 @@
 10-02-2024	41:20:05--------/orderMedication/createWithCaseRecord---POST---TokenExpiredError: jwt expired: token.verify-accessToken
 10-02-2024	47:21:22--------/orderMedication/createWithCaseRecord---POST---JsonWebTokenError: invalid signature: token.verify-accessToken
 10-02-2024	54:15:23--------/orderMedication/createWithCaseRecord---POST---JsonWebTokenError: invalid signature: token.verify-accessToken
+31-03-2024	07:59:23--------Redis Client Error Error: Connection timeout
+01-04-2024	52:18:09--------Redis Client Error Error: Connection timeout
+01-04-2024	56:38:10--------Redis Client Error Error: Connection timeout
+01-04-2024	14:33:18--------Redis Client Error Error: Connection timeout
+03-04-2024	29:09:23--------Redis Client Error Error: Connection timeout
+04-04-2024	28:24:19--------Redis Client Error Error: Connection timeout

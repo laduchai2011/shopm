@@ -292,3 +292,15 @@
 02-03-2024	05:10:00--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
 02-03-2024	05:10:00--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
 30-03-2024	47:15:19--------Redis Client Error Error: Connection timeout
+31-03-2024	19:30:08--------Redis Client Error Error: read ECONNRESET
+31-03-2024	19:30:08--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+31-03-2024	19:30:08--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+31-03-2024	19:30:08--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+01-04-2024	47:00:00--------Redis Client Error Error: Connection timeout
+01-04-2024	37:19:09--------Redis Client Error Error: Connection timeout
+01-04-2024	55:38:10--------Redis Client Error Error: Connection timeout
+01-04-2024	40:32:18--------Redis Client Error Error: Connection timeout
+02-04-2024	06:16:22--------Redis Client Error Error: Connection timeout
+03-04-2024	46:59:14--------Redis Client Error Error: Connection timeout
+03-04-2024	55:14:23--------Redis Client Error Error: Connection timeout
+04-04-2024	26:22:19--------Redis Client Error Error: Connection timeout

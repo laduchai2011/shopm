@@ -378,3 +378,19 @@
 06-03-2024	31:37:09--------/getCurrentCart---GET: Please login 3 !
 30-03-2024	16:14:19--------Redis Client Error Error: Connection timeout
 30-03-2024	16:14:19--------Redis Client Error Error: Connection timeout (publisher)
+01-04-2024	07:03:00--------Redis Client Error Error: Connection timeout
+01-04-2024	07:03:00--------Redis Client Error Error: Connection timeout (publisher)
+01-04-2024	41:19:09--------Redis Client Error Error: Connection timeout
+01-04-2024	41:19:09--------Redis Client Error Error: Connection timeout (publisher)
+01-04-2024	18:31:10--------Redis Client Error Error: Connection timeout
+01-04-2024	18:31:10--------Redis Client Error Error: Connection timeout (publisher)
+01-04-2024	57:31:18--------Redis Client Error Error: Connection timeout
+01-04-2024	57:31:18--------Redis Client Error Error: Connection timeout (publisher)
+02-04-2024	11:15:22--------Redis Client Error Error: Connection timeout
+02-04-2024	11:15:22--------Redis Client Error Error: Connection timeout (publisher)
+03-04-2024	57:59:14--------Redis Client Error Error: Connection timeout
+03-04-2024	57:59:14--------Redis Client Error Error: Connection timeout (publisher)
+03-04-2024	12:14:23--------Redis Client Error Error: Connection timeout
+03-04-2024	12:14:23--------Redis Client Error Error: Connection timeout (publisher)
+04-04-2024	03:21:19--------Redis Client Error Error: Connection timeout
+04-04-2024	03:21:19--------Redis Client Error Error: Connection timeout (publisher)
