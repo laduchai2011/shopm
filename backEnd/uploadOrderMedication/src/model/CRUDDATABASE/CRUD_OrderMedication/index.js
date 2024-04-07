@@ -4,22 +4,105 @@ const { defineModel } = require('../defineModel');
 
 /**
 *@typedef {
-*title: string,
-*type: string,
-*pageNumber: string,
+*name: string,
+*amount: string,
+*costTotal: float,
+*note: text,
 *status: string,
-*uuid_caseRecord: uuid,
-*uuid_orderMyself: uuid,
-*uuid_user: uuid
+*uuid_departmentMedication: uuid,
+*uuid_orderMedicationGroup: uuid
 *} orderMedicationOptions
 */ 
+
+/**
+*@typedef {
+*name: string,
+*amount: string,
+*price: float,
+*discount: float,
+*costTotal: float,
+*note: text,
+*status: string,
+*uuid_orderMedication: uuid
+*} orderMedicationMedicationOptions
+*/ 
+
+/**
+*@typedef {
+*description: TEXT,
+*status: string,
+*uuid_orderMedication: uuid
+*} orderMedicationDescriptionOptions
+*/ 
+
+/**
+*@typedef {
+*title: string,
+*imageUrl: string,
+*status: string,
+*uuid_orderMedication: uuid
+*} orderMedicationImageOptions
+*/
+
+/**
+*@typedef {
+*title: string,
+*videoUrl: string,
+*status: string,
+*uuid_orderMedication: uuid
+*} orderMedicationVideoOptions
+*/
+
+/**
+*@typedef {
+*prescription: TEXT,
+*status: string,
+*uuid_orderMedication: uuid
+*} orderMedicationPrescriptionOptions
+*/ 
+
+/**
+*@typedef {
+*step: string,              cart - order - confirm - transport - receive
+*isCompleted: text,
+*status: string,
+*uuid_orderMedication: uuid
+*} orderMedicationStepByStepOptions
+*/ 
+
+/**
+*@typedef {
+*type: string,
+*information: text,
+*cost: float,
+*status: string,
+*uuid_orderMedication: uuid
+*} orderMedicationTransportOptions
+*/ 
+    
+/**
+*@typedef {
+*type: string,
+*information: text,
+*cost: float,
+*status: string,
+*uuid_orderMedication: uuid
+*} orderMedicationPaymentOptions
+*/ 
+    
+
 
 class ORDERMEDICATION {
     constructor() {
         this._OrderMedication = defineModel.getOrderMedication();
-        this._History = defineModel.getHistory();
-        this._Transport = defineModel.getTransport();
-        this._PaymentMedication = defineModel.getPaymentMedication();
+        this._OrderMedicationMedication = defineModel.getOrderMedicationMedication();
+        this._OrderMedicationDescription = defineModel.getOrderMedicationDescription();
+        this._OrderMedicationImage = defineModel.getOrderMedicationImage();
+        this._OrderMedicationVideo = defineModel.getOrderMedicationVideo();
+        this._OrderMedicationPrescription= defineModel.getOrderMedicationPrescription();
+        this._OrderMedicationStepByStep = defineModel.getOrderMedicationStepByStep();
+        this._OrderMedicationTransport = defineModel.getOrderMedicationTransport();
+        this._OrderMedicationPayment = defineModel.getOrderMedicationPayment();
     }
 
     readWithCaseRecord(uuid_caseRecord, pageNumber, callback) {
