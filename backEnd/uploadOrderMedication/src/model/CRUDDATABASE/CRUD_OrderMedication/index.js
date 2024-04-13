@@ -20,7 +20,7 @@ const { defineModel } = require('../defineModel');
 *amount: string,
 *price: float,
 *discount: float,
-*costTotal: float,
+*cost: float,
 *note: text,
 *status: string,
 *uuid_orderMedication: uuid
@@ -181,18 +181,45 @@ class ORDERMEDICATION {
         })
     }
 
-    createWithCaseRecord(orderMedicationOptions, callback) {
+    createWithCaseRecord(orderMedicationFromCaseRecordOptions, callback) {
         let orderMedication;
         let err;
 
         const orderMedicationPromise = new Promise(async (resolve, reject) => {
             const orderMedication_t = await sequelize.transaction();
             try {
-                const newOrderMedication_m = await this._OrderMedication.create(orderMedicationOptions, { transaction: orderMedication_t });
+                const newOrderMedication_m = await this._OrderMedication.create(orderMedicationFromCaseRecordOptions.orderMedicationOptions, { transaction: orderMedication_t });
 
                 const newOrderMedication = newOrderMedication_m.dataValues;
 
-                const historyOptionsArray = [
+
+                const orderMedicationMedicationOptionsArray = orderMedicationFromCaseRecordOptions.orderMedicationMedicationOptionsArray;
+                for (let i = 0; i < orderMedicationMedicationOptionsArray.length; i++) {
+                    orderMedicationMedicationOptionsArray[i].uuid_orderMedication = newOrderMedication.uuid_orderMedication;
+                }
+                const newOrderMedicationMedicationArray = await this._OrderMedicationMedication.bulkBuild(orderMedicationMedicationOptionsArray, { transaction: orderMedication_t });
+
+                const orderMedicationDescriptionOptions = orderMedicationFromCaseRecordOptions.orderMedicationDescriptionOptions;
+                orderMedicationDescriptionOptions.uuid_orderMedication = newOrderMedication.uuid_orderMedication;
+                const newOrderMedicationDescription = await this._OrderMedicationDescription.create(orderMedicationDescriptionOptions, { transaction: orderMedication_t });
+
+                const orderMedicationImageOptionsArray = orderMedicationFromCaseRecordOptions.orderMedicationImageOptionsArray;
+                for (let i = 0; i < orderMedicationImageOptionsArray.length; i++) {
+                    orderMedicationImageOptionsArray[i].uuid_orderMedication = newOrderMedication.uuid_orderMedication;
+                }
+                const newOrderMedicationImageArray = await this._OrderMedicationImage.bulkBuild(orderMedicationImageOptionsArray, { transaction: orderMedication_t });
+
+                const orderMedicationVideoOptionsArray = orderMedicationFromCaseRecordOptions.orderMedicationVideoOptionsArray;
+                for (let i = 0; i < orderMedicationImageOptionsArray.length; i++) {
+                    orderMedicationVideoOptionsArray[i].uuid_orderMedication = newOrderMedication.uuid_orderMedication;
+                }
+                const newOrderMedicationVideoArray = await this._OrderMedicationVideo.bulkBuild(orderMedicationVideoOptionsArray, { transaction: orderMedication_t });
+
+                const orderMedicationPrescriptionOptions = orderMedicationFromCaseRecordOptions.orderMedicationPrescriptionOptions;
+                orderMedicationPrescriptionOptions.uuid_orderMedication = newOrderMedication.uuid_orderMedication;
+                const newOrderMedicationPrescription = await this._OrderMedicationDescription.create(orderMedicationPrescriptionOptions, { transaction: orderMedication_t });
+
+                const orderMedicationStepByStepOptionsArray = [
                     {
                         step: 'cart',
                         isCompleted: true,
@@ -224,25 +251,29 @@ class ORDERMEDICATION {
                         uuid_orderMedication: newOrderMedication.uuid_orderMedication
                     }
                 ]
-                const newHistorys = await this._History.bulkCreate(historyOptionsArray, { transaction: orderMedication_t });
+                const newOrderMedicationStepBySteps = await this._OrderMedicationStepByStep.bulkCreate(orderMedicationStepByStepOptionsArray, { transaction: orderMedication_t });
             
-                const transportOptions = {
-                    type: 'normal',
-                    information: 'NOT',
-                    cost: 100,
-                    status: 'normal',
-                    uuid_orderMedication: newOrderMedication.uuid_orderMedication
-                }
-                const newTransport = await this._Transport.create(transportOptions, { transaction: orderMedication_t });
+                // const orderMedicationTransportOptions = {
+                //     type: 'normal',
+                //     information: 'NOT',
+                //     cost: 100,
+                //     status: 'normal',
+                //     uuid_orderMedication: newOrderMedication.uuid_orderMedication
+                // }
+                const orderMedicationTransportOptions = orderMedicationFromCaseRecordOptions.orderMedicationTransportOptions;
+                orderMedicationTransportOptions.uuid_orderMedication = newOrderMedication.uuid_orderMedication;
+                const newOrderMedicationTransport = await this._Transport.create(orderMedicationTransportOptions, { transaction: orderMedication_t });
 
-                const paymentMedicationOptions = {
-                    type: 'cash',
-                    information: 'NOT',
-                    cost: 500,
-                    status: 'normal',
-                    uuid_orderMedication: newOrderMedication.uuid_orderMedication
-                }
-                const newPaymentMedication = await this._PaymentMedication.create(paymentMedicationOptions, { transaction: orderMedication_t });
+                // const orderMedicationPaymentOptions = {
+                //     type: 'cash',
+                //     information: 'NOT',
+                //     cost: 500,
+                //     status: 'normal',
+                //     uuid_orderMedication: newOrderMedication.uuid_orderMedication
+                // }
+                const orderMedicationPaymentOptions = orderMedicationFromCaseRecordOptions.orderMedicationPaymentOptions;
+                orderMedicationPaymentOptions.uuid_orderMedication = newOrderMedication.uuid_orderMedication;
+                const newOrderMedicationPayment = await this._PaymentMedication.create(orderMedicationPaymentOptions, { transaction: orderMedication_t });
             
                 // const newUpdateOrderMedication = await this._OrderMedication.findByPk(
                 //     newOrderMedication.uuid_orderMedication, 

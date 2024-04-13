@@ -80,7 +80,7 @@ const Header = () => {
     } = useGetCurrentCartQuery();
 
     useEffect(() => {
-        // console.log('data_currentCart', data_currentCart);     
+        console.log('data_currentCart', data_currentCart);     
     }, [data_currentCart])
 
     useEffect(() => {

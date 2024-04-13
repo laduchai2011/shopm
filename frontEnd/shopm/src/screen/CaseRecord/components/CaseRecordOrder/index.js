@@ -19,46 +19,134 @@ import {
 import { $ } from "utilize/Tricks";
 
 
+// /**
+// *@typedef {
+// *title: string,
+// *type: string,
+// *pageNumber: string,
+// *status: string,
+// *uuid_caseRecord: uuid,
+// *uuid_orderMyself: uuid,
+// *uuid_user: uuid
+// *} orderMedicationOptions
+// */ 
+
+// /**
+// *@typedef {
+// *step: string,
+// *isCompleted: text,
+// *status: string,
+// *uuid_orderMedication: uuid
+// *} historyOptions
+
+// */ 
+
+// /**
+// *@typedef {
+// *type: string,
+// *information: text,
+// *cost: int,
+// *status: string,
+// *uuid_orderMedication: uuid
+// *} transportOptions
+// */ 
+    
+// /**
+// *@typedef {
+// *type: string,
+// *information: text,
+// *cost: int,
+// *status: string,
+// *uuid_orderMedication: uuid
+// *} paymentMedicationOptions
+// */ 
+
 /**
 *@typedef {
-*title: string,
-*type: string,
-*pageNumber: string,
+*name: string,
+*amount: string,
+*costTotal: float,
+*note: text,
 *status: string,
-*uuid_caseRecord: uuid,
-*uuid_orderMyself: uuid,
-*uuid_user: uuid
+*uuid_departmentMedication: uuid,
+*uuid_orderMedicationGroup: uuid
 *} orderMedicationOptions
 */ 
 
 /**
 *@typedef {
-*step: string,
+*name: string,
+*amount: string,
+*price: float,
+*discount: float,
+*costTotal: float,
+*note: text,
+*status: string,
+*uuid_orderMedication: uuid
+*} orderMedicationMedicationOptions
+*/ 
+
+/**
+*@typedef {
+*description: TEXT,
+*status: string,
+*uuid_orderMedication: uuid
+*} orderMedicationDescriptionOptions
+*/ 
+
+/**
+*@typedef {
+*title: string,
+*imageUrl: string,
+*status: string,
+*uuid_orderMedication: uuid
+*} orderMedicationImageOptions
+*/
+
+/**
+*@typedef {
+*title: string,
+*videoUrl: string,
+*status: string,
+*uuid_orderMedication: uuid
+*} orderMedicationVideoOptions
+*/
+
+/**
+*@typedef {
+*prescription: TEXT,
+*status: string,
+*uuid_orderMedication: uuid
+*} orderMedicationPrescriptionOptions
+*/ 
+
+/**
+*@typedef {
+*step: string,              cart - order - confirm - transport - receive
 *isCompleted: text,
 *status: string,
 *uuid_orderMedication: uuid
-*} historyOptions
-
+*} orderMedicationStepByStepOptions
 */ 
 
 /**
 *@typedef {
 *type: string,
 *information: text,
-*cost: int,
+*cost: float,
 *status: string,
 *uuid_orderMedication: uuid
-*} transportOptions
+*} orderMedicationTransportOptions
 */ 
     
 /**
 *@typedef {
 *type: string,
 *information: text,
-*cost: int,
+*cost: float,
 *status: string,
 *uuid_orderMedication: uuid
-*} paymentMedicationOptions
+*} orderMedicationPaymentOptions
 */ 
 
 const CaseRecordOrder = () => {
@@ -75,6 +163,8 @@ const CaseRecordOrder = () => {
     }
 
     const handleAgree = () => {
+        const orderMedicationFromCaseRecordOptions = {}
+
         const orderMedicationOptions = {
             title: caseRecord_orderMedication?.caseRecord?.title,
             type: 'caseRecord',

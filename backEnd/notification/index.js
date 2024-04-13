@@ -8,7 +8,7 @@ const app = express();
 const router_notification = require('./router_notification');
 
 
-const baseURL_shopm = process.env.NODE_ENV_BASEURL_SHOPM || 'http://192.168.5.129:3000';
+const baseURL_shopm = process.env.NODE_ENV_BASEURL_SHOPM || 'http://172.18.240.1:3000';
 
 app.use('/api/svNotification', function (req, res, next) {
     // specify CORS headers to send

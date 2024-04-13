@@ -2,7 +2,7 @@ const Client = require("ioredis");
 const { default: Redlock, ResourceLockedError } = require("redlock");
 const { logEvents } = require('../../../logEvents');
 
-const baseURL_shopm = process.env.NODE_ENV_BASEURL_REDIS || 'redis://:@192.168.5.129:6379';
+const baseURL_shopm = process.env.NODE_ENV_BASEURL_REDIS || 'redis://:@172.18.240.1:6379';
 
 const redis = new Client({
     // url: 'redis://:@127.0.0.1:6379'

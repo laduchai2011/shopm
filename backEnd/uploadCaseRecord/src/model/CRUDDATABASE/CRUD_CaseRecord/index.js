@@ -1,7 +1,6 @@
 const { Op, where } = require('sequelize');
 const { sequelize } = require('../../../config/database');
 const { defineModel } = require('../defineModel');
-const { options } = require('../../../../router');
 
 /**
 *@typedef {
@@ -16,11 +15,65 @@ const { options } = require('../../../../router');
 *} caseRecordOptions
 */ 
 
+/**
+*@typedef {
+*pageNumber: string,
+*description: text,
+*status: string,
+*uuid_caseRecord: uuid
+*} caseRecordDescriptionOptions
+*/  
+
+/**
+*@typedef {
+*pageNumber: string,
+*imageUrl: string,
+*title: string,
+*status: string,
+*uuid_caseRecord: uuid
+*} caseRecordImageOptions
+*/  
+
+/**
+*@typedef {
+*pageNumber: string,
+*videos: text,
+*status: string,
+*uuid_caseRecord: uuid
+*} caseRecordVideoOptions
+*/  
+
+/**
+*@typedef {
+*pageNumber: string,
+*prescription: text,
+*status: string,
+*uuid_caseRecord: uuid
+*} caseRecordPrescriptionOptions
+*/  
+
+/**
+*@typedef {
+*pageNumber: string,
+*name: string,
+*amount: INTEGER.UNSIGNED,
+*note: text,
+*price: INTEGER.UNSIGNED,
+*discount: FLOAT,
+*cost: INTEGER.UNSIGNED,
+*status: string,
+*uuid_caseRecord: uuid,
+*uuid_medication: uuid
+*} caseRecordMedicationOptions
+*/ 
+    
+
 class CaseRecord {
     constructor() {
         this._CaseRecord = defineModel.getCaseRecord();
         this._CaseRecordDescription = defineModel.getCaseRecordDescription();
         this._CaseRecordImage = defineModel.getCaseRecordImage();
+        this._CaseRecordVideo = defineModel.getCaseRecordVideo();
         this._CaseRecordPrescription = defineModel.getCaseRecordPrescription();
         this._CaseRecordMedication = defineModel.getCaseRecordMedication();
     }
@@ -62,24 +115,75 @@ class CaseRecord {
         })
     }
 
-    create(caseRecordOptions, callback) {
+    create(createCaseRecordOptions, callback) {
         let caseRecord;
         let err;
         
-        const caseRecordPromise = new Promise((resolve, reject) => {
+        // const caseRecordPromise = new Promise((resolve, reject) => {
+        //     try {
+        //         sequelize.transaction(async (t) => {
+        //             try {
+        //                 const newCaseRecord = await this._CaseRecord.create(caseRecordOptions, { transaction: t });
+        //                 resolve(newCaseRecord);   
+        //             } catch (error) {
+        //                 reject(error);
+        //             }
+        //         });
+        //     } catch (error) {
+        //         reject(error);
+        //     }
+        // });
+
+        // caseRecordPromise
+        // .then(newCaseRecord => {
+        //     caseRecord = newCaseRecord;
+        // }).catch(error => {
+        //     err = error;
+        // }).finally(() => {
+        //     callback(caseRecord, err);
+        // })
+
+        const caseRecordPromise = new Promise(async (resolve, reject) => {
+            const caseRecord_t = await sequelize.transaction();
             try {
-                sequelize.transaction(async (t) => {
-                    try {
-                        const newCaseRecord = await this._CaseRecord.create(caseRecordOptions, { transaction: t });
-                        resolve(newCaseRecord);   
-                    } catch (error) {
-                        reject(error);
-                    }
-                });
+                const newCaseRecord_m = await this._CaseRecord.create(createCaseRecordOptions.caseRecordOptions, { transaction: caseRecord_t });
+
+                const newCaseRecord = newCaseRecord_m.dataValues;
+
+                const caseRecordMedicationOptionsArray = orderMedicationFromCaseRecordOptions.caseRecordMedicationOptionsArray;
+                for (let i = 0; i < caseRecordMedicationOptionsArray.length; i++) {
+                    caseRecordMedicationOptionsArray[i].uuid_orderMedication = newOrderMedication.uuid_orderMedication;
+                }
+                const newOrderMedicationMedication = await this._CaseRecordMedication.bulkBuild(caseRecordMedicationOptionsArray, { transaction: caseRecord_t });
+
+                const caseRecordDescriptionOptions = createCaseRecordOptions.caseRecordDescriptionOptions;
+                caseRecordDescriptionOptions.uuid_caseRecord = newCaseRecord.uuid_caseRecord;
+                const newCaseRecordDescription = await this._CaseRecordDescription.create(caseRecordDescriptionOptions, { transaction: caseRecord_t });
+
+                const caseRecordImageOptionsArray = createCaseRecordOptions.caseRecordImageOptionsArray;
+                for (let i = 0; i < caseRecordImageOptionsArray.length; i++) {
+                    caseRecordImageOptionsArray[i].uuid_caseRecord = newCaseRecord.uuid_caseRecord;
+                }
+                const newCaseRecordImageArray = await this._CaseRecordImage.bulkBuild(caseRecordImageOptionsArray, { transaction: caseRecord_t });
+
+                const caseRecordVideoOptionsArray = createCaseRecordOptions.caseRecordVideoOptionsArray;
+                for (let i = 0; i < caseRecordVideoOptionsArray.length; i++) {
+                    caseRecordVideoOptionsArray[i].uuid_caseRecord = newCaseRecord.uuid_caseRecord;
+                }
+                const newCaseRecordVideoArray = await this._CaseRecordVideo.bulkBuild(caseRecordVideoOptionsArray, { transaction: caseRecord_t });
+
+                const caseRecordPrescriptionOptions = createCaseRecordOptions.caseRecordPrescriptionOptions;
+                caseRecordPrescriptionOptions.uuid_caseRecord = newCaseRecord.uuid_caseRecord;
+                const newCaseRecordPrescription = await this._CaseRecordPrescription.create(caseRecordPrescriptionOptions, { transaction: caseRecord_t });
+                
+                await orderMedication_t.commit();
+
+                resolve(newCaseRecord); 
             } catch (error) {
+                await orderMedication_t.rollback();
                 reject(error);
             }
-        });
+        })
 
         caseRecordPromise
         .then(newCaseRecord => {

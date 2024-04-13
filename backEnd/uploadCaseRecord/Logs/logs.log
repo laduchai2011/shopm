@@ -1,1 +1,9 @@
 06-04-2024	29:18:06--------Redis Client Error Error: Connection timeout
+08-04-2024	01:57:14--------Redis Client Error Error: Connection timeout
+09-04-2024	52:37:10--------Redis Client Error Error: Connection timeout
+09-04-2024	16:05:11--------/caseRecord/createCaseRecord---POST---TokenExpiredError: jwt expired: token.verify-accessToken
+09-04-2024	51:07:11--------/caseRecord/createCaseRecord---POST---TokenExpiredError: jwt expired: token.verify-accessToken
+09-04-2024	43:31:11--------/caseRecord/createCaseRecord---POST---TokenExpiredError: jwt expired: token.verify-accessToken
+09-04-2024	50:49:23--------Redis Client Error Error: Connection timeout
+10-04-2024	50:43:09--------Redis Client Error Error: Connection timeout
+10-04-2024	42:47:09--------Redis Client Error Error: Connection timeout

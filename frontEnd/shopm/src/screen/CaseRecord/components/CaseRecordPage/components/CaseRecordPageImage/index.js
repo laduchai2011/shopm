@@ -14,7 +14,7 @@ import { $ } from "utilize/Tricks";
 /**
 *@typedef {
 *pageNumber: string,
-*image: string,
+*imageUrl: string,
 *title: string,
 *status: string,
 *uuid_caseRecord: uuid
@@ -48,7 +48,7 @@ const CaseRecordPageImage = ({ index, editBoolD, onData }) => {
                 <MdEdit onClick={() => handleEditImage()} size={ 25 } color="greenyellow" />
                 <CiCircleRemove onClick={() => handleRemoveImage()} size={ 25 } /> 
             </div> }
-            <img src={ onData.image } alt="" />
+            <img src={ onData.imageUrl } alt="" />
             <div className="CaseRecordPageImage-title">{ onData.title }</div>
         </div>
     )

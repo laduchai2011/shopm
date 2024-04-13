@@ -11,10 +11,10 @@ const { Authentication } = require('./src/auth/Authentication');
 const { logEvents } = require('./logEvents');
 // const { patientRole } = require('./src/middle/patientRole');
 const { doctorOrPharmacistAndPatientRole } = require('./src/middle/doctorOrPharmacistAndPatientRole');
-const { orderMedicationCRUD } = require('./src/model/CRUDDATABASE/CRUD_OrderMedication');
-const { historyCRUD } = require('./src/model/CRUDDATABASE/CRUD_History');
-const { transportCRUD } = require('./src/model/CRUDDATABASE/CRUD_Transport');
-const { paymentMedicationCRUD } = require('./src/model/CRUDDATABASE/CRUD_PaymentMedication');
+// const { orderMedicationCRUD } = require('./src/model/CRUDDATABASE/CRUD_OrderMedication');
+// const { historyCRUD } = require('./src/model/CRUDDATABASE/CRUD_History');
+// const { transportCRUD } = require('./src/model/CRUDDATABASE/CRUD_Transport');
+// const { paymentMedicationCRUD } = require('./src/model/CRUDDATABASE/CRUD_PaymentMedication');
 
 /**
 *@typedef {
@@ -72,96 +72,96 @@ router.get('/orderMedication/getListFromProfile', Authentication, (req, res) => 
 })
 
 router.get('/orderMedication/readHistoriesWithFK', Authentication, (req, res) => {
-    const uuid_orderMedication = req.query.uuid_orderMedication;
-    historyCRUD.realAll(uuid_orderMedication, (historyOptionsList, err) => {
-        if (err) {
-            logEvents(`${req.url}---${req.method}---${err}`);
-            return res.status(500).send(err);
-        } else {
-            if (historyOptionsList && historyOptionsList!==null) {
-                return res.status(200).json({ 
-                    historyOptionsList: historyOptionsList,
-                    message: "readHistoriesWithFK successly !",
-                    success: true
-                })
-            }
-            return res.status(200).json({ 
-                historyOptionsList: historyOptionsList,
-                message: "readHistoriesWithFK NOT successly !",
-                success: false
-            })
-        }
-    })
+    // const uuid_orderMedication = req.query.uuid_orderMedication;
+    // historyCRUD.realAll(uuid_orderMedication, (historyOptionsList, err) => {
+    //     if (err) {
+    //         logEvents(`${req.url}---${req.method}---${err}`);
+    //         return res.status(500).send(err);
+    //     } else {
+    //         if (historyOptionsList && historyOptionsList!==null) {
+    //             return res.status(200).json({ 
+    //                 historyOptionsList: historyOptionsList,
+    //                 message: "readHistoriesWithFK successly !",
+    //                 success: true
+    //             })
+    //         }
+    //         return res.status(200).json({ 
+    //             historyOptionsList: historyOptionsList,
+    //             message: "readHistoriesWithFK NOT successly !",
+    //             success: false
+    //         })
+    //     }
+    // })
 })
 
 router.get('/orderMedication/readWithCaseRecord', Authentication, doctorOrPharmacistAndPatientRole, (req, res) => {
-    const pageNumber = req.query.pageNumber;
-    const uuid_caseRecord = req.query.uuid_caseRecord;
-    orderMedicationCRUD.readWithCaseRecord(uuid_caseRecord, pageNumber, (orderMedication, err) => {
-        if (err) {
-            logEvents(`${req.url}---${req.method}---${err}`);
-            return res.status(500).send(err);
-        } else {
-            if (orderMedication && orderMedication!==null) {
-                return res.status(200).json({ 
-                    orderMedication: orderMedication,
-                    message: "readWithCaseRecord successly !",
-                    success: true
-                })
-            }
-            return res.status(200).json({ 
-                orderMedication: orderMedication,
-                message: "readWithCaseRecord NOT successly !",
-                success: false
-            })
-        }
-    })
+    // const pageNumber = req.query.pageNumber;
+    // const uuid_caseRecord = req.query.uuid_caseRecord;
+    // orderMedicationCRUD.readWithCaseRecord(uuid_caseRecord, pageNumber, (orderMedication, err) => {
+    //     if (err) {
+    //         logEvents(`${req.url}---${req.method}---${err}`);
+    //         return res.status(500).send(err);
+    //     } else {
+    //         if (orderMedication && orderMedication!==null) {
+    //             return res.status(200).json({ 
+    //                 orderMedication: orderMedication,
+    //                 message: "readWithCaseRecord successly !",
+    //                 success: true
+    //             })
+    //         }
+    //         return res.status(200).json({ 
+    //             orderMedication: orderMedication,
+    //             message: "readWithCaseRecord NOT successly !",
+    //             success: false
+    //         })
+    //     }
+    // })
 })
 
 router.get('/orderMedication/getTransportWithFk', Authentication, (req, res) => {
-    const uuid_orderMedication = req.query.uuid_orderMedication;
-    transportCRUD.readWithFk(uuid_orderMedication, (transport, err) => {
-        if (err) {
-            logEvents(`${req.url}---${req.method}---${err}`);
-            return res.status(500).send(err);
-        } else {
-            if (transport && transport!==null) {
-                return res.status(200).json({ 
-                    transport: transport,
-                    message: "getTransportWithFk successly !",
-                    success: true
-                })
-            }
-            return res.status(200).json({ 
-                transport: transport,
-                message: "getTransportWithFk NOT successly !",
-                success: false
-            })
-        }
-    })
+    // const uuid_orderMedication = req.query.uuid_orderMedication;
+    // transportCRUD.readWithFk(uuid_orderMedication, (transport, err) => {
+    //     if (err) {
+    //         logEvents(`${req.url}---${req.method}---${err}`);
+    //         return res.status(500).send(err);
+    //     } else {
+    //         if (transport && transport!==null) {
+    //             return res.status(200).json({ 
+    //                 transport: transport,
+    //                 message: "getTransportWithFk successly !",
+    //                 success: true
+    //             })
+    //         }
+    //         return res.status(200).json({ 
+    //             transport: transport,
+    //             message: "getTransportWithFk NOT successly !",
+    //             success: false
+    //         })
+    //     }
+    // })
 })
 
 router.get('/orderMedication/getPaymentMedicationtWithFk', Authentication, (req, res) => {
-    const uuid_orderMedication = req.query.uuid_orderMedication;
-    paymentMedicationCRUD.readWithFk(uuid_orderMedication, (paymentMedication, err) => {
-        if (err) {
-            logEvents(`${req.url}---${req.method}---${err}`);
-            return res.status(500).send(err);
-        } else {
-            if (paymentMedication && paymentMedication!==null) {
-                return res.status(200).json({ 
-                    paymentMedication: paymentMedication,
-                    message: "getPaymentMedicationtWithFk successly !",
-                    success: true
-                })
-            }
-            return res.status(200).json({ 
-                paymentMedication: paymentMedication,
-                message: "getPaymentMedicationtWithFk NOT successly !",
-                success: false
-            })
-        }
-    })
+    // const uuid_orderMedication = req.query.uuid_orderMedication;
+    // paymentMedicationCRUD.readWithFk(uuid_orderMedication, (paymentMedication, err) => {
+    //     if (err) {
+    //         logEvents(`${req.url}---${req.method}---${err}`);
+    //         return res.status(500).send(err);
+    //     } else {
+    //         if (paymentMedication && paymentMedication!==null) {
+    //             return res.status(200).json({ 
+    //                 paymentMedication: paymentMedication,
+    //                 message: "getPaymentMedicationtWithFk successly !",
+    //                 success: true
+    //             })
+    //         }
+    //         return res.status(200).json({ 
+    //             paymentMedication: paymentMedication,
+    //             message: "getPaymentMedicationtWithFk NOT successly !",
+    //             success: false
+    //         })
+    //     }
+    // })
 })
 
 router.get('/getCurrentCart', Authentication, (req, res) => {

@@ -1,5 +1,5 @@
-export const baseURL                                                           = 'http://192.168.5.129';
-export const baseURL_socket                                                    = 'ws://192.168.5.129';
+export const baseURL                                                           = 'http://172.18.240.1';
+export const baseURL_socket                                                    = 'ws://172.18.240.1';
 
 
 export const SERVER_ADDRESS_SIGNUP                                             = `${baseURL}:7000/api/svUploadUserInfor/signup`;

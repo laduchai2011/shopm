@@ -86,3 +86,18 @@ UPDATE OrderMedications
 SET status='notComplete'
 WHERE id=1
 go
+
+DELETE FROM CaseRecordDescriptions
+GO
+
+DELETE FROM CaseRecordImages
+GO
+
+DELETE FROM CaseRecordVideos
+GO
+
+DELETE FROM CaseRecordPrescriptions
+GO
+
+DELETE FROM CaseRecords
+GO

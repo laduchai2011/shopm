@@ -881,7 +881,7 @@ class DefineModel {
                 type: DataTypes.FLOAT,
                 allowNull: false
             },
-            costTotal: {
+            cost: {
                 type: DataTypes.FLOAT,
                 allowNull: false
             },

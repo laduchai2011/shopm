@@ -749,11 +749,11 @@ class DefineModel {
                 defaultValue: Sequelize.UUIDV4,
                 primaryKey: true
             },
-            title: {
+            type: {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            type: {
+            title: {
                 type: DataTypes.STRING,
                 allowNull: false
             },
@@ -814,20 +814,12 @@ class DefineModel {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            price: {
-                type: DataTypes.FLOAT,
-                allowNull: false
-            },
-            discount: {
-                type: DataTypes.FLOAT,
-                allowNull: false
-            },
             costTotal: {
                 type: DataTypes.FLOAT,
                 allowNull: false
             },
             note: {
-                type: DataTypes.STRING,
+                type: DataTypes.TEXT,
                 allowNull: false
             },
             status: {
@@ -860,6 +852,62 @@ class DefineModel {
         this._OrderMedication.belongsTo(this._DepartmentMedication, { foreignKey: 'uuid_departmentMedication', targetKey: 'uuid_departmentMedication', as: 'uuid_DepartmentMedication' })
         this._OrderMedicationGroup.hasMany(this._OrderMedication, { foreignKey: 'uuid_orderMedicationGroup' })
         this._OrderMedication.belongsTo(this._OrderMedicationGroup, { foreignKey: 'uuid_orderMedicationGroup', targetKey: 'uuid_orderMedicationGroup', as: 'uuid_OrderMedicationGroup' })
+
+        this._OrderMedicationMedication = sequelize.define('OrderMedicationMedication', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                autoIncrement: true,
+                unique: 'UQ__OrderMedicationMedications__id' 
+            },
+            uuid_orderMedicationMedication: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            amount: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            price: {
+                type: DataTypes.FLOAT,
+                allowNull: false
+            },
+            discount: {
+                type: DataTypes.FLOAT,
+                allowNull: false
+            },
+            cost: {
+                type: DataTypes.FLOAT,
+                allowNull: false
+            },
+            note: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_orderMedication: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [
+                {
+                    name: 'uuid_orderMedication_indexes',
+                    using: 'BTREE',
+                    fields: ['uuid_orderMedication']
+                }
+            ]
+        })
+        this._OrderMedication.hasMany(this._OrderMedication, { foreignKey: 'uuid_orderMedication' })
+        this._OrderMedication.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication' })
 
         this._OrderMedicationDescription = sequelize.define('OrderMedicationDescription', {
             id: {
@@ -1073,7 +1121,7 @@ class DefineModel {
                 type: DataTypes.TEXT
             },
             cost: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.FLOAT,
                 allowNull: false
             },
             status: {
@@ -1115,7 +1163,7 @@ class DefineModel {
                 type: DataTypes.TEXT
             },
             cost: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.FLOAT,
                 allowNull: false
             },
             status: {
@@ -1137,71 +1185,6 @@ class DefineModel {
         this._OrderMedication.hasOne(this._OrderMedicationPayment, { foreignKey: 'uuid_orderMedication' })
         this._OrderMedicationPayment.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication' })
 
-        // this._MedicationsOfOrderMyself = sequelize.define('MedicationsOfOrderMyself', {
-        //     id: {
-        //         type: DataTypes.INTEGER,
-        //         allowNull: false,
-        //         autoIncrement: true,
-        //         unique: 'UQ__MedicationsOfOrderMyselfs__id'
-        //     },
-        //     uuid_medicationsOfOrderMyself: {
-        //         type: Sequelize.UUID,
-        //         defaultValue: Sequelize.UUIDV4,
-        //         primaryKey: true
-        //     },
-        //     name: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     amount: {
-        //         type: DataTypes.INTEGER.UNSIGNED,
-        //         allowNull: false
-        //     },
-        //     note: {
-        //         type: DataTypes.TEXT,
-        //         allowNull: false
-        //     },
-        //     price: {
-        //         type: DataTypes.INTEGER.UNSIGNED,
-        //         allowNull: false
-        //     },
-        //     discount: {
-        //         type: DataTypes.FLOAT,
-        //         allowNull: false
-        //     },
-        //     cost: {
-        //         type: DataTypes.INTEGER.UNSIGNED,
-        //         allowNull: false
-        //     },
-        //     status: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     uuid_orderMyself: {
-        //         type: Sequelize.UUID,
-        //         allowNull: false
-        //     },
-        //     uuid_medication: {
-        //         type: Sequelize.UUID,
-        //         allowNull: false
-        //     }
-        // }, {
-        //     indexes: [{
-        //         name: 'uuid_orderMyself_indexes',
-        //         using: 'BTREE',
-        //         fields: ['uuid_orderMyself']
-        //     }, {
-        //         name: 'uuid_medication_indexes',
-        //         using: 'BTREE',
-        //         fields: ['uuid_medication']
-        //     }]
-        // })
-        // // this._OrderMyself.hasMany(this._MedicationsOfOrderMyself, { foreignKey: 'uuid_orderMyself' })
-        // this._MedicationsOfOrderMyself.belongsTo(this._OrderMyself, { foreignKey: 'uuid_orderMyself', targetKey: 'uuid_orderMyself', as: 'uuid_OrderMyself' })
-        // // this._Medication.hasMany(this._MedicationsOfOrderMyself, { foreignKey: 'uuid_medication' })
-        // this._MedicationsOfOrderMyself.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication' })
-
-
         sequelize.sync();
     }
 
@@ -1217,24 +1200,44 @@ class DefineModel {
         return this._Medication;
     }
 
+    getOrderMedicationGroup() {
+        return this._OrderMedicationGroup;
+    }
+
     getOrderMedication() {
         return this._OrderMedication;
     }
 
-    getHistory() {
-        return this._History;
+    getOrderMedicationMedication() {
+        return this._OrderMedicationMedication;
     }
 
-    getPaymentMedication() {
-        return this._PaymentMedication;
+    getOrderMedicationDescription() {
+        return this._OrderMedicationDescription;
     }
 
-    getTransport() {
-        return this._Transport;
+    getOrderMedicationImage() {
+        return this._OrderMedicationImage;
     }
 
-    getMedicationsOfOrderMyself() {
-        return this._MedicationsOfOrderMyself;
+    getOrderMedicationVideo() {
+        return this._OrderMedicationVideo;
+    }
+
+    getOrderMedicationPrescription() {
+        return this._OrderMedicationPrescription;
+    }
+
+    getOrderMedicationStepByStep() {
+        return this._OrderMedicationStepByStep;
+    }
+
+    getOrderMedicationTransport() {
+        return this._OrderMedicationTransport;
+    }
+
+    getOrderMedicationPayment() {
+        return this._OrderMedicationPayment;
     }
 }
 

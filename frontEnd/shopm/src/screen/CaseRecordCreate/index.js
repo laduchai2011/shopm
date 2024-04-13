@@ -49,7 +49,7 @@ import { $, $$ } from 'utilize/Tricks';
 /**
 *@typedef {
 *pageNumber: string,
-*image: string,
+*imageUrl: string,
 *title: string,
 *status: string,
 *uuid_caseRecord: uuid
@@ -354,6 +354,7 @@ const CaseRecordCreate = () => {
                 promiseCreateImage(uuid_caseRecord, imageUrls), 
                 promiseCreatePrescription(uuid_caseRecord)
             ]).then((values) => {
+                console.log(values)
                 if (values[0] && values[2]) {
                     if ((imageUrls && values[1]) || (!imageUrls && !values[1])) {
                         axios({

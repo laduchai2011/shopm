@@ -6,7 +6,7 @@ const { defineModel } = require('../defineModel');
 /**
 *@typedef {
 *pageNumber: string,
-*image: string,
+*imageUrl: string,
 *title: string,
 *status: string,
 *uuid_caseRecord: uuid
