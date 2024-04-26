@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const app = express();
 const cookieParser = require('cookie-parser');
 
-const baseURL_shopm = 'http://172.18.240.1:3000';
+const baseURL_shopm = `http://shopm.tks.local:3000`;
 
 //add other middleware
 app.use('/api/svGetImage', function (req, res, next) {
@@ -24,7 +24,7 @@ app.use('/api/svGetImage', function (req, res, next) {
 });
 app.use('/api/svGetImage', function (req, res, next) {
     // specify CORS headers to send
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+    res.header('Access-Control-Allow-Origin', `http://http://shopm.tks.local:3001`);
     res.header(
         'Access-Control-Allow-Methods',
         'POST, PUT, PATCH, GET, DELETE, OPTIONS',

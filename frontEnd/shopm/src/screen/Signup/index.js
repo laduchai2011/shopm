@@ -107,6 +107,7 @@ const Signup = () => {
             signupSpan.classList.add('hidden');
 
             setTimeout(() => {
+                console.log('Signup 1');
                 axios({
                     method: 'post',
                     url: SERVER_ADDRESS_SIGNUP,
@@ -135,7 +136,7 @@ const Signup = () => {
                 'X-Firebase-CheckToken': '11111111111111',
             }
         }).then((res) => {
-            console.log(res.data)
+            console.log('handleSignin', res.data)
         }).catch(error => console.error(error))
     }
 

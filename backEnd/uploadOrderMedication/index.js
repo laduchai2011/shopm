@@ -5,7 +5,7 @@ const router = require('./router');
 const app = express();
 const cookieParser = require('cookie-parser');
 
-const baseURL_shopm = process.env.NODE_ENV_BASEURL_SHOPM || 'http://172.18.240.1:3000';
+const baseURL_shopm = process.env.NODE_ENV_BASEURL_SHOPM || `http://shopm.tks.local:3000`;
 
 //add other middleware
 app.use('/api/svUploadOrderMedication', function (req, res, next) {

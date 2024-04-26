@@ -1070,3 +1070,5 @@
 09-04-2024	07:56:22--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
 11-04-2024	56:07:02--------/patchNotificationStatus---PATCH---TokenExpiredError: jwt expired: token.verify-accessToken
 11-04-2024	56:07:02--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+25-04-2024	49:14:08--------Redis Client Error Error: Connection timeout
+26-04-2024	13:38:01--------Redis Client Error Error: Connection timeout

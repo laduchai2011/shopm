@@ -1093,3 +1093,5 @@
 11-04-2024	41:19:15--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
 11-04-2024	42:19:15--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
 11-04-2024	42:19:15--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+25-04-2024	53:12:08--------Redis Client Error Error: Connection timeout
+26-04-2024	25:01:01--------Redis Client Error Error: Connection timeout

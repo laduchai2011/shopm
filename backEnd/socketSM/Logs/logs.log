@@ -1116,3 +1116,6 @@
 11-04-2024	41:19:15--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
 11-04-2024	42:19:15--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
 11-04-2024	42:19:15--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+25-04-2024	11:16:08--------Redis Client Error Error: Connection timeout
+26-04-2024	45:35:01--------Redis Client Error Error: Connection timeout
+26-04-2024	36:46:09--------( SocketSM_Authentication ) Error: Socket-accessToken invalid or not created ( SocketSM_Authentication ) !

@@ -101,3 +101,6 @@ GO
 
 DELETE FROM CaseRecords
 GO
+
+DELETE FROM Users
+GO
