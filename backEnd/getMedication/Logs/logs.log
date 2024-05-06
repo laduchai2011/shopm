@@ -1077,3 +1077,20 @@
 11-04-2024	42:19:15--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
 26-04-2024	00:14:03--------/home/medication/list?pageIndex=1&pageSize=20---GET---SequelizeDatabaseError: Invalid column name 'name'.
 26-04-2024	00:14:03--------/home/medication/list?pageIndex=1&pageSize=20---GET---SequelizeDatabaseError: Invalid column name 'name'.
+26-04-2024	39:00:23--------Redis Client Error Error: read ECONNRESET
+26-04-2024	39:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	39:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	39:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	39:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	39:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	39:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	40:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	40:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	41:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	41:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	41:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	42:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	42:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	43:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	43:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	44:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379

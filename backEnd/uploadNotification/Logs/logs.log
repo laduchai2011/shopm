@@ -1072,3 +1072,128 @@
 11-04-2024	56:07:02--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
 25-04-2024	49:14:08--------Redis Client Error Error: Connection timeout
 26-04-2024	13:38:01--------Redis Client Error Error: Connection timeout
+26-04-2024	38:00:23--------Redis Client Error Error: read ECONNRESET
+26-04-2024	39:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	39:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	39:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	39:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	39:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	39:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	40:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	40:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	40:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	41:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	41:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	42:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	42:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	43:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	43:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	44:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+28-04-2024	28:05:03--------Redis Client Error Error: Connection timeout
+28-04-2024	24:19:03--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+28-04-2024	24:19:03--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+28-04-2024	24:19:03--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+28-04-2024	24:19:03--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-04-2024	28:23:07--------Redis Client Error Error: Connection timeout
+29-04-2024	43:26:18--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-04-2024	43:26:18--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-04-2024	43:26:18--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-04-2024	43:26:18--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	51:18:07--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	51:18:07--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	52:18:07--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	52:18:07--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	22:05:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	22:05:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	23:05:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	23:05:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	54:05:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	54:05:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	54:05:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	54:05:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	19:19:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	19:19:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	19:19:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	19:19:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	39:20:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	39:20:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	39:20:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	39:20:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	55:20:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	55:20:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	56:20:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	56:20:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	59:21:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	59:21:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	59:21:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	59:21:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	11:25:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	11:25:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	11:25:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	12:25:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	09:26:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	09:26:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	09:26:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	10:26:08--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	02:20:07--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	02:20:07--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	02:20:07--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	02:20:07--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	30:20:07--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	30:20:07--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	31:20:07--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	31:20:07--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	25:36:07--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	25:36:07--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	25:36:07--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	25:36:07--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	27:18:20--------Redis Client Error Error: Connection timeout
+01-05-2024	57:08:22--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	57:08:22--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	58:08:22--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	58:08:22--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+02-05-2024	21:50:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+02-05-2024	21:50:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+02-05-2024	21:50:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+02-05-2024	22:50:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	33:39:05--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	34:39:05--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	34:39:05--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	34:39:05--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	06:35:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	07:35:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	07:35:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	07:35:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	42:46:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	43:46:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	43:46:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	43:46:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	41:47:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	41:47:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	42:47:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	42:47:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	09:55:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	09:55:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	09:55:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	10:55:12--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+04-05-2024	19:17:11--------Redis Client Error Error: Connection timeout
+04-05-2024	31:27:11--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+04-05-2024	31:27:11--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+04-05-2024	31:27:11--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+04-05-2024	31:27:11--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	57:09:02--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	57:09:02--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	57:09:02--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	57:09:02--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	43:10:02--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	43:10:02--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	43:10:02--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	43:10:02--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	51:08:04--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	51:08:04--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	51:08:04--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	51:08:04--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	47:04:19--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	47:04:19--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	48:04:19--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	48:04:19--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken

@@ -1,3 +1,4 @@
+'use strict';
 const { Op } = require('sequelize');
 const { sequelize } = require('../../../config/database');
 const { defineModel } = require('../defineModel');
@@ -5,11 +6,13 @@ const { defineModel } = require('../defineModel');
 /**
 *@typedef {
 *subject: string,
-*content: string
+*content: string,
+*status: string,
+*uuid_provider: uuid
 *} providerAboutOptions
-*/ 
+*/
 
-class CRUDPROVIDERABOUT {
+class ProviderAbout {
     constructor() {
         this._ProviderABout = defineModel.getProviderAbout();
     }
@@ -86,6 +89,6 @@ class CRUDPROVIDERABOUT {
     // }
 }
 
-const crudProviderAbout = new CRUDPROVIDERABOUT();
+const providerAboutCRUD = new ProviderAbout();
 
-module.exports = { crudProviderAbout }
+module.exports = { providerAboutCRUD }

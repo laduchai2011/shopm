@@ -8,7 +8,10 @@ import {
 export const providerRTKQuery = createApi({
     reducerPath: 'providerRTKQuery',
     baseQuery: fetchBaseQuery({ baseUrl: '' }),
-    tagTypes: ['Provider', 'ProviderAbout'],
+    tagTypes: [
+        'Provider', 
+        'ProviderAbout'
+    ],
     endpoints: (builder) => ({
         // query
         getProvider: builder.query({
@@ -26,25 +29,25 @@ export const providerRTKQuery = createApi({
             providesTags: [{type: 'ProviderAbout', bool: true}]
         }),
 
-        // // mutation
-        // patchCurrentCart: builder.mutation({
-        //     query: ({uuid_caseRecord, pageNumber}) => ({
-        //         url: `${SERVER_ADDRESS_PATCH_CURRENTCART}`,
-        //         method: 'PATCH',
-        //         body: { 
-        //             uuid_caseRecord: uuid_caseRecord,
-        //             pageNumber: pageNumber
-        //         },
-        //         credentials: "include"
-        //     }),
-        //     invalidatesTags: (result, error, arg) => {
-        //         if (error) {
-        //             console.error(error);
-        //         } else {
-        //             return [{type: 'CurrentCart', bool: result?.success ? true : false}]
-        //         }
-        //     }
-        // }),
+        // mutation
+        patchCurrentCart: builder.mutation({
+            query: ({uuid_caseRecord, pageNumber}) => ({
+                url: `${SERVER_ADDRESS_PATCH_CURRENTCART}`,
+                method: 'PATCH',
+                body: { 
+                    uuid_caseRecord: uuid_caseRecord,
+                    pageNumber: pageNumber
+                },
+                credentials: "include"
+            }),
+            invalidatesTags: (result, error, arg) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    return [{type: 'CurrentCart', bool: result?.success ? true : false}]
+                }
+            }
+        }),
         // deleteCurrentCart: builder.mutation({
         //     query: () => ({
         //         url: `${SERVER_ADDRESS_DELETE_CURRENTCART}`,

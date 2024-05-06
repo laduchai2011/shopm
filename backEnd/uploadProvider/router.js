@@ -7,15 +7,18 @@ const router = express.Router();
 // const { serviceRedis } = require('./src/model/serviceRedis');
 const { Authentication } = require('./src/auth/Authentication');
 const { logEvents } = require('./logEvents');
-const { crudProvider } = require('./src/model/CRUDDATABASE/CRUDPROVIDER');
-const { crudProviderAbout } = require('./src/model/CRUDDATABASE/CRUDPROVIDERABOUT');
+const { providerCRUD } = require('./src/model/CRUDDATABASE/CRUD_Provider');
+const { providerAboutCRUD } = require('./src/model/CRUDDATABASE/CRUD_ProviderAbout');
+
+const { getProviderMid } = require('./src/middle/getProviderMid');
+const { isMyProvider } = require('./src/middle/isMyProvider');
 
 
 router.post('/provider/create', Authentication, (req, res) => {
     const providerOptions = req.body;
-    const decodedToken = req.decodedToken;
-    providerOptions.uuid_user = decodedToken.data.uuid;
-    crudProvider.create(providerOptions, (provider, err) => {
+    const userOptions = req.decodedToken.data;
+    providerOptions.uuid_user = userOptions.uuid;
+    providerCRUD.create(providerOptions, (provider, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
@@ -35,21 +38,53 @@ router.post('/provider/create', Authentication, (req, res) => {
     })
 })
 
-router.post('/provider/about/create', Authentication, (req, res) => {
-    const providerAboutOptionsArray = req.body;
-    crudProviderAbout.bulkCreate(providerAboutOptionsArray, (providerAbout, err) => {
+router.patch('/provider/delete', 
+    Authentication, 
+    getProviderMid,
+    isMyProvider,
+    (req, res) => {
+    const providerOptions = req.body;
+    const userOptions = req.decodedToken.data;
+    providerOptions.uuid_user = userOptions.uuid;
+    providerCRUD.delete(providerOptions, (provider, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
         } else {
-            if (providerAbout !== null) return res.status(201).json({
+            if (provider?.status==='delete') return res.status(201).json({
+                provider: provider,
+                success: true,
+                message: 'Delete provider successly !'
+            });
+            return res.status(205).json({
+                providerOptions: providerOptions,
+                provider: provider,
+                success: false,
+                message: 'Delete provider NOT successly !'
+            });
+        }
+    })
+})
+
+router.post('/provider/about/create', 
+    Authentication, 
+    getProviderMid,
+    isMyProvider,
+    (req, res) => {
+    const providerAboutOptionsArray = req.body.providerAboutOptionsArray;
+    providerAboutCRUD.bulkCreate(providerAboutOptionsArray, (providerAbout, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send(err);
+        } else {
+            if (providerAbout!==null && providerAbout) return res.status(201).json({
                 providerAbout: providerAbout,
-                exist: false,
+                success: true,
                 message: 'Signin providerAbouts successly !'
             });
             return res.status(205).json({
                 providerAbout: providerAbout,
-                exist: true,
+                success: false,
                 message: 'Signin providerAbouts NOT successly !'
             });
         }

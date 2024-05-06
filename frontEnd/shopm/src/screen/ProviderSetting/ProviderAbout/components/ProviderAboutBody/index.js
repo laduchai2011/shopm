@@ -7,12 +7,24 @@ import { useLocation } from 'react-router-dom';
 import { MdAdd } from 'react-icons/md';
 
 import { $$, $ } from 'utilize/Tricks';
-import { SERVER_ADDRESS_CREATEPROVIDERABOUT, SERVER_ADDRESS_GET_PROVIDERLIST } from 'config/server';
+import { 
+    SERVER_ADDRESS_CREATEPROVIDERABOUT, 
+    SERVER_ADDRESS_GET_PROVIDERLIST 
+} from 'config/server';
+
+/**
+*@typedef {
+*subject: string,
+*content: string,
+*status: string,
+*uuid_provider: uuid
+*} providerAboutOptions
+*/
 
 const ProviderAboutBody = () => {
     const { state: dataFromProvider } = useLocation();
 
-    const [input, setInput] = useState([{subject: '', content: ''}]);
+    const [input, setInput] = useState([{subject: '', content: '', status: 'normal'}]);
     const [providers, setProviders] = useState([]);
 
     useEffect(() => {
@@ -24,12 +36,13 @@ const ProviderAboutBody = () => {
             const resData = res.data;
             if (resData.exist) {
                 setProviders(resData.providers);
+                // console.log(resData)
             }
         }).catch(error => console.error(error))
     }, [])
 
     const handleAddInput = () => { 
-        setInput([...input, {subject: '', content: ''}]);
+        setInput([...input, {subject: '', content: '', status: 'normal'}]);
         setTimeout(() => {
             const index = input.length;
             const qInputBox = $$('.ProviderAboutBody-inputBox');
@@ -48,7 +61,7 @@ const ProviderAboutBody = () => {
             qInputBox[i].classList.remove('show');
         }
         setTimeout(() => {
-            setInput([{subject: '', content: ''}]);
+            setInput([{subject: '', content: '', status: 'normal'}]);
             qInputBox[0].classList.add('show');
         }, 500)
     }
@@ -101,13 +114,16 @@ const ProviderAboutBody = () => {
                 method: 'post',
                 url: `${SERVER_ADDRESS_CREATEPROVIDERABOUT}`,
                 withCredentials: true,
-                data: data,
+                data: {
+                    uuid_provider: uuid_provider,
+                    providerAboutOptionsArray: data
+                },
                 headers: {
                     'Content-Type': 'application/json'
                 }
             }).then(res => {
                 const resData = res.data;
-                if (!resData.exist) {
+                if (resData?.success) {
                     qNote.classList.add('success');
                     qNote.classList.remove('failure');
                 } else {

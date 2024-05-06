@@ -11,16 +11,23 @@ import { TiDeleteOutline } from 'react-icons/ti';
 import RegisterProviderBodyOverlay from "./components/RegisterProviderBodyOverlay";
 
 import { $ } from "utilize/Tricks";
-import { SERVER_ADDRESS_UPLOADIMAGE, SERVER_ADDRESS_GETIMAGE, SERVER_ADDRESS_CREATEPROVIDER } from "config/server";
+import { 
+    SERVER_ADDRESS_UPLOADIMAGE, 
+    SERVER_ADDRESS_GETIMAGE, 
+    SERVER_ADDRESS_CREATEPROVIDER 
+} from "config/server";
+
 
 /**
 *@typedef {
-*name: string, 
+*name: string,
 *avatar: string,
-*banner: string,
+*banner: text,
 *follow: integer,
 *averageRating: float,
-*rateCount: integer
+*rateCount: integer,
+*status: string,
+*uuid_user: uuid
 *} providerOptions
 */
 
@@ -91,7 +98,9 @@ const RegisterProviderBody = () => {
                     banner: imageUrls[0],
                     follow: 0,
                     averageRating: 0,
-                    rateCount: 0
+                    rateCount: 0,
+                    status: 'normal',
+                    uuid_user: ''
                 }
 
                 axios({

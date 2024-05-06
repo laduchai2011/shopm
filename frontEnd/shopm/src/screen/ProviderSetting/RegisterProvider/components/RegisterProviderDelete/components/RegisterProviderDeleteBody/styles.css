@@ -28,15 +28,20 @@
     padding: 5px;
 }
 
-.RegisterProviderDeleteBody-list-provider div {
+.RegisterProviderDeleteBody-providers {
     padding: 10px;
     margin: 5px 0;
     border-radius: 20px;
     cursor: default;
 }
 
-.RegisterProviderDeleteBody-list-provider div:hover {
+.RegisterProviderDeleteBody-providers:hover {
     background-color: rgb(218, 218, 218);
+}
+
+.RegisterProviderDeleteBody-providers.selected {
+    background-color: rgb(90, 90, 255);
+    color: white;
 }
 
 .RegisterProviderDeleteBody-authenticDelete-content {
@@ -45,11 +50,11 @@
     align-items: center;
 }
 
-.RegisterProviderDeleteBody-authenticDelete-content div {
+.RegisterProviderDeleteBody-authenticDelete-content > div {
     margin: 5px 0;
 }
 
-.RegisterProviderDeleteBody-authenticDelete-content div input {
+.RegisterProviderDeleteBody-authenticDelete-content > div > input {
     border: none;
     outline: none;
     background-color: rgb(214, 214, 214);
@@ -57,7 +62,7 @@
     border-radius: 20px;
 }
 
-.RegisterProviderDeleteBody-authenticDelete-content div button {
+.RegisterProviderDeleteBody-authenticDelete-content > div > button {
     border: none;
     outline: none;
     padding: 10px 20px;
@@ -66,11 +71,11 @@
     color: white;
 }
 
-.RegisterProviderDeleteBody-authenticDelete-content div button:hover {
+.RegisterProviderDeleteBody-authenticDelete-content > div > button:hover {
     background-color: red;
 }
 
-.RegisterProviderDeleteBody-authenticDelete-content div button:active {
+.RegisterProviderDeleteBody-authenticDelete-content > div > button:active {
     background-color: rgb(255, 79, 79);
 }
 

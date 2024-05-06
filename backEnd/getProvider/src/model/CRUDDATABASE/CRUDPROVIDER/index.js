@@ -28,7 +28,10 @@ class CRUDPROVIDER {
                     try {
                         const isProviders = await this._Provider.findAll({
                             where: {
-                                uuid_user: uuid_user    
+                                uuid_user: uuid_user,
+                                [Op.not]: {
+                                    status: 'delete'
+                                }    
                             }
                         }, { transaction: t })
 
@@ -64,13 +67,16 @@ class CRUDPROVIDER {
             try {
                 sequelize.transaction(async (t) => {
                     try {
-                        const isProvider = await this._Provider.findOne({
+                        const provider_c = await this._Provider.findOne({
                             where: {
-                                uuid_provider: uuid_provider    
+                                uuid_provider: uuid_provider,
+                                [Op.not]: {
+                                    status: 'delete'
+                                }   
                             }
                         }, { transaction: t })
 
-                        resolve(isProvider);
+                        resolve(provider_c);
                     } catch (error) {
                         reject(error);
                     }
@@ -81,8 +87,8 @@ class CRUDPROVIDER {
         });
 
         providerPromise
-        .then(isProvider => {
-            provider = isProvider;
+        .then(provider_c => {
+            provider = provider_c;
         }).catch(error => {
             err = error;
         }).finally(() => {

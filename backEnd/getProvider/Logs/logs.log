@@ -1075,3 +1075,136 @@
 11-04-2024	42:19:15--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
 26-04-2024	58:13:03--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
 26-04-2024	58:13:03--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+26-04-2024	40:00:23--------Redis Client Error Error: read ECONNRESET
+26-04-2024	40:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	40:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	40:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	40:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	40:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	40:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	40:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	41:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	41:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	41:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	42:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	42:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	43:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	43:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+26-04-2024	44:00:23--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+28-04-2024	11:04:03--------Redis Client Error Error: Connection timeout
+28-04-2024	01:23:03--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+28-04-2024	02:23:03--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-04-2024	08:17:19--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+29-04-2024	09:17:19--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-04-2024	24:19:19--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+29-04-2024	44:39:19--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+29-04-2024	44:39:19--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-04-2024	41:57:21--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+29-04-2024	08:54:22--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-04-2024	08:54:22--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-04-2024	01:57:22--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+29-04-2024	01:57:22--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	46:06:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	47:06:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	06:07:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	06:07:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	15:28:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	15:28:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	19:28:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	19:28:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	22:28:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	22:28:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	45:28:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	45:28:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	27:57:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	27:57:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	27:57:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	22:05:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	22:05:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	46:05:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	53:05:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	54:05:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	09:19:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	19:19:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	19:19:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	38:20:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	38:20:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	55:20:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	55:20:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	51:21:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	58:21:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	58:21:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	20:23:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	20:23:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	38:23:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	38:23:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	57:23:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	11:25:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	11:25:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	02:26:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	02:26:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	09:26:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	09:26:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	34:26:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	34:26:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	20:16:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	21:16:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	13:20:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	13:20:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	00:23:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	00:23:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	19:24:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	19:24:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	17:30:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	05:31:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	14:34:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	14:34:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	26:36:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	27:36:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	16:38:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	16:38:07--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	37:08:18--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	43:08:18--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	11:10:18--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	12:10:18--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	15:10:18--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	15:10:18--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	04:18:20--------Redis Client Error Error: Connection timeout
+02-05-2024	21:50:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+02-05-2024	21:50:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	33:39:05--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	33:39:05--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	06:35:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	07:35:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	27:35:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	34:46:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	42:46:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	42:46:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	40:47:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	41:47:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	55:48:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	55:48:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	31:49:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	31:49:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	42:49:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	42:49:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	46:49:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	46:49:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	48:49:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	48:49:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	35:51:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	08:55:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	09:55:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	39:55:12--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+04-05-2024	30:27:11--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+04-05-2024	31:27:11--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	42:10:02--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	43:10:02--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	08:46:02--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	49:08:04--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	50:08:04--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	04:10:04--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	17:10:04--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	13:18:04--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	46:04:19--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	48:04:19--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken

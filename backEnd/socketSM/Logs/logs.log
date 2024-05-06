@@ -1119,3 +1119,131 @@
 25-04-2024	11:16:08--------Redis Client Error Error: Connection timeout
 26-04-2024	45:35:01--------Redis Client Error Error: Connection timeout
 26-04-2024	36:46:09--------( SocketSM_Authentication ) Error: Socket-accessToken invalid or not created ( SocketSM_Authentication ) !
+28-04-2024	39:05:03--------Redis Client Error Error: Connection timeout
+28-04-2024	23:19:03--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+28-04-2024	23:19:03--------/getRoom?status=normal&type=notification---GET---SequelizeForeignKeyConstraintError: The INSERT statement conflicted with the FOREIGN KEY constraint "FK__SockerSMR__uuid___3D5E1FD2". The conflict occurred in database "shopm", table "dbo.Users", column 'uuid'.
+28-04-2024	23:19:03--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+28-04-2024	23:19:03--------/getRoom?status=normal&type=notification---GET---SequelizeForeignKeyConstraintError: The INSERT statement conflicted with the FOREIGN KEY constraint "FK__SockerSMR__uuid___3D5E1FD2". The conflict occurred in database "shopm", table "dbo.Users", column 'uuid'.
+28-04-2024	23:19:03--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+28-04-2024	24:19:03--------/getRoom?status=normal&type=notification---GET---SequelizeForeignKeyConstraintError: The INSERT statement conflicted with the FOREIGN KEY constraint "FK__SockerSMR__uuid___3D5E1FD2". The conflict occurred in database "shopm", table "dbo.Users", column 'uuid'.
+28-04-2024	24:19:03--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+28-04-2024	24:19:03--------/getRoom?status=normal&type=notification---GET---SequelizeForeignKeyConstraintError: The INSERT statement conflicted with the FOREIGN KEY constraint "FK__SockerSMR__uuid___3D5E1FD2". The conflict occurred in database "shopm", table "dbo.Users", column 'uuid'.
+28-04-2024	24:19:03--------/getRoom?status=normal&type=notification---GET---SequelizeForeignKeyConstraintError: The INSERT statement conflicted with the FOREIGN KEY constraint "FK__SockerSMR__uuid___3D5E1FD2". The conflict occurred in database "shopm", table "dbo.Users", column 'uuid'.
+28-04-2024	17:00:11--------( SocketSM_Authentication ) Error: Socket-accessToken invalid or not created ( SocketSM_Authentication ) !
+29-04-2024	07:54:01--------Redis Client Error Error: Connection timeout
+29-04-2024	32:27:07--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-04-2024	33:27:07--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-04-2024	06:49:07--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+29-04-2024	06:49:07--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-04-2024	00:24:17--------( SocketSM_Authentication ) Error: Socket-accessToken invalid or not created ( SocketSM_Authentication ) !
+29-04-2024	43:26:18--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+29-04-2024	44:26:18--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-04-2024	44:26:18--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-04-2024	44:26:18--------( SocketSM_Authentication ) Error: Socket-accessToken invalid or not created ( SocketSM_Authentication ) !
+29-04-2024	44:26:18--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-04-2024	44:26:18--------( SocketSM_Authentication ) Error: Socket-accessToken invalid or not created ( SocketSM_Authentication ) !
+29-04-2024	44:26:18--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+29-04-2024	44:26:18--------( SocketSM_Authentication ) Error: Socket-accessToken invalid or not created ( SocketSM_Authentication ) !
+29-04-2024	08:54:22--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+29-04-2024	08:54:22--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	30:21:02--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+30-04-2024	37:21:02--------( SocketSM_Authentication ) Error: Socket-accessToken invalid or not created ( SocketSM_Authentication ) !
+30-04-2024	12:25:02--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+30-04-2024	49:27:02--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+30-04-2024	04:30:02--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+30-04-2024	20:31:02--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+30-04-2024	00:33:02--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+30-04-2024	50:34:02--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+30-04-2024	31:41:02--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+30-04-2024	53:43:02--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+30-04-2024	29:46:02--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+30-04-2024	13:52:02--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+30-04-2024	14:53:02--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+30-04-2024	41:55:02--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+30-04-2024	42:56:02--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+30-04-2024	57:57:02--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+30-04-2024	31:01:03--------/getRoom?status=normal&type=notification---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+30-04-2024	50:18:07--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	52:18:07--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	52:18:07--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	22:05:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	22:05:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	22:05:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	54:05:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	54:05:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	54:05:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	19:19:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	19:19:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	38:20:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	38:20:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	38:20:08--------( SocketSM_Authentication ) Error: Socket-accessToken invalid or not created ( SocketSM_Authentication ) !
+30-04-2024	55:20:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	55:20:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	56:20:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	56:20:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	58:21:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	58:21:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	59:21:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	11:25:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	12:25:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	12:25:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	12:25:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	09:26:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+30-04-2024	09:26:08--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	59:19:07--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	01:20:07--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	01:20:07--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	01:20:07--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	30:20:07--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	31:20:07--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	31:20:07--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	31:20:07--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	24:36:07--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	25:36:07--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	41:13:20--------Redis Client Error Error: Connection timeout
+01-05-2024	56:08:22--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	58:08:22--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	59:08:22--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+01-05-2024	59:08:22--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+02-05-2024	21:50:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+02-05-2024	21:50:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+02-05-2024	22:50:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+02-05-2024	22:50:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+02-05-2024	22:50:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	32:39:05--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	33:39:05--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	33:39:05--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	06:35:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	06:35:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	07:35:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	07:35:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	42:46:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	42:46:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	40:47:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	41:47:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	42:47:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	09:55:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	09:55:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	09:55:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	10:55:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-05-2024	10:55:12--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+04-05-2024	09:21:11--------Redis Client Error Error: Connection timeout
+04-05-2024	31:27:11--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+04-05-2024	31:27:11--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+04-05-2024	31:27:11--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	54:09:02--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	54:09:02--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	56:09:02--------( SocketSM_Authentication ) Error: Socket-accessToken invalid or not created ( SocketSM_Authentication ) !
+05-05-2024	57:09:02--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	42:10:02--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	42:10:02--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	43:10:02--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	43:10:02--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	49:08:04--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	50:08:04--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	50:08:04--------( SocketSM_Authentication ) Error: Socket-accessToken invalid or not created ( SocketSM_Authentication ) !
+05-05-2024	46:04:19--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	47:04:19--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	47:04:19--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+05-05-2024	48:04:19--------/getRoom?status=normal&type=notification---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+06-05-2024	49:35:10--------Redis Client Error Error: Connection timeout
