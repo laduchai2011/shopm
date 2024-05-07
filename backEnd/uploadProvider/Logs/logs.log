@@ -41,3 +41,12 @@
 04-05-2024	27:21:11--------Redis Client Error Error: Connection timeout
 05-05-2024	43:13:02--------Redis Client Error Error: Connection timeout
 06-05-2024	26:36:10--------Redis Client Error Error: Connection timeout
+06-05-2024	05:53:14--------/provider/delete---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+06-05-2024	05:53:14--------/provider/delete---PATCH---ReferenceError: isCaseRecord is not defined
+06-05-2024	29:54:14--------/provider/delete---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+06-05-2024	29:54:14--------/provider/delete---PATCH---ReferenceError: isCaseRecord is not defined
+07-05-2024	24:29:01--------/provider/delete---PATCH---ReferenceError: isCaseRecord is not defined
+07-05-2024	33:35:01--------/provider/delete---PATCH---TokenExpiredError: jwt expired: token.verify-accessToken
+07-05-2024	08:57:22--------/provider/create---POST---TokenExpiredError: jwt expired: token.verify-accessToken
+08-05-2024	35:26:00--------/provider/delete---PATCH---TokenExpiredError: jwt expired: token.verify-accessToken
+08-05-2024	05:55:05--------Redis Client Error Error: Connection timeout

@@ -1086,10 +1086,6 @@ class DefineModel {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            image: {
-                type: DataTypes.TEXT,
-                allowNull: false
-            },
             subject: {
                 type: DataTypes.STRING,
                 allowNull: false,

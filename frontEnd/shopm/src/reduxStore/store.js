@@ -5,7 +5,10 @@ import counterReducer from './slice/counterSlice';
 import profileCaseRecordReducer from './slice/profileCaseRecordSlice';
 import caseRecordReducer from './slice/caseRecordSlice';
 import notificationsReducer from './slice/notificationsSlice';
+import registerProviderReducer from './slice/registerProviderSlice';
+
 import rootSaga from './rootSaga';
+
 import { doctorOrPharmacistRTKQuery } from './RTKQuery/doctorOrPharmacistRTKQuery';
 import { notificationRTKQuery } from './RTKQuery/notificationRTKQuery';
 import { userRTKQuery } from './RTKQuery/userRTKQuery';
@@ -24,6 +27,7 @@ export const store = configureStore({
     profileCaseRecord: profileCaseRecordReducer,
     caseRecord: caseRecordReducer,
     notifications: notificationsReducer,
+    registerProvider: registerProviderReducer,
     [doctorOrPharmacistRTKQuery.reducerPath]: doctorOrPharmacistRTKQuery.reducer,
     [notificationRTKQuery.reducerPath]: notificationRTKQuery.reducer,
     [userRTKQuery.reducerPath]: userRTKQuery.reducer,

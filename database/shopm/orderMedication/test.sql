@@ -104,3 +104,7 @@ GO
 
 DELETE FROM Users
 GO
+
+ALTER TABLE Medications
+DROP COLUMN image;
+go

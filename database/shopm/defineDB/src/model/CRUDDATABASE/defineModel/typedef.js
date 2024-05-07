@@ -103,7 +103,6 @@
 /**
 *@typedef {
 *title: string,
-*image: text,
 *subject: string,
 *object: string,
 *symptom: string,

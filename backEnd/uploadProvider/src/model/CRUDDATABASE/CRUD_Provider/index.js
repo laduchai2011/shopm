@@ -112,7 +112,7 @@ class Provider {
                             uuid_provider,
                             { lock: true, transaction: t },
                         );
-                        isCaseRecord.status = 'delete';
+                        provider_c.status = 'delete';
                         await provider_c.save({ transaction:t });
                         resolve(provider_c);
                     } catch (error) {

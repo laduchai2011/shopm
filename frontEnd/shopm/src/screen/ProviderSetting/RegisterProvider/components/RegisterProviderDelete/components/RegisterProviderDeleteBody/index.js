@@ -1,33 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import './styles.css';
 
-import axios from 'axios';
+import { useDispatch } from "react-redux";
 
 import { 
-    SERVER_ADDRESS_GET_PROVIDERLIST,
-    SERVER_ADDRESS_DEL_PROVIDER
-} from 'config/server';
+    setToastMessageRT 
+} from 'reduxStore/slice/registerProviderSlice';
+
+import { 
+    useGetProviderListQuery,
+    useDeleteProviderMutation 
+} from 'reduxStore/RTKQuery/providerRTKQuery';
 
 import { $$ } from 'utilize/Tricks';
 
 const RegisterProviderDeleteBody = () => {
 
+    const dispatch = useDispatch();
+
     const [providers, setProviders] = useState([]);
     const [selectedProvider, setSelectedProvider] = useState();
+    const [authString, setAuthString] = useState('DELETE YOUR PROVIDER');
+    const [inputAuthString, setInputAuthString] = useState('');
+    
+    const [deleteProvider] = useDeleteProviderMutation();
+
+    const {
+        data: data_providerList, 
+        // isFetching: isFetching_providerList, 
+        isError: isError_providerList, 
+        error: error_providerList
+    } = useGetProviderListQuery();
 
     useEffect(() => {
-        axios({
-            method: 'get',
-            url: `${SERVER_ADDRESS_GET_PROVIDERLIST}`,
-            withCredentials: true
-        }).then(res => {
-            const resData = res.data;
-            if (resData.exist) {
-                setProviders(resData.providers);
-                // console.log(resData)
-            }
-        }).catch(error => console.error(error))
-    }, [])
+        isError_providerList && console.log(error_providerList);
+    }, [isError_providerList, error_providerList])
+
+    useEffect(() => {
+        const resData = data_providerList;
+        if (resData?.success) {
+            setProviders(resData.providers);
+        }
+    }, [data_providerList])
 
     const handleChooseProvider = (index) => {
         const q_providers = $$('.RegisterProviderDeleteBody-providers');
@@ -39,23 +53,47 @@ const RegisterProviderDeleteBody = () => {
         q_providers[index].classList.add('selected');
 
         setSelectedProvider(providers[index]);
+        setAuthString(`DELETE ${providers[index].name}`);
+    }
+
+    const handleInputAuthString = (e) => {
+        const value = e.target.value;
+        setInputAuthString(value);
     }
 
     const handleDelleteProvider = () => {
-        axios({
-            method: 'patch',
-            url: `${SERVER_ADDRESS_DEL_PROVIDER}`,
-            withCredentials: true,
-            data: {
+        if (authString === inputAuthString) {
+            deleteProvider({
                 uuid_provider: selectedProvider.uuid_provider
-            },
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => {
-            const resData = res.data;
-            console.log('RegisterProviderDeleteBody', resData)
-        }).catch(error => console.error(error))
+            }).then(res => {
+                const resData = res.data;
+                if (resData?.success) {
+                    dispatch(setToastMessageRT({
+                        type: 'success',
+                        message: resData?.message,
+                        show: true
+                    }))
+                    const q_providers = $$('.RegisterProviderDeleteBody-providers');
+                    for (let i = 0; i < q_providers.length; i++) {
+                        q_providers[i].classList.remove('selected');
+                    }
+                    setSelectedProvider(null);
+                    setInputAuthString('');
+                } else {
+                    dispatch(setToastMessageRT({
+                        type: 'error',
+                        message: resData?.message,
+                        show: true
+                    }))
+                }
+            }).catch(err => console.error(err))
+        } else {
+            dispatch(setToastMessageRT({
+                type: 'error',
+                message: 'String is invalid !',
+                show: true
+            }))
+        }
     }
 
     const list_provider = providers.map((data, index) => {
@@ -66,7 +104,7 @@ const RegisterProviderDeleteBody = () => {
                 value={data.uuid_provider}
                 onClick={() => handleChooseProvider(index)}
             >
-                {data.name}
+                <strong>{ `${index} . ` }</strong>{data.name}
             </div> 
         )
     })
@@ -83,9 +121,9 @@ const RegisterProviderDeleteBody = () => {
                 <div className='RegisterProviderDeleteBody-authenticDelete-header'><strong>Authentic Delete</strong></div>
                 <div className='RegisterProviderDeleteBody-authenticDelete-content'>
                     <div>Enter string to delete !</div>
-                    <div>String: <strong>{selectedProvider?.name}</strong></div>
+                    <div>String: <strong>{ authString }</strong></div>
                     <div>
-                        <input />
+                        <input type="text" onChange={(e) => handleInputAuthString(e)} value={inputAuthString} />
                     </div>
                     <div>
                         <button onClick={() => handleDelleteProvider()}>Delete</button>

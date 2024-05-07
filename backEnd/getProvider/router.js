@@ -20,12 +20,12 @@ router.get('/provider/list', Authentication, (req, res) => {
         } else {
             if (providers === null) return res.status(200).json({
                 providers: providers,
-                exist: false,
+                success: false,
                 message: 'There are not provider registed yet !'
             });
             return res.status(200).json({
                 providers: providers,
-                exist: true,
+                success: true,
                 message: 'Get successly providers (it is a array) !'
             });
         }

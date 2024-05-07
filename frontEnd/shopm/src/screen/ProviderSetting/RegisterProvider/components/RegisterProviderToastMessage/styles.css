@@ -1,0 +1,35 @@
+.RegisterProviderToastMessage {
+    position: fixed;
+    top: 50%;
+    left: 100%;
+    background-color: white;
+    z-index: 11;
+    width: 300px;
+    height: 150px;
+    border: 1px dashed gray;
+    transform: translate(0, -50%);
+    box-sizing: border-box;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+
+    transition: left 0.3s linear;
+}
+
+.RegisterProviderToastMessage.show {
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.RegisterProviderToastMessage > div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.RegisterProviderToastMessage > div > button {
+    width: min-content;
+    padding: 5px 10px;
+}

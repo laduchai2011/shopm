@@ -43,10 +43,8 @@ router.patch('/provider/delete',
     getProviderMid,
     isMyProvider,
     (req, res) => {
-    const providerOptions = req.body;
-    const userOptions = req.decodedToken.data;
-    providerOptions.uuid_user = userOptions.uuid;
-    providerCRUD.delete(providerOptions, (provider, err) => {
+    const uuid_provider = req.body.uuid_provider;
+    providerCRUD.delete(uuid_provider, (provider, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
@@ -57,7 +55,6 @@ router.patch('/provider/delete',
                 message: 'Delete provider successly !'
             });
             return res.status(205).json({
-                providerOptions: providerOptions,
                 provider: provider,
                 success: false,
                 message: 'Delete provider NOT successly !'

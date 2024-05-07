@@ -5,6 +5,7 @@ import Header from 'screen/Header';
 import HeaderProviderSetting from 'screen/ProviderSetting/components/HeaderProviderSetting';
 import RegisterProviderHeader from '../RegisterProviderHeader';
 import RegisterProviderDeleteBody from './components/RegisterProviderDeleteBody';
+import RegisterProviderToastMessage from '../RegisterProviderToastMessage';
 
 const RegisterProviderDelete = () => {
     return (
@@ -15,6 +16,7 @@ const RegisterProviderDelete = () => {
                 <RegisterProviderHeader index={ 2 } />
                 <RegisterProviderDeleteBody />
             </div>
+            <RegisterProviderToastMessage />
         </div>
     )
 }

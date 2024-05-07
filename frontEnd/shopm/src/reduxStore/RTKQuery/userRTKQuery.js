@@ -40,6 +40,6 @@ export const userRTKQuery = createApi({
 })
 
 export const { 
-    useLazyGetUserWithPk_notificationQuery ,
+    useLazyGetUserWithPk_notificationQuery,
     useGetSickPersonFromCaseRecordQuery
 } = userRTKQuery;
