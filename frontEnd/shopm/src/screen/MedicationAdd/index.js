@@ -15,13 +15,16 @@ import MedicationAddToastMessage from "./components/MedicationAddToastMessage";
 import Header from "screen/Header";
 import TextEditor from "TextEditor";
 import { TEGetContent } from "TextEditor/utilize";
-import { SERVER_ADDRESS_ADD_MEDICATION, SERVER_ADDRESS_UPLOADIMAGE, SERVER_ADDRESS_GETIMAGE } from "config/server";
+import { 
+    SERVER_ADDRESS_CREATE_MEDICATION, 
+    SERVER_ADDRESS_UPLOADIMAGE, 
+    SERVER_ADDRESS_GETIMAGE 
+} from "config/server";
 import { $, $$ } from "utilize/Tricks";
 
 /**
 *@typedef {
-*name: string,
-*image: text,
+*title: string,
 *subject: string,
 *object: string,
 *symptom: string,
@@ -40,14 +43,29 @@ import { $, $$ } from "utilize/Tricks";
 *} medicateOptions
 */ 
 
+/**
+*@typedef {
+*url: string,
+*status: string,
+*uuid_medication: uuid
+*} medicationImageOptions
+*/
+
+/**
+*@typedef {
+*url: string,
+*status: string,
+*uuid_medication: uuid
+*} medicationVideoOptions
+*/
+
 const MedicationAdd = () => {
 
     const { id: uuid_provider } = useParams();
 
     const [images, setImages] = useState([]); // [{file: '', blob: ''}]
     const [inputs, setInputs] = useState({
-        name: '',
-        image: '',
+        title: '',
         subject: '',
         object: '',
         type: '',
@@ -89,9 +107,9 @@ const MedicationAdd = () => {
         let new_input = {...inputs};
 
         switch(type) {
-            case 'name':
-                new_input.name = value;
-                q_inputBlock[0].children[1].classList.remove('showEmptyName');
+            case 'title':
+                new_input.title = value;
+                q_inputBlock[0].children[1].classList.remove('showEmptyTitle');
                 break;
             
             case 'subject':
@@ -207,8 +225,8 @@ const MedicationAdd = () => {
 
         const inputsCoppy = {...inputs}
 
-        if (inputsCoppy.name.length <= 0) {
-            q_inputBlock[0].children[1].classList.add('showEmptyName');
+        if (inputsCoppy.title.length <= 0) {
+            q_inputBlock[0].children[1].classList.add('showEmptyTitle');
             window.scrollTo(0, 0);
         } else {
             if (!submit.current) {
@@ -236,18 +254,39 @@ const MedicationAdd = () => {
                 setTimeout(() => {
                     uploadImage(imageFiles, (imageUrls) => {
                         inputsCoppy.image = JSON.stringify({urls: imageUrls})
+
+                        const medicationImageOptionsArray = [];
+
+                        for (let i = 0; i < imageUrls.length; i++) {
+                            const medicationImageOptionsArray_c = {
+                                url: imageUrls[i],
+                                status: 'normal',
+                                uuid_medication: ''
+                            }
+                            medicationImageOptionsArray.push(medicationImageOptionsArray_c);
+                        }
+
+                        const createMedicationOptions = {
+                            medicationOptions: inputsCoppy,
+                            medicationImageOptionsArray: medicationImageOptionsArray,
+                            medicationVideoOptionsArray: []
+                        }
             
                         axios({
                             method: 'post',
-                            url: SERVER_ADDRESS_ADD_MEDICATION,
+                            url: SERVER_ADDRESS_CREATE_MEDICATION,
                             withCredentials: true,
-                            data: inputsCoppy,
+                            data: {
+                                uuid_provider: uuid_provider,
+                                createMedicationOptions: createMedicationOptions
+                            },
                             headers: {
                                 'Content-Type': 'application/json'
                             }
                         }).then(res => {
                             const resData = res.data;
-                            if (resData.success) {
+                            console.log(resData)
+                            if (resData?.success) {
                                 q_toastMessage.classList.remove('MedicationAddToastMessage-loading');
                                 q_toastMessage.classList.add('MedicationAddToastMessage-success');
                             } else {
@@ -342,7 +381,7 @@ const MedicationAdd = () => {
                 <div className="MedicationAdd-inputBlock">
                     <div>
                         <div>Name</div>
-                        <input value={inputs.name} onChange={(e) => handleInput(e, 'name')} maxLength={25} />
+                        <input value={inputs.name} onChange={(e) => handleInput(e, 'title')} maxLength={25} />
                         <span>max 25</span> 
                     </div>
                     <div></div>

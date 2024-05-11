@@ -1,6 +1,6 @@
-09-04-2024	49:37:10--------Redis Client Error Error: Connection timeout
-28-04-2024	22:05:03--------Redis Client Error Error: Connection timeout
-01-05-2024	05:18:20--------Redis Client Error Error: Connection timeout
-04-05-2024	32:18:11--------Redis Client Error Error: Connection timeout
-04-05-2024	32:18:11--------Redis Client Error Error: Connection timeout (publisher)
-08-05-2024	38:54:05--------Redis Client Error Error: Connection timeout
+
+10-05-2024	39:27:12--------/provider/createMedication---POST---SequelizeValidationError: notNull Violation: Medication.title cannot be null
+10-05-2024	46:31:12--------/provider/createMedication---POST---TypeError: Cannot read properties of undefined (reading 'length')
+10-05-2024	48:33:12--------/provider/createMedication---POST---TypeError: Cannot read properties of undefined (reading 'length')
+10-05-2024	27:34:12--------/provider/createMedication---POST---TypeError: Cannot read properties of undefined (reading 'length')
+10-05-2024	09:17:23--------Redis Client Error Error: Connection timeout

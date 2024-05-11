@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { 
-    SERVER_ADDRESS_GET_MEDICATION
+    SERVER_ADDRESS_GET_MEDICATION,
+    SERVER_ADDRESS_GET_MEDICATION_LIST
 } from 'config/server';
 
 // Define a service using a base URL and expected endpoints
@@ -15,7 +16,18 @@ export const medicationRTKQuery = createApi({
                 url: `${SERVER_ADDRESS_GET_MEDICATION}/${uuid_medication}`,
                 credentials: "include"
             }),
-            providesTags: [{type: 'Medication', bool: true}]
+            providesTags: [{type: 'Medication'}]
+        }),
+
+        getMedicationList: builder.query({
+            query: ({uuid_provider, pageIndex, pageSize}) => ({
+                url: `${SERVER_ADDRESS_GET_MEDICATION_LIST}?uuid_provider=${uuid_provider}&pageIndex=${pageIndex}&pageSize=${pageSize}`,
+                credentials: "include"
+            }),
+            providesTags: (result, error, arg) =>
+                result?.success
+                    ? [...result?.medications.map(({ id }) => ({ type: 'Medication', id })), 'Medication']
+                    : ['Medication'],
         }),
 
         // // mutation
@@ -56,5 +68,6 @@ export const medicationRTKQuery = createApi({
 
 export const { 
     useGetMedicationQuery,
-    useLazyGetMedicationQuery
+    useLazyGetMedicationQuery,
+    useLazyGetMedicationListQuery
 } = medicationRTKQuery;

@@ -1,3 +1,4 @@
+'use strict';
 const { Op } = require('sequelize');
 const { sequelize } = require('../../../config/database');
 const { defineModel } = require('../defineModel');
@@ -5,7 +6,6 @@ const { defineModel } = require('../defineModel');
 /**
 *@typedef {
 *name: string,
-*image: text,
 *subject: string,
 *object: string,
 *symptom: string,
@@ -31,113 +31,72 @@ const { defineModel } = require('../defineModel');
 *} soldMedicationList
 */ 
 
-class CRUDMEDICATION {
+class MedicationCRUD {
     constructor() {
         this._Medication = defineModel.getMedication();
+        this._MedicationImage = defineModel.getMedicationImage();
+        this._MedicationVideo = defineModel.getMedicationVideo();
     }
 
-    // bulkReadFilter_provider(uuid_provider, pageIndex, pageSize, callback) {
-    //     let medications;
-    //     let err;
-        
-    //     const medicatePromise = new Promise((resolve, reject) => {
-    //         try {
-    //             sequelize.transaction(async (t) => {
-    //                 try {
-    //                     const isMedication = await this._Medication.findAndCountAll({
-    //                         where: {
-    //                             uuid_provider: uuid_provider
-    //                         },
-    //                         order: [
-    //                             ['id', 'DESC']
-    //                         ],
-    //                         offset: pageSize * (pageIndex - 1),
-    //                         limit: pageSize
-    //                     }, { transaction: t })
-
-    //                     if (isMedication.length === 0) {
-    //                         resolve(null);
-    //                     } else {
-    //                         resolve(isMedication);
-    //                     }   
-    //                 } catch (error) {
-    //                     reject(error);
-    //                 }
-    //             });
-    //         } catch (error) {
-    //             reject(error);
-    //         }
-    //     });
-
-    //     medicatePromise
-    //     .then(isMedication => {
-    //         medications = isMedication;
-    //     }).catch(error => {
-    //         err = error;
-    //     }).finally(() => {
-    //         callback(medications, err);
-    //     })
-    // }
-
-    // read(uuid_provider, callback) {
-    //     let provider;
-    //     let err;
-        
-    //     const providerPromise = new Promise((resolve, reject) => {
-    //         try {
-    //             sequelize.transaction(async (t) => {
-    //                 try {
-    //                     const isProvider = await this._Provider.findOne({
-    //                         where: {
-    //                             uuid_provider: uuid_provider    
-    //                         },
-    //                         attributes: {
-    //                             exclude: ['createdAt', 'updatedAt']
-    //                         }
-    //                     }, { transaction: t })
-
-    //                     resolve(isProvider);
-    //                 } catch (error) {
-    //                     reject(error);
-    //                 }
-    //             });
-    //         } catch (error) {
-    //             reject(error);
-    //         }
-    //     });
-
-    //     providerPromise
-    //     .then(isProvider => {
-    //         provider = isProvider;
-    //     }).catch(error => {
-    //         err = error;
-    //     }).finally(() => {
-    //         callback(provider, err);
-    //     })
-    // }
-
-    create(medicateOptions, callback) {
+    create(createMedicationOptions, callback) {
         let medication;
         let err;
         
-        const medicatePromise = new Promise((resolve, reject) => {
+        // const medicatePromise = new Promise((resolve, reject) => {
+        //     try {
+        //         sequelize.transaction(async (t) => {
+        //             try {
+        //                 const isMedication = await this._Medication.create(medicateOptions, { transaction: t });
+        //                 resolve(isMedication); 
+        //             } catch (error) {
+        //                 reject(error);
+        //             }
+        //         });
+        //     } catch (error) {
+        //         reject(error);
+        //     }
+        // });
+
+        // medicatePromise
+        // .then(isMedication => {
+        //     medication = isMedication;
+        // }).catch(error => {
+        //     err = error;
+        // }).finally(() => {
+        //     callback(medication, err);
+        // })
+
+        const medicatePromise = new Promise(async (resolve, reject) => {
+            const medication_t = await sequelize.transaction();
             try {
-                sequelize.transaction(async (t) => {
-                    try {
-                        const isMedication = await this._Medication.create(medicateOptions, { transaction: t });
-                        resolve(isMedication); 
-                    } catch (error) {
-                        reject(error);
-                    }
-                });
+                const newMedication_m = await this._Medication.create(createMedicationOptions.medicationOptions, { transaction: medication_t });
+
+                const newMedication = newMedication_m.dataValues;
+
+                const medicationImageOptionsArray = createMedicationOptions.medicationImageOptionsArray;
+                for (let i = 0; i < medicationImageOptionsArray.length; i++) {
+                    medicationImageOptionsArray[i].uuid_medication = newMedication.uuid_medication;
+                }
+                const newMedicationImage = await this._MedicationImage.bulkBuild(medicationImageOptionsArray, { transaction: medication_t });
+
+                const medicationVideoOptionsArray = createMedicationOptions.medicationVideoOptionsArray;
+                for (let i = 0; i < medicationVideoOptionsArray.length; i++) {
+                    medicationVideoOptionsArray[i].uuid_medication = newMedication.uuid_medication;
+                }
+                const newMedicationVideo = await this._MedicationVideo.bulkBuild(medicationVideoOptionsArray, { transaction: medication_t });
+
+                await medication_t.commit();
+
+                resolve(newMedication); 
             } catch (error) {
+                await medication_t.rollback();
                 reject(error);
             }
-        });
+        })
 
         medicatePromise
-        .then(isMedication => {
-            medication = isMedication;
+        .then(newMedication => {
+            medication = newMedication;
         }).catch(error => {
             err = error;
         }).finally(() => {
@@ -305,6 +264,6 @@ class CRUDMEDICATION {
     }
 }
 
-const medicationCRUD = new CRUDMEDICATION();
+const medicationCRUD = new MedicationCRUD();
 
 module.exports = { medicationCRUD }

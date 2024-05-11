@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 
-const { crudProvider } = require('./src/model/CRUDDATABASE/CRUDPROVIDER');
+const { providerCRUD } = require('./src/model/CRUDDATABASE/CRUD_Provider');
 const { crudProviderAbout } = require('./src/model/CRUDDATABASE/CRUDPROVIDERABOUT');
 // const { serviceRedis } = require('./src/model/serviceRedis');
 const { Authentication } = require('./src/auth/Authentication');
@@ -13,7 +13,7 @@ const { logEvents } = require('./logEvents');
 
 router.get('/provider/list', Authentication, (req, res) => {
     const { uid } = req.cookies;
-    crudProvider.readList(uid, (providers, err) => {
+    providerCRUD.readList(uid, (providers, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
@@ -35,7 +35,7 @@ router.get('/provider/list', Authentication, (req, res) => {
 router.get('/provider/:id', (req, res) => {
     const uuid_provider = req.params.id;
     const { uid } = req.cookies;
-    crudProvider.read(uuid_provider, (provider, err) => {
+    providerCRUD.read(uuid_provider, (provider, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);

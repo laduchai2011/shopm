@@ -176,11 +176,11 @@ class CaseRecord {
                 caseRecordPrescriptionOptions.uuid_caseRecord = newCaseRecord.uuid_caseRecord;
                 const newCaseRecordPrescription = await this._CaseRecordPrescription.create(caseRecordPrescriptionOptions, { transaction: caseRecord_t });
                 
-                await orderMedication_t.commit();
+                await caseRecord_t.commit();
 
                 resolve(newCaseRecord); 
             } catch (error) {
-                await orderMedication_t.rollback();
+                await caseRecord_t.rollback();
                 reject(error);
             }
         })

@@ -27,7 +27,8 @@ export const SERVER_ADDRESS_GET_PROVIDERABOUTLIST                              =
 export const SERVER_ADDRESS_CREATEPROVIDERABOUT                                = `${baseURL}:8201/api/svUploadProvider/provider/about/create`;
 export const SERVER_ADDRESS_DEL_PROVIDER                                       = `${baseURL}:8201/api/svUploadProvider/provider/delete`;
 
-export const SERVER_ADDRESS_ADD_MEDICATION                                     = `${baseURL}:8600/api/svUploadMedication/provider/medication/add`;
+export const SERVER_ADDRESS_CREATE_MEDICATION                                  = `${baseURL}:8600/api/svUploadMedication/provider/createMedication`;
+// export const SERVER_ADDRESS_ADD_MEDICATION                                     = `${baseURL}:8600/api/svUploadMedication/provider/medication/add`;
 export const SERVER_ADDRESS_GET_MEDICATION                                     = `${baseURL}:8700/api/svGetMedication/medication`;
 export const SERVER_ADDRESS_GET_MEDICATION_LIST                                = `${baseURL}:8700/api/svGetMedication/provider/medication/list`;
 export const SERVER_ADDRESS_GET_MEDICATIONMANAGER_LIST                         = `${baseURL}:8700/api/svGetMedication/provider/medicationManager/list`;

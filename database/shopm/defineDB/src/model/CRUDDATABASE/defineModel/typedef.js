@@ -122,6 +122,22 @@
 
 /**
 *@typedef {
+*url: string,
+*status: string,
+*uuid_medication: uuid
+*} medicationImageOptions
+*/
+
+/**
+*@typedef {
+*url: string,
+*status: string,
+*uuid_medication: uuid
+*} medicationVideoOptions
+*/
+
+/**
+*@typedef {
 *news: text,
 *amountOfLike: integer,
 *amountOfComment: integer,

@@ -13,40 +13,40 @@
     margin: 20px 0;
 }
 
-.MedicationAdd-inputBlock div {
+.MedicationAdd-inputBlock > div {
     display: flex;
     align-items: center;
 }
 
-.MedicationAdd-inputBlock div div {
+.MedicationAdd-inputBlock > div > div {
     width: 100px;
 }
 
-.MedicationAdd-inputBlock div:nth-child(2) {
+.MedicationAdd-inputBlock > div:nth-child(2) {
     margin-left: 100px;
 }
 
-.MedicationAdd-inputBlock div:nth-child(2).showEmptyName::after {
+.MedicationAdd-inputBlock > div:nth-child(2).showEmptyTitle::after {
     color: red;
     content: 'Name must is a string not empty !';
 }
 
-.MedicationAdd-inputBlock div:nth-child(2).showErrorPrice::after {
+.MedicationAdd-inputBlock > div:nth-child(2).showErrorPrice::after {
     color: red;
     content: 'Price must is a number !';
 }
 
-.MedicationAdd-inputBlock div:nth-child(2).showErrorAmount::after {
+.MedicationAdd-inputBlock > div:nth-child(2).showErrorAmount::after {
     color: red;
     content: 'Amount must is a number !';
 }
 
-.MedicationAdd-inputBlock div:nth-child(2).showErrorDiscount::after {
+.MedicationAdd-inputBlock > div:nth-child(2).showErrorDiscount::after {
     color: red;
     content: 'Must is a number about (0 - 100) !';
 }
 
-.MedicationAdd-inputBlock div input {
+.MedicationAdd-inputBlock > div > input {
     border: none;
     outline: none;
     background-color: rgb(241, 241, 241);
@@ -55,7 +55,7 @@
     font-size: 1rem;
 }
 
-.MedicationAdd-inputBlock div span {
+.MedicationAdd-inputBlock > div > span {
     margin: 0 10px;
     font-size: 0.8rem;
 }
@@ -77,7 +77,7 @@
     overflow: hidden;
 }
 
-.MedicationAdd-imageBlock-imageContainer div {
+.MedicationAdd-imageBlock-imageContainer > div {
     border: 1px solid black;
     padding: 10px;
     width: 100%;
@@ -88,20 +88,20 @@
     position: relative;
 }
 
-.MedicationAdd-imageBlock-imageContainer div img {
+.MedicationAdd-imageBlock-imageContainer > div > img {
     object-fit: contain;
     aspect-ratio: 4/3;
     width: 100%;
 }
 
-.MedicationAdd-imageBlock-imageContainer div svg {
+.MedicationAdd-imageBlock-imageContainer > div > svg {
     padding: 2px;
     border-radius: 50%;
     cursor: pointer;
     position: absolute;
 }
 
-.MedicationAdd-imageBlock-imageContainer div svg:hover {
+.MedicationAdd-imageBlock-imageContainer > div > svg:hover {
     background-color: rgb(255, 255, 255);
 }
 
@@ -160,12 +160,12 @@
     }
 }
 
-.MedicationAdd-catalogBox div {
+.MedicationAdd-catalogBox > div {
     display: flex;
     align-items: center;
 }
 
-.MedicationAdd-catalogBox div input {
+.MedicationAdd-catalogBox > div > input {
     border: none;
     outline: none;
     margin: 5px;
@@ -179,14 +179,14 @@
     align-items: center;
 }
 
-.MedicationAdd-catalogBtn svg {
+.MedicationAdd-catalogBtn > svg {
     margin: 0 5px;
     padding: 5px;
     cursor: pointer;
     border-radius: 50px;
 }
 
-.MedicationAdd-catalogBtn svg:hover {
+.MedicationAdd-catalogBtn > svg:hover {
     background-color: rgb(204, 204, 204);
 }
 
@@ -205,7 +205,7 @@
     margin-top: 15px;
 }
 
-.MedicationAdd-checkbox div {
+.MedicationAdd-checkbox > div {
     margin-right: 15px;
     color: blue;
 }
@@ -252,11 +252,11 @@
         font-size: 14px;
     }
 
-    .MedicationAdd-inputBlock div div {
+    .MedicationAdd-inputBlock > div > div {
         width: 80px;
     }
 
-    .MedicationAdd-inputBlock div:nth-child(2) {
+    .MedicationAdd-inputBlock > div:nth-child(2) {
         margin-left: 80px;
     }
 }

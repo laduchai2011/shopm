@@ -11,7 +11,10 @@ const { Authentication } = require('./src/auth/Authentication');
 const { Authorization } = require('./src/auth/Authorization');
 
 
-router.get('/provider/medicationManager/list', Authentication, Authorization, (req, res) => {
+router.get('/provider/medicationManager/list', 
+    Authentication, 
+    Authorization, 
+    (req, res) => {
     const uuid_provider = req.query.uuid_provider;
     const pageIndex = req.query.pageIndex;
     const pageSize = req.query.pageSize;

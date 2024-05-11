@@ -521,6 +521,74 @@ class DefineModel {
         this._Provider.hasMany(this._Medication, { foreignKey: 'uuid_provider' })
         this._Medication.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider' })
 
+        this._MedicationImage = sequelize.define('MedicationImage', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                autoIncrement: true,
+                unique: 'UQ__MedicationImages__id'
+            },
+            uuid_medicationImage: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            url: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_medication: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [{
+                name: 'uuid_medication_indexes',
+                using: 'BTREE',
+                fields: ['uuid_medication']
+            }]
+        })
+        this._Medication.hasMany(this._MedicationImage, { foreignKey: 'uuid_medication' })
+        this._MedicationImage.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication' })
+
+        this._MedicationVideo = sequelize.define('MedicationVideo', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                autoIncrement: true,
+                unique: 'UQ__MedicationVideos__id'
+            },
+            uuid_medicationVideo: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            url: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_medication: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [{
+                name: 'uuid_medication_indexes',
+                using: 'BTREE',
+                fields: ['uuid_medication']
+            }]
+        })
+        this._Medication.hasMany(this._MedicationVideo, { foreignKey: 'uuid_medication' })
+        this._MedicationVideo.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication' })
+
         this._ProviderNews = sequelize.define('ProviderNews', {
             id: {
                 type: DataTypes.INTEGER,
@@ -1742,6 +1810,14 @@ class DefineModel {
 
     getMedication() {
         return this._Medication;
+    }
+
+    getMedicationImage() {
+        return this._MedicationImage;
+    }
+
+    getMedicationVideo() {
+        return this._MedicationVideo;
     }
 
     getProviderNews() {

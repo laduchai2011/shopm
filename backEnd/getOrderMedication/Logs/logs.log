@@ -1,74 +1,8 @@
-06-04-2024	29:37:06--------Redis Client Error Error: Connection timeout
-06-04-2024	29:37:06--------Redis Client Error Error: Connection timeout (publisher)
-09-04-2024	44:47:23--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-11-04-2024	06:53:01--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-26-04-2024	57:01:01--------Redis Client Error Error: Connection timeout
-26-04-2024	59:38:01--------/getCurrentCart---GET: Please login 3 !
-28-04-2024	22:03:03--------Redis Client Error Error: Connection timeout
-29-04-2024	32:27:07--------/getCurrentCart---GET---TokenExpiredError: jwt expired: token.verify-accessToken
-29-04-2024	06:49:07--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-29-04-2024	43:26:18--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-29-04-2024	08:54:22--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-30-04-2024	51:18:07--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-30-04-2024	22:05:08--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-30-04-2024	53:05:08--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-30-04-2024	19:19:08--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-30-04-2024	38:20:08--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-30-04-2024	55:20:08--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-30-04-2024	58:21:08--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-30-04-2024	11:25:08--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-30-04-2024	09:26:08--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-01-05-2024	02:20:07--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-01-05-2024	30:20:07--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-01-05-2024	25:36:07--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-01-05-2024	03:17:20--------Redis Client Error Error: Connection timeout
-01-05-2024	56:08:22--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-02-05-2024	20:50:12--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-03-05-2024	33:39:05--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-03-05-2024	06:35:12--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-03-05-2024	42:46:12--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-03-05-2024	41:47:12--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-03-05-2024	09:55:12--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-04-05-2024	31:13:11--------Redis Client Error Error: Connection timeout
-04-05-2024	31:27:11--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-05-05-2024	53:09:02--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-05-05-2024	42:10:02--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-05-05-2024	50:08:04--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-05-05-2024	46:04:19--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-06-05-2024	32:17:11--------Redis Client Error Error: Connection timeout
-06-05-2024	32:17:11--------Redis Client Error Error: Connection timeout (publisher)
-06-05-2024	09:39:11--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-06-05-2024	43:06:13--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-06-05-2024	26:21:14--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-06-05-2024	46:27:14--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-06-05-2024	45:29:14--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-06-05-2024	55:31:14--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-06-05-2024	11:33:14--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-06-05-2024	31:33:14--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-06-05-2024	48:33:14--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-06-05-2024	31:34:14--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-06-05-2024	03:35:14--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-06-05-2024	43:41:14--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-06-05-2024	57:47:14--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-06-05-2024	56:52:14--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-06-05-2024	26:54:14--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-07-05-2024	52:32:01--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-07-05-2024	26:44:01--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-07-05-2024	54:47:01--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-07-05-2024	47:50:01--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-07-05-2024	35:02:02--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-07-05-2024	59:14:04--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-07-05-2024	23:25:04--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-07-05-2024	33:34:16--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-07-05-2024	38:42:16--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-07-05-2024	53:49:16--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-07-05-2024	14:44:18--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-07-05-2024	31:36:19--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-07-05-2024	29:42:19--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-07-05-2024	54:50:22--------/getCurrentCart---GET---TokenExpiredError: jwt expired: token.verify-accessToken
-07-05-2024	07:56:22--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-08-05-2024	09:28:01--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-08-05-2024	47:49:01--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-08-05-2024	40:53:01--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-08-05-2024	15:52:02--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
-08-05-2024	44:48:05--------Redis Client Error Error: Connection timeout
+09-05-2024	45:32:16--------/getCurrentCart---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+09-05-2024	47:16:19--------Redis Client Error Error: Connection timeout
+10-05-2024	48:37:09--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-05-2024	05:46:09--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-05-2024	55:30:12--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+10-05-2024	32:48:22--------Redis Client Error Error: Connection timeout
+11-05-2024	41:12:15--------/getCurrentCart---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+11-05-2024	04:16:15--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken

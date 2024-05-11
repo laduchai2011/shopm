@@ -28,7 +28,10 @@ class CRUDPROVIDER {
                     try {
                         const isProviders = await this._Provider.findAll({
                             where: {
-                                uuid_user: uuid_user    
+                                uuid_user: uuid_user,
+                                [Op.not]: {
+                                    status: 'delete'
+                                }    
                             }
                         }, { transaction: t })
 
@@ -64,16 +67,16 @@ class CRUDPROVIDER {
             try {
                 sequelize.transaction(async (t) => {
                     try {
-                        const isProvider = await this._Provider.findOne({
+                        const provider_c = await this._Provider.findOne({
                             where: {
-                                uuid_provider: uuid_provider    
-                            },
-                            attributes: {
-                                exclude: ['createdAt', 'updatedAt']
+                                uuid_provider: uuid_provider,
+                                [Op.not]: {
+                                    status: 'delete'
+                                }   
                             }
                         }, { transaction: t })
 
-                        resolve(isProvider);
+                        resolve(provider_c);
                     } catch (error) {
                         reject(error);
                     }
@@ -84,45 +87,8 @@ class CRUDPROVIDER {
         });
 
         providerPromise
-        .then(isProvider => {
-            provider = isProvider;
-        }).catch(error => {
-            err = error;
-        }).finally(() => {
-            callback(provider, err);
-        })
-    }
-
-    isProvider(uuid_provider, uuid_user, callback) {
-        let provider;
-        let err;
-        
-        const providerPromise = new Promise((resolve, reject) => {
-            try {
-                sequelize.transaction(async (t) => {
-                    try {
-                        const isProvider = await this._Provider.findOne({
-                            where: {
-                                [Op.and]: [
-                                    { uuid_provider: uuid_provider },
-                                    { uuid_user: uuid_user }
-                                ]
-                              }
-                        }, { transaction: t })
-
-                        resolve(isProvider);
-                    } catch (error) {
-                        reject(error);
-                    }
-                });
-            } catch (error) {
-                reject(error);
-            }
-        });
-
-        providerPromise
-        .then(isProvider => {
-            provider = isProvider;
+        .then(provider_c => {
+            provider = provider_c;
         }).catch(error => {
             err = error;
         }).finally(() => {
@@ -131,6 +97,6 @@ class CRUDPROVIDER {
     }
 }
 
-const crudProvider = new CRUDPROVIDER();
+const providerCRUD = new CRUDPROVIDER();
 
-module.exports = { crudProvider }
+module.exports = { providerCRUD }

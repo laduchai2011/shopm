@@ -145,43 +145,6 @@ class CRUDMEDICATION {
             callback(medication, err);
         })
     }
-
-    // read(uuid_provider, callback) {
-    //     let provider;
-    //     let err;
-        
-    //     const providerPromise = new Promise((resolve, reject) => {
-    //         try {
-    //             sequelize.transaction(async (t) => {
-    //                 try {
-    //                     const isProvider = await this._Provider.findOne({
-    //                         where: {
-    //                             uuid_provider: uuid_provider    
-    //                         },
-    //                         attributes: {
-    //                             exclude: ['createdAt', 'updatedAt']
-    //                         }
-    //                     }, { transaction: t })
-
-    //                     resolve(isProvider);
-    //                 } catch (error) {
-    //                     reject(error);
-    //                 }
-    //             });
-    //         } catch (error) {
-    //             reject(error);
-    //         }
-    //     });
-
-    //     providerPromise
-    //     .then(isProvider => {
-    //         provider = isProvider;
-    //     }).catch(error => {
-    //         err = error;
-    //     }).finally(() => {
-    //         callback(provider, err);
-    //     })
-    // }
 }
 
 const crudMedication = new CRUDMEDICATION();
