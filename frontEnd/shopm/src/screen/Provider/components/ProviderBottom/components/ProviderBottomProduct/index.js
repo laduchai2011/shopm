@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState, useLayoutEffect, memo } from "react";
 import './styles.css';
 
-// import axios from "axios";
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { FiMoreHorizontal } from 'react-icons/fi';
@@ -10,7 +9,6 @@ import { IoIosArrowBack } from 'react-icons/io';
 
 import { $ } from "utilize/Tricks";
 import { ThemeContextApp } from "utilize/ContextApp";
-// import { SERVER_ADDRESS_GET_MEDICATION_LIST } from "config/server";
 
 import { useLazyGetMedicationListQuery } from "reduxStore/RTKQuery/medicationRTKQuery";
 
@@ -56,24 +54,6 @@ const ProviderBottomProduct = () => {
     }, [clickDocument])
 
     useEffect(() => {
-        // axios({
-        //     method: 'get',
-        //     url: `${SERVER_ADDRESS_GET_MEDICATION_LIST}?uuid_provider=${uuid_provider}&pageIndex=${state.pageIndex}&pageSize=${pageSize}`
-        // }).then(res => {
-        //     const resData = res.data;
-        //     if (resData.success) {
-        //         setSate(pre => {
-        //             return {
-        //                 ...pre,
-        //                 medications: resData.medications.rows,
-        //                 pageAmount: handlePageAmount(resData.medications.count),
-        //                 loadData: true
-        //             }
-        //         })
-        //     } else {
-        //         alert(resData.message);
-        //     }
-        // }).catch(error => console.error(error))
         getMedicationList({
             uuid_provider: uuid_provider,
             pageIndex: state.pageIndex,
@@ -171,13 +151,13 @@ const ProviderBottomProduct = () => {
     
 
     const list_medication = state.medications.map((data, index) => {
-        const { title, image, subject, object, symptom, type, price, note} = data;
+        const { title, avatar, subject, object, symptom, type, price, note} = data;
         return (
             <div key={index} className="ProviderBottomProduct-product">
                 <div className="ProviderBottomProduct-product-imgContainer">
-                    <img src={ image.length > 0 ? JSON.parse(image).urls[0] : image } alt=""/>
+                    <img src={ avatar } alt=""/>
                 </div>
-                <div className="ProviderBottomProduct-product-catolog">-Name: <span>{ title }</span></div>
+                <div className="ProviderBottomProduct-product-catolog">-Title: <span>{ title }</span></div>
                 <div className="ProviderBottomProduct-product-catolog">-Subject: <span>{ subject }</span></div>
                 <div className="ProviderBottomProduct-product-catolog">-Object: <span>{ object }</span></div>
                 <div className="ProviderBottomProduct-product-catolog">-Symptom: <span>{ symptom }</span></div>

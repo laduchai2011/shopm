@@ -27,3 +27,4 @@
 09-05-2024	38:15:19--------Redis Client Error Error: Connection timeout
 10-05-2024	09:47:22--------Redis Client Error Error: Connection timeout
 10-05-2024	09:47:22--------Redis Client Error Error: Connection timeout (publisher)
+13-05-2024	44:14:03--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken

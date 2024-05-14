@@ -14,6 +14,9 @@ import {
     useLazyGetCaseRecordQuery,
     useAddCaseRecordMedicationsMutation
 } from "reduxStore/RTKQuery/caseRecordRTKQuery";
+import { 
+    useGetMedicationImageListQuery 
+} from "reduxStore/RTKQuery/medicationRTKQuery";
 
 import { baseURL } from "config/server";
 
@@ -36,8 +39,10 @@ import { baseURL } from "config/server";
 const MedicationCommonInfor = () => {
     const { medicationSate, setBuyNow } = useContext(MedicationContext);
     const [imgs, setImgs] = useState({
-        show: JSON.parse(medicationSate.image).urls[0],
-        list: JSON.parse(medicationSate.image).urls
+        // show: JSON.parse(medicationSate.image).urls[0],
+        // list: JSON.parse(medicationSate.image).urls
+        show: medicationSate.avatar,
+        list: []
     });
 
     const [caclPrice, setCaclPrice] = useState({
@@ -55,13 +60,31 @@ const MedicationCommonInfor = () => {
         isError: isError_currentCart,
         error: error_currentCart
     } = useGetCurrentCartQuery();
-
     useEffect(() => {
         isError_currentCart && console.log(error_currentCart);
     }, [isError_currentCart, error_currentCart])
     useEffect(() => {
         // console.log('MedicationCommonInfor', data_currentCart)
     }, [data_currentCart])
+
+    const { 
+        data: data_medicationImageList,
+        isError: isError_medicationImageList,
+        error: error_medicationImageList
+    } = useGetMedicationImageListQuery({uuid_medication: medicationSate.uuid_medication});
+    useEffect(() => {
+        isError_medicationImageList && console.log(error_medicationImageList);
+    }, [isError_medicationImageList, error_medicationImageList])
+    useEffect(() => {
+        const resData = data_medicationImageList;
+        console.log('data_medicationImageList', resData)
+        if (resData?.success) {
+            setImgs({
+                ...imgs,
+                list: resData.medicationImages
+            })
+        }
+    }, [data_medicationImageList])
 
     const selectImg = (index) => {
         setImgs({
@@ -162,7 +185,7 @@ const MedicationCommonInfor = () => {
 
     const listImg = imgs.list.map((data, index) => {
         return (
-            <img key={index} src={data} onClick={() => selectImg(index)} alt="" />
+            <img key={index} src={data.url} onClick={() => selectImg(index)} alt="" />
         )
     })
 
@@ -208,7 +231,7 @@ const MedicationCommonInfor = () => {
             </div>
             <div className="MedicationCommonInfor-text">
                 <div className="MedicationCommonInfor-text-top">
-                    <h2>{ medicationSate.name }</h2>
+                    <h2>{ medicationSate.title }</h2>
                     <div className="MedicationCommonInfor-listStar">{ list_star }</div>
                     <h5>Provider:<a href={`${baseURL}:3000/provider/${medicationSate.uuid_provider}`}> go to Provider</a></h5>
                     <h5>Status: { medicationSate.status } / Time: { Timestamp(medicationSate.createdAt) }</h5>

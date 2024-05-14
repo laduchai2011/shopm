@@ -25,6 +25,7 @@ import { $, $$ } from "utilize/Tricks";
 /**
 *@typedef {
 *title: string,
+*avatar: string,
 *subject: string,
 *object: string,
 *symptom: string,
@@ -66,6 +67,7 @@ const MedicationAdd = () => {
     const [images, setImages] = useState([]); // [{file: '', blob: ''}]
     const [inputs, setInputs] = useState({
         title: '',
+        avatar: '',
         subject: '',
         object: '',
         type: '',
@@ -253,7 +255,7 @@ const MedicationAdd = () => {
 
                 setTimeout(() => {
                     uploadImage(imageFiles, (imageUrls) => {
-                        inputsCoppy.image = JSON.stringify({urls: imageUrls})
+                        inputsCoppy.avatar = imageUrls[0]
 
                         const medicationImageOptionsArray = [];
 

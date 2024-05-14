@@ -4,8 +4,8 @@ const { defineModel } = require('../defineModel');
 
 /**
 *@typedef {
-*name: string,
-*image: text,
+*title: string,
+*avatar: string,
 *subject: string,
 *object: string,
 *symptom: string,
@@ -24,7 +24,7 @@ const { defineModel } = require('../defineModel');
 *} medicateOptions
 */ 
 
-class CRUDMEDICATION {
+class Medication {
     constructor() {
         this._Medication = defineModel.getMedication();
     }
@@ -39,7 +39,8 @@ class CRUDMEDICATION {
                     try {
                         const isMedication = await this._Medication.findAndCountAll({
                             where: {
-                                uuid_provider: uuid_provider
+                                uuid_provider: uuid_provider,
+                                [Op.not]: { status: 'delete' }
                             },
                             order: [
                                 ['id', 'DESC']
@@ -81,6 +82,9 @@ class CRUDMEDICATION {
                 sequelize.transaction(async (t) => {
                     try {
                         const isMedication = await this._Medication.findAndCountAll({
+                            where: {
+                                [Op.not]: { status: 'delete' }
+                            },
                             order: [
                                 ['id', 'DESC']
                             ],
@@ -122,7 +126,8 @@ class CRUDMEDICATION {
                     try {
                         const isMedication = await this._Medication.findOne({
                             where: {
-                                uuid_medication: uuid_medication
+                                uuid_medication: uuid_medication,
+                                [Op.not]: { status: 'delete' }
                             },
                         }, { transaction: t })
 
@@ -147,6 +152,6 @@ class CRUDMEDICATION {
     }
 }
 
-const crudMedication = new CRUDMEDICATION();
+const medicationCRUD = new Medication();
 
-module.exports = { crudMedication }
+module.exports = { medicationCRUD }

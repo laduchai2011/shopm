@@ -77,13 +77,13 @@ class MedicationCRUD {
                 for (let i = 0; i < medicationImageOptionsArray.length; i++) {
                     medicationImageOptionsArray[i].uuid_medication = newMedication.uuid_medication;
                 }
-                const newMedicationImage = await this._MedicationImage.bulkBuild(medicationImageOptionsArray, { transaction: medication_t });
+                const newMedicationImage = await this._MedicationImage.bulkCreate(medicationImageOptionsArray, { transaction: medication_t });
 
                 const medicationVideoOptionsArray = createMedicationOptions.medicationVideoOptionsArray;
                 for (let i = 0; i < medicationVideoOptionsArray.length; i++) {
                     medicationVideoOptionsArray[i].uuid_medication = newMedication.uuid_medication;
                 }
-                const newMedicationVideo = await this._MedicationVideo.bulkBuild(medicationVideoOptionsArray, { transaction: medication_t });
+                const newMedicationVideo = await this._MedicationVideo.bulkCreate(medicationVideoOptionsArray, { transaction: medication_t });
 
                 await medication_t.commit();
 

@@ -1,14 +1,20 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { 
     SERVER_ADDRESS_GET_MEDICATION,
-    SERVER_ADDRESS_GET_MEDICATION_LIST
+    SERVER_ADDRESS_GET_MEDICATION_LIST,
+    SERVER_ADDRESS_GET_MEDICATION_HOME,
+    SERVER_ADDRESS_GET_MEDICATIONIMAGE_LIST
 } from 'config/server';
 
 // Define a service using a base URL and expected endpoints
 export const medicationRTKQuery = createApi({
     reducerPath: 'medicationRTKQuery',
     baseQuery: fetchBaseQuery({ baseUrl: '' }),
-    tagTypes: ['Medication'],
+    tagTypes: [
+        'Medication',
+        'MedicationImage',
+        'MedicationFromHome'
+    ],
     endpoints: (builder) => ({
         // query
         getMedication: builder.query({
@@ -26,8 +32,33 @@ export const medicationRTKQuery = createApi({
             }),
             providesTags: (result, error, arg) =>
                 result?.success
-                    ? [...result?.medications.map(({ id }) => ({ type: 'Medication', id })), 'Medication']
+                    ? [...result?.medications.rows.map(({ id }) => ({ type: 'Medication', id })), 'Medication']
                     : ['Medication'],
+        }),
+        getMedicationImageList: builder.query({
+            query: ({uuid_medication}) => ({
+                url: `${SERVER_ADDRESS_GET_MEDICATIONIMAGE_LIST}?uuid_medication=${uuid_medication}`,
+                credentials: "include"
+            }),
+            providesTags: (result, error, arg) => {
+                if (result?.success) {
+                    return [...result?.medicationImages.map(({ id }) => ({ type: 'Medication', id })), 'Medication'];
+                } else {
+                    return ['Medication'];
+                }
+            }
+                
+                
+        }),
+        getMedicationListFromHome: builder.query({
+            query: ({pageIndex, pageSize}) => ({
+                url: `${SERVER_ADDRESS_GET_MEDICATION_HOME}?pageIndex=${pageIndex}&pageSize=${pageSize}`,
+                credentials: "include"
+            }),
+            providesTags: (result, error, arg) => 
+                result?.success
+                    ? [...result?.medications.rows.map(({ id }) => ({ type: 'MedicationFromHome', id })), 'MedicationFromHome']
+                    : ['MedicationFromHome'],
         }),
 
         // // mutation
@@ -69,5 +100,7 @@ export const medicationRTKQuery = createApi({
 export const { 
     useGetMedicationQuery,
     useLazyGetMedicationQuery,
-    useLazyGetMedicationListQuery
+    useLazyGetMedicationListQuery,
+    useGetMedicationImageListQuery,
+    useLazyGetMedicationListFromHomeQuery
 } = medicationRTKQuery;

@@ -3,7 +3,8 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 
-const { crudMedication } = require('./src/model/CRUDDATABASE/CRUDMEDICATION');
+const { medicationCRUD } = require('./src/model/CRUDDATABASE/CRUD_Medication');
+const { medicationImageCRUD } = require('./src/model/CRUDDATABASE/CRUD_MedicationImage');
 // const { crudProvider } = require('./src/model/CRUDDATABASE/CRUDPROVIDER');
 // const { serviceRedis } = require('./src/model/serviceRedis');
 const { logEvents } = require('./logEvents');
@@ -19,7 +20,7 @@ router.get('/provider/medicationManager/list',
     const pageIndex = req.query.pageIndex;
     const pageSize = req.query.pageSize;
     
-    crudMedication.bulkReadFilter_provider(uuid_provider, Number(pageIndex), Number(pageSize), (medications, err) => {
+    medicationCRUD.bulkReadFilter_provider(uuid_provider, Number(pageIndex), Number(pageSize), (medications, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
@@ -45,7 +46,7 @@ router.get('/provider/medication/list', (req, res) => {
     const pageIndex = req.query.pageIndex;
     const pageSize = req.query.pageSize;
     
-    crudMedication.bulkReadFilter_provider(uuid_provider, Number(pageIndex), Number(pageSize), (medications, err) => {
+    medicationCRUD.bulkReadFilter_provider(uuid_provider, Number(pageIndex), Number(pageSize), (medications, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
@@ -70,7 +71,7 @@ router.get('/home/medication/list', (req, res) => {
     const pageIndex = req.query.pageIndex;
     const pageSize = req.query.pageSize;
     
-    crudMedication.bulkReadFilter_home(Number(pageIndex), Number(pageSize), (medications, err) => {
+    medicationCRUD.bulkReadFilter_home(Number(pageIndex), Number(pageSize), (medications, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
@@ -94,7 +95,7 @@ router.get('/home/medication/list', (req, res) => {
 router.get('/medication/:id', (req, res) => {
     const uuid_medication = req.params.id;
     
-    crudMedication.readWithUid(uuid_medication, (medication, err) => {
+    medicationCRUD.readWithUid(uuid_medication, (medication, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
@@ -111,6 +112,31 @@ router.get('/medication/:id', (req, res) => {
                 success: true,
                 message: 'Get successly medication !'
             });
+        }
+    })
+})
+
+router.get('/medicationImage/list', (req, res) => {
+    const uuid_medication = req.query.uuid_medication;
+    
+    medicationImageCRUD.bulkReadFromMedication(uuid_medication, (medicationImages, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send(err);
+        } else {
+            if (medicationImages && medicationImages!==null) {
+                return res.status(200).json({
+                    medicationImages: medicationImages,
+                    success: true,
+                    message: 'Get successly medicationImages !'
+                });
+            } else {
+                return res.status(200).json({
+                    medication: medication,
+                    success: false,
+                    message: 'There are not medicationImages registed yet !'
+                });
+            }
         }
     })
 })

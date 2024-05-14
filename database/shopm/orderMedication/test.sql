@@ -108,3 +108,7 @@ GO
 ALTER TABLE Medications
 DROP COLUMN image;
 go
+
+ALTER TABLE Medications
+ADD avatar NVARCHAR(255) NOT NULL DEFAULT 'dfasfsdf';
+go

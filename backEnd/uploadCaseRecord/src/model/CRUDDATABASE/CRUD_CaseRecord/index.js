@@ -154,7 +154,7 @@ class CaseRecord {
                 for (let i = 0; i < caseRecordMedicationOptionsArray.length; i++) {
                     caseRecordMedicationOptionsArray[i].uuid_orderMedication = newOrderMedication.uuid_orderMedication;
                 }
-                const newOrderMedicationMedication = await this._CaseRecordMedication.bulkBuild(caseRecordMedicationOptionsArray, { transaction: caseRecord_t });
+                const newOrderMedicationMedication = await this._CaseRecordMedication.bulkCreate(caseRecordMedicationOptionsArray, { transaction: caseRecord_t });
 
                 const caseRecordDescriptionOptions = createCaseRecordOptions.caseRecordDescriptionOptions;
                 caseRecordDescriptionOptions.uuid_caseRecord = newCaseRecord.uuid_caseRecord;
@@ -164,13 +164,13 @@ class CaseRecord {
                 for (let i = 0; i < caseRecordImageOptionsArray.length; i++) {
                     caseRecordImageOptionsArray[i].uuid_caseRecord = newCaseRecord.uuid_caseRecord;
                 }
-                const newCaseRecordImageArray = await this._CaseRecordImage.bulkBuild(caseRecordImageOptionsArray, { transaction: caseRecord_t });
+                const newCaseRecordImageArray = await this._CaseRecordImage.bulkCreate(caseRecordImageOptionsArray, { transaction: caseRecord_t });
 
                 const caseRecordVideoOptionsArray = createCaseRecordOptions.caseRecordVideoOptionsArray;
                 for (let i = 0; i < caseRecordVideoOptionsArray.length; i++) {
                     caseRecordVideoOptionsArray[i].uuid_caseRecord = newCaseRecord.uuid_caseRecord;
                 }
-                const newCaseRecordVideoArray = await this._CaseRecordVideo.bulkBuild(caseRecordVideoOptionsArray, { transaction: caseRecord_t });
+                const newCaseRecordVideoArray = await this._CaseRecordVideo.bulkCreate(caseRecordVideoOptionsArray, { transaction: caseRecord_t });
 
                 const caseRecordPrescriptionOptions = createCaseRecordOptions.caseRecordPrescriptionOptions;
                 caseRecordPrescriptionOptions.uuid_caseRecord = newCaseRecord.uuid_caseRecord;

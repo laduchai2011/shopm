@@ -16,8 +16,8 @@ import { useGetMedicationQuery } from "reduxStore/RTKQuery/medicationRTKQuery";
 
 /**
 *@typedef {
-*name: string,
-*image: text,
+*title: string,
+*avatar: text,
 *subject: string,
 *object: string,
 *symptom: string,

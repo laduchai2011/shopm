@@ -197,7 +197,7 @@ class ORDERMEDICATION {
                 for (let i = 0; i < orderMedicationMedicationOptionsArray.length; i++) {
                     orderMedicationMedicationOptionsArray[i].uuid_orderMedication = newOrderMedication.uuid_orderMedication;
                 }
-                const newOrderMedicationMedicationArray = await this._OrderMedicationMedication.bulkBuild(orderMedicationMedicationOptionsArray, { transaction: orderMedication_t });
+                const newOrderMedicationMedicationArray = await this._OrderMedicationMedication.bulkCreate(orderMedicationMedicationOptionsArray, { transaction: orderMedication_t });
 
                 const orderMedicationDescriptionOptions = orderMedicationFromCaseRecordOptions.orderMedicationDescriptionOptions;
                 orderMedicationDescriptionOptions.uuid_orderMedication = newOrderMedication.uuid_orderMedication;
@@ -207,13 +207,13 @@ class ORDERMEDICATION {
                 for (let i = 0; i < orderMedicationImageOptionsArray.length; i++) {
                     orderMedicationImageOptionsArray[i].uuid_orderMedication = newOrderMedication.uuid_orderMedication;
                 }
-                const newOrderMedicationImageArray = await this._OrderMedicationImage.bulkBuild(orderMedicationImageOptionsArray, { transaction: orderMedication_t });
+                const newOrderMedicationImageArray = await this._OrderMedicationImage.bulkCreate(orderMedicationImageOptionsArray, { transaction: orderMedication_t });
 
                 const orderMedicationVideoOptionsArray = orderMedicationFromCaseRecordOptions.orderMedicationVideoOptionsArray;
                 for (let i = 0; i < orderMedicationImageOptionsArray.length; i++) {
                     orderMedicationVideoOptionsArray[i].uuid_orderMedication = newOrderMedication.uuid_orderMedication;
                 }
-                const newOrderMedicationVideoArray = await this._OrderMedicationVideo.bulkBuild(orderMedicationVideoOptionsArray, { transaction: orderMedication_t });
+                const newOrderMedicationVideoArray = await this._OrderMedicationVideo.bulkCreate(orderMedicationVideoOptionsArray, { transaction: orderMedication_t });
 
                 const orderMedicationPrescriptionOptions = orderMedicationFromCaseRecordOptions.orderMedicationPrescriptionOptions;
                 orderMedicationPrescriptionOptions.uuid_orderMedication = newOrderMedication.uuid_orderMedication;

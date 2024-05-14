@@ -451,6 +451,10 @@ class DefineModel {
                 type: DataTypes.STRING,
                 allowNull: false
             },
+            avatar: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
             subject: {
                 type: DataTypes.STRING,
                 allowNull: false,

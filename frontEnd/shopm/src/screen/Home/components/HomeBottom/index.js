@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import './styles.css';
 
-import axios from "axios";
+// import axios from "axios";
 
 import HomeBottomMedication from "./components/HomeBottomMedication";
 import HomeBottomDoctorPharmacist from "./components/HomeBottomDotorPharmacist";
 
-import { SERVER_ADDRESS_GET_MEDICATION_HOME } from "config/server";
+// import { SERVER_ADDRESS_GET_MEDICATION_HOME } from "config/server";
+
+import { useLazyGetMedicationListFromHomeQuery } from "reduxStore/RTKQuery/medicationRTKQuery";
 
 const HomeBottom = () => {
     const [select, setSelect] = useState(0);
@@ -14,13 +16,27 @@ const HomeBottom = () => {
 
     const pageSize = 20;
     const pageIndex = useRef(1);
+
+    const [getMedicationListFromHome] = useLazyGetMedicationListFromHomeQuery();
     
 
     useEffect(() => {
         if (select === 0) {
-            axios({
-                method: 'get',
-                url: `${SERVER_ADDRESS_GET_MEDICATION_HOME}?pageIndex=${pageIndex.current}&pageSize=${pageSize}`
+            // axios({
+            //     method: 'get',
+            //     url: `${SERVER_ADDRESS_GET_MEDICATION_HOME}?pageIndex=${pageIndex.current}&pageSize=${pageSize}`
+            // }).then(res => {
+            //     const resData = res.data;
+            //     if (resData.success) {
+            //         setMedications(resData.medications.rows)
+            //     } else {
+            //         alert(resData.message);
+            //     }
+            // }).catch(error => console.error(error))   
+            
+            getMedicationListFromHome({
+                pageIndex: pageIndex.current,
+                pageSize: pageSize
             }).then(res => {
                 const resData = res.data;
                 if (resData.success) {
@@ -28,9 +44,9 @@ const HomeBottom = () => {
                 } else {
                     alert(resData.message);
                 }
-            }).catch(error => console.error(error))    
+            }).catch(error => console.error(error))
         }
-    }, [select])
+    }, [getMedicationListFromHome, select])
 
     const medication_list = medications.map((data, index) => {
         return (

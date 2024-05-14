@@ -31,6 +31,7 @@ export const SERVER_ADDRESS_CREATE_MEDICATION                                  =
 // export const SERVER_ADDRESS_ADD_MEDICATION                                     = `${baseURL}:8600/api/svUploadMedication/provider/medication/add`;
 export const SERVER_ADDRESS_GET_MEDICATION                                     = `${baseURL}:8700/api/svGetMedication/medication`;
 export const SERVER_ADDRESS_GET_MEDICATION_LIST                                = `${baseURL}:8700/api/svGetMedication/provider/medication/list`;
+export const SERVER_ADDRESS_GET_MEDICATIONIMAGE_LIST                           = `${baseURL}:8700/api/svGetMedication/medicationImage/list`;
 export const SERVER_ADDRESS_GET_MEDICATIONMANAGER_LIST                         = `${baseURL}:8700/api/svGetMedication/provider/medicationManager/list`;
 export const SERVER_ADDRESS_GET_MEDICATION_HOME                                = `${baseURL}:8700/api/svGetMedication/home/medication/list`;
 export const SERVER_ADDRESS_PATCH_MEDICATION                                   = `${baseURL}:8600/api/svUploadMedication/provider/medication/patch`;
