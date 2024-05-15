@@ -40,20 +40,23 @@ router.get('/provider/:id', (req, res) => {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
         } else {
-            if (provider === null) return res.status(200).json({
-                provider: provider,
-                exist: false,
-                success: false,
-                message: 'There are not provider registed yet !'
-            });
-            const nProvider = {...provider.dataValues}
-            res.cookie('providerRole', nProvider.uuid_user === uid ? 'admin' : 'normal')
-            return res.status(200).json({
-                provider: provider,
-                exist: true,
-                success: true,
-                message: 'Get successly provider !'
-            });
+            if (provider && provider!==null) {
+                const nProvider = {...provider.dataValues}
+                res.cookie('providerRole', nProvider.uuid_user === uid ? 'admin' : 'normal')
+                return res.status(200).json({
+                    provider: provider,
+                    exist: true,
+                    success: true,
+                    message: 'Get successly provider !'
+                });
+            } else {
+                return res.status(200).json({
+                    provider: provider,
+                    exist: false,
+                    success: false,
+                    message: 'There are not provider registed yet !'
+                });
+            }
         }
     })
 })

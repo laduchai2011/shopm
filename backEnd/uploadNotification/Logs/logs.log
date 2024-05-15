@@ -142,3 +142,6 @@
 14-05-2024	07:21:17--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
 14-05-2024	08:21:17--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
 14-05-2024	08:21:17--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+15-05-2024	55:40:23--------Redis Client Error Error: Connection timeout
+16-05-2024	35:31:00--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken
+16-05-2024	36:31:00--------/patchNotificationStatus---PATCH---JsonWebTokenError: invalid signature: token.verify-accessToken

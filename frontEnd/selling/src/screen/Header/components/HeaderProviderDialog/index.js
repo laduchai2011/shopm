@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import './styles.css';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,13 +6,35 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CiCircleRemove } from "react-icons/ci";
 
 import { setProviderStatus } from 'reduxStore/slice/headerSlice';
+import { 
+    useGetProviderListQuery
+} from 'reduxStore/RTKQuery/providerRTKQuery';
 
 import { $ } from 'utilize/Tricks';
+import { avatarNull } from 'utilize/constant';
 
 const HeaderProviderDialog = () => {
     const dispatch = useDispatch();
 
+    const [providerList, setProviderList] = useState([]);
+
     const providerStatus = useSelector(state => state.headerSlice.providerStatus);
+
+    const {
+        data: data_providerList, 
+        // isFetching: isFetching_providerList, 
+        isError: isError_providerList, 
+        error: error_providerList
+    } = useGetProviderListQuery();
+    useEffect(() => {
+        isError_providerList && console.log(error_providerList);
+    }, [isError_providerList, error_providerList])
+    useEffect(() => {
+        const resData = data_providerList;
+        if (resData?.success) {
+            setProviderList(resData.providers);
+        }
+    }, [data_providerList])
 
     useEffect(() => {
         const q_HeaderMenu = $('.HeaderProviderDialog');
@@ -24,12 +46,12 @@ const HeaderProviderDialog = () => {
         }
     }, [providerStatus])
 
-    const list_provider = [1,2,3,4,5].map((index, data) => {
+    const list_provider = providerList.map((data, index) => {
         return (
             <div className='HeaderProviderDialog-providerContainer' key={ index }>
                 <input type='checkbox' />
-                <img src='https://tse3.mm.bing.net/th?id=OIP.nY6QFviNI2QewDU9Lx00yQHaE_&pid=Api&P=0&h=220' alt='' />
-                <span>Name Name Name Name Name Name Name Name Name Name Name Name Name</span>
+                <img src={data?.avatar ? data.avatar : avatarNull} alt='' />
+                <span>{ data.name }</span>
             </div>
         )
     })

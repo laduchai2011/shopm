@@ -3,3 +3,4 @@
 11-05-2024	42:57:17--------Redis Client Error Error: read ECONNRESET (publisher)
 11-05-2024	42:57:17--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379 (publisher)
 11-05-2024	09:17:22--------Redis Client Error Error: Connection timeout
+15-05-2024	43:34:23--------Redis Client Error Error: Connection timeout

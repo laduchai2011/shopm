@@ -21,11 +21,9 @@ const ProviderList = () => {
         isError: isError_providerList, 
         error: error_providerList
     } = useGetProviderListQuery();
-
     useEffect(() => {
         isError_providerList && console.log(error_providerList);
     }, [isError_providerList, error_providerList])
-
     useEffect(() => {
         const resData = data_providerList;
         if (resData?.success) {

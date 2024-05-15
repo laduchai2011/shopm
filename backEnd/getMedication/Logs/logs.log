@@ -52,3 +52,20 @@
 14-05-2024	09:07:17--------/medicationImage/list?uuid_medication=a7d65b3f-84ec-4aca-be40-e7bbc317148b---GET---Error: WHERE parameter "uuid_medication" has invalid "undefined" value
 14-05-2024	13:07:17--------/medicationImage/list?uuid_medication=a7d65b3f-84ec-4aca-be40-e7bbc317148b---GET---Error: WHERE parameter "uuid_medication" has invalid "undefined" value
 14-05-2024	12:12:17--------/medicationImage/list?uuid_medication=a7d65b3f-84ec-4aca-be40-e7bbc317148b---GET---Error: WHERE parameter "uuid_medication" has invalid "undefined" value
+15-05-2024	46:51:21--------Redis Client Error Error: read ECONNRESET
+15-05-2024	47:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	47:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	47:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	47:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	48:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	48:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	48:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	48:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	49:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	49:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	50:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	50:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	51:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	51:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	52:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	18:34:23--------Redis Client Error Error: Connection timeout

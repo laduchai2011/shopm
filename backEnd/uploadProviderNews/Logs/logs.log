@@ -45,3 +45,18 @@
 11-05-2024	47:57:17--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
 11-05-2024	47:57:17--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
 11-05-2024	01:02:23--------Redis Client Error Error: Connection timeout
+15-05-2024	47:51:21--------Redis Client Error Error: read ECONNRESET
+15-05-2024	48:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	48:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	48:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	48:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	48:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	49:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	49:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	49:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	50:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	50:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	50:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	51:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	51:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+15-05-2024	52:51:21--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379

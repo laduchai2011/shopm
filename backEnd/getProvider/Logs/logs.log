@@ -28,3 +28,19 @@
 10-05-2024	09:47:22--------Redis Client Error Error: Connection timeout
 10-05-2024	09:47:22--------Redis Client Error Error: Connection timeout (publisher)
 13-05-2024	44:14:03--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+15-05-2024	55:46:15--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+15-05-2024	11:49:15--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+15-05-2024	17:50:15--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+15-05-2024	47:51:15--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+15-05-2024	20:53:15--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+15-05-2024	06:57:15--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+15-05-2024	20:58:15--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+15-05-2024	23:59:15--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+15-05-2024	36:00:16--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+15-05-2024	41:02:16--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+15-05-2024	50:04:16--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+15-05-2024	05:44:16--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+15-05-2024	44:49:16--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+15-05-2024	30:07:17--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+16-05-2024	15:02:01--------/provider/list---GET: Please login !
+16-05-2024	15:06:01--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken

@@ -77,14 +77,13 @@ const MedicationCommonInfor = () => {
     }, [isError_medicationImageList, error_medicationImageList])
     useEffect(() => {
         const resData = data_medicationImageList;
-        console.log('data_medicationImageList', resData)
         if (resData?.success) {
             setImgs({
                 ...imgs,
                 list: resData.medicationImages
             })
         }
-    }, [data_medicationImageList])
+    }, [data_medicationImageList, imgs])
 
     const selectImg = (index) => {
         setImgs({
