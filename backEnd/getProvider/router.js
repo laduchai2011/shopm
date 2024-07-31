@@ -9,6 +9,13 @@ const { crudProviderAbout } = require('./src/model/CRUDDATABASE/CRUDPROVIDERABOU
 const { Authentication } = require('./src/auth/Authentication');
 const { logEvents } = require('./logEvents');
 // const { Authorization } = require('./src/auth/Authorization');
+const { getProviderMid } = require('./src/middle/getProviderMid');
+const { providerRole } = require('./src/middle/providerRole');
+
+let secure_cookie = false;
+if (process.env.NODE_ENV !== 'development') {
+    secure_cookie = true;
+}
 
 
 router.get('/provider/list', Authentication, (req, res) => {
@@ -81,5 +88,28 @@ router.get('/provider/about/list', (req, res) => {
         }
     });
 });
+
+//----------------selling-------------------------//
+router.get('/selling/provider/:id', 
+    Authentication, 
+    getProviderMid,
+    providerRole,
+    (req, res) => {
+    const provider = req.providerMid;
+    const providerRole = req.providerRole;
+
+    res.cookie('providerRole', providerRole, {
+        httpOnly: true,
+        secure: secure_cookie,
+        expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+        // signed: true
+    })
+
+    return res.status(200).json({
+        provider: provider,
+        success: true,
+        message: 'Get successly provider !'
+    });
+})
 
 module.exports = router;

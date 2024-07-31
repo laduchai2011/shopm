@@ -41,3 +41,27 @@
 15-05-2024	03:37:23--------Redis Client Error Error: Connection timeout (publisher)
 16-05-2024	34:31:00--------/getCurrentCart---GET---TokenExpiredError: jwt expired: token.verify-accessToken
 16-05-2024	43:43:02--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+23-05-2024	27:25:07--------Redis Client Error Error: Connection timeout
+23-05-2024	14:37:07--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+23-05-2024	38:30:08--------Redis Client Error Error: Connection timeout
+23-05-2024	35:58:17--------Redis Client Error Error: read ECONNRESET
+23-05-2024	35:58:17--------Redis Client Error Error: read ECONNRESET (publisher)
+23-05-2024	08:37:22--------Redis Client Error Error: Connection timeout
+23-05-2024	53:44:23--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+24-05-2024	12:02:00--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+25-05-2024	54:22:07--------Redis Client Error Error: Connection timeout
+25-05-2024	15:56:07--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+26-05-2024	47:04:00--------Redis Client Error Error: Connection timeout
+26-05-2024	47:04:00--------Redis Client Error Error: Connection timeout (publisher)
+26-05-2024	44:09:00--------/getCurrentCart---GET: Please login 3 !
+26-05-2024	45:12:00--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+27-05-2024	42:37:09--------/getCurrentCart---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+28-05-2024	38:41:06--------Redis Client Error Error: Connection timeout
+28-05-2024	14:56:06--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+28-05-2024	14:56:06--------/getCurrentCart---GET: Your account is attacked. Please login again !
+28-05-2024	04:58:07--------Redis Client Error Error: Connection timeout
+28-05-2024	04:58:07--------Redis Client Error Error: Connection timeout (publisher)
+03-06-2024	35:21:00--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-06-2024	35:21:00--------/getCurrentCart---GET: Your account is attacked. Please login again !
+04-06-2024	07:23:22--------/getCurrentCart---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+04-06-2024	07:23:22--------/getCurrentCart---GET: Your account is attacked. Please login again !

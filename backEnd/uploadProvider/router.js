@@ -11,7 +11,7 @@ const { providerCRUD } = require('./src/model/CRUDDATABASE/CRUD_Provider');
 const { providerAboutCRUD } = require('./src/model/CRUDDATABASE/CRUD_ProviderAbout');
 
 const { getProviderMid } = require('./src/middle/getProviderMid');
-const { isMyProvider } = require('./src/middle/isMyProvider');
+const { isMyProvider } = require('./src/middle/providerRole');
 
 
 router.post('/provider/create', Authentication, (req, res) => {
@@ -87,5 +87,27 @@ router.post('/provider/about/create',
         }
     })
 })
+
+// router.post('/selling/provider/select', 
+//     Authentication, 
+//     getProviderMid,
+//     providerRole,
+//     (req, res) => {
+//     const provider = req.providerMid;
+//     const providerRole = req.providerRole;
+
+//     res.cookie('providerRole', providerRole, {
+//         httpOnly: true,
+//         secure: secure_cookie,
+//         expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+//         // signed: true
+//     })
+
+//     return res.status(205).json({
+//         provider: provider,
+//         success: false,
+//         message: 'Select provider successly !'
+//     });
+// })
 
 module.exports = router;

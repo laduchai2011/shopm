@@ -13,7 +13,7 @@ const { defineModel } = require('../defineModel');
 *} providerOptions
 */ 
 
-class CRUDPROVIDER {
+class Provider {
     constructor() {
         this._Provider = defineModel.getProvider();
     }
@@ -62,20 +62,22 @@ class CRUDPROVIDER {
     read(uuid_provider, callback) {
         let provider;
         let err;
-        
+
         const providerPromise = new Promise((resolve, reject) => {
             try {
                 sequelize.transaction(async (t) => {
                     try {
-                        const provider_c = await this._Provider.findOne({
-                            where: {
-                                uuid_provider: uuid_provider,
-                                [Op.not]: {
-                                    status: 'delete'
-                                }   
-                            }
-                        }, { transaction: t })
-
+                        const provider_c = await this._Provider.findByPk(
+                            uuid_provider, 
+                            {
+                                where: {
+                                    [Op.not]: {
+                                        status: 'delete'
+                                    }
+                                }
+                            },
+                            { transaction: t }
+                        )
                         resolve(provider_c);
                     } catch (error) {
                         reject(error);
@@ -97,6 +99,6 @@ class CRUDPROVIDER {
     }
 }
 
-const providerCRUD = new CRUDPROVIDER();
+const providerCRUD = new Provider();
 
 module.exports = { providerCRUD }

@@ -44,3 +44,29 @@
 15-05-2024	30:07:17--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
 16-05-2024	15:02:01--------/provider/list---GET: Please login !
 16-05-2024	15:06:01--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+23-05-2024	07:41:07--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+24-05-2024	55:09:01--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+24-05-2024	49:14:12--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+24-05-2024	17:55:17--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+25-05-2024	57:58:03--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+26-05-2024	23:07:00--------Redis Client Error Error: Connection timeout
+26-05-2024	43:28:00--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+26-05-2024	51:29:00--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+26-05-2024	23:31:00--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+27-05-2024	11:59:03--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+27-05-2024	33:35:09--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+27-05-2024	33:36:09--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+27-05-2024	39:39:09--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+27-05-2024	29:42:09--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+27-05-2024	02:45:09--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+27-05-2024	53:46:18--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+27-05-2024	33:53:18--------Redis Client Error Error: read ECONNRESET
+28-05-2024	34:42:06--------Redis Client Error Error: Connection timeout
+28-05-2024	27:01:08--------Redis Client Error Error: Connection timeout
+28-05-2024	52:16:08--------/provider/list---GET: Please login !
+28-05-2024	23:17:08--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+28-05-2024	23:17:08--------/provider/list---GET: Your account is attacked. Please login again !
+03-06-2024	29:20:00--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-06-2024	29:20:00--------/provider/list---GET: Your account is attacked. Please login again !
+04-06-2024	12:23:22--------/provider/list---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+04-06-2024	12:23:22--------/provider/list---GET: Your account is attacked. Please login again !
