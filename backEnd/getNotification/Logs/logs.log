@@ -1179,3 +1179,37 @@
 06-06-2024	07:33:09--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
 06-06-2024	08:33:09--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
 06-06-2024	08:33:09--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+31-07-2024	05:34:13--------Redis Client Error Error: Connection timeout
+31-07-2024	02:36:13--------/getNotificationCount?type=now&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+31-07-2024	02:36:13--------/getNotificationCount?type=now&status=receved---GET: Your account is attacked. Please login again !
+31-07-2024	02:36:13--------/getNotificationCount?type=normal&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+31-07-2024	02:36:13--------/getNotificationCount?type=normal&status=receved---GET: Your account is attacked. Please login again !
+03-08-2024	49:55:15--------Redis Client Error Error: Connection timeout
+03-08-2024	31:01:16--------/getNotificationCount?type=now&status=receved---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+03-08-2024	31:01:16--------/getNotificationCount?type=normal&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-08-2024	02:03:22--------/getNotificationCount?type=normal&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-08-2024	03:03:22--------/getNotificationCount?type=now&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-08-2024	03:03:22--------/getNotificationCount?type=now&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+03-08-2024	03:03:22--------/getNotificationCount?type=normal&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+04-08-2024	42:37:01--------/getNotificationCount?type=normal&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+04-08-2024	42:37:01--------/getNotificationCount?type=now&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+13-08-2024	47:07:02--------/getNotificationCount?type=now&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+13-08-2024	47:07:02--------/getNotificationCount?type=normal&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+14-08-2024	46:32:20--------Redis Client Error Error: Connection timeout
+14-08-2024	12:55:20--------/getNotificationCount?type=normal&status=receved---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+14-08-2024	12:55:20--------/getNotificationCount?type=now&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+17-08-2024	09:01:03--------Redis Client Error Error: read ECONNRESET
+17-08-2024	09:01:03--------Redis Client Error Error: read ECONNRESET
+17-08-2024	09:01:03--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+17-08-2024	09:01:03--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+17-08-2024	09:01:03--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+17-08-2024	09:01:03--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+17-08-2024	09:01:03--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+17-08-2024	10:01:03--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+17-08-2024	10:01:03--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+17-08-2024	30:10:12--------Redis Client Error Error: Connection timeout
+17-08-2024	17:03:21--------Redis Client Error Error: Connection timeout
+17-08-2024	23:05:21--------/getNotificationCount?type=normal&status=receved---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+17-08-2024	23:05:21--------/getNotificationCount?type=now&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+17-08-2024	07:13:21--------/getNotificationCount?type=now&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+17-08-2024	07:13:21--------/getNotificationCount?type=normal&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken

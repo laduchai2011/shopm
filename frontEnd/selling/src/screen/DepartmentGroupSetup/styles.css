@@ -1,0 +1,25 @@
+.DepartmentGroupSetup {
+    background-color: #eee;
+}
+
+.DepartmentGroupSetup-main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.DepartmentGroupSetup-center {
+    width: 1200px;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.DepartmentGroupSetup-center > div {
+    display: flex;
+    align-items: center;
+}
+
+.DepartmentGroupSetup-center > div > p {
+    width: 100px;
+}

@@ -1,0 +1,25 @@
+.Header {
+    width: 100%;
+    background-color: rgb(167, 255, 255);
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.Header > div {
+    margin: 0 10px;
+    box-sizing: border-box;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.Header > div:hover {
+    background-color: aqua;
+}
+
+.Header > div:nth-child(1) {
+    margin-left: 50px;
+}

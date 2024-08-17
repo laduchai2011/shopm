@@ -1,0 +1,49 @@
+.DepartmentCreate {
+    background-color: #eee;
+}
+
+.DepartmentCreate-main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.DepartmentCreate-center {
+    width: 1200px;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.DepartmentCreate-center > div {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+}
+
+.DepartmentCreate-center > div > p {
+    width: 80px;
+}
+
+.DepartmentCreate-btnCreate {
+    background-color: blue;
+    color: white;
+    border: none;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.DepartmentCreate-btnCreate:active {
+    background-color: white;
+    color: blue;
+}
+
+.DepartmentCreate-btnEdit > svg {
+    margin: 5px;
+    cursor: pointer;
+}
+
+.DepartmentCreate-btnEdit > svg:hover {
+    color: rgb(82, 82, 255);
+}

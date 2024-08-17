@@ -219,8 +219,7 @@
 *title: string,
 *address: string,
 *note: text,
-*status: string,
-*uuid_provider: uuid
+*status: string
 *} chestGroupOptions
 */
 

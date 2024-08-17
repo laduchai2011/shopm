@@ -1086,3 +1086,12 @@
 06-06-2024	07:33:09--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
 06-06-2024	08:33:09--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
 06-06-2024	08:33:09--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+17-08-2024	09:01:03--------Redis Client Error Error: read ECONNRESET
+17-08-2024	09:01:03--------Redis Client Error Error: read ECONNRESET
+17-08-2024	09:01:03--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+17-08-2024	09:01:03--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+17-08-2024	09:01:03--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+17-08-2024	09:01:03--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+17-08-2024	09:01:03--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+17-08-2024	10:01:03--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+17-08-2024	10:01:03--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379

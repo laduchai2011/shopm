@@ -965,20 +965,20 @@ class DefineModel {
             status: {
                 type: DataTypes.STRING,
                 allowNull: false
-            },
-            uuid_provider: {
-                type: Sequelize.UUID,
-                allowNull: false
             }
+            // uuid_provider: {
+            //     type: Sequelize.UUID,
+            //     allowNull: false
+            // }
         }, {
-            indexes: [{
-                name: 'uuid_provider_indexes',
-                using: 'BTREE',
-                fields: ['uuid_provider']
-            }]
+            // indexes: [{
+            //     name: 'uuid_provider_indexes',
+            //     using: 'BTREE',
+            //     fields: ['uuid_provider']
+            // }]
         })
-        this._Provider.hasMany(this._ChestGroup, { foreignKey: 'uuid_provider' })
-        this._ChestGroup.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider' })
+        // this._Provider.hasMany(this._ChestGroup, { foreignKey: 'uuid_provider' })
+        // this._ChestGroup.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider' })
 
         this._Chest = sequelize.define('Chest', {
             id: {

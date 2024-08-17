@@ -1,0 +1,39 @@
+.DepartmentGroupCreate {
+    background-color: #eee;
+}
+
+.DepartmentGroupCreate-main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.DepartmentGroupCreate-center {
+    width: 1200px;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.DepartmentGroupCreate-center > div {
+    display: flex;
+    align-items: center;
+}
+
+.DepartmentGroupCreate-center > div > p {
+    width: 100px;
+}
+
+.DepartmentGroupCreate-btnCreate {
+    background-color: blue;
+    color: white;
+    border: none;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.DepartmentGroupCreate-btnCreate:active {
+    background-color: white;
+    color: blue;
+}
