@@ -1213,3 +1213,6 @@
 17-08-2024	23:05:21--------/getNotificationCount?type=now&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
 17-08-2024	07:13:21--------/getNotificationCount?type=now&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
 17-08-2024	07:13:21--------/getNotificationCount?type=normal&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+19-08-2024	24:09:23--------Redis Client Error Error: Connection timeout
+19-08-2024	47:52:23--------/getNotificationCount?type=normal&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+19-08-2024	47:52:23--------/getNotificationCount?type=now&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken

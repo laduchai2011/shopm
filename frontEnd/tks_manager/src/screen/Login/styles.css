@@ -1,0 +1,37 @@
+.Login {
+    background-color: #eee;
+    width: 100vw;
+    height: 100vh;
+}
+
+.Login > div {
+    position: absolute;
+    width: 300px;
+    height: 700px;
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.Login > div > div {
+    display: flex;
+    padding: 10px 0;
+    margin: 10px 0;
+}
+
+.Login > div > div > div {
+    width: 120px;
+}
+
+.Login > div > div > button {
+    margin-left: 75px;
+    width: 150px;
+}
+
+.Login > div > div > button:hover {
+    cursor: pointer;
+}
