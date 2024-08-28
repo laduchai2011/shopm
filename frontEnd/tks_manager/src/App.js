@@ -2,12 +2,22 @@
 import './App.css';
 
 import Router from './Router';
+import { ThemeContextApp } from 'utilize/ContextApp';
+
+import { getCookie } from 'auth/cookie';
 
 function App() {
+
+  const loginInforCookie = getCookie('loginInforTKS');
+    let loginInfor = null;
+    if (loginInforCookie) {
+      loginInfor = JSON.parse(loginInforCookie);
+    }
+
   return (
-    <div className="App">
+    <ThemeContextApp.Provider value={{loginInfor}}>
       <Router />
-    </div>
+    </ThemeContextApp.Provider>
   );
 }
 

@@ -1216,3 +1216,20 @@
 19-08-2024	24:09:23--------Redis Client Error Error: Connection timeout
 19-08-2024	47:52:23--------/getNotificationCount?type=normal&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
 19-08-2024	47:52:23--------/getNotificationCount?type=now&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+20-08-2024	46:57:18--------Redis Client Error Error: Connection timeout
+20-08-2024	06:59:18--------/getNotificationCount?type=normal&status=receved---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+20-08-2024	06:59:18--------/getNotificationCount?type=now&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+20-08-2024	38:01:19--------/getNotificationCount?type=normal&status=receved---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+20-08-2024	38:01:19--------/getNotificationCount?type=now&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+20-08-2024	06:32:19--------/getNotificationCount?type=now&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+20-08-2024	06:32:19--------/getNotificationCount?type=normal&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+22-08-2024	10:46:07--------/getNotificationCount?type=normal&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+22-08-2024	11:46:07--------/getNotificationCount?type=now&status=receved---GET---JsonWebTokenError: invalid signature: token.verify-accessToken
+24-08-2024	01:08:01--------/getNotificationCount?type=normal&status=receved---GET: Please login !
+24-08-2024	02:08:01--------/getNotificationCount?type=now&status=receved---GET: Please login !
+24-08-2024	02:35:02--------/getNotificationCount?type=now&status=receved---GET: Please login !
+24-08-2024	02:35:02--------/getNotificationCount?type=normal&status=receved---GET: Please login !
+26-08-2024	01:02:17--------/getNotificationCount?type=normal&status=receved---GET: Please login !
+26-08-2024	01:02:17--------/getNotificationCount?type=now&status=receved---GET: Please login !
+26-08-2024	13:44:23--------/getNotificationCount?type=normal&status=receved---GET: Please login !
+26-08-2024	14:44:23--------/getNotificationCount?type=now&status=receved---GET: Please login !

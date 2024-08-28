@@ -120,3 +120,8 @@
 14-08-2024	26:57:20--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
 17-08-2024	09:01:03--------Redis Client Error Error: read ECONNRESET
 17-08-2024	16:16:21--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+20-08-2024	00:00:00--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+20-08-2024	39:59:18--------Redis Client Error Error: Connection timeout
+20-08-2024	54:03:19--------/provider/list---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+26-08-2024	01:02:17--------/provider/list---GET: Please login !
+26-08-2024	14:44:23--------/provider/list---GET: Please login !

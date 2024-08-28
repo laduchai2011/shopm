@@ -1,0 +1,34 @@
+.ChestGroupCustom {
+    display: flex;
+    justify-content: center;
+    background-color: #eee;
+}
+
+.ChestGroupCustom-center {
+    width: 1200px;
+    background-color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 15px;
+}
+
+.ChestGroupCustom-center > div {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.ChestGroupCustom-center > div > div {
+    width: 100px;
+}
+
+.ChestGroupCustom-center > div:nth-child(6) > textarea {
+    width: 1000px;
+    height: 500px;
+    resize: none;
+}
+
+.ChestGroupCustom-center > div:nth-child(7) > button {
+    background-color: blue;
+    color: white;
+}
