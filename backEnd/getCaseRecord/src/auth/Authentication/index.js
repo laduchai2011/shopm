@@ -132,7 +132,7 @@ async function Authentication(req, res, next) {
                                 next();
                             })
                         } else {
-                            if(redisData.refreshToken_used.includes(refreshToken) !== -1) {
+                            if(redisData.refreshToken_used.includes(refreshToken)) {
                                 logEvents(`${req.url}---${req.method}: Your account is attacked. Please login again !`);
                                 await lock.release();
                                 return res.status(200).json({

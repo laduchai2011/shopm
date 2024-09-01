@@ -34,7 +34,7 @@ app.use('/api/svGetMember', express.urlencoded({extended: true}));
 
 app.use('/api/svGetMember', router);
 
-const PORT = process.env.NODE_SERVER_PORT_KEY || 2300;
+const PORT = process.env.NODE_SERVER_PORT_KEY || 2500;
 
 app.listen(PORT, '0.0.0.0', function () {
     console.log(`Listening on port ${PORT}!`);

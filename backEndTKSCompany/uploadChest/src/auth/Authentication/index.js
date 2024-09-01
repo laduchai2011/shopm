@@ -6,9 +6,9 @@ const { logEvents } = require('../../../logEvents');
 const { serviceRedlock } = require('../../config/serviceRedlock');
 
 async function Authentication(req, res, next) {
-    const { refreshToken, accessToken, loginCode, uuid_member } = req.cookies;
-    const keyServiceRedis = `tokenTKS-${ uuid_member }-${ loginCode }`;
-    const lockKey = `redlock-tokenTKS-${ uuid_member }-${ loginCode }`;
+    const { refreshTokenTKS, accessTokenTKS, loginCodeTKS, uuid_member } = req.cookies;
+    const keyServiceRedis = `tokenTKS-${ uuid_member }-${ loginCodeTKS }`;
+    const lockKey = `redlock-tokenTKS-${ uuid_member }-${ loginCodeTKS }`;
 
     try {
         // lock to update token
@@ -18,15 +18,15 @@ async function Authentication(req, res, next) {
             if((redisData!==null) && (redisData)) {
                 const secretKey = redisData.secretKey;
                 const preSecretKey = redisData.preSecretKey;
-                token.verify(accessToken, secretKey, async (err1, decodedAccessToken) => {
+                token.verify(accessTokenTKS, secretKey, async (err1, decodedAccessToken) => {
                     if(err1) {
-                        logEvents(`${req.url}---${req.method}---${err1}: token.verify-accessToken`);
-                        if ((redisData.refreshedToken === accessToken) && (redisData.refreshToken === refreshToken)) {
+                        logEvents(`${req.url}---${req.method}---${err1}: token.verify-accessTokentks`);
+                        if ((redisData.refreshedToken === accessTokenTKS) && (redisData.refreshToken === refreshTokenTKS)) {
                             req.decodedToken = redisData.decodedToken;
                             await lock.release();
                             next();
-                        } else if ((redisData.accessToken === accessToken) && (redisData.refreshToken === refreshToken)) {
-                            token.verify(refreshToken, secretKey, async (err2, decodedRefreshToken) => {
+                        } else if ((redisData.accessToken === accessTokenTKS) && (redisData.refreshToken === refreshTokenTKS)) {
+                            token.verify(refreshTokenTKS, secretKey, async (err2, decodedRefreshToken) => {
                                 if(err2) {
                                     logEvents(`${req.url}---${req.method}---${err2}: Token expired. Please login again !`);
                                     await lock.release();
@@ -46,7 +46,7 @@ async function Authentication(req, res, next) {
                                     logEvents(`${req.url}---${req.method}---${error}: Please login !`);
                                     await lock.release();
                                     return res.status(200).json({
-                                        message: 'Please login !',
+                                        message: 'Please login 1 !',
                                         status: false,
                                         error: error,
                                         success: false
@@ -56,7 +56,7 @@ async function Authentication(req, res, next) {
                                 // cache refreshToken in redis
                                 let new_new_refreshToken_used = [...redisData.refreshToken_used];
                                 if (new_new_refreshToken_used.length < 50) {
-                                    new_new_refreshToken_used.push(refreshToken);
+                                    new_new_refreshToken_used.push(refreshTokenTKS);
                                 } else {
                                     new_new_refreshToken_used = [];
                                 }
@@ -65,10 +65,10 @@ async function Authentication(req, res, next) {
                                     refreshToken: newRefreshToken, 
                                     accessToken: newAccessToken,
                                     preSecretKey: secretKey,
-                                    preRefreshToken: refreshToken,
-                                    preAccessToken: accessToken, 
+                                    preRefreshToken: refreshTokenTKS,
+                                    preAccessToken: accessTokenTKS, 
                                     refreshToken_used: new_new_refreshToken_used,
-                                    refreshedToken: accessToken,
+                                    refreshedToken: accessTokenTKS,
                                     decodedToken: decodedRefreshToken
                                 };
                                 const timeExpireat = 60*60*24*30*12; // 1 year
@@ -79,7 +79,7 @@ async function Authentication(req, res, next) {
                                     logEvents(`${req.url}---${req.method}---${error}: Please login !`);
                                     await lock.release();
                                     return res.status(200).json({
-                                        message: 'Please login !',
+                                        message: 'Please login 2 !',
                                         status: false,
                                         error: error,
                                         success: false
@@ -115,8 +115,8 @@ async function Authentication(req, res, next) {
                                 await lock.release();
                                 next();
                             })
-                        } else if ((redisData.preAccessToken === accessToken) && (redisData.preRefreshToken === refreshToken)) {
-                            token.verify(refreshToken, preSecretKey, async (err2, decodedRefreshToken) => {
+                        } else if ((redisData.preAccessToken === accessTokenTKS) && (redisData.preRefreshToken === refreshTokenTKS)) {
+                            token.verify(refreshTokenTKS, preSecretKey, async (err2, decodedRefreshToken) => {
                                 if(err2) {
                                     logEvents(`${req.url}---${req.method}---${err2}: Access token expired !`);
                                     await lock.release();
@@ -132,7 +132,7 @@ async function Authentication(req, res, next) {
                                 next();
                             })
                         } else {
-                            if(redisData.refreshToken_used.includes(refreshToken) !== -1) {
+                            if(redisData.refreshToken_used.includes(refreshTokenTKS) !== -1) {
                                 logEvents(`${req.url}---${req.method}: Your account is attacked. Please login again !`);
                                 await lock.release();
                                 return res.status(200).json({
@@ -165,7 +165,7 @@ async function Authentication(req, res, next) {
                 logEvents(`${req.url}---${req.method}: Please login !`);
                 await lock.release();
                 return res.status(200).json({
-                    message: 'Please login !',
+                    message: 'Please login 3 !',
                     status: false,
                     success: false
                 })
@@ -174,7 +174,7 @@ async function Authentication(req, res, next) {
     } catch (error) {
         logEvents(`${req.url}---${req.method}: Please login !`);
         return res.status(200).json({
-            message: 'Please login !',
+            message: 'Please login 4 !',
             status: false, 
             error: error,
             success: false

@@ -41,9 +41,10 @@ router.post('/createChestGroup',
 router.patch('/patchChestGroup',
     Authentication,
     (req, res) => {
+    const uuid_chestGroup = req.body.uuid_chestGroup;
     const chestGroupOptions = req.body.chestGroupOptions;
     const uuid_member = req.body.uuid_member;
-    chestCRUD.patchChestGroup(chestGroupOptions, uuid_member, (chestGroup, err) => {
+    chestCRUD.patchChestGroup(uuid_chestGroup, chestGroupOptions, uuid_member, (chestGroup, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);

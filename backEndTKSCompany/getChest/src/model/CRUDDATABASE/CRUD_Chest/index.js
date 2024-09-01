@@ -69,6 +69,93 @@ class Chest {
         })
     }
 
+    // readChestGroupList(uuid_chestGroup, pageIndex, pageSize, callback) {
+    //     let chestGroupList;
+    //     let err;
+        
+    //     const chestGroupPromise = new Promise((resolve, reject) => {
+    //         try {
+    //             sequelize.transaction(async (t) => {
+    //                 try {
+    //                     const isChestGroupList = await this._ChestGroup.findAndCountAll({
+    //                         where: {
+    //                             uuid_chestGroup: uuid_chestGroup,
+    //                             [Op.not]: {
+    //                                 [Op.or]: [
+    //                                     { status: 'delete' }
+    //                                 ]
+    //                             }
+    //                         },
+    //                         attributes: {
+    //                             exclude: ['note']
+    //                         },
+    //                         order: [
+    //                             ['id', 'DESC']
+    //                         ],
+    //                         offset: pageSize * (pageIndex - 1)
+    //                     }, { transaction: t });
+    //                     resolve(isChestGroupList);   
+    //                 } catch (error) {
+    //                     reject(error);
+    //                 }
+    //             });
+    //         } catch (error) {
+    //             reject(error);
+    //         }
+    //     })
+
+    //     chestGroupPromise
+    //     .then(isChestGroupList => {
+    //         chestGroupList = isChestGroupList;
+    //     }).catch(error => {
+    //         err = error;
+    //     }).finally(() => {
+    //         callback(chestGroupList, err);
+    //     })
+    // }
+
+    readChestGroup(uuid_chestGroup, callback) {
+        let chestGroup;
+        let err;
+        
+        const chestGroupPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isChestGroup = await this._ChestGroup.findByPk(
+                            uuid_chestGroup,
+                            {
+                                where: {
+                                    uuid_chestGroup: uuid_chestGroup,
+                                    [Op.not]: {
+                                        [Op.or]: [
+                                            { status: 'delete' }
+                                        ]
+                                    }
+                                }
+                            },
+                            { transaction: t }
+                        );
+                        resolve(isChestGroup);   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        })
+
+        chestGroupPromise
+        .then(isChestGroup => {
+            chestGroup = isChestGroup;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(chestGroup, err);
+        })
+    }
+
 }
 
 const chestCRUD = new Chest();

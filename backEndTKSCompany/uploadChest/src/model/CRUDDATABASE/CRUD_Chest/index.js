@@ -41,7 +41,7 @@ class Chest {
         })
     }
 
-    patchChestGroup(chestGroupOptions, uuid_member, callback) {
+    patchChestGroup(uuid_chestGroup, chestGroupOptions, uuid_member, callback) {
         let chestGroup;
         let err;
         
@@ -49,7 +49,7 @@ class Chest {
             const chestGroup_t = await sequelize.transaction();
             try {
                 const isChestGroup = await this._ChestGroup.findByPk(
-                    chestGroupOptions.uuid_chestGroup,
+                    uuid_chestGroup,
                     {
                         where: {
                             [Op.not]: {
@@ -61,20 +61,20 @@ class Chest {
                     },
                     { limit: 1, lock: true, transaction: chestGroup_t },
                 );
-                isChestGroup.name = chestGroupPromise.name;
-                isChestGroup.title = chestGroupPromise.title;
-                isChestGroup.address = chestGroupPromise.address;
-                isChestGroup.note = chestGroupPromise.note;
+                isChestGroup.name = chestGroupOptions.name;
+                isChestGroup.title = chestGroupOptions.title;
+                isChestGroup.address = chestGroupOptions.address;
+                isChestGroup.note = chestGroupOptions.note;
                 await isChestGroup.save({ transaction: chestGroup_t });
 
                 const chestGroup_CH_Options = {
-                    name: chestGroupPromise.name,
-                    title: chestGroupPromise.title,
-                    address: chestGroupPromise.address,
-                    note: chestGroupPromise.note,
+                    name: chestGroupOptions.name,
+                    title: chestGroupOptions.title,
+                    address: chestGroupOptions.address,
+                    note: chestGroupOptions.note,
                     status: 'normal',
                     uuid_member: uuid_member,
-                    uuid_chestGroup: chestGroupOptions.uuid_chestGroup
+                    uuid_chestGroup: uuid_chestGroup
                 }
 
                 const isChestGroup_CH = await this._ChestGroup_CH.create(chestGroup_CH_Options, {transaction: chestGroup_t});

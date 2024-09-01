@@ -23,6 +23,7 @@ const ChestGroupCreate = () => {
     const [messageColor, setMessageColor] = useState();
 
     const handleInfor = (e, type) => {
+        setMessage('');
         const value = e.target.value;
 
         switch(type) {

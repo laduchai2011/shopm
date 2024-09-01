@@ -11,5 +11,60 @@ const { logEvents } = require('./logEvents');
 
 const { SvMessage } = require('./src/model/svMessge');
 
+const { chestCRUD } = require('./src/model/CRUDDATABASE/CRUD_Chest');
+
+
+
+// router.get('/readChestGroupList', // doing
+//     Authentication,
+//     (req, res) => {
+//     const chestGroupOptions = req.body.chestGroupOptions;
+//     const uuid_member = req.body.uuid_member;
+//     chestCRUD.patchChestGroup(chestGroupOptions, uuid_member, (chestGroup, err) => {
+//         if (err) {
+//             logEvents(`${req.url}---${req.method}---${err}`);
+//             return res.status(500).send(err);
+//         } else {
+//             if(chestGroup && chestGroup!==null) {
+//                 return res.status(201).json({
+//                     chestGroup: chestGroup,
+//                     message: 'Custom a chest group success !',
+//                     success: true
+//                 })
+//             } else {
+//                 return res.status(200).json({
+//                     message: 'Custom a chest group failure !',
+//                     success: false
+//                 })
+//             }
+//         }
+//     })
+// })
+
+router.get('/readChestGroup', // doing
+    Authentication,
+    (req, res) => {
+    const uuid_chestGroup = req.query.uuid_chestGroup;
+    chestCRUD.readChestGroup(uuid_chestGroup, (chestGroup, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send(err);
+        } else {
+            if(chestGroup && chestGroup!==null) {
+                return res.status(200).json({
+                    chestGroup: chestGroup,
+                    message: 'Read a chest group success !',
+                    success: true
+                })
+            } else {
+                return res.status(200).json({
+                    message: 'Read a chest group failure !',
+                    success: false
+                })
+            }
+        }
+    })
+})
+
 
 module.exports = router;

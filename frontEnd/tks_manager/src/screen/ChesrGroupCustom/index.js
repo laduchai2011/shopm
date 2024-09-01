@@ -5,6 +5,8 @@ import axios from 'axios';
 
 import { ThemeContextApp } from "utilize/ContextApp";
 
+import { useLazyGetChestGroupQuery } from "reduxStore/RTKQuery/chestRTKQuery";
+
 import { SERVER_ADDRESS_PATCH_CHESTGROUP } from "config/server";
 
 const ChestGroupCustom = () => {
@@ -21,8 +23,12 @@ const ChestGroupCustom = () => {
 
     const [message, setMessage] = useState();
     const [messageColor, setMessageColor] = useState();
+    const [uuid_chestGroup, setUuid_chestGroup] = useState('');
+
+    const [getChestGroup] = useLazyGetChestGroupQuery();
 
     const handleInfor = (e, type) => {
+        setMessage('');
         const value = e.target.value;
 
         switch(type) {
@@ -77,6 +83,7 @@ const ChestGroupCustom = () => {
                 url: SERVER_ADDRESS_PATCH_CHESTGROUP,
                 withCredentials: true,
                 data: {
+                    uuid_chestGroup: uuid_chestGroup.trim(),
                     chestGroupOptions: infor,
                     uuid_member: loginInfor.uuid_member
                 },
@@ -95,18 +102,49 @@ const ChestGroupCustom = () => {
         }
     }
 
+    const handleSearch = (e) => {
+        const value = e.target.value;
+        setUuid_chestGroup(value)
+    }
+
+    const handleEnter = (e) => {
+        if (e.keyCode===13) {
+            getChestGroup({
+                uuid_chestGroup: uuid_chestGroup.trim()
+            }).then(res => {
+                const resData = res.data;
+                const chestGroup = resData.chestGroup;
+                console.log(resData)
+                if (resData?.success) {
+                    setInfor({
+                        name: chestGroup.name,
+                        title: chestGroup.title,
+                        address: chestGroup.address,
+                        note: chestGroup.note,
+                        status: 'normal',  // not use in this
+                        createdBy: ''  // not use in this
+                    })
+                } else {
+                    setInfor({
+                        name: '',
+                        title: '',
+                        address: '',
+                        note: '',
+                        status: 'normal',  // not use in this
+                        createdBy: ''  // not use in this
+                    })
+                }
+            }).catch(err => console.error(err))
+        }
+    }
+
     return (
         <div className="ChestGroupCustom">
             <div className="ChestGroupCustom-center">
                 <h4>Custom a chest group</h4>
                 <div>
-                    <label htmlFor="chestGroups">Choose a chest group :</label>
-                        <select name="chestGroups" id="chestGroups">
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
-                    </select>
+                    <div>Search uuid</div>
+                    <input value={uuid_chestGroup} onChange={(e) => handleSearch(e)} onKeyDown={(e) => handleEnter(e)} placeholder="Search" />
                 </div>
                 <div>
                     <div>Name:</div>

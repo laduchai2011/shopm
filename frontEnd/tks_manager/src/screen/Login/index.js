@@ -76,7 +76,7 @@ const Login = () => {
                 </div>
                 <div>
                     <div>Password</div>
-                    <input value={infor.passWord} onChange={(e) => handleInput(e, 'password')} />
+                    <input type="password" value={infor.passWord} onChange={(e) => handleInput(e, 'password')} />
                 </div>
                 <div>
                     <strong>canh bao</strong>
