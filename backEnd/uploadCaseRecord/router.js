@@ -30,7 +30,7 @@ const {
     isCompleted,
     isCompletedOrIsCompletedPrescription 
 } = require('./src/middle/checkComplete');
-const { SvMessage } = require('./src/model/svMessge');
+const { SvMessage } = require('./src/model/svMessage');
 
 const svMessage = new SvMessage();
 svMessage.init();

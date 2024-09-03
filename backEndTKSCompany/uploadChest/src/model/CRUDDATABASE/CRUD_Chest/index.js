@@ -16,20 +16,49 @@ class Chest {
         let chestGroup;
         let err;
         
-        const chestGroupPromise = new Promise((resolve, reject) => {
+        // const chestGroupPromise = new Promise((resolve, reject) => {
+        //     try {
+        //         sequelize.transaction(async (t) => {
+        //             try {
+        //                 const ischestGroup = await this._ChestGroup.create(chestGroupOptions, { transaction: t });
+        //                 resolve(ischestGroup);   
+        //             } catch (error) {
+        //                 reject(error);
+        //             }
+        //         });
+        //     } catch (error) {
+        //         reject(error);
+        //     }
+        // })
+
+        const chestGroupPromise = new Promise(async (resolve, reject) => {
+            const chestGroup_t = await sequelize.transaction();
             try {
-                sequelize.transaction(async (t) => {
-                    try {
-                        const ischestGroup = await this._ChestGroup.create(chestGroupOptions, { transaction: t });
-                        resolve(ischestGroup);   
-                    } catch (error) {
-                        reject(error);
-                    }
-                });
+                const isChestGroup = await this._ChestGroup.create(chestGroupOptions,
+                    { limit: 1, lock: true, transaction: chestGroup_t },
+                );
+
+                const chestGroup_CH_Options = {
+                    name: chestGroupOptions.name,
+                    title: chestGroupOptions.title,
+                    address: chestGroupOptions.address,
+                    note: chestGroupOptions.note,
+                    status: 'normal',
+                    uuid_member: chestGroupOptions.createdBy,
+                    uuid_chestGroup: isChestGroup.uuid_chestGroup
+                }
+
+                const isChestGroup_CH = await this._ChestGroup_CH.create(chestGroup_CH_Options, {transaction: chestGroup_t});
+
+                await chestGroup_t.commit();
+
+                resolve(isChestGroup);   
+
             } catch (error) {
+                await chestGroup_t.rollback();
                 reject(error);
             }
-        })
+        });
 
         chestGroupPromise
         .then(ischestGroup => {

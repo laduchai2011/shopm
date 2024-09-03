@@ -9,9 +9,12 @@ const { Authentication } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
 
-const { SvMessage } = require('./src/model/svMessge');
+// const { SvMessage } = require('./src/model/svMessage');
 
 const { chestCRUD } = require('./src/model/CRUDDATABASE/CRUD_Chest');
+
+// const svMessage = new SvMessage();
+// svMessage.init();
 
 router.post('/createChestGroup',
     Authentication,

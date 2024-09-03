@@ -34,7 +34,7 @@ app.use('/api/svUploadChest', express.urlencoded({extended: true}));
 
 app.use('/api/svUploadChest', router);
 
-const PORT = process.env.NODE_SERVER_PORT_KEY || 2200;
+const PORT = process.env.NODE_SERVER_PORT_KEY || 3500;
 
 app.listen(PORT, '0.0.0.0', function () {
     console.log(`Listening on port ${PORT}!`);

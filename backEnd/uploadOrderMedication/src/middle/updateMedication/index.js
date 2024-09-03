@@ -1,6 +1,6 @@
 'use strict';
 const { logEvents } = require('../../../logEvents');
-const { SvMessage } = require('../../model/svMessge');
+const { SvMessage } = require('../../model/svMessage');
 const { v4: uuidv4 } = require('uuid');
 
 /**

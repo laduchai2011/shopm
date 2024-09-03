@@ -10,7 +10,7 @@ const { token } = require('./src/model/token');
 const { Authentication } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
-const { SvMessage } = require('./src/model/svMessge');
+// const { SvMessage } = require('./src/model/svMessage');
 
 const { memberCRUD } = require('./src/model/CRUDDATABASE/CRUD_Member');
 

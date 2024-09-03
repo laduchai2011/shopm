@@ -4,11 +4,12 @@ const express = require("express");
 const router = require('./router');
 const app = express();
 const cookieParser = require('cookie-parser');
+require('./serviceMessage');
 
 const baseURL_TKS_manager = process.env.NODE_ENV_BASEURL_SHOPM || `http://shopm.tks.local:3002`;
 
 //add other middleware
-app.use('/api/svUploadChest', function (req, res, next) {
+app.use('/api/svTKS_UploadChest', function (req, res, next) {
     // specify CORS headers to send
     res.header('Access-Control-Allow-Origin', baseURL_TKS_manager);
     res.header(
@@ -24,15 +25,15 @@ app.use('/api/svUploadChest', function (req, res, next) {
 
 if (process.env.NODE_ENV === 'development') {
     const morgan = require('morgan');
-    app.use('/api/svUploadChest', morgan('dev'));
+    app.TKS_use('/api/svUploadChest', morgan('dev'));
 }
 
 app.use(cookieParser());
-app.use('/api/svUploadChest', express.json());
-app.use('/api/svUploadChest', express.urlencoded({extended: true}));
+app.use('/api/svTKS_UploadChest', express.json());
+app.use('/api/svTKS_UploadChest', express.urlencoded({extended: true}));
 
 
-app.use('/api/svUploadChest', router);
+app.use('/api/svTKS_UploadChest', router);
 
 const PORT = process.env.NODE_SERVER_PORT_KEY || 2200;
 

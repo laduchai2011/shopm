@@ -9,7 +9,7 @@ const { Authentication } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
 
-const { SvMessage } = require('./src/model/svMessge');
+const { SvMessage } = require('./src/model/svMessage');
 
 
 module.exports = router;

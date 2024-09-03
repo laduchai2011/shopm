@@ -18,7 +18,7 @@ const { caseRecordMedication } = require('./src/model/CRUDDATABASE/CRUD_CaseReco
 // const { caseRecordPage } = require('./src/model/CRUDDATABASE/CRUDCASERECORDPAGE');
 const { doctorOrPharmacistAndPatientRole } = require('./src/middle/doctorOrPharmacistAndPatientRole');
 // const { doctorOrPharmacistRole } = require('./src/middle/doctorOrPharmacistRole');
-const { SvMessage } = require('./src/model/svMessge');
+const { SvMessage } = require('./src/model/svMessage');
 
 const svMessage = new SvMessage();
 svMessage.init();

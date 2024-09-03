@@ -1,6 +1,6 @@
 'use strict';
 const { logEvents } = require('./logEvents');
-const { SvMessage } = require('./src/model/svMessge');
+const { SvMessage } = require('./src/model/svMessage');
 
 // (async () => {
 //     const svMessage = new SvMessage();

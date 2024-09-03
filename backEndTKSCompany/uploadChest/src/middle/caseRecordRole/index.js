@@ -1,5 +1,5 @@
 'use strict';
-const { SvMessage } = require('../../model/svMessage');
+const { SvMessage } = require('../../model/svMessge');
 const { v4: uuidv4 } = require('uuid');
 
 

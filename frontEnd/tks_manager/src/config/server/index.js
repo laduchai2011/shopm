@@ -4,5 +4,5 @@ export const baseURLTLS_socket                                                  
 export const SERVER_ADDRESS_READ_TOLOGIN                                        = `${baseURLTLS}:2300/api/svUploadMember/login`;
 
 export const SERVER_ADDRESS_READ_CHESTGROUP                                     = `${baseURLTLS}:2400/api/svGetChest/readChestGroup`;
-export const SERVER_ADDRESS_CREATE_CHESTGROUP                                   = `${baseURLTLS}:2200/api/svUploadChest/createChestGroup`;
-export const SERVER_ADDRESS_PATCH_CHESTGROUP                                    = `${baseURLTLS}:2200/api/svUploadChest/patchChestGroup`;
+export const SERVER_ADDRESS_CREATE_CHESTGROUP                                   = `${baseURLTLS}:2200/api/svTKS_UploadChest/createChestGroup`;
+export const SERVER_ADDRESS_PATCH_CHESTGROUP                                    = `${baseURLTLS}:2200/api/svTKS_UploadChest/patchChestGroup`;
