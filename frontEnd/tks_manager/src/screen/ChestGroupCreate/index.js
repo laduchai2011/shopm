@@ -1,11 +1,20 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import "./styles.css";
 
 import axios from 'axios';
 
 import { ThemeContextApp } from "utilize/ContextApp";
 
-import { SERVER_ADDRESS_CREATE_CHESTGROUP } from "config/server";
+import { 
+    SERVER_ADDRESS_CREATE_CHESTGROUP,
+    SERVER_ADDRESS_CREATE_CHESTGROUP_OF_SHOPM
+} from "config/server";
+
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { TiDelete, TiTick  } from "react-icons/ti";
+import { MdOutlineError } from "react-icons/md";
+
+import { $ } from "utilize/Tricks";
 
 const ChestGroupCreate = () => {
     const { loginInfor } = useContext(ThemeContextApp);
@@ -15,12 +24,17 @@ const ChestGroupCreate = () => {
         title: '',
         address: '',
         note: '',
-        status: 'normal',
+        status: 'no ready',
         createdBy: loginInfor.uuid_member
     });
+    const [note, setNote] = useState();
 
     const [message, setMessage] = useState();
     const [messageColor, setMessageColor] = useState();
+
+    const [successUpdateShopm, setSuccessUpdateShopm] = useState(false);
+    const updateShopmLoading = useRef(false);
+    const [messageUpdateShopm, setMessageUpdateShopm] = useState('Waiting for ChestGroup loading success !');
 
     const handleInfor = (e, type) => {
         setMessage('');
@@ -46,9 +60,18 @@ const ChestGroupCreate = () => {
                 })
                 break;
             case 'note':
+                const newNote = {
+                    customInfor: {
+                        isNewCustom: false,
+                        isUpdatedToShopm: false,
+                        isCreated: true
+                    },
+                    note: value
+                }
+                setNote(value);
                 setInfor({
                     ...infor,
-                    note: value
+                    note: JSON.stringify(newNote)
                 })
                 break;
             default:
@@ -88,11 +111,64 @@ const ChestGroupCreate = () => {
                 setMessage(resData?.message);
                 if (resData?.success) {
                     setMessageColor('blue');
+
+                    // handle update chest group in shopm database
+                    setMessageUpdateShopm('Waiting for ChestGroup loading success !');
+                    updateShopmLoading.current = true;
+                    const q_ChestGroupCreate_overlay = $('.ChestGroupCreate-overlay');
+                    q_ChestGroupCreate_overlay.classList.add('show');
+
+                    const chestGroup = resData.chestGroup;
+                    const chestGroupOptions = {
+                        uuid_chestGroup: chestGroup.uuid_chestGroup,
+                        name: chestGroup.name,
+                        title: chestGroup.title,
+                        address: chestGroup.address,
+                        note: chestGroup.note,
+                        status: chestGroup.status
+                    }
+                    setTimeout(() => {
+                        handleUpdateShopm(chestGroupOptions);
+                    }, 3000)
                 } else {
                     setMessageColor('red');
                 }
             }).catch(error => console.error(error))
         }
+    }
+
+    const handleUpdateShopm = (chestGroupOptions) => {
+        axios({
+            method: 'POST',
+            url: SERVER_ADDRESS_CREATE_CHESTGROUP_OF_SHOPM,
+            withCredentials: true,
+            data: {
+                chestGroupOptions: chestGroupOptions
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => {
+            const resData = res.data;
+            if (resData?.success) {
+                setMessageUpdateShopm('Update successly chest group to shopm !');
+                setSuccessUpdateShopm(true);
+            } else {
+                setMessageUpdateShopm('Update failure chest group to shopm !');
+                setSuccessUpdateShopm(false);
+            }
+            updateShopmLoading.current = false;
+        }).catch(error => {
+            console.error(error);
+            setMessageUpdateShopm('Update failure chest group to shopm');
+            setSuccessUpdateShopm(false);
+            updateShopmLoading.current = false;
+        })
+    }
+
+    const handleDel = () => {
+        const q_ChestGroupCreate_overlay = $('.ChestGroupCreate-overlay');
+        q_ChestGroupCreate_overlay.classList.remove('show');
     }
 
     return (
@@ -113,13 +189,25 @@ const ChestGroupCreate = () => {
                 </div>
                 <div>
                     <div>Note:</div>
-                    <textarea value={infor.note} onChange={(e) => handleInfor(e, 'note')} placeholder="Note" />
+                    <textarea value={note} onChange={(e) => handleInfor(e, 'note')} placeholder="Note" />
                 </div>
                 <div>
                     <button onClick={() => handleCreate()}>Create</button>
                 </div>
                 <div>
                     <span style={{color: messageColor}}>{ message }</span>
+                </div>
+            </div>
+            <div className="ChestGroupCreate-overlay">
+                <div className="ChestGroupCreate-dialog">
+                    <div><TiDelete onClick={() => handleDel()} size={25} color="black" /></div>
+                    <div>{ messageUpdateShopm }</div>
+                    { updateShopmLoading.current && <div><AiOutlineLoading3Quarters className="ChestGroupCreate-loading" size={30} /></div> }
+                    { !updateShopmLoading.current && <> {
+                        successUpdateShopm ? 
+                        <div><TiTick color="greenyellow" size={50} /></div> :
+                        <div><MdOutlineError color="red" size={30} /></div>
+                    }</> }
                 </div>
             </div>
         </div>

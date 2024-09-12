@@ -25,7 +25,7 @@ app.use('/api/svTKS_UploadChest', function (req, res, next) {
 
 if (process.env.NODE_ENV === 'development') {
     const morgan = require('morgan');
-    app.TKS_use('/api/svUploadChest', morgan('dev'));
+    app.use('/api/svTKS_UploadChest', morgan('dev'));
 }
 
 app.use(cookieParser());

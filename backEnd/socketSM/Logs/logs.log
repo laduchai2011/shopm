@@ -1255,3 +1255,46 @@
 01-09-2024	44:53:01--------/getRoom?status=normal&type=notification---GET: Please login !
 01-09-2024	44:53:01--------/getRoom?status=normal&type=notification---GET: Please login !
 01-09-2024	36:50:10--------Redis Client Error Error: Connection timeout
+05-09-2024	01:41:11--------/getRoom?status=normal&type=notification---GET: Please login 3 !
+05-09-2024	01:41:11--------/getRoom?status=normal&type=notification---GET: Please login 3 !
+05-09-2024	01:41:11--------/getRoom?status=normal&type=notification---GET: Please login 3 !
+05-09-2024	03:41:11--------/getRoom?status=normal&type=notification---GET: Please login 3 !
+05-09-2024	28:41:11--------/getRoom?status=normal&type=notification---GET: Please login 3 !
+05-09-2024	28:41:11--------/getRoom?status=normal&type=notification---GET: Please login 3 !
+05-09-2024	29:41:11--------/getRoom?status=normal&type=notification---GET: Please login 3 !
+05-09-2024	29:41:11--------/getRoom?status=normal&type=notification---GET: Please login 3 !
+12-09-2024	02:25:01--------Redis Client Error Error: read ECONNRESET
+12-09-2024	21:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	22:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	22:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	22:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	22:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	22:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	22:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	23:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	23:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	24:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	24:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	24:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	25:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	26:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	26:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	27:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	27:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	28:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	28:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	29:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	29:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	30:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	30:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	31:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	31:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	32:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	32:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	33:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	33:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	34:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	34:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	35:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	35:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379
+12-09-2024	36:25:01--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379

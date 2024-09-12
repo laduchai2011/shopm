@@ -88,3 +88,6 @@
 01-09-2024	31:53:01--------/getCurrentCart---GET: Please login 3 !
 01-09-2024	43:53:01--------/getCurrentCart---GET: Please login 3 !
 01-09-2024	25:49:10--------Redis Client Error Error: Connection timeout
+05-09-2024	01:41:11--------/getCurrentCart---GET: Please login 3 !
+05-09-2024	12:41:11--------/orderMedication/getListFromProfile?uuid_user=undefined&pageIndex=1&pageSize=10---GET: Please login 3 !
+05-09-2024	28:41:11--------/getCurrentCart---GET: Please login 3 !

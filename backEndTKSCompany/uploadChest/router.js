@@ -28,7 +28,7 @@ router.post('/createChestGroup',
             if(chestGroup && chestGroup!==null) {
                 return res.status(201).json({
                     chestGroup: chestGroup,
-                    message: 'Create a chest group success !',
+                    message: 'Create a chest group successly !',
                     success: true
                 })
             } else {
@@ -55,12 +55,39 @@ router.patch('/patchChestGroup',
             if(chestGroup && chestGroup!==null) {
                 return res.status(201).json({
                     chestGroup: chestGroup,
-                    message: 'Custom a chest group success !',
+                    message: 'Custom a chest group successly !',
                     success: true
                 })
             } else {
                 return res.status(200).json({
                     message: 'Custom a chest group failure !',
+                    success: false
+                })
+            }
+        }
+    })
+})
+
+router.patch('/patchChestGroupStatus',
+    Authentication,
+    (req, res) => {
+    const uuid_chestGroup = req.body.uuid_chestGroup;
+    const status = req.body.status;
+    const uuid_member = req.body.uuid_member;
+    chestCRUD.patchStatusOfChestGroup(uuid_chestGroup, uuid_member, status, (chestGroup, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send(err);
+        } else {
+            if(chestGroup && chestGroup!==null) {
+                return res.status(201).json({
+                    chestGroup: chestGroup,
+                    message: 'Update status of chest group successly !',
+                    success: true
+                })
+            } else {
+                return res.status(200).json({
+                    message: 'Update status of chest group failure !',
                     success: false
                 })
             }

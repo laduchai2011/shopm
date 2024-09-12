@@ -1,7 +1,7 @@
 'use strict';
 const { v4: uuidv4 } = require('uuid');
 
-class ChestShopm {
+class UpdateChestShopm {
     constructor() {
         
     }
@@ -15,4 +15,4 @@ class ChestShopm {
     }
 }
 
-module.exports = { ChestShopm }
+module.exports = { UpdateChestShopm }

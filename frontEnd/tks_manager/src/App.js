@@ -12,7 +12,6 @@ function App() {
     let loginInfor = null;
     if (loginInforCookie) {
       loginInfor = JSON.parse(loginInforCookie);
-      console.log(loginInfor)
     }
 
   return (

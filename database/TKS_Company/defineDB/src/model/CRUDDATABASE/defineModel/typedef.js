@@ -39,6 +39,16 @@
 *createdBy: UUID
 *} chestGroupOptions
 */ 
+/**
+*@typedef {
+*customInfor: {
+*   isNewCustom: bool,
+*   isUpdatedToShopm: bool,
+*   isCreated: bool
+*},
+*note: string
+*} note
+*/ 
 
 /**
 *@typedef {

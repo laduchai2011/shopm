@@ -22,13 +22,74 @@
     width: 100px;
 }
 
-.ChestGroupCustom-center > div:nth-child(6) > textarea {
+.ChestGroupCustom-center > div:nth-child(7) > textarea {
     width: 1000px;
     height: 500px;
     resize: none;
 }
 
-.ChestGroupCustom-center > div:nth-child(7) > button {
+.ChestGroupCustom-center > div:nth-child(8) > button {
     background-color: blue;
     color: white;
+}
+
+.ChestGroupCustom-overlay {
+    background-color: rgb(0, 0, 0, 0.3);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: -100vw;
+
+    transition: left 1s linear;
+}
+
+.ChestGroupCustom-overlay.show {
+    left: -0vw;
+}
+
+.ChestGroupCustom-dialog {
+    position: absolute;
+    background-color: white;
+    width: 320px;
+    height: 200px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding: 10px;
+    color: blue;
+}
+
+.ChestGroupCustom-dialog > div {
+    width: 100%;
+}
+
+.ChestGroupCustom-dialog > div:nth-child(1) {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.ChestGroupCustom-dialog > div:nth-child(1) > svg {
+    cursor: pointer;
+}
+
+.ChestGroupCustom-dialog > div:not(:nth-child(1)) {
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ChestGroupCustom-loading {
+    animation: ChestGroupCustomMessageLoading 0.8s ease-in-out infinite;
+}
+
+@keyframes ChestGroupCustomMessageLoading {
+    0% {transform: rotate(0);} 
+    25% {transform: rotate(90deg);}
+    50% {transform: rotate(180deg);}
+    75% {transform: rotate(270deg);}
+    100% {transform: rotate(360deg);} 
 }

@@ -15,21 +15,6 @@ class Chest {
     createChestGroup(chestGroupOptions, callback) {
         let chestGroup;
         let err;
-        
-        // const chestGroupPromise = new Promise((resolve, reject) => {
-        //     try {
-        //         sequelize.transaction(async (t) => {
-        //             try {
-        //                 const ischestGroup = await this._ChestGroup.create(chestGroupOptions, { transaction: t });
-        //                 resolve(ischestGroup);   
-        //             } catch (error) {
-        //                 reject(error);
-        //             }
-        //         });
-        //     } catch (error) {
-        //         reject(error);
-        //     }
-        // })
 
         const chestGroupPromise = new Promise(async (resolve, reject) => {
             const chestGroup_t = await sequelize.transaction();
@@ -77,15 +62,11 @@ class Chest {
         const chestGroupPromise = new Promise(async (resolve, reject) => {
             const chestGroup_t = await sequelize.transaction();
             try {
-                const isChestGroup = await this._ChestGroup.findByPk(
-                    uuid_chestGroup,
+                const isChestGroup = await this._ChestGroup.findOne(
                     {
                         where: {
-                            [Op.not]: {
-                                [Op.or]: [
-                                    { status: 'delete' }
-                                ]
-                            }
+                            uuid_chestGroup: uuid_chestGroup,
+                            status: 'ready custom'
                         }
                     },
                     { limit: 1, lock: true, transaction: chestGroup_t },
@@ -104,6 +85,55 @@ class Chest {
                     status: 'normal',
                     uuid_member: uuid_member,
                     uuid_chestGroup: uuid_chestGroup
+                }
+
+                const isChestGroup_CH = await this._ChestGroup_CH.create(chestGroup_CH_Options, {transaction: chestGroup_t});
+
+                await chestGroup_t.commit();
+
+                resolve(isChestGroup);   
+
+            } catch (error) {
+                await chestGroup_t.rollback();
+                reject(error);
+            }
+        });
+
+        chestGroupPromise
+        .then(isChestGroup => {
+            chestGroup = isChestGroup;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(chestGroup, err);
+        })
+    }
+
+    patchStatusOfChestGroup(uuid_chestGroup, uuid_member, status, callback) {
+        let chestGroup;
+        let err;
+        
+        const chestGroupPromise = new Promise(async (resolve, reject) => {
+            const chestGroup_t = await sequelize.transaction();
+            try {
+                const isChestGroup = await this._ChestGroup.findByPk(
+                    uuid_chestGroup,
+                    { 
+                        // no condition
+                    },
+                    { limit: 1, lock: true, transaction: chestGroup_t },
+                );
+                isChestGroup.status = status;
+                await isChestGroup.save({ transaction: chestGroup_t });
+
+                const chestGroup_CH_Options = {
+                    name: isChestGroup.name,
+                    title: isChestGroup.title,
+                    address: isChestGroup.address,
+                    note: isChestGroup.note,
+                    status: status,
+                    uuid_member: uuid_member,
+                    uuid_chestGroup: isChestGroup.uuid_chestGroup
                 }
 
                 const isChestGroup_CH = await this._ChestGroup_CH.create(chestGroup_CH_Options, {transaction: chestGroup_t});
