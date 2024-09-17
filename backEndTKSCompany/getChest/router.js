@@ -41,7 +41,7 @@ const { chestCRUD } = require('./src/model/CRUDDATABASE/CRUD_Chest');
 //     })
 // })
 
-router.get('/readChestGroup', // doing
+router.get('/TKSManagerGetChestGroup', // doing
     Authentication,
     (req, res) => {
     const uuid_chestGroup = req.query.uuid_chestGroup;
@@ -53,12 +53,12 @@ router.get('/readChestGroup', // doing
             if(chestGroup && chestGroup!==null) {
                 return res.status(200).json({
                     chestGroup: chestGroup,
-                    message: 'Read a chest group success !',
+                    message: 'Read a chest group successly (svTKS_GetChest) !',
                     success: true
                 })
             } else {
                 return res.status(200).json({
-                    message: 'Read a chest group failure !',
+                    message: 'Read a chest group failure (svTKS_GetChest) !',
                     success: false
                 })
             }

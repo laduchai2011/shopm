@@ -1,7 +1,7 @@
 'use strict';
 const { logEvents } = require('./logEvents');
 const { SvMessage } = require('./src/model/svMessage');
-const { chestCRUD } = require('./src/model/CRUDDATABASE/CRUD_Chest');
+const { chestGroupCRUD } = require('./src/model/CRUDDATABASE/CRUD_ChestGroup');
 
 
 (async () => {

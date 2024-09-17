@@ -5,7 +5,7 @@ const { logEvents } = require('../../../logEvents');
 function ChestGroupRead(req, res, next) {
     const uuid_chestGroup = req.body.uuid_chestGroup;
 
-    chestGroupCRUD(uuid_chestGroup, (chestGroup, err) => {
+    chestGroupCRUD.read(uuid_chestGroup, (chestGroup, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
@@ -17,7 +17,7 @@ function ChestGroupRead(req, res, next) {
                 return res.status(200).json({
                     chestGroup: chestGroup,
                     success: false,
-                    message: 'ChestGroup is NOT read successly !'
+                    message: 'ChestGroup is NOT read successly (svUploadChest) !'
                 })
             }
         }

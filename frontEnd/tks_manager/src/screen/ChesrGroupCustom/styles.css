@@ -28,9 +28,19 @@
     resize: none;
 }
 
-.ChestGroupCustom-center > div:nth-child(8) > button {
-    background-color: blue;
+.ChestGroupCustom-center > div:nth-child(8) > button {  
     color: white;
+    margin: 0 50px;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.ChestGroupCustom-center > div:nth-child(8) > button:nth-child(1) {
+    background-color: blue;
+}
+
+.ChestGroupCustom-center > div:nth-child(8) > button:nth-child(3) {
+    background-color: rgb(0, 183, 255);
 }
 
 .ChestGroupCustom-overlay {

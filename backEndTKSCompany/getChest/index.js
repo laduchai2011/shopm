@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const baseURL_TKS_manager = process.env.NODE_ENV_BASEURL_SHOPM || `http://shopm.tks.local:3002`;
 
 //add other middleware
-app.use('/api/svGetChest', function (req, res, next) {
+app.use('/api/svTKS_GetChest', function (req, res, next) {
     // specify CORS headers to send
     res.header('Access-Control-Allow-Origin', baseURL_TKS_manager);
     res.header(
@@ -24,15 +24,15 @@ app.use('/api/svGetChest', function (req, res, next) {
 
 if (process.env.NODE_ENV === 'development') {
     const morgan = require('morgan');
-    app.use('Chest', morgan('dev'));
+    app.use('svTKS_GetChest', morgan('dev'));
 }
 
 app.use(cookieParser());
-app.use('/api/svGetChest', express.json());
-app.use('/api/svGetChest', express.urlencoded({extended: true}));
+app.use('/api/svTKS_GetChest', express.json());
+app.use('/api/svTKS_GetChest', express.urlencoded({extended: true}));
 
 
-app.use('/api/svGetChest', router);
+app.use('/api/svTKS_GetChest', router);
 
 const PORT = process.env.NODE_SERVER_PORT_KEY || 2400;
 

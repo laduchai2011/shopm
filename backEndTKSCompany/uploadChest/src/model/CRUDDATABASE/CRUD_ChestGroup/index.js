@@ -5,14 +5,14 @@ const { defineModel } = require('../defineModel');
 
     
 
-class Chest {
+class ChestGroup {
     constructor() {
         this._ChestGroup = defineModel.getChestGroup();
         this._ChestGroup_CH = defineModel.getChestGroup_CH();
         this._Chest = defineModel.getChest();
     }
 
-    createChestGroup(chestGroupOptions, callback) {
+    create(chestGroupOptions, callback) {
         let chestGroup;
         let err;
 
@@ -55,7 +55,7 @@ class Chest {
         })
     }
 
-    patchChestGroup(uuid_chestGroup, chestGroupOptions, uuid_member, callback) {
+    patch(uuid_chestGroup, chestGroupOptions, uuid_member, callback) {
         let chestGroup;
         let err;
         
@@ -109,7 +109,7 @@ class Chest {
         })
     }
 
-    patchStatusOfChestGroup(uuid_chestGroup, uuid_member, status, callback) {
+    patchStatus(uuid_chestGroup, uuid_member, status, callback) {
         let chestGroup;
         let err;
         
@@ -158,16 +158,25 @@ class Chest {
         })
     }
     
-    createChest(chestOptions, callback) {
-        let chest;
+    patchNoteOfChestGroupWhenCustomCompletion(uuid_chestGroup, note, callback) {
+        let chestGroup;
         let err;
         
-        const chestPromise = new Promise((resolve, reject) => {
+        const chestGroupPromise = new Promise((resolve, reject) => {
             try {
                 sequelize.transaction(async (t) => {
                     try {
-                        const ischest = await this._Chest.create(chestOptions, { transaction: t });
-                        resolve(ischest);   
+                        const isChestGroup = await this._ChestGroup.findOne(
+                            {
+                                where: {
+                                    uuid_chestGroup: uuid_chestGroup,
+                                }
+                            },
+                            { lock: true, transaction: t }
+                        );
+                        isChestGroup.note = note;
+                        await isChestGroup.save({ transaction: t });
+                        resolve(isChestGroup);   
                     } catch (error) {
                         reject(error);
                     }
@@ -175,20 +184,20 @@ class Chest {
             } catch (error) {
                 reject(error);
             }
-        })
+        });
 
-        chestPromise
-        .then(ischest => {
-            chest = ischest;
+        chestGroupPromise
+        .then(isCaseRecord => {
+            chestGroup = isCaseRecord;
         }).catch(error => {
             err = error;
         }).finally(() => {
-            callback(chest, err);
+            callback(chestGroup, err);
         })
     }
 
 }
 
-const chestCRUD = new Chest();
+const chestGroupCRUD = new ChestGroup();
 
-module.exports = { chestCRUD }
+module.exports = { chestGroupCRUD }

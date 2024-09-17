@@ -1,7 +1,5 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import "./styles.css";
-
-import axios from 'axios';
 
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { TiDelete, TiTick  } from "react-icons/ti";
@@ -9,13 +7,16 @@ import { MdOutlineError } from "react-icons/md";
 
 import { ThemeContextApp } from "utilize/ContextApp";
 
-import { useLazyGetChestGroupQuery } from "reduxStore/RTKQuery/chestRTKQuery";
-
 import { 
-    SERVER_ADDRESS_PATCH_CHESTGROUP, 
-    SERVER_ADDRESS_PATCH_CHESTGROUP_STATUS,
-    SERVER_ADDRESS_PATCH_NOTI_CHESTGROUP_OF_SHOPM
-} from "config/server";
+    useGetChestGroupFromSvGetChestQuery,
+    useLazyGetChestGroupFromSvTKS_GetChestQuery,
+    useGetChestGroupFromSvTKS_GetChestQuery,
+    usePatchChestGroupToSvTKS_UploadChestMutation,
+    usePatchNotiChestGroupToSvUploadChestMutation,
+    usePatchChestGroupStatusToSvTKS_UploadChestMutation,
+    usePatchChestGroupToSvUploadChestMutation,
+    usePatchNotiChestGroupToSvTKS_UploadChestMutation 
+} from "reduxStore/RTKQuery/chestGroupRTLQuery";
 
 import { $ } from "utilize/Tricks";
 
@@ -32,6 +33,9 @@ const ChestGroupCustom = () => {
     });
     const [note, setNote] = useState();
 
+    const [chestGroupTKS, setChestGroupTKS] = useState();
+    // const [chestGroupShopm, setChestGroupShopm] = useState();
+
     const [message, setMessage] = useState();
     const [messageColor, setMessageColor] = useState();
     const [uuid_chestGroup, setUuid_chestGroup] = useState('');
@@ -46,7 +50,48 @@ const ChestGroupCustom = () => {
     const [possibleUpdateMsg, setPossibleUpdateMsg] = useState();
     const [statusShopm, setStatusShopm] = useState();
 
-    const [getChestGroup] = useLazyGetChestGroupQuery();
+    const [triggerGetChestGroupFromSvTKS_GetChest] = useLazyGetChestGroupFromSvTKS_GetChestQuery();
+    const [patchChestGroupToSvTKS_UploadChest] = usePatchChestGroupToSvTKS_UploadChestMutation();
+    const [patchNotiChestGroupToSvUploadChest] = usePatchNotiChestGroupToSvUploadChestMutation();
+    const [patchChestGroupStatusToSvTKS_UploadChest] = usePatchChestGroupStatusToSvTKS_UploadChestMutation();
+    const [patchChestGroupToSvUploadChest] = usePatchChestGroupToSvUploadChestMutation();
+    const [patchNotiChestGroupToSvTKS_UploadChest] = usePatchNotiChestGroupToSvTKS_UploadChestMutation();
+
+    const {
+        data: data_chestGroupShopm, 
+        // isFetching: isFetching_chestGroupShopm, 
+        isError: isError_chestGroupShopm,
+        error: error_chestGroupShopm
+    } = useGetChestGroupFromSvGetChestQuery({uuid_chestGroup: uuid_chestGroup});
+    useEffect(() => {
+        isError_chestGroupShopm && console.log(error_chestGroupShopm);
+    }, [isError_chestGroupShopm, error_chestGroupShopm])
+    useEffect(() => {
+        const resData = data_chestGroupShopm;
+        if (resData?.success) {
+            // setChestGroupShopm(resData?.chestGroup)
+        } else {
+            console.log(resData?.message)
+        }
+    }, [data_chestGroupShopm])
+
+    const {
+        data: data_chestGroupTKS, 
+        // isFetching: isFetching_chestGroupTKS, 
+        isError: isError_chestGroupTKS,
+        error: error_chestGroupTKS
+    } = useGetChestGroupFromSvTKS_GetChestQuery({uuid_chestGroup: uuid_chestGroup});
+    useEffect(() => {
+        isError_chestGroupTKS && console.log(error_chestGroupTKS);
+    }, [isError_chestGroupTKS, error_chestGroupTKS])
+    useEffect(() => {
+        const resData = data_chestGroupTKS;
+        if (resData?.success) {
+            setChestGroupTKS(resData?.chestGroup)
+        } else {
+            console.log(resData?.message)
+        }
+    }, [data_chestGroupTKS])
 
     const handleInfor = (e, type) => {
         if (statusChestGroup==='ready custom') {
@@ -113,18 +158,10 @@ const ChestGroupCustom = () => {
 
     const handleCustom = () => {
         if (checkInput()) {
-            axios({
-                method: 'PATCH',
-                url: SERVER_ADDRESS_PATCH_CHESTGROUP,
-                withCredentials: true,
-                data: {
-                    uuid_chestGroup: uuid_chestGroup.trim(),
-                    chestGroupOptions: infor,
-                    uuid_member: loginInfor.uuid_member
-                },
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+            patchChestGroupToSvTKS_UploadChest({
+                uuid_chestGroup: uuid_chestGroup.trim(),
+                chestGroupOptions: infor,
+                uuid_member: loginInfor.uuid_member
             }).then(res => {
                 const resData = res.data;
                 setMessage(resData?.message);
@@ -139,15 +176,15 @@ const ChestGroupCustom = () => {
                     const q_ChestGroupCustom_overlay = $('.ChestGroupCustom-overlay');
                     q_ChestGroupCustom_overlay.classList.add('show');
 
-                    const chestGroup = resData.chestGroup;
-                    const chestGroupOptions = {
-                        uuid_chestGroup: chestGroup.uuid_chestGroup,
-                        name: chestGroup.name,
-                        title: chestGroup.title,
-                        address: chestGroup.address,
-                        note: chestGroup.note,
-                        status: chestGroup.status
-                    }
+                    // const chestGroup = resData.chestGroup;
+                    // const chestGroupOptions = {
+                    //     uuid_chestGroup: chestGroup.uuid_chestGroup,
+                    //     name: chestGroup.name,
+                    //     title: chestGroup.title,
+                    //     address: chestGroup.address,
+                    //     note: chestGroup.note,
+                    //     status: chestGroup.status
+                    // }
                     setTimeout(() => {
                         handleUpdateNoteOfChestGroupWhenCustom();
                     }, 3000)
@@ -159,17 +196,9 @@ const ChestGroupCustom = () => {
     }
 
     const handleUpdateNoteOfChestGroupWhenCustom = () => {
-        axios({
-            method: 'patch',
-            url: SERVER_ADDRESS_PATCH_NOTI_CHESTGROUP_OF_SHOPM,
-            withCredentials: true,
-            data: {
-                uuid_chestGroup: uuid_chestGroup.trim(),
-                note: infor.note
-            },
-            headers: {
-                'Content-Type': 'application/json'
-            }
+        patchNotiChestGroupToSvUploadChest({
+            uuid_chestGroup: uuid_chestGroup.trim(),
+            note: infor.note
         }).then(res => {
             const resData = res.data;
             if (resData?.success) {
@@ -208,18 +237,10 @@ const ChestGroupCustom = () => {
         } else if (statusChestGroup==='ready custom') {
             statusChestGroup_ = 'no ready';
         }
-        axios({
-            method: 'PATCH',
-            url: SERVER_ADDRESS_PATCH_CHESTGROUP_STATUS,
-            withCredentials: true,
-            data: {
-                uuid_chestGroup: uuid_chestGroup.trim(),
-                status: statusChestGroup_,
-                uuid_member: loginInfor.uuid_member
-            },
-            headers: {
-                'Content-Type': 'application/json'
-            }
+        patchChestGroupStatusToSvTKS_UploadChest({
+            uuid_chestGroup: uuid_chestGroup.trim(),
+            status: statusChestGroup_,
+            uuid_member: loginInfor.uuid_member
         }).then(res => {
             const resData = res.data;
             const chestGroup = resData.chestGroup;
@@ -236,7 +257,7 @@ const ChestGroupCustom = () => {
 
     const handleEnter = (e) => {
         if (e.keyCode===13) {
-            getChestGroup({
+            triggerGetChestGroupFromSvTKS_GetChest({
                 uuid_chestGroup: uuid_chestGroup.trim()
             }).then(res => {
                 const resData = res.data;
@@ -280,6 +301,78 @@ const ChestGroupCustom = () => {
         q_ChestGroupCreate_overlay.classList.remove('show');
     }
 
+    const handleUpdateToShopm = () => {
+        const note_cp = JSON.parse(chestGroupTKS?.note);
+        note_cp.customInfor.isNewCustom = false;
+        note_cp.customInfor.isUpdatedToShopm = true;
+        note_cp.customInfor.isCreated = false;
+        const chestGroup_s = {
+            uuid_chestGroup: chestGroupTKS.uuid_chestGroup,
+            name: chestGroupTKS.name,
+            title: chestGroupTKS.title,
+            address: chestGroupTKS.address,
+            note: JSON.stringify(note_cp),
+            status: chestGroupTKS.status
+        }
+
+        setMessageUpdateShopm('Waiting for update data to database of shopm !');
+        updateShopmLoading.current = true;
+        const q_ChestGroupCustom_overlay = $('.ChestGroupCustom-overlay');
+        q_ChestGroupCustom_overlay.classList.add('show');
+        setTimeout(() => {
+            patchChestGroupToSvUploadChest({
+                uuid_chestGroup: chestGroupTKS.uuid_chestGroup,
+                chestGroupOptions: chestGroup_s
+            }).then( res => {
+                const resData = res.data;
+                if (resData?.success) {
+                    setMessageUpdateShopm('Update data to database of shopm successly. Waiting for update finish !');
+                    setSuccessUpdateShopm(true);
+                    setTimeout(() => {
+                        updateShopmLoading.current = true;
+                        setSuccessUpdateShopm(false);
+                        setTimeout(() => {
+                            patchNotiChestGroupToSvTKS_UploadChest({
+                                uuid_chestGroup: chestGroupTKS.uuid_chestGroup, 
+                                note: JSON.stringify(note_cp)
+                            }).then(res => {
+                                const resData1 = res.data;
+                                if (resData1?.success) {
+                                    setMessageUpdateShopm('Update data to database of shopm successly. FINISH !');
+                                    setSuccessUpdateShopm(true);
+                                } else {
+                                    setMessageUpdateShopm('Update data to shopm failure !');
+                                    setSuccessUpdateShopm(false);
+                                }
+                                updateShopmLoading.current = false;
+                            }).catch(error => {
+                                console.error(error);
+                                setMessageUpdateShopm('Update data to shopm failure !');
+                                updateShopmLoading.current = false;
+                            })
+                        }, 3000)
+                    }, 2000)
+                } else {
+                    setMessageUpdateShopm(`Update data to shopm failure. ${resData.message} !`);
+                    setSuccessUpdateShopm(false);
+                }
+                updateShopmLoading.current = false;
+            }).catch(error => {
+                console.error(error);
+                setMessageUpdateShopm('Update data to shopm failure !');
+                updateShopmLoading.current = false;
+            })
+        }, 3000)
+    }
+
+    const handleCustomInforInshopm = (chestGroup) => {
+        if (chestGroup?.success) {
+            const customInfor = JSON.parse(chestGroup?.chestGroup?.note)?.customInfor;
+            return customInfor;
+        }
+        return false;
+    }
+
     return (
         <div className="ChestGroupCustom">
             <div className="ChestGroupCustom-center">
@@ -311,6 +404,17 @@ const ChestGroupCustom = () => {
                 </div>
                 <div>
                     <button onClick={() => handleCustom()}>Custom</button>
+                    {  
+                        statusShopm==='ready custom' && 
+                        handleCustomInforInshopm(data_chestGroupShopm).isNewCustom && 
+                        !updateShopmLoading.current &&
+                        <>
+                            <div>Possible to update to shopm now !</div>
+                            <button onClick={() => handleUpdateToShopm()}>
+                                Update To Shopm
+                            </button>
+                        </>
+                    }
                 </div>
                 <div>
                     <span style={{color: messageColor}}>{ message }</span>
@@ -327,8 +431,19 @@ const ChestGroupCustom = () => {
                         <div><MdOutlineError color="red" size={30} /></div>
                     }</> }
                     <div>
-                        <div>{ possibleUpdateMsg }</div>
-                        {statusShopm==='ready custom' && <button>Update</button> }
+                        {  
+                            statusShopm==='ready custom' && 
+                            handleCustomInforInshopm(data_chestGroupShopm).isNewCustom && 
+                            !updateShopmLoading.current &&
+                            <>
+                                <div>
+                                    { possibleUpdateMsg }
+                                </div> 
+                                <button onClick={() => handleUpdateToShopm()}>
+                                    Update
+                                </button> 
+                            </>
+                        }
                     </div>
                 </div>
             </div>

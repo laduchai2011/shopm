@@ -17,6 +17,7 @@ const { chestGroupCRUD } = require('./src/model/CRUDDATABASE/CRUD_ChestGroup');
 
 const { ChestGroupRead } = require('./src/middle/ChestGroupRead');
 const { 
+    isReadyToCustom,
     handleDataWithStatusTKS
 } = require('./src/middle/ChestGroupRole');
 
@@ -35,13 +36,13 @@ router.post('/createChestGroup',
                 return res.status(200).json({
                     chestGroup: chestGroup,
                     success: true,
-                    message: 'ChestGroup is create successly !'
+                    message: 'ChestGroup is create successly (svUploadChest) !'
                 });
             } else {
                 return res.status(200).json({
                     chestGroup: chestGroup,
                     success: false,
-                    message: 'ChestGroup is NOT create successly !'
+                    message: 'ChestGroup is NOT create successly (svUploadChest) !'
                 })
             }
         }
@@ -62,13 +63,13 @@ router.patch('/TKSManagerPatchNoteOfChestGroupWhenCustom',
                 return res.status(200).json({
                     chestGroup: chestGroup,
                     success: true,
-                    message: 'ChestGroup is patch note of chestGroup when custom successly !'
+                    message: 'ChestGroup is patch note of chestGroup when custom successly (svUploadChest) !'
                 });
             } else {
                 return res.status(200).json({
                     chestGroup: chestGroup,
                     success: false,
-                    message: 'ChestGroup is patch note of chestGroup when custom failure !'
+                    message: 'ChestGroup is patch note of chestGroup when custom failure (svUploadChest) !'
                 })
             }
         }
@@ -78,11 +79,11 @@ router.patch('/TKSManagerPatchNoteOfChestGroupWhenCustom',
 router.patch('/TKSManagerPatchChestGroup', 
     AuthenticationTKS,
     ChestGroupRead,
-    handleDataWithStatusTKS,
+    isReadyToCustom,
     (req, res) => {
     const uuid_chestGroup = req.body.uuid_chestGroup;
-    const chestGroupOptions = req.chestGroupOptionsMid;
-    chestGroupCRUD.patch(uuid_chestGroup, chestGroupOptions, (chestGroup, err) => {
+    const chestGroupOptions = req.body.chestGroupOptions;
+    chestGroupCRUD.TKSManagerPatchChestGroup(uuid_chestGroup, chestGroupOptions, (chestGroup, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
             return res.status(500).send(err);
@@ -91,13 +92,13 @@ router.patch('/TKSManagerPatchChestGroup',
                 return res.status(200).json({
                     chestGroup: chestGroup,
                     success: true,
-                    message: 'ChestGroup is patch successly !'
+                    message: 'ChestGroup is patch successly (svUploadChest) !'
                 });
             } else {
                 return res.status(200).json({
                     chestGroup: chestGroup,
                     success: false,
-                    message: 'ChestGroup is NOT patch successly !'
+                    message: 'ChestGroup is NOT patch successly (svUploadChest) !'
                 })
             }
         }

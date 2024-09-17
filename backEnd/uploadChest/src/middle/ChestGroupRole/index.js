@@ -8,7 +8,7 @@ function isReadyToCustom(req, res, next) {
     } else {
         return res.status(200).json({
             success: false,
-            message: 'ChestGroup is NOT ready to custom !'
+            message: 'ChestGroup is NOT ready to custom (svUploadChest) !'
         })
     }
 }
@@ -25,7 +25,7 @@ function handleIfNotReadyToCustom(req, res, next) {
     } else {
         return res.status(200).json({
             success: false,
-            message: 'handleIfNotReadyToCustom is NOT successly !'
+            message: 'handleIfNotReadyToCustom is NOT successly (svUploadChest) !'
         })
     }
 }

@@ -5,7 +5,7 @@ const { defineModel } = require('../defineModel');
 
 class ChestGroup {
     constructor() {
-        this._chestGroup = defineModel.getChestGroup();
+        this._ChestGroup = defineModel.getChestGroup();
     }
 
     create(chestGroupOptions, callback) {
@@ -16,7 +16,7 @@ class ChestGroup {
             try {
                 sequelize.transaction(async (t) => {
                     try {
-                        const isChestGroup = await this._chestGroup.create(
+                        const isChestGroup = await this._ChestGroup.create(
                             chestGroupOptions,
                             { transaction: t }
                         );
@@ -48,7 +48,7 @@ class ChestGroup {
             try {
                 sequelize.transaction(async (t) => {
                     try {
-                        const isChestGroup = await this._chestGroup.findOne(
+                        const isChestGroup = await this._ChestGroup.findOne(
                             {
                                 where: {
                                     uuid_chestGroup: uuid_chestGroup
@@ -84,7 +84,7 @@ class ChestGroup {
             try {
                 sequelize.transaction(async (t) => {
                     try {
-                        const isChestGroup = await this._chestGroup.findOne(
+                        const isChestGroup = await this._ChestGroup.findOne(
                             {
                                 where: {
                                     uuid_chestGroup: uuid_chestGroup,
@@ -93,6 +93,47 @@ class ChestGroup {
                             { lock: true, transaction: t }
                         );
                         isChestGroup.note = note;
+                        await isChestGroup.save({ transaction: t });
+                        resolve(isChestGroup);   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        chestGroupPromise
+        .then(isCaseRecord => {
+            chestGroup = isCaseRecord;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(chestGroup, err);
+        })
+    }
+
+    TKSManagerPatchChestGroup(uuid_chestGroup, chestGroupOptions, callback) {
+        let chestGroup;
+        let err;
+        
+        const chestGroupPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isChestGroup = await this._ChestGroup.findOne(
+                            {
+                                where: {
+                                    uuid_chestGroup: uuid_chestGroup,
+                                }
+                            },
+                            { limit: 1, lock: true, transaction: t }
+                        );
+                        isChestGroup.name = chestGroupOptions.name;
+                        isChestGroup.title = chestGroupOptions.title;
+                        isChestGroup.address = chestGroupOptions.address;
+                        isChestGroup.note = chestGroupOptions.note;
                         await isChestGroup.save({ transaction: t });
                         resolve(isChestGroup);   
                     } catch (error) {
