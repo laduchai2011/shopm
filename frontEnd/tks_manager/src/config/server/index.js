@@ -1,7 +1,7 @@
 export const baseURLTLS                                                         = 'http://shopm.tks.local';
 export const baseURLTLS_socket                                                  = 'ws://shopm.tks.local';
 
-export const SERVER_ADDRESS_READ_TOLOGIN                                        = `${baseURLTLS}:2300/api/svUploadMember/login`;
+export const SERVER_ADDRESS_READ_TOLOGIN                                        = `${baseURLTLS}:2300/api/svTKS_UploadMember/login`;
 
 export const SERVER_ADDRESS_READ_CHESTGROUP_FROM_SVTKSGETChEST                  = `${baseURLTLS}:2400/api/svTKS_GetChest/TKSManagerGetChestGroup`;
 export const SERVER_ADDRESS_READ_CHESTGROUP_FROM_SVGETChEST                     = `${baseURLTLS}:3700/api/svGetChest/TKSManagerGetChestGroup`;

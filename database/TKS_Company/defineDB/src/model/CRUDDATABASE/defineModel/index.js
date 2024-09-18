@@ -121,6 +121,128 @@ class DefineModel {
         this._Member.hasMany(this._Member_CH, { foreignKey: 'uuid_member' })
         this._Member_CH.belongsTo(this._Member, { foreignKey: 'uuid_member', targetKey: 'uuid_member', as: 'uuid_Member' })
 
+        this._Log = sequelize.define('Log', {
+            id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                autoIncrement: true,
+                unique: 'UQ__Logs__id'
+            },
+            uuid_log: {
+                type: Sequelize.UUID,
+                defaultValue: Sequelize.UUIDV4,
+                primaryKey: true
+            },
+            VM: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            service: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            type: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            log: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            image: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            video: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            document: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            note: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            read: {
+                type: DataTypes.BOOLEAN,
+                allowNull: false
+            },
+            fixbug: {
+                type: DataTypes.BOOLEAN,
+                allowNull: false
+            }
+        })
+
+        this._Log_CH = sequelize.define('Log_CH', {
+            VM: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            service: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            type: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            log: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            image: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            video: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            document: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            note: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            read: {
+                type: DataTypes.BOOLEAN,
+                allowNull: false
+            },
+            fixbug: {
+                type: DataTypes.BOOLEAN,
+                allowNull: false
+            },
+            uuid_member: {
+                type: Sequelize.UUID,
+                allowNull: false
+            },
+            uuid_log: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [
+                {
+                    name: 'uuid_member_indexes',
+                    using: 'BTREE',
+                    fields: ['uuid_member']
+                },
+                {
+                    name: 'uuid_log_indexes',
+                    using: 'BTREE',
+                    fields: ['uuid_log']
+                }
+            ]
+        })
+        this._Member.hasMany(this._Log_CH, { foreignKey: 'uuid_member' })
+        this._Log_CH.belongsTo(this._Member, { foreignKey: 'uuid_member', targetKey: 'uuid_member', as: 'uuid_Member' })
+        this._Log.hasMany(this._Log_CH, { foreignKey: 'uuid_log' })
+        this._Log_CH.belongsTo(this._Log, { foreignKey: 'uuid_log', targetKey: 'uuid_log', as: 'uuid_Log' })
+
         this._ChestGroup = sequelize.define('ChestGroup', {
             id: {
                 type: DataTypes.INTEGER,
@@ -339,6 +461,14 @@ class DefineModel {
 
     getMember_CH() {
         return this._Member_CH;
+    }
+
+    getLog() {
+        return this._Log;
+    }
+
+    getLog_CH() {
+        return this._Log_CH;
     }
 
     getChestGroup() {

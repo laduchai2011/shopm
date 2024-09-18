@@ -7,9 +7,10 @@ const app = express();
 const cookieParser = require('cookie-parser');
 
 const baseURL_shopm = `http://shopm.tks.local:3000`;
+const service = process.env.SERVICE;
 
 //add other middleware
-app.use('/api/svGetImage', function (req, res, next) {
+app.use(`/api/${service}`, function (req, res, next) {
     // specify CORS headers to send
     res.header('Access-Control-Allow-Origin', baseURL_shopm);
     res.header(
@@ -22,7 +23,7 @@ app.use('/api/svGetImage', function (req, res, next) {
     );
     next();
 });
-app.use('/api/svGetImage', function (req, res, next) {
+app.use(`/api/${service}`, function (req, res, next) {
     // specify CORS headers to send
     res.header('Access-Control-Allow-Origin', `http://http://shopm.tks.local:3001`);
     res.header(
@@ -37,15 +38,15 @@ app.use('/api/svGetImage', function (req, res, next) {
 });
 
 if (process.env.NODE_ENV === 'development') {
-    app.use('/api/svGetImage', morgan('dev'));
+    app.use(`/api/${service}`, morgan('dev'));
 }
 
-app.use('/api/svGetImage', express.json());
+app.use(`/api/${service}`, express.json());
 app.use(cookieParser());
-app.use('/api/svGetImage', express.urlencoded({extended: true}));
-app.use('/api/svGetImage', express.static(__dirname + '/public'));
+app.use(`/api/${service}`, express.urlencoded({extended: true}));
+app.use(`/api/${service}`, express.static(__dirname + '/public'));
 
-app.use('/api/svGetImage', router);
+app.use(`/api/${service}`, router);
 
 const PORT = process.env.NODE_SERVER_PORT_KEY || 8200
 

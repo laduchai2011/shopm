@@ -8,9 +8,10 @@ require('./serviceMessage');
 
 const baseURL_selling = process.env.NODE_ENV_BASEURL_SELLING || `http://shopm.tks.local:3001`;
 const baseURL_shopm = process.env.NODE_ENV_BASEURL_SHOPM || `http://shopm.tks.local:3000`;
+const service = process.env.SERVICE;
 
 //add other middleware
-app.use('/api/svGetProvider', function (req, res, next) {
+app.use(`/api/${service}`, function (req, res, next) {
     // specify CORS headers to send
     res.header('Access-Control-Allow-Origin', baseURL_shopm);
     res.header(
@@ -23,7 +24,7 @@ app.use('/api/svGetProvider', function (req, res, next) {
     );
     next();
 });
-app.use('/api/svGetProvider', function (req, res, next) {
+app.use(`/api/${service}`, function (req, res, next) {
     // specify CORS headers to send
     res.header('Access-Control-Allow-Origin', baseURL_selling);
     res.header(
@@ -39,15 +40,14 @@ app.use('/api/svGetProvider', function (req, res, next) {
 
 if (process.env.NODE_ENV === 'development') {
     const morgan = require('morgan');
-    app.use('/api/svGetProvider', morgan('dev'));
+    app.use(`/api/${service}`, morgan('dev'));
 }
 
 app.use(cookieParser());
-app.use('/api/svGetProvider', express.json());
-app.use('/api/svGetProvider', express.urlencoded({extended: true}));
+app.use(`/api/${service}`, express.json());
+app.use(`/api/${service}`, express.urlencoded({extended: true}));
 
-
-app.use('/api/svGetProvider', router);
+app.use(`/api/${service}`, router);
 
 const PORT = process.env.NODE_SERVER_PORT_KEY || 8500;
 

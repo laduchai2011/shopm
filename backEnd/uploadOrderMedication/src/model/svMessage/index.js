@@ -25,6 +25,11 @@ class SvMessage {
             callback(message);
         });
     }
+
+    async close() {
+        await this._publisher.disconnect();
+        await this._subscriber.disconnect();
+    }
 }
 
 module.exports = { SvMessage }

@@ -6,10 +6,10 @@ const cookieParser = require('cookie-parser');
 const app = express();
 require('./socketSM');
 
-
 const baseURL_shopm = process.env.NODE_ENV_BASEURL_SHOPM || `http://shopm.tks.local:3000`;
+const service = process.env.SERVICE;
 
-app.use('/api/svSocketSM', function (req, res, next) {
+app.use(`/api/${service}`, function (req, res, next) {
     // specify CORS headers to send
     res.header('Access-Control-Allow-Origin', baseURL_shopm);
     res.header(
@@ -25,14 +25,14 @@ app.use('/api/svSocketSM', function (req, res, next) {
 
 if (process.env.NODE_ENV === 'development') {
     const morgan = require('morgan');
-    app.use('/api/svSocketSM', morgan('dev'));
+    app.use(`/api/${service}`, morgan('dev'));
 }
 
 app.use(cookieParser());
-app.use('/api/svSocketSM', express.json());
-app.use('/api/svSocketSM', express.urlencoded({extended: true}));
+app.use(`/api/${service}`, express.json());
+app.use(`/api/${service}`, express.urlencoded({extended: true}));
 
-app.use('/api/svSocketSM', router);
+app.use(`/api/${service}`, router);
 
 const PORT = process.env.NODE_SERVER_PORT_KEY || 2000;
 

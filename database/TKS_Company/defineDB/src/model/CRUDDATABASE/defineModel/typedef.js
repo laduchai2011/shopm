@@ -31,6 +31,38 @@
 
 /**
 *@typedef {
+*VM: string,
+*service: string,
+*type: string,
+*log: text,
+*image: text,
+*video: text,
+*document: text,
+*note: text,
+*read: bool,
+*fixbug: bool
+*} logOptions
+*/
+
+/**
+*@typedef {
+*VM: string,
+*service: string,
+*type: string,
+*log: text,
+*image: text,
+*video: text,
+*document: text,
+*note: text,
+*read: bool,
+*fixbug: bool,
+*uuid_member: UUID,
+*uuid_log: UUID
+*} log_CH_Options
+*/
+
+/**
+*@typedef {
 *name: string,
 *title: string,
 *address: string,
