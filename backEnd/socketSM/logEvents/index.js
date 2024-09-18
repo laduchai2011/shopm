@@ -16,6 +16,7 @@ const logEvents = async ( msg ) => {
     const dateTime = `${format(new Date(), 'dd-MM-yyyy\tss:mm:HH')}`;
     const contentLog = `${dateTime}--------${msg}\n`;
     try {
+        console.log(1111111111, contentLog)
         // fs.appendFile(fileName, contentLog);
         LogError(contentLog);
     } catch (error) {
@@ -49,8 +50,8 @@ const LogError = async (contentLog) => {
         svMessage.close();
     }
 
-    await this._svMessage.receiveMessage(`feedback__TKS_log_Error___${_id}`, { unsubscribe: true }, handleFeedback);
-    this._svMessage.sendMessage('require__TKS_log_Error', JSON.stringify({ id: _id, logOptions: logOptions }));
+    await svMessage.receiveMessage(`feedback__TKS_log_Error___${_id}`, { unsubscribe: true }, handleFeedback);
+    svMessage.sendMessage('require__TKS_log_Error', JSON.stringify({ id: _id, logOptions: logOptions }));
 }
 
 module.exports = { logEvents };

@@ -12,7 +12,12 @@ const Header = () => {
     return (
         <div className='Header'>
             <div>Home</div>
-            <div onClick={() => navigate('/chestManager')}>Manage chest</div>
+            {
+                loginInfor!==null && <>
+                    <div onClick={() => navigate('/chestManager')}>Manage chest</div>
+                    <div onClick={() => navigate('/log')}>Log App</div>
+                </>
+            }
             { loginInfor===null && <div onClick={() => navigate('/login')}>Login</div>}
             <div>Logout</div>
         </div>

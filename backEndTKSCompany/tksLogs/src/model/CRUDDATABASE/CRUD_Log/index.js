@@ -19,7 +19,7 @@ class Log {
             try {
                 sequelize.transaction(async (t) => {
                     try {
-                        const isLog = await this._Chest.create(logOptions, { transaction: t });
+                        const isLog = await this._Log.create(logOptions, { transaction: t });
                         resolve(isLog);   
                     } catch (error) {
                         reject(error);
