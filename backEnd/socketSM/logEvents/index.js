@@ -16,7 +16,6 @@ const logEvents = async ( msg ) => {
     const dateTime = `${format(new Date(), 'dd-MM-yyyy\tss:mm:HH')}`;
     const contentLog = `${dateTime}--------${msg}\n`;
     try {
-        console.log(1111111111, contentLog)
         // fs.appendFile(fileName, contentLog);
         LogError(contentLog);
     } catch (error) {

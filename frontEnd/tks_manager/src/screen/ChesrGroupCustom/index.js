@@ -62,7 +62,7 @@ const ChestGroupCustom = () => {
         // isFetching: isFetching_chestGroupShopm, 
         isError: isError_chestGroupShopm,
         error: error_chestGroupShopm
-    } = useGetChestGroupFromSvGetChestQuery({uuid_chestGroup: uuid_chestGroup});
+    } = useGetChestGroupFromSvGetChestQuery({uuid_chestGroup: uuid_chestGroup}, {skip: uuid_chestGroup.length === 0});
     useEffect(() => {
         isError_chestGroupShopm && console.log(error_chestGroupShopm);
     }, [isError_chestGroupShopm, error_chestGroupShopm])
@@ -71,7 +71,7 @@ const ChestGroupCustom = () => {
         if (resData?.success) {
             // setChestGroupShopm(resData?.chestGroup)
         } else {
-            console.log(resData?.message)
+            resData?.message && console.log(resData?.message)
         }
     }, [data_chestGroupShopm])
 
@@ -80,7 +80,7 @@ const ChestGroupCustom = () => {
         // isFetching: isFetching_chestGroupTKS, 
         isError: isError_chestGroupTKS,
         error: error_chestGroupTKS
-    } = useGetChestGroupFromSvTKS_GetChestQuery({uuid_chestGroup: uuid_chestGroup});
+    } = useGetChestGroupFromSvTKS_GetChestQuery({uuid_chestGroup: uuid_chestGroup}, {skip: uuid_chestGroup.length === 0});
     useEffect(() => {
         isError_chestGroupTKS && console.log(error_chestGroupTKS);
     }, [isError_chestGroupTKS, error_chestGroupTKS])
@@ -89,7 +89,7 @@ const ChestGroupCustom = () => {
         if (resData?.success) {
             setChestGroupTKS(resData?.chestGroup)
         } else {
-            console.log(resData?.message)
+            resData?.message && console.log(resData?.message)
         }
     }, [data_chestGroupTKS])
 
