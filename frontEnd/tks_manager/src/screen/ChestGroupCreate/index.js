@@ -172,7 +172,7 @@ const ChestGroupCreate = () => {
     }
 
     return (
-        <div className="ChestGroupCreate">
+        loginInfor!==null && <div className="ChestGroupCreate">
             <div className="ChestGroupCreate-center">
                 <h4>Create a chest group</h4>
                 <div>

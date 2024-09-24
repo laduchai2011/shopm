@@ -6,6 +6,7 @@ import Log from "screen/Log";
 import ChestManager from "screen/ChestManager";
 import ChestGroupCreate from "screen/ChestGroupCreate";
 import ChestGroupCustom from "screen/ChesrGroupCustom";
+import ChestAdd from "screen/ChestAdd";
 
 export const elements = [
     {
@@ -31,5 +32,9 @@ export const elements = [
     {
         path: '/chestGroupCustom',
         element: <ChestGroupCustom />
+    },
+    {
+        path: '/chestAdd',
+        element: <ChestAdd />
     }
 ]

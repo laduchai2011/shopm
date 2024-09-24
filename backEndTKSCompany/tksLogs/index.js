@@ -6,7 +6,7 @@ const app = express();
 const cookieParser = require('cookie-parser');
 require('./serviceMessage');
 
-const baseURL_TKS_manager = process.env.NODE_ENV_BASEURL_SHOPM || `http://shopm.tks.local:3002`;
+const baseURL_TKS_manager = process.env.NODE_ENV_BASEURL_TKS || `http://shopm.tks.local:3002`;
 
 //add other middleware
 app.use('/api/svTKS_Logs', function (req, res, next) {

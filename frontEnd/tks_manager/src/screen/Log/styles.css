@@ -21,6 +21,30 @@
     margin: 0 10px;
 }
 
+.Log-topTab-selectPageContainer {
+    margin: 0 25px;
+    display: flex;
+}
+
+.Log-topTab-selectPageContainer > div {
+    background-color: rgb(216, 216, 216);
+    margin: 0 5px;
+    height: 25px;
+    min-width: 25px;
+    padding: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Log-topTab-selectPageContainer > div.selected,
+.Log-topTab-selectPageContainer > div:hover {
+    background-color: gray;
+    color: white;
+}
+
 .Log-table {
     position: relative;
     background-color: white;

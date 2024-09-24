@@ -374,7 +374,7 @@ const ChestGroupCustom = () => {
     }
 
     return (
-        <div className="ChestGroupCustom">
+        loginInfor!==null && <div className="ChestGroupCustom">
             <div className="ChestGroupCustom-center">
                 <h4>Custom a chest group</h4>
                 <div>

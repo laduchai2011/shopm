@@ -3,6 +3,8 @@ export const baseURLTLS_socket                                                  
 
 export const SERVER_ADDRESS_READ_TOLOGIN                                        = `${baseURLTLS}:2300/api/svTKS_UploadMember/login`;
 
+export const SERVER_ADDRESS_READALL_LOG                                         = `${baseURLTLS}:9000/api/svTKS_Logs/TKSManagerGetLogAll`;
+
 export const SERVER_ADDRESS_READ_CHESTGROUP_FROM_SVTKSGETChEST                  = `${baseURLTLS}:2400/api/svTKS_GetChest/TKSManagerGetChestGroup`;
 export const SERVER_ADDRESS_READ_CHESTGROUP_FROM_SVGETChEST                     = `${baseURLTLS}:3700/api/svGetChest/TKSManagerGetChestGroup`;
 export const SERVER_ADDRESS_CREATE_CHESTGROUP                                   = `${baseURLTLS}:2200/api/svTKS_UploadChest/TKSManagerCreateChestGroup`;

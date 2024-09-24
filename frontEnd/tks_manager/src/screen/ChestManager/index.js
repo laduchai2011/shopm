@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./styles.css";
 
 import { useNavigate } from "react-router-dom";
 
+import { ThemeContextApp } from "utilize/ContextApp";
+
 const ChestManager = () => {
+    const { loginInfor } = useContext(ThemeContextApp);
     const navigate = useNavigate();
+    
     return (
-        <div className="ChestManager">
+        loginInfor!==null && <div className="ChestManager">
             <div className="ChestManager-center">
                 <h4>Chest Manager</h4>
                 <div className="ChestManager-top">
@@ -18,6 +22,9 @@ const ChestManager = () => {
                     </div>
                     <div>
                         <button onClick={() => navigate('/chestGroupCustom')}>Custom a chest Group</button>
+                    </div>
+                    <div>
+                        <button onClick={() => navigate('/chestAdd')}>Add a chest</button>
                     </div>
                 </div>
                 <div className="ChestManager-select">
