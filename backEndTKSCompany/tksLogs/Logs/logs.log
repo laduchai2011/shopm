@@ -92,3 +92,11 @@
 24-09-2024	31:24:09--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---TokenExpiredError: jwt expired: token.verify-accessTokentks
 24-09-2024	02:26:09--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---TokenExpiredError: jwt expired: token.verify-accessTokentks
 24-09-2024	01:34:09--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---TokenExpiredError: jwt expired: token.verify-accessTokentks
+25-09-2024	48:15:18--------Redis Client Error Error: Connection timeout
+28-09-2024	37:11:19--------Redis Client Error Error: Connection timeout
+29-09-2024	43:04:10--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---TokenExpiredError: jwt expired: token.verify-accessTokentks
+29-09-2024	31:14:10--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---JsonWebTokenError: invalid signature: token.verify-accessTokentks
+29-09-2024	25:16:10--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---JsonWebTokenError: invalid signature: token.verify-accessTokentks
+29-09-2024	31:17:10--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---JsonWebTokenError: invalid signature: token.verify-accessTokentks
+29-09-2024	24:59:12--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---JsonWebTokenError: invalid signature: token.verify-accessTokentks
+29-09-2024	51:06:13--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---JsonWebTokenError: invalid signature: token.verify-accessTokentks

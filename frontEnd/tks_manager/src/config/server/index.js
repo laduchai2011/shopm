@@ -15,3 +15,5 @@ export const SERVER_ADDRESS_PATCH_CHESTGROUP_STATUS_TO_SVTKSUPLOADChEST         
 export const SERVER_ADDRESS_CREATE_CHESTGROUP_OF_SHOPM                          = `${baseURLTLS}:3500/api/svUploadChest/createChestGroup`;
 export const SERVER_ADDRESS_PATCH_NOTI_CHESTGROUP_OF_SHOPM                      = `${baseURLTLS}:3500/api/svUploadChest/TKSManagerPatchNoteOfChestGroupWhenCustom`;
 export const SERVER_ADDRESS_PATCH_NOTI_CHESTGROUP_OF_TKS                        = `${baseURLTLS}:2200/api/svTKS_UploadChest/TKSManagerPatchNoteOfChestGroupWhenCustomCompletion`;
+export const SERVER_ADDRESS_CREATE_CHEST                                        = `${baseURLTLS}:2200/api/svTKS_UploadChest/TKSManagerCreateChest`;
+export const SERVER_ADDRESS_CREATE_CHEST_TO_SHOPM                               = `${baseURLTLS}:3500/api/svUploadChest/TKSManagerCreateChest`;

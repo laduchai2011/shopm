@@ -9,7 +9,6 @@ class ChestGroup {
     constructor() {
         this._ChestGroup = defineModel.getChestGroup();
         this._ChestGroup_CH = defineModel.getChestGroup_CH();
-        this._Chest = defineModel.getChest();
     }
 
     create(chestGroupOptions, callback) {

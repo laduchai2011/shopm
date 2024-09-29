@@ -31,8 +31,8 @@ class ChestGroup {
         });
 
         chestGroupPromise
-        .then(isCaseRecord => {
-            chestGroup = isCaseRecord;
+        .then(isChestGroup => {
+            chestGroup = isChestGroup;
         }).catch(error => {
             err = error;
         }).finally(() => {
@@ -67,8 +67,8 @@ class ChestGroup {
         });
 
         chestGroupPromise
-        .then(isCaseRecord => {
-            chestGroup = isCaseRecord;
+        .then(isChestGroup => {
+            chestGroup = isChestGroup;
         }).catch(error => {
             err = error;
         }).finally(() => {
@@ -105,8 +105,8 @@ class ChestGroup {
         });
 
         chestGroupPromise
-        .then(isCaseRecord => {
-            chestGroup = isCaseRecord;
+        .then(isChestGroup => {
+            chestGroup = isChestGroup;
         }).catch(error => {
             err = error;
         }).finally(() => {
@@ -146,8 +146,8 @@ class ChestGroup {
         });
 
         chestGroupPromise
-        .then(isCaseRecord => {
-            chestGroup = isCaseRecord;
+        .then(isChestGroup => {
+            chestGroup = isChestGroup;
         }).catch(error => {
             err = error;
         }).finally(() => {

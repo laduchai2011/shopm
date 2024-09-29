@@ -1,0 +1,22 @@
+.Chest {
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+}
+
+.Chest-main {
+    background-color: white;
+    width: 1200px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.Chest-form > div {
+    display: flex;
+    margin: 10px 5px;
+}
+
+.Chest-form > div > div {
+    width: 150px;
+}

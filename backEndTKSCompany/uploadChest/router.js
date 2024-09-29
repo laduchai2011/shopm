@@ -12,10 +12,12 @@ const { logEvents } = require('./logEvents');
 // const { SvMessage } = require('./src/model/svMessage');
 
 const { chestGroupCRUD } = require('./src/model/CRUDDATABASE/CRUD_ChestGroup');
+const { chestCRUD } = require('./src/model/CRUDDATABASE/CRUD_Chest');
 
 // const svMessage = new SvMessage();
 // svMessage.init();
 
+// chest group
 router.post('/TKSManagerCreateChestGroup',
     Authentication,
     (req, res) => {
@@ -116,6 +118,33 @@ router.patch('/TKSManagerPatchNoteOfChestGroupWhenCustomCompletion',
                     chestGroup: chestGroup,
                     success: false,
                     message: 'ChestGroup is patch note of chestGroup when custom failure (svUploadChest) !'
+                })
+            }
+        }
+    })
+})
+
+// chest
+router.post('/TKSManagerCreateChest',
+    Authentication,
+    (req, res) => {
+    const chestOptions = req.body.chestOptions;
+    const member = req.decodedToken;
+    chestCRUD.TKSManagerCreate(chestOptions, member.data.uuid_member, (chest, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send(err);
+        } else {
+            if(chest && chest!==null) {
+                return res.status(201).json({
+                    chest: chest,
+                    message: 'Create a chest successly (svTKS_UploadChest) !',
+                    success: true
+                })
+            } else {
+                return res.status(200).json({
+                    message: 'Create a chest failure (svTKS_UploadChest) !',
+                    success: false
                 })
             }
         }

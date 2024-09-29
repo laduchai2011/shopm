@@ -14,6 +14,7 @@ const { logEvents } = require('./logEvents');
 const { SvMessage } = require('./src/model/svMessage');
 
 const { chestGroupCRUD } = require('./src/model/CRUDDATABASE/CRUD_ChestGroup');
+const { chestCRUD } = require('./src/model/CRUDDATABASE/CRUD_Chest');
 
 const { ChestGroupRead } = require('./src/middle/ChestGroupRead');
 const { 
@@ -22,7 +23,7 @@ const {
 } = require('./src/middle/ChestGroupRole');
 
 
-
+// chest group
 router.post('/createChestGroup', 
     AuthenticationTKS,
     (req, res) => {
@@ -99,6 +100,33 @@ router.patch('/TKSManagerPatchChestGroup',
                     chestGroup: chestGroup,
                     success: false,
                     message: 'ChestGroup is NOT patch successly (svUploadChest) !'
+                })
+            }
+        }
+    })
+})
+
+// chest 
+router.post('/TKSManagerCreateChest', 
+    AuthenticationTKS,
+    (req, res) => {
+    const chestOptions = req.body.chestOptions;
+    chestCRUD.TKSManagerCreate(chestOptions, (chest, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send(err);
+        } else {
+            if (chest && chest!==null) {
+                return res.status(200).json({
+                    chest: chest,
+                    success: true,
+                    message: 'Chest is create successly (svUploadChest) !'
+                });
+            } else {
+                return res.status(200).json({
+                    chest: chest,
+                    success: false,
+                    message: 'Chest is NOT create successly (svUploadChest) !'
                 })
             }
         }

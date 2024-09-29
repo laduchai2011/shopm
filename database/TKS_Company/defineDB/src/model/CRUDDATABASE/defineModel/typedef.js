@@ -119,5 +119,5 @@
 *status: string,
 *uuid_member: UUID,
 *uuid_chest: UUID
-*} chestOptions
+*} chest_CH_Options
 */ 
