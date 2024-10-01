@@ -25,3 +25,13 @@ JOIN
     sys.dm_exec_sessions AS sess
 ON 
     conn.session_id = sess.session_id;
+
+
+ALTER TABLE dbo.DepartmentMedications
+DROP CONSTRAINT FK__Departmen__uuid___1332DBDC;
+go
+
+ALTER TABLE dbo.DepartmentMedications
+ADD CONSTRAINT FK_DepartmentMedicationsDepartment
+FOREIGN KEY (uuid_department) REFERENCES dbo.Departments(uuid_department);
+go

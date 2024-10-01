@@ -2,6 +2,7 @@ var fs = require("fs");
 
 const modelPathArr = [
     'D:/shopm/backEnd/getCaseRecord/src/model/CRUDDATABASE/defineModel/index.js',
+    'D:/shopm/backEnd/getChest/src/model/CRUDDATABASE/defineModel/index.js',
     'D:/shopm/backEnd/getImage/src/model/CRUDDATABASE/defineModel/index.js',
     'D:/shopm/backEnd/getMedication/src/model/CRUDDATABASE/defineModel/index.js',
     'D:/shopm/backEnd/getNotification/src/model/CRUDDATABASE/defineModel/index.js',
@@ -10,6 +11,7 @@ const modelPathArr = [
     'D:/shopm/backEnd/getProviderNews/src/model/CRUDDATABASE/defineModel/index.js',
     'D:/shopm/backEnd/getUserinfor/src/model/CRUDDATABASE/defineModel/index.js',
     'D:/shopm/backEnd/uploadCaseRecord/src/model/CRUDDATABASE/defineModel/index.js',
+    'D:/shopm/backEnd/uploadChest/src/model/CRUDDATABASE/defineModel/index.js',
     'D:/shopm/backEnd/uploadImage/src/model/CRUDDATABASE/defineModel/index.js',
     'D:/shopm/backEnd/uploadMedication/src/model/CRUDDATABASE/defineModel/index.js',
     'D:/shopm/backEnd/uploadNotification/src/model/CRUDDATABASE/defineModel/index.js',
