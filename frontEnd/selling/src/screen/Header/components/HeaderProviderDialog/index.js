@@ -13,6 +13,8 @@ import {
 
 import { $ } from 'utilize/Tricks';
 import { avatarNull } from 'utilize/constant';
+import { setCookie, getCookie } from 'auth/cookie';
+import { PROVIDER_CONST } from 'utilize/constant';
 
 const HeaderProviderDialog = () => {
     const dispatch = useDispatch();
@@ -40,6 +42,11 @@ const HeaderProviderDialog = () => {
     }, [data_providerList])
 
     useEffect(() => {
+        const selectedProvider_cookie = JSON.parse(getCookie(PROVIDER_CONST.SELECTED_PROVIDER));
+        dispatch(setSelectedProvider({selectedProvider: selectedProvider_cookie}));
+    }, [dispatch]) 
+
+    useEffect(() => {
         const q_HeaderMenu = $('.HeaderProviderDialog');
         if (providerStatus==='on') {
             q_HeaderMenu.classList.add('show');
@@ -49,10 +56,15 @@ const HeaderProviderDialog = () => {
         }
     }, [providerStatus])
 
+    const handleSelectedProvider = (data) => {
+        dispatch(setSelectedProvider({selectedProvider: data}));
+        setCookie(PROVIDER_CONST.SELECTED_PROVIDER, JSON.stringify(data), 365);
+    }
+
     const list_provider = providerList.map((data, index) => {
         return (
             <div className='HeaderProviderDialog-providerContainer' key={ index }>
-                <input type='checkbox' checked={selectedProvider?.uuid_provider===data.uuid_provider} onChange={() => dispatch(setSelectedProvider({selectedProvider: data}))} />
+                <input type='checkbox' checked={selectedProvider?.uuid_provider===data.uuid_provider} onChange={() => handleSelectedProvider(data)} />
                 <img src={data?.avatar ? data.avatar : avatarNull} alt='' />
                 <span>{ data.name }</span>
             </div>

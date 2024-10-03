@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './styles.css';
 
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 
 import Header from "screen/Header";
@@ -11,12 +11,12 @@ import DepartmentGroupCreateDialog from './components/DepartmentGroupCreateDialo
 import { setShowDialog } from 'reduxStore/slice/departmentGroupSlice';
 
 import { SERVER_ADDRESS_CREATE_DEPARTMENTGROUP } from 'config/server';
+import { getCookie } from 'auth/cookie';
+import { PROVIDER_CONST } from 'utilize/constant';
 
 const DepartmentGroupCreate = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-    const selectedProvider = useSelector(state => state.providerSlice.selectedProvider);
 
     const [departmentGroupInput, setDepartmentGroupInput] = useState({
         name: '',
@@ -49,33 +49,42 @@ const DepartmentGroupCreate = () => {
     }
 
     const handleCreate = () => {
-        setDepartmentGroupInput({
-            ...departmentGroupInput,
-            name: departmentGroupInput?.name.trim(),
-            title: departmentGroupInput?.title.trim(),
+        const selectedProvider = JSON.parse(getCookie(PROVIDER_CONST.SELECTED_PROVIDER));
+
+        const departmentGroupInput_f = {
+            name: departmentGroupInput.name,
+            title: departmentGroupInput.title,
+            note: departmentGroupInput.note,
+            status: departmentGroupInput.status,
             uuid_provider: selectedProvider?.uuid_provider
-        })
+        }
 
         axios({
             method: 'POST',
             url: SERVER_ADDRESS_CREATE_DEPARTMENTGROUP,
             withCredentials: true,
             data: {
-                departmentGroupOptions: departmentGroupInput
+                departmentGroupOptions: departmentGroupInput_f
             },
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(res => {
             const resData = res.data;
-            setDialogMsg(resData?.message)
             if (resData?.success) {
+                setDialogMsg('Create the department group successly !')
                 setMsgColor('blue');
             } else {
+                setDialogMsg('Create the department group failure !')
                 setMsgColor('red');
             }
             dispatch(setShowDialog({showDialog: true}));
-        }).catch(error => console.error(error))
+        }).catch(error => {
+            console.error(error);
+            setDialogMsg('Sorry. My system is erred !')
+            setMsgColor('red');
+            dispatch(setShowDialog({showDialog: true}));
+        })
     }
 
     return (
@@ -94,7 +103,10 @@ const DepartmentGroupCreate = () => {
                     </div>
                     <button className='DepartmentGroupCreate-btnCreate' onClick={() => handleCreate()}>Create</button>
                     <h4>If you have group, you can go to that group !</h4>
-                    <button onClick={() => navigate('/departmentGroup/setup')}>Click to exist group to set up</button>
+                    <div>
+                        <button onClick={() => navigate('/departmentGroup/setup')}>Click to exist group to set up</button>
+                        <button onClick={() => navigate('/department/create')}>Create a department</button>
+                    </div>
                 </div>
             </div>
             <div>

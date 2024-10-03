@@ -4,6 +4,7 @@ import './styles.css';
 import Header from "screen/Header";
 
 const DepartmentGroupSetup = () => {
+
     return (
         <div className="DepartmentGroupSetup">
             <Header />
@@ -15,7 +16,7 @@ const DepartmentGroupSetup = () => {
                     <strong>OR</strong>
                     <br />
                     <h3>Custom old Group</h3>
-                    <button>Create a new depatment Group</button>
+                    <button>Custom a new depatment Group</button>
                 </div>
             </div>
         </div>

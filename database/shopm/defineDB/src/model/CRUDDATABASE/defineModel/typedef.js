@@ -255,6 +255,15 @@
 *uuid_provider: uuid
 *} departmentGroupOptions
 */
+/**
+*@typedef {
+*name: string,
+*title: string,
+*note: text,
+*status: string,
+*uuid_departmentGroup: uuid
+*} departmentGroup_CH_Options
+*/
 
 /**
 *@typedef {
@@ -272,10 +281,31 @@
 *lastTime: string,
 *note: text,
 *status: string,
-*uuid_departmentGroup: uuid,
 *uuid_medication: uuid,
-*uuid_chest: uuid
+*uuid_chest: uuid,
+*uuid_departmentGroup: uuid
 *} departmentOptions
+*/
+/**
+*@typedef {
+*name: string,
+*title: string,
+*amount: string,
+*sold: string,
+*remain: string,
+*recover: string,
+*turnover: string,
+*return: string,
+*price: float,
+*discount: float,
+*firstTime: string,
+*lastTime: string,
+*note: text,
+*status: string,
+*uuid_medication: uuid,
+*uuid_chest: uuid,
+*uuid_department: uuid
+*} department_CH_Options
 */
 
 // /**

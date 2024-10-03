@@ -1089,6 +1089,37 @@ class DefineModel {
         })
         this._Provider.hasMany(this._DepartmentGroup, { foreignKey: 'uuid_provider' })
         this._DepartmentGroup.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider' })
+        
+        this._DepartmentGroup_CH = sequelize.define('DepartmentGroup_CH', {
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            title: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            note: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_departmentGroup: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [{
+                name: 'uuid_departmentGroup_indexes',
+                using: 'BTREE',
+                fields: ['uuid_departmentGroup']
+            }]
+        })
+        this._DepartmentGroup.hasMany(this._DepartmentGroup_CH, { foreignKey: 'uuid_departmentGroup' })
+        this._DepartmentGroup_CH.belongsTo(this._DepartmentGroup, { foreignKey: 'uuid_departmentGroup', targetKey: 'uuid_departmentGroup', as: 'uuid_DepartmentGroup' })
 
         // this._Department = sequelize.define('Department', {
         //     id: {
@@ -1245,10 +1276,6 @@ class DefineModel {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            uuid_departmentGroup: {
-                type: Sequelize.UUID,
-                allowNull: false
-            },
             uuid_medication: {
                 type: Sequelize.UUID,
                 allowNull: false
@@ -1256,14 +1283,13 @@ class DefineModel {
             uuid_chest: {
                 type: Sequelize.UUID,
                 allowNull: false
+            },
+            uuid_departmentGroup: {
+                type: Sequelize.UUID,
+                allowNull: false
             }
         }, {
             indexes: [
-                {
-                    name: 'uuid_departmentGroup_indexes',
-                    using: 'BTREE',
-                    fields: ['uuid_departmentGroup']
-                },
                 {
                     name: 'uuid_medication_indexes',
                     using: 'BTREE',
@@ -1273,16 +1299,21 @@ class DefineModel {
                     name: 'uuid_chest_indexes',
                     using: 'BTREE',
                     fields: ['uuid_chest']
+                },
+                {
+                    name: 'uuid_departmentGroup_indexes',
+                    using: 'BTREE',
+                    fields: ['uuid_departmentGroup']
                 }
             ]
         })
-        this._DepartmentGroup.hasMany(this._Department, { foreignKey: 'uuid_departmentGroup' })
-        this._Department.belongsTo(this._DepartmentGroup, { foreignKey: 'uuid_departmentGroup', targetKey: 'uuid_departmentGroup', as: 'uuid_DepartmentGroup' })
         this._Medication.hasMany(this._Department, { foreignKey: 'uuid_medication' })
         this._Department.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication' })
         this._Chest.hasMany(this._Department, { foreignKey: 'uuid_chest' })
         this._Department.belongsTo(this._Chest, { foreignKey: 'uuid_chest', targetKey: 'uuid_chest', as: 'uuid_Chest' })
-
+        this._DepartmentGroup.hasMany(this._Department, { foreignKey: 'uuid_departmentGroup' })
+        this._Department.belongsTo(this._DepartmentGroup, { foreignKey: 'uuid_departmentGroup', targetKey: 'uuid_departmentGroup', as: 'uuid_DepartmentGroup' })
+        
         this._Department_CH = sequelize.define('Department_CH', {
             name: {
                 type: DataTypes.STRING,
@@ -1338,6 +1369,14 @@ class DefineModel {
             },
             status: {
                 type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_medication: {
+                type: Sequelize.UUID,
+                allowNull: false
+            },
+            uuid_chest: {
+                type: Sequelize.UUID,
                 allowNull: false
             },
             uuid_department: {
@@ -2048,8 +2087,16 @@ class DefineModel {
         return this._DepartmentGroup;
     }
 
+    getDepartmentGroup_CH() {
+        return this._DepartmentGroup_CH;
+    }
+
     getDepartment() {
         return this._Department;
+    }
+
+    getDepartment_CH() {
+        return this._Department_CH;
     }
 
     // getDepartmentChest() {

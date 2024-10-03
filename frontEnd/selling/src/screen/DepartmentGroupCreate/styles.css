@@ -37,3 +37,7 @@
     background-color: white;
     color: blue;
 }
+
+.DepartmentGroupCreate-center > div:nth-child(6) > button {
+    margin: 0 10px;
+}
