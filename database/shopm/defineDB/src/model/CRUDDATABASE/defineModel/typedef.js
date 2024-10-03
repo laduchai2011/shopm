@@ -265,45 +265,49 @@
 *remain: string,
 *recover: string,
 *turnover: string,
+*return: string,
+*price: float,
+*discount: float,
 *firstTime: string,
 *lastTime: string,
 *note: text,
 *status: string,
 *uuid_departmentGroup: uuid,
-*uuid_provider: uuid
-*} departmentGroupOptions
-*/
-
-/**
-*@typedef {
-*name: string,
-*title: string,
-*type: string,
-*size: string,
-*maxAmount: string,
-*note: text,
-*status: string,
-*uuid_department: uuid,
+*uuid_medication: uuid,
 *uuid_chest: uuid
-*} departmentGroupOptions
+*} departmentOptions
 */
 
-/**
-*@typedef {
-*name: string,
-*amount: string,
-*sold: string,
-*remain: string,
-*recover: string,
-*turnover: string,
-*return: string,
-*price: float,
-*discount: float,
-*status: string,
-*uuid_departmentChest: uuid,
-*uuid_medication: uuid
-*} departmentMedicationOptions
-*/
+// /**
+// *@typedef {
+// *name: string,
+// *title: string,
+// *type: string,
+// *size: string,
+// *maxAmount: string,
+// *note: text,
+// *status: string,
+// *uuid_department: uuid,
+// *uuid_chest: uuid
+// *} departmentGroupOptions
+// */
+
+// /**
+// *@typedef {
+// *name: string,
+// *amount: string,
+// *sold: string,
+// *remain: string,
+// *recover: string,
+// *turnover: string,
+// *return: string,
+// *price: float,
+// *discount: float,
+// *status: string,
+// *uuid_departmentChest: uuid,
+// *uuid_medication: uuid
+// *} departmentMedicationOptions
+// */
 
 /**
 *@typedef {

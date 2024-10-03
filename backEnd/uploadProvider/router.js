@@ -14,7 +14,9 @@ const { getProviderMid } = require('./src/middle/getProviderMid');
 const { isMyProvider } = require('./src/middle/providerRole');
 
 
-router.post('/provider/create', Authentication, (req, res) => {
+router.post('/provider/create', 
+    Authentication, 
+    (req, res) => {
     const providerOptions = req.body;
     const userOptions = req.decodedToken.data;
     providerOptions.uuid_user = userOptions.uuid;

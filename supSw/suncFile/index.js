@@ -12,6 +12,7 @@ const modelPathArr = [
     'D:/shopm/backEnd/getUserinfor/src/model/CRUDDATABASE/defineModel/index.js',
     'D:/shopm/backEnd/uploadCaseRecord/src/model/CRUDDATABASE/defineModel/index.js',
     'D:/shopm/backEnd/uploadChest/src/model/CRUDDATABASE/defineModel/index.js',
+    'D:/shopm/backEnd/uploadDepartment/src/model/CRUDDATABASE/defineModel/index.js',
     'D:/shopm/backEnd/uploadImage/src/model/CRUDDATABASE/defineModel/index.js',
     'D:/shopm/backEnd/uploadMedication/src/model/CRUDDATABASE/defineModel/index.js',
     'D:/shopm/backEnd/uploadNotification/src/model/CRUDDATABASE/defineModel/index.js',

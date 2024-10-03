@@ -1087,6 +1087,7 @@ class DefineModel {
                 fields: ['uuid_provider']
             }]
         })
+        this._Provider.hasMany(this._DepartmentGroup, { foreignKey: 'uuid_provider' })
         this._DepartmentGroup.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider' })
 
         // this._Department = sequelize.define('Department', {

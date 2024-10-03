@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CiCircleRemove } from "react-icons/ci";
 
 import { setProviderStatus } from 'reduxStore/slice/headerSlice';
+import { setSelectedProvider } from 'reduxStore/slice/providerSlice';
 import { 
     useGetProviderListQuery
 } from 'reduxStore/RTKQuery/providerRTKQuery';
@@ -17,8 +18,10 @@ const HeaderProviderDialog = () => {
     const dispatch = useDispatch();
 
     const [providerList, setProviderList] = useState([]);
+    // const [selectedProvider, setSelectedProvider] = useState();
 
     const providerStatus = useSelector(state => state.headerSlice.providerStatus);
+    const selectedProvider = useSelector(state => state.providerSlice.selectedProvider);
 
     const {
         data: data_providerList, 
@@ -49,7 +52,7 @@ const HeaderProviderDialog = () => {
     const list_provider = providerList.map((data, index) => {
         return (
             <div className='HeaderProviderDialog-providerContainer' key={ index }>
-                <input type='checkbox' />
+                <input type='checkbox' checked={selectedProvider?.uuid_provider===data.uuid_provider} onChange={() => dispatch(setSelectedProvider({selectedProvider: data}))} />
                 <img src={data?.avatar ? data.avatar : avatarNull} alt='' />
                 <span>{ data.name }</span>
             </div>
