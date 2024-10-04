@@ -5,6 +5,7 @@ import providerReducer from './slice/providerSlice';
 import departmentGroupReducer from './slice/departmentGroupSlice';
 // import { headerRTKQuery } from './RTKQuery/headerRTKQuery';
 import { providerRTKQuery } from './RTKQuery/providerRTKQuery';
+import { departmentGroupRTKQuery } from './RTKQuery/departmentGroupRTKQuery';
 
 
 export const store = configureStore({
@@ -14,9 +15,11 @@ export const store = configureStore({
     departmentGroupSlice: departmentGroupReducer,
     // [headerRTKQuery.reducerPath]: headerRTKQuery.reducer,
     [providerRTKQuery.reducerPath]: providerRTKQuery.reducer,
+    [departmentGroupRTKQuery.reducerPath]: departmentGroupRTKQuery.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([
     // headerRTKQuery.middleware,
     providerRTKQuery.middleware,
+    departmentGroupRTKQuery.middleware,
   ])
 })

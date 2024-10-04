@@ -7,3 +7,52 @@ export const isValidUrl = urlString=> {
     '(\\#[-a-z\\d_]*)?$','i'); // validate fragment locator
     return !!urlPattern.test(urlString);
 }
+
+const dotCount = (string) => {
+    let dotCount = 0;
+    for (let i = 0; i < string.length; i++) {
+        if (['.'].includes(string[i])) {
+            dotCount++;
+        }
+    }
+
+    return dotCount;
+}
+
+export const isFloat = (string) => {
+    const s = string.trim();
+    const intArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']
+    let isFloat = false;
+
+    if (s.length > 0 && s[0]!=='.' && dotCount(s)===1) {
+        for (let i = 0; i < s.length; i++) {
+            if (intArr.includes(s[i])) {
+                isFloat = true;
+            } else {
+                isFloat = false;
+                break;
+            }
+        }
+    }
+    
+    return isFloat;
+}
+
+export const isInteger = (string) => {
+    const s = string.trim();
+    const intArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    let isInteger = false;
+
+    if (s.length > 0 && dotCount(s)===0) {
+        for (let i = 0; i < s.length; i++) {
+            if (intArr.includes(s[i])) {
+                isInteger = true;
+            } else {
+                isInteger = false;
+                break;
+            }
+        }
+    }
+    
+    return isInteger;
+}

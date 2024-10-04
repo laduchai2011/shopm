@@ -6,7 +6,7 @@ const app = express();
 const cookieParser = require('cookie-parser');
 
 // const baseURL_Shopm = process.env.NODE_ENV_BASEURL_SHOPM || `http://shopm.tks.local:3000`;
-const baseURL_Selling = process.env.NODE_ENV_BASEURL_Selling || `http://shopm.tks.local:3001`;
+const baseURL_Selling = process.env.NODE_ENV_BASEURL_SELLING || `http://shopm.tks.local:3001`;
 const service = process.env.SERVICE;
 
 //add other middleware

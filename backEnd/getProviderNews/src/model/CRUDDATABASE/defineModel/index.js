@@ -1282,7 +1282,7 @@ class DefineModel {
             },
             uuid_chest: {
                 type: Sequelize.UUID,
-                allowNull: false
+                allowNull: true
             },
             uuid_departmentGroup: {
                 type: Sequelize.UUID,
@@ -1377,7 +1377,7 @@ class DefineModel {
             },
             uuid_chest: {
                 type: Sequelize.UUID,
-                allowNull: false
+                allowNull: true
             },
             uuid_department: {
                 type: Sequelize.UUID,

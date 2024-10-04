@@ -3,6 +3,7 @@ var fs = require("fs");
 const modelPathArr = [
     'D:/shopm/backEnd/getCaseRecord/src/model/CRUDDATABASE/defineModel/index.js',
     'D:/shopm/backEnd/getChest/src/model/CRUDDATABASE/defineModel/index.js',
+    'D:/shopm/backEnd/getDepartment/src/model/CRUDDATABASE/defineModel/index.js',
     'D:/shopm/backEnd/getImage/src/model/CRUDDATABASE/defineModel/index.js',
     'D:/shopm/backEnd/getMedication/src/model/CRUDDATABASE/defineModel/index.js',
     'D:/shopm/backEnd/getNotification/src/model/CRUDDATABASE/defineModel/index.js',
