@@ -51,6 +51,7 @@ const DepartmentCreate = () => {
     }, [isError_departmentGroup, error_departmentGroup])
     useEffect(() => {
         const resData = data_departmentGroup;
+        console.log(11111, resData)
         if (resData?.success) {
             setDepartmentGroupAll(resData.departmentGroupAll);
         } else {

@@ -35,3 +35,16 @@ ALTER TABLE dbo.DepartmentMedications
 ADD CONSTRAINT FK_DepartmentMedicationsDepartment
 FOREIGN KEY (uuid_department) REFERENCES dbo.Departments(uuid_department);
 go
+
+ALTER TABLE dbo.Departments
+ADD consultantCost float;
+GO	
+
+ALTER TABLE dbo.Medications
+ADD name nvarchar(255);
+GO	
+
+UPDATE dbo.Medications
+SET name='name3' 
+where uuid_medication='f2137aca-ff7a-434f-bb07-419abe9e86ac'
+go

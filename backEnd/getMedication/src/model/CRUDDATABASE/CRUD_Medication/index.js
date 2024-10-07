@@ -150,6 +150,48 @@ class Medication {
             callback(medication, err);
         })
     }
+
+    readAllMedicationWithFK(uuid_provider, callback) {
+        let allMedications;
+        let err;
+
+        const medicationPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isAllMedications = await this._Medication.findAll({
+                            where: {
+                                uuid_provider: uuid_provider,
+                                [Op.not]: {
+                                    status: 'delete'
+                                }    
+                            },
+                            attributes: ['uuid_medication', 'name', 'title']
+                        }, { transaction: t })
+
+                        if (isAllMedications.length === 0) {
+                            resolve(null);
+                        } else {
+                            resolve(isAllMedications);
+                        }   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        medicationPromise
+        .then(isAllMedications => {
+            allMedications = isAllMedications;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(allMedications, err);
+        })
+    }
 }
 
 const medicationCRUD = new Medication();

@@ -447,6 +447,10 @@ class DefineModel {
                 defaultValue: Sequelize.UUIDV4,
                 primaryKey: true
             },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
             title: {
                 type: DataTypes.STRING,
                 allowNull: false
@@ -525,6 +529,89 @@ class DefineModel {
         this._Provider.hasMany(this._Medication, { foreignKey: 'uuid_provider' })
         this._Medication.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider' })
 
+        this._Medication_CH = sequelize.define('Medication_CH', {
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            title: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            avatar: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            subject: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            object: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            symptom: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            type: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            price: {
+                type: DataTypes.FLOAT,
+                allowNull: false
+            },
+            note: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            catalog: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            information: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            amount: {
+                type: DataTypes.INTEGER,
+                allowNull: false
+            },
+            sold: {
+                type: DataTypes.INTEGER,
+                allowNull: false
+            },
+            discount: {
+                type: DataTypes.FLOAT,
+                allowNull: false
+            },
+            averageRating: {
+                type: DataTypes.FLOAT,
+                allowNull: false
+            },
+            rateCount: {
+                type: DataTypes.INTEGER,
+                allowNull: false
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_medication: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [{
+                name: 'uuid_medication_indexes',
+                using: 'BTREE',
+                fields: ['uuid_medication']
+            }]
+        })
+        this._Medication.hasMany(this._Medication_CH, { foreignKey: 'uuid_medication' })
+        this._Medication_CH.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication' })
+
         this._MedicationImage = sequelize.define('MedicationImage', {
             id: {
                 type: DataTypes.INTEGER,
@@ -559,6 +646,29 @@ class DefineModel {
         this._Medication.hasMany(this._MedicationImage, { foreignKey: 'uuid_medication' })
         this._MedicationImage.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication' })
 
+        this._MedicationImage_CH = sequelize.define('MedicationImage_CH', {
+            url: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_medicationImage: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [{
+                name: 'uuid_medicationImage_indexes',
+                using: 'BTREE',
+                fields: ['uuid_medicationImage']
+            }]
+        })
+        this._MedicationImage.hasMany(this._MedicationImage_CH, { foreignKey: 'uuid_medicationImage' })
+        this._MedicationImage_CH.belongsTo(this._MedicationImage, { foreignKey: 'uuid_medicationImage', targetKey: 'uuid_medicationImage', as: 'uuid_MedicationImage' })
+
         this._MedicationVideo = sequelize.define('MedicationVideo', {
             id: {
                 type: DataTypes.INTEGER,
@@ -592,6 +702,29 @@ class DefineModel {
         })
         this._Medication.hasMany(this._MedicationVideo, { foreignKey: 'uuid_medication' })
         this._MedicationVideo.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication' })
+
+        this._MedicationVideo_CH = sequelize.define('MedicationVideo_CH', {
+            url: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            status: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            uuid_medicationVideo: {
+                type: Sequelize.UUID,
+                allowNull: false
+            }
+        }, {
+            indexes: [{
+                name: 'uuid_medicationVideo_indexes',
+                using: 'BTREE',
+                fields: ['uuid_medicationVideo']
+            }]
+        })
+        this._MedicationVideo.hasMany(this._MedicationVideo_CH, { foreignKey: 'uuid_medicationVideo' })
+        this._MedicationVideo_CH.belongsTo(this._MedicationVideo, { foreignKey: 'uuid_medicationVideo', targetKey: 'uuid_medicationVideo', as: 'uuid_MedicationVideo' })
 
         this._ProviderNews = sequelize.define('ProviderNews', {
             id: {
@@ -1121,93 +1254,6 @@ class DefineModel {
         this._DepartmentGroup.hasMany(this._DepartmentGroup_CH, { foreignKey: 'uuid_departmentGroup' })
         this._DepartmentGroup_CH.belongsTo(this._DepartmentGroup, { foreignKey: 'uuid_departmentGroup', targetKey: 'uuid_departmentGroup', as: 'uuid_DepartmentGroup' })
 
-        // this._Department = sequelize.define('Department', {
-        //     id: {
-        //         type: DataTypes.INTEGER,
-        //         allowNull: false,
-        //         autoIncrement: true,
-        //         unique: 'UQ__Departments__id'
-        //     },
-        //     uuid_department: {
-        //         type: Sequelize.UUID,
-        //         defaultValue: Sequelize.UUIDV4,
-        //         primaryKey: true
-        //     },
-        //     name: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     title: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     amount: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     sold: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     remain: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     recover: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     turnover: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     return: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     firstTime: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     lastTime: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     note: {
-        //         type: DataTypes.TEXT,
-        //         allowNull: false
-        //     },
-        //     status: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     uuid_departmentGroup: {
-        //         type: Sequelize.UUID,
-        //         allowNull: false
-        //     },
-        //     uuid_provider: {
-        //         type: Sequelize.UUID,
-        //         allowNull: false
-        //     }
-        // }, {
-        //     indexes: [
-        //         {
-        //             name: 'uuid_departmentGroup_indexes',
-        //             using: 'BTREE',
-        //             fields: ['uuid_departmentGroup']
-        //         },
-        //         {
-        //             name: 'uuid_provider_indexes',
-        //             using: 'BTREE',
-        //             fields: ['uuid_provider']
-        //         }
-        //     ]
-        // })
-        // // this._DepartmentGroup.hasMany(this._DepartmentChest, { foreignKey: 'uuid_departmentGroup' })
-        // this._Department.belongsTo(this._DepartmentGroup, { foreignKey: 'uuid_departmentGroup', targetKey: 'uuid_departmentGroup', as: 'uuid_DepartmentGroup' })
-        // // this._Provider.hasMany(this._DepartmentChest, { foreignKey: 'uuid_provider' })
-        // this._Department.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider' })
-
         this._Department = sequelize.define('Department', {
             id: {
                 type: DataTypes.INTEGER,
@@ -1251,6 +1297,11 @@ class DefineModel {
             return: {
                 type: DataTypes.STRING,
                 allowNull: false
+            },
+            consultantCost: {
+                type: DataTypes.FLOAT,
+                allowNull: false,
+                defaultValue: 0
             },
             price: {
                 type: DataTypes.FLOAT,
@@ -1395,155 +1446,6 @@ class DefineModel {
         this._Department.hasMany(this._Department_CH, { foreignKey: 'uuid_department' })
         this._Department_CH.belongsTo(this._Department, { foreignKey: 'uuid_department', targetKey: 'uuid_department', as: 'uuid_Department' })
 
-        // this._DepartmentChest = sequelize.define('DepartmentChest', {
-        //     id: {
-        //         type: DataTypes.INTEGER,
-        //         allowNull: false,
-        //         autoIncrement: true,
-        //         unique: 'UQ__DepartmentChests__id'
-        //     },
-        //     uuid_departmentChest: {
-        //         type: Sequelize.UUID,
-        //         defaultValue: Sequelize.UUIDV4,
-        //         primaryKey: true
-        //     },
-        //     name: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     title: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     type: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     size: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     maxAmount: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     note: {
-        //         type: DataTypes.TEXT,
-        //         allowNull: false
-        //     },
-        //     status: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     uuid_department: {
-        //         type: Sequelize.UUID,
-        //         allowNull: false
-        //     },
-        //     uuid_chest: {
-        //         type: Sequelize.UUID,
-        //         allowNull: false
-        //     }
-        // }, {
-        //     indexes: [
-        //         {
-        //             name: 'uuid_department_indexes',
-        //             using: 'BTREE',
-        //             fields: ['uuid_department']
-        //         },
-        //         {
-        //             name: 'uuid_chest_indexes',
-        //             using: 'BTREE',
-        //             fields: ['uuid_chest']
-        //         }
-        //     ]
-        // })
-        // this._Department.hasMany(this._DepartmentChest, { foreignKey: 'uuid_department' })
-        // this._DepartmentChest.belongsTo(this._Department, { foreignKey: 'uuid_department', targetKey: 'uuid_department', as: 'uuid_Department' })
-        // this._Chest.hasMany(this._DepartmentChest, { foreignKey: 'uuid_chest' })
-        // this._DepartmentChest.belongsTo(this._Chest, { foreignKey: 'uuid_chest', targetKey: 'uuid_chest', as: 'uuid_Chest' })
-
-        // this._DepartmentMedication = sequelize.define('DepartmentMedication', {
-        //     id: {
-        //         type: DataTypes.INTEGER,
-        //         allowNull: false,
-        //         autoIncrement: true,
-        //         unique: 'UQ__DepartmentMedications__id'
-        //     },
-        //     uuid_departmentMedication: {
-        //         type: Sequelize.UUID,
-        //         defaultValue: Sequelize.UUIDV4,
-        //         primaryKey: true
-        //     },
-        //     name: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     amount: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     sold: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     remain: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     recover: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     turnover: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     return: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     price: {
-        //         type: DataTypes.FLOAT,
-        //         allowNull: false
-        //     },
-        //     discount: {
-        //         type: DataTypes.FLOAT,
-        //         allowNull: false
-        //     },
-        //     status: {
-        //         type: DataTypes.STRING,
-        //         allowNull: false
-        //     },
-        //     uuid_department: {
-        //         type: Sequelize.UUID,
-        //         allowNull: true
-        //     },
-        //     uuid_medication: {
-        //         type: Sequelize.UUID,
-        //         allowNull: false
-        //     }
-        // }, {
-        //     indexes: [
-        //         {
-        //             name: 'uuid_department_indexes',
-        //             using: 'BTREE',
-        //             fields: ['uuid_departmentChest']
-        //         },
-        //         {
-        //             name: 'uuid_medication_indexes',
-        //             using: 'BTREE',
-        //             fields: ['uuid_medication']
-        //         }
-        //     ]
-        // })
-        // // this._DepartmentChest.hasMany(this._DepartmentMedication, { foreignKey: 'uuid_departmentChest' })
-        // // this._DepartmentMedication.belongsTo(this._DepartmentChest, { foreignKey: 'uuid_departmentChest', targetKey: 'uuid_departmentChest', as: 'uuid_DepartmentChest' })
-        // // // this._Medication.hasMany(this._DepartmentMedication, { foreignKey: 'uuid_medication' })
-        // // this._DepartmentMedication.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication' })
-        // this._Department.hasMany(this._DepartmentMedication, { foreignKey: 'uuid_department' })
-        // this._DepartmentMedication.belongsTo(this._Department, { foreignKey: 'uuid_department', targetKey: 'uuid_department', as: 'uuid_Department' })
-        // this._Medication.hasMany(this._DepartmentMedication, { foreignKey: 'uuid_medication' })
-        // this._DepartmentMedication.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication' })
         //----------------------------------------------------------------//
 
         //---------------Order medication-------------------//
@@ -2098,14 +2000,6 @@ class DefineModel {
     getDepartment_CH() {
         return this._Department_CH;
     }
-
-    // getDepartmentChest() {
-    //     return this._DepartmentChest;
-    // }
-
-    // getDepartmentMedication() {
-    //     return this._DepartmentMedication;
-    // }
 
     getOrderMedicationGroup() {
         return this._OrderMedicationGroup;

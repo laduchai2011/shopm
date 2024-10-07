@@ -23,7 +23,8 @@ class DepartmentGroup {
                                 [Op.not]: {
                                     status: 'delete'
                                 }    
-                            }
+                            },
+                            attributes: ['uuid_departmentGroup', 'name', 'title']
                         }, { transaction: t })
 
                         if (isDepartmentGroups.length === 0) {

@@ -141,5 +141,11 @@ router.get('/medicationImage/list', (req, res) => {
     })
 })
 
+router.get('/readAllMedicationWithFK', 
+    Authentication,
+    (req, res) => {
+
+})
+
 
 module.exports = router;

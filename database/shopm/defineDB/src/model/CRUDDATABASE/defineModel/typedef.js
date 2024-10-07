@@ -102,6 +102,7 @@
 
 /**
 *@typedef {
+*name: string,
 *title: string,
 *avatar: string,
 *subject: string,
@@ -123,6 +124,28 @@
 
 /**
 *@typedef {
+*name: string,
+*title: string,
+*avatar: string,
+*subject: string,
+*object: string,
+*symptom: string,
+*type: string,
+*price: float,
+*note: string,
+*catalog: text,
+*amount: integer,
+*sold: integer,
+*discount: float,
+*averageRating: float,
+*rateCount: integer,
+*status: string,
+*uuid_medication: uuid
+*} medication_CH_Options
+*/
+
+/**
+*@typedef {
 *url: string,
 *status: string,
 *uuid_medication: uuid
@@ -133,8 +156,24 @@
 *@typedef {
 *url: string,
 *status: string,
+*uuid_medicationImage: uuid
+*} medicationImage_CH_Options
+*/
+
+/**
+*@typedef {
+*url: string,
+*status: string,
 *uuid_medication: uuid
 *} medicationVideoOptions
+*/
+
+/**
+*@typedef {
+*url: string,
+*status: string,
+*uuid_medicationVideo: uuid
+*} medicationVideo_CH_Options
 */
 
 /**
@@ -275,6 +314,7 @@
 *recover: string,
 *turnover: string,
 *return: string,
+*consultantCost: float,
 *price: float,
 *discount: float,
 *firstTime: string,
@@ -307,37 +347,6 @@
 *uuid_department: uuid
 *} department_CH_Options
 */
-
-// /**
-// *@typedef {
-// *name: string,
-// *title: string,
-// *type: string,
-// *size: string,
-// *maxAmount: string,
-// *note: text,
-// *status: string,
-// *uuid_department: uuid,
-// *uuid_chest: uuid
-// *} departmentGroupOptions
-// */
-
-// /**
-// *@typedef {
-// *name: string,
-// *amount: string,
-// *sold: string,
-// *remain: string,
-// *recover: string,
-// *turnover: string,
-// *return: string,
-// *price: float,
-// *discount: float,
-// *status: string,
-// *uuid_departmentChest: uuid,
-// *uuid_medication: uuid
-// *} departmentMedicationOptions
-// */
 
 /**
 *@typedef {
