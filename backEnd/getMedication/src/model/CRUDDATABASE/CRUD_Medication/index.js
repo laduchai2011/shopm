@@ -151,7 +151,7 @@ class Medication {
         })
     }
 
-    readAllMedicationWithFK(uuid_provider, callback) {
+    sreenCreateDepartmentRequireReadAllMedicationWithFK(uuid_provider, callback) {
         let allMedications;
         let err;
 

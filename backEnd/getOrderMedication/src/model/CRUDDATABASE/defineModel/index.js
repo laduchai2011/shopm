@@ -1333,7 +1333,8 @@ class DefineModel {
             },
             uuid_chest: {
                 type: Sequelize.UUID,
-                allowNull: true
+                allowNull: true,
+                unique: true
             },
             uuid_departmentGroup: {
                 type: Sequelize.UUID,
@@ -1360,7 +1361,7 @@ class DefineModel {
         })
         this._Medication.hasMany(this._Department, { foreignKey: 'uuid_medication' })
         this._Department.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication' })
-        this._Chest.hasMany(this._Department, { foreignKey: 'uuid_chest' })
+        this._Chest.hasOne(this._Department, { foreignKey: 'uuid_chest' })
         this._Department.belongsTo(this._Chest, { foreignKey: 'uuid_chest', targetKey: 'uuid_chest', as: 'uuid_Chest' })
         this._DepartmentGroup.hasMany(this._Department, { foreignKey: 'uuid_departmentGroup' })
         this._Department.belongsTo(this._DepartmentGroup, { foreignKey: 'uuid_departmentGroup', targetKey: 'uuid_departmentGroup', as: 'uuid_DepartmentGroup' })
@@ -1397,6 +1398,11 @@ class DefineModel {
             return: {
                 type: DataTypes.STRING,
                 allowNull: false
+            },
+            consultantCost: {
+                type: DataTypes.FLOAT,
+                allowNull: false,
+                defaultValue: 0
             },
             price: {
                 type: DataTypes.FLOAT,

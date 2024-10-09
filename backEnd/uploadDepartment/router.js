@@ -14,6 +14,7 @@ const { logEvents } = require('./logEvents');
 const { SvMessage } = require('./src/model/svMessage');
 
 const { departmentGroupCRUD } = require('./src/model/CRUDDATABASE/CRUD_DepartmentGroup');
+const { departmentCRUD } = require('./src/model/CRUDDATABASE/CRUD_Department');
 
 const service = process.env.SERVICE;
 
@@ -39,6 +40,33 @@ router.post('/createDepartmentGroup',
                     departmentGroup: departmentGroup,
                     success: false,
                     message: `departmentGroup is NOT create successly (${service}) !`
+                })
+            }
+        }
+    })
+})
+
+// department
+router.post('/createDepartment', 
+    Authentication,
+    (req, res) => {
+    const departmentOptions = req.body.departmentOptions;
+    departmentCRUD.create(departmentOptions, (department, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send(err);
+        } else {
+            if (department && department!==null) {
+                return res.status(200).json({
+                    department: department,
+                    success: true,
+                    message: `Department is create successly (${service}) !`
+                });
+            } else {
+                return res.status(200).json({
+                    department: department,
+                    success: false,
+                    message: `Department is NOT create successly (${service}) !`
                 })
             }
         }

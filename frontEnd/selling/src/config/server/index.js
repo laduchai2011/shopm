@@ -6,4 +6,7 @@ export const SERVER_ADDRESS_GET_PROVIDER                                       =
 
 export const SERVER_ADDRESS_CREATE_DEPARTMENTGROUP                             = `${baseURL}:4500/api/svUploadDepartment/createDepartmentGroup`;
 
-export const SERVER_ADDRESS_READALL_WITH_FK_DEPARTMENTGROUP                    = `${baseURL}:4800/api/svGetDepartment/readAllDepartmentGroupWithFK`;
+export const SERVER_ADDRESS_READALL_DEPARTMENTGROUP_WITH_FK                    = `${baseURL}:4800/api/svGetDepartment/readAllDepartmentGroupWithFK`;
+
+export const SERVER_ADDRESS_SR_CREATEDEPARTMENT_READALL_MEDICATION_WITH_FK     = `${baseURL}:8700/api/svGetMedication/sreenCreateDepartmentRequireReadAllMedicationWithFK`;
+

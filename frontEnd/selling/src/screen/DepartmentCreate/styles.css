@@ -29,6 +29,10 @@
     margin: 0 10px;
 }
 
+.DepartmentCreate-center > div > p:nth-child(3) {
+    margin-left: 10px;
+}
+
 .DepartmentCreate-btnCreate {
     background-color: blue;
     color: white;

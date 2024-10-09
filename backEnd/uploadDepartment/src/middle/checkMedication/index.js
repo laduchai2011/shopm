@@ -5,8 +5,8 @@ const { logEvents } = require('../../../logEvents');
 
 const service = process.env.SERVICE;
 
-function isProvider(req, res, next) {
-    const uuid_provider = req.body.uuid_provider;
+function isMyProvider(req, res, next) {
+    const uuid_provider = req.query.uuid_provider;
     const uuid_user = req.decodedToken.data.uuid;
 
     getProvider(uuid_provider, (provider, err) => {
@@ -31,4 +31,4 @@ function isProvider(req, res, next) {
     })
 }
 
-module.exports = { isProvider }
+module.exports = { isMyProvider }

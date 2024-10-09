@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './styles.css';
 
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
 
 import { AiOutlineArrowRight } from "react-icons/ai";
 
@@ -12,33 +13,44 @@ import { getCookie } from 'auth/cookie';
 import { PROVIDER_CONST } from 'utilize/constant';
 
 import { useReadAllDepartmentGroupQuery } from 'reduxStore/RTKQuery/departmentGroupRTKQuery';
+import { useSrCreateDepartmentReadAllMedicationQuery } from 'reduxStore/RTKQuery/medicationRTKQuery';
+
+import DepartmentCreateDialog from './components/DepartmentCreateDialog';
+import { setShowDialog } from 'reduxStore/slice/departmentCreateSlice';
+
 
 const DepartmentCreate = () => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [newInfor, setNewInfor] = useState({
         name: '',
         title: '',
         amount: '',
-        sold: 0,
-        remain: 0,
-        recover: 0,
-        turnover: 0, 
-        return: 0,
-        price: 0,
-        discount: 0,
+        sold: '',
+        remain: '',
+        recover: '',
+        turnover: '', 
+        return: '',
+        consultantCost: '',
+        price: '',
+        discount: '',
         firstTime: '',
         lastTime: '',
         note: '',
         status: 'normal',
         uuid_medication: '',
-        uuid_chest: '',
+        uuid_chest: null,
         uuid_departmentGroup: ''
     });
 
+    const [dialogMsg, setDialogMsg] = useState('message');
+    const [msgColor, setMsgColor] = useState('');
+
     const selectedProvider_cookie = JSON.parse(getCookie(PROVIDER_CONST.SELECTED_PROVIDER));
     const [departmentGroupAll, setDepartmentGroupAll] = useState([]);
+    const [allMedications, setAllMedications] = useState([]);
 
     const {
         data: data_departmentGroup, 
@@ -51,13 +63,30 @@ const DepartmentCreate = () => {
     }, [isError_departmentGroup, error_departmentGroup])
     useEffect(() => {
         const resData = data_departmentGroup;
-        console.log(11111, resData)
         if (resData?.success) {
             setDepartmentGroupAll(resData.departmentGroupAll);
         } else {
             resData?.message && console.log(resData?.message);
         }
     }, [data_departmentGroup])
+
+    const {
+        data: data_allMedications, 
+        // isFetching: isFetching_allMedications, 
+        isError: isError_allMedications,
+        error: error_allMedications
+    } = useSrCreateDepartmentReadAllMedicationQuery({uuid_provider: selectedProvider_cookie.uuid_provider}, {skip: selectedProvider_cookie ? false : true});
+    useEffect(() => {
+        isError_allMedications && console.log(error_allMedications);
+    }, [isError_allMedications, error_allMedications])
+    useEffect(() => {
+        const resData = data_allMedications;
+        if (resData?.success) {
+            setAllMedications(resData.allMedications);
+        } else {
+            resData?.message && console.log(resData?.message);
+        }
+    }, [data_allMedications])
 
 
     const handleInput = (e, type) => {
@@ -77,11 +106,19 @@ const DepartmentCreate = () => {
                     })
                     break;
                 case 'amount':
-                    isInteger(value) && setNewInfor({
-                        ...newInfor,
-                        amount: value,
-                        remain: value
-                    })
+                    if (isInteger(value)) {
+                        setNewInfor({
+                            ...newInfor,
+                            amount: value,
+                            remain: value
+                        })
+                    } else if(value.length===0) {
+                        setNewInfor({
+                            ...newInfor,
+                            amount: '',
+                            remain: ''
+                        })
+                    }
                     break;
                 case 'sold':
                     // Number.isInteger(valueInter) && valueInter > -1 && setNewInfor({
@@ -118,14 +155,31 @@ const DepartmentCreate = () => {
                     // })
                     alert('You can NOT change this !');
                     break;
+                case 'consultantCost':
+                    if (isInteger(value) || isFloat(value)) {
+                        setNewInfor({
+                            ...newInfor,
+                            consultantCost: value
+                        })
+                    } else if(value.length===0) {
+                        setNewInfor({
+                            ...newInfor,
+                            consultantCost: ''
+                        })
+                    }
+                    break;
                 case 'price':
-                    // console.log((Number.isInteger(valueInter) && valueInter > -1), isFloat(value))
                     if (isInteger(value) || isFloat(value)) {
                         setNewInfor({
                             ...newInfor,
                             price: value
                         })
-                    }   
+                    } else if(value.length===0) {
+                        setNewInfor({
+                            ...newInfor,
+                            price: ''
+                        })
+                    }
                     break;
                 case 'discount':
                     if (isInteger(value) || isFloat(value)) {
@@ -133,7 +187,12 @@ const DepartmentCreate = () => {
                             ...newInfor,
                             discount: value
                         })
-                    }   
+                    } else if(value.length===0) {
+                        setNewInfor({
+                            ...newInfor,
+                            discount: ''
+                        })
+                    }
                     break;
                 case 'note':
                     setNewInfor({
@@ -146,13 +205,50 @@ const DepartmentCreate = () => {
         }
     }
 
+    const handleCreate = () => {
+        // setMsgColor('red');
+        // setDialogMsg('1111111');
+        // dispatch(setShowDialog({showDialog: true}));
+
+        const uuid_departmentGroup_ = document.getElementById("department-groups").value;
+        const uuid_medication_ = document.getElementById("department-medication").value;
+
+        const departmentOptions = {
+            name: newInfor.name,
+            title: newInfor.title,
+            amount: newInfor.amount,
+            sold: newInfor.sold,
+            remain: newInfor.remain,
+            recover: newInfor.recover,
+            turnover: newInfor.turnover,
+            return: newInfor.return,
+            consultantCost: parseFloat(newInfor.consultantCost.trim()),
+            price: parseFloat(newInfor.price.trim()),
+            discount: parseFloat(newInfor.discount.trim()),
+            firstTime: newInfor.firstTime,
+            lastTime: newInfor.lastTime,
+            note: newInfor.note,
+            status: newInfor.status,
+            uuid_medication: uuid_medication_,
+            uuid_chest: newInfor.uuid_chest,
+            uuid_departmentGroup: uuid_departmentGroup_
+        }
+    }
+
     const handleGotoEdit = () => {
         navigate('/department/edit');
     }
 
     const list_departmentGroup = departmentGroupAll.map((data, index) => {
+        console.log(data)
         return (
-            <option key={index} value={`${data?.uuid_provider}`}>{ data?.name }</option>
+            <option key={index} value={data?.uuid_departmentGroup} title={data?.title}>{ data?.name }</option>
+        )
+    })
+
+    const list_medication = allMedications.map((data, index) => {
+        return (
+            <option key={index} value={data?.uuid_medication} title={data?.title}>{ data?.name }</option>
         )
     })
 
@@ -174,9 +270,7 @@ const DepartmentCreate = () => {
                             <label htmlFor="department-medication">Choose a medication:</label>
                             <select name="department-medication" id="department-medication">
                                 <option value="Select">Select</option>
-                                <option value="saab">Saab</option>
-                                <option value="mercedes">Mercedes</option>
-                                <option value="audi">Audi</option>
+                                { list_medication }
                             </select>
                         </div>
                     </div>
@@ -213,6 +307,11 @@ const DepartmentCreate = () => {
                         <input value={ newInfor.return } onChange={(e) => handleInput(e, 'return')} placeholder="Return" />
                     </div>
                     <div>
+                        <p>Consultant Cost</p>
+                        <input value={ newInfor.consultantCost } onChange={(e) => handleInput(e, 'consultantCost')} placeholder="Return" />
+                        <p>%</p>
+                    </div>
+                    <div>
                         <p>Price</p>
                         <input value={ newInfor.price } onChange={(e) => handleInput(e, 'price')} placeholder="Return" />
                     </div>
@@ -224,13 +323,14 @@ const DepartmentCreate = () => {
                         <p>Note</p>
                         <input value={ newInfor.note } onChange={(e) => handleInput(e, 'note')} placeholder="Note" />
                     </div>
-                    <button className='DepartmentCreate-btnCreate'>Create</button>
+                    <button className='DepartmentCreate-btnCreate' onClick={() => handleCreate()}>Create</button>
                     <div className='DepartmentCreate-btnEdit'>
                         <i>Goto edit</i>
                         <AiOutlineArrowRight onClick={() => handleGotoEdit()} size={ 25 } />
                     </div>
                 </div>
             </div>
+            <DepartmentCreateDialog message={dialogMsg} textColor={msgColor} />
         </div>
     )
 }

@@ -336,6 +336,7 @@
 *recover: string,
 *turnover: string,
 *return: string,
+*consultantCost: float,
 *price: float,
 *discount: float,
 *firstTime: string,

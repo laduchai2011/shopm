@@ -12,33 +12,6 @@ class DepartmentGroup {
     create(departmentGroupOptions, callback) {
         let departmentGroup;
         let err;
-        
-        // const departmentGroupPromise = new Promise((resolve, reject) => {
-        //     try {
-        //         sequelize.transaction(async (t) => {
-        //             try {
-        //                 const isDepartmentGroup = await this._departmentGroup.create(
-        //                     departmentGroupOptions,
-        //                     { transaction: t }
-        //                 );
-        //                 resolve(isDepartmentGroup);   
-        //             } catch (error) {
-        //                 reject(error);
-        //             }
-        //         });
-        //     } catch (error) {
-        //         reject(error);
-        //     }
-        // });
-
-        // departmentGroupPromise
-        // .then(isDepartmentGroup => {
-        //     departmentGroup = isDepartmentGroup;
-        // }).catch(error => {
-        //     err = error;
-        // }).finally(() => {
-        //     callback(departmentGroup, err);
-        // })
 
         const departmentGroupPromise = new Promise(async (resolve, reject) => {
             const departmentGroup_t = await sequelize.transaction();

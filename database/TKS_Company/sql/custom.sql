@@ -40,6 +40,10 @@ ALTER TABLE dbo.Departments
 ADD consultantCost float;
 GO	
 
+ALTER TABLE dbo.Department_CHes
+ADD consultantCost float;
+GO
+
 ALTER TABLE dbo.Medications
 ADD name nvarchar(255);
 GO	
