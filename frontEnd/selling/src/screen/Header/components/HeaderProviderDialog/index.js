@@ -42,8 +42,9 @@ const HeaderProviderDialog = () => {
     }, [data_providerList])
 
     useEffect(() => {
-        const selectedProvider_cookie = JSON.parse(getCookie(PROVIDER_CONST.SELECTED_PROVIDER));
-        dispatch(setSelectedProvider({selectedProvider: selectedProvider_cookie}));
+        let selectedProvider_cookie = getCookie(PROVIDER_CONST.SELECTED_PROVIDER);
+        let selectedProvider = selectedProvider_cookie.length > 0 && JSON.parse(selectedProvider_cookie);
+        dispatch(setSelectedProvider({selectedProvider: selectedProvider}));
     }, [dispatch]) 
 
     useEffect(() => {

@@ -50,6 +50,41 @@ class DepartmentGroup {
             callback(departmentGroupAll, err);
         })
     }
+
+    readWithUid(uuid_departmentGroup, callback) {
+        let departmentGroup;
+        let err;
+        
+        const departmentGroupPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isDepartmentGroup = await this._DepartmentGroup.findOne({
+                            where: {
+                                uuid_departmentGroup: uuid_departmentGroup,
+                                [Op.not]: { status: 'delete' }
+                            },
+                        }, { transaction: t })
+
+                        resolve(isDepartmentGroup); 
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        departmentGroupPromise
+        .then(isDepartmentGroup => {
+            departmentGroup = isDepartmentGroup;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(departmentGroup, err);
+        })
+    }
 }
 
 const departmentGroupCRUD = new DepartmentGroup();

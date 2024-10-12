@@ -16,6 +16,13 @@ const { SvMessage } = require('./src/model/svMessage');
 const { departmentGroupCRUD } = require('./src/model/CRUDDATABASE/CRUD_DepartmentGroup');
 const { departmentCRUD } = require('./src/model/CRUDDATABASE/CRUD_Department');
 
+const { getProviderMid } = require('./src/middle/getProvider');
+const { isMyProvider, isNormalProvider } = require('./src/middle/checkProvider');
+const { getMedicationMid } = require('./src/middle/getMedication');
+const { isProviderMedication, isNormalMedication } = require('./src/middle/checkMedication');
+const { getDepartmentGroupMid } = require('./src/middle/getDepartmentGroup');
+const { isProviderDepartmentGroup, isNormalDepartmentGroup } = require('./src/middle/checkDepartmentGroup');
+
 const service = process.env.SERVICE;
 
 
@@ -49,8 +56,18 @@ router.post('/createDepartmentGroup',
 // department
 router.post('/createDepartment', 
     Authentication,
+    getProviderMid,
+    isMyProvider,
+    isNormalProvider,
+    getMedicationMid,
+    isProviderMedication,
+    isNormalMedication,
+    getDepartmentGroupMid,
+    isProviderDepartmentGroup,
+    isNormalDepartmentGroup,
     (req, res) => {
     const departmentOptions = req.body.departmentOptions;
+    console.log(departmentOptions)
     departmentCRUD.create(departmentOptions, (department, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
@@ -60,13 +77,13 @@ router.post('/createDepartment',
                 return res.status(200).json({
                     department: department,
                     success: true,
-                    message: `Department is create successly (${service}) !`
+                    message: `Department is created successly !`
                 });
             } else {
                 return res.status(200).json({
                     department: department,
                     success: false,
-                    message: `Department is NOT create successly (${service}) !`
+                    message: `Department is NOT created successly !`
                 })
             }
         }

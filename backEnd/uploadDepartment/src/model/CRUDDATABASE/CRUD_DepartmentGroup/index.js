@@ -21,8 +21,21 @@ class DepartmentGroup {
                 const departmentGroup_CH_Options = {
                     name: isDepartmentGroup.name,
                     title: isDepartmentGroup.title,
+                    amount: isDepartmentGroup.amount,
+                    sold: isDepartmentGroup.sold,
+                    remain: isDepartmentGroup.remain,
+                    recover: isDepartmentGroup.recover,
+                    turnover: isDepartmentGroup.turnover, 
+                    return: isDepartmentGroup.return,
+                    consultantCost: isDepartmentGroup.consultantCost,
+                    price: isDepartmentGroup.price,
+                    discount: isDepartmentGroup.discount,
+                    firstTime: isDepartmentGroup.firstTime,
+                    lastTime: isDepartmentGroup.lastTime,
                     note: isDepartmentGroup.note,
-                    status: isDepartmentGroup.status,
+                    status: 'normal',
+                    uuid_medication: isDepartmentGroup.uuid_medication,
+                    uuid_chest: null,
                     uuid_departmentGroup: isDepartmentGroup.uuid_departmentGroup
                 }
 

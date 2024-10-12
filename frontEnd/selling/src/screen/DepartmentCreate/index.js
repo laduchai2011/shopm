@@ -14,6 +14,7 @@ import { PROVIDER_CONST } from 'utilize/constant';
 
 import { useReadAllDepartmentGroupQuery } from 'reduxStore/RTKQuery/departmentGroupRTKQuery';
 import { useSrCreateDepartmentReadAllMedicationQuery } from 'reduxStore/RTKQuery/medicationRTKQuery';
+import { useCreateDepartmentMutation } from 'reduxStore/RTKQuery/departmentRTKQuery';
 
 import DepartmentCreateDialog from './components/DepartmentCreateDialog';
 import { setShowDialog } from 'reduxStore/slice/departmentCreateSlice';
@@ -48,16 +49,19 @@ const DepartmentCreate = () => {
     const [dialogMsg, setDialogMsg] = useState('message');
     const [msgColor, setMsgColor] = useState('');
 
-    const selectedProvider_cookie = JSON.parse(getCookie(PROVIDER_CONST.SELECTED_PROVIDER));
+    let selectedProvider_cookie = getCookie(PROVIDER_CONST.SELECTED_PROVIDER);
+    let selectedProvider = selectedProvider_cookie.length > 0 && JSON.parse(selectedProvider_cookie);
     const [departmentGroupAll, setDepartmentGroupAll] = useState([]);
     const [allMedications, setAllMedications] = useState([]);
+
+    const [createDepartment] = useCreateDepartmentMutation();
 
     const {
         data: data_departmentGroup, 
         // isFetching: isFetching_departmentGroup, 
         isError: isError_departmentGroup,
         error: error_departmentGroup
-    } = useReadAllDepartmentGroupQuery({uuid_provider: selectedProvider_cookie.uuid_provider}, {skip: selectedProvider_cookie ? false : true});
+    } = useReadAllDepartmentGroupQuery({uuid_provider: selectedProvider.uuid_provider}, {skip: selectedProvider ? false : true});
     useEffect(() => {
         isError_departmentGroup && console.log(error_departmentGroup);
     }, [isError_departmentGroup, error_departmentGroup])
@@ -75,7 +79,7 @@ const DepartmentCreate = () => {
         // isFetching: isFetching_allMedications, 
         isError: isError_allMedications,
         error: error_allMedications
-    } = useSrCreateDepartmentReadAllMedicationQuery({uuid_provider: selectedProvider_cookie.uuid_provider}, {skip: selectedProvider_cookie ? false : true});
+    } = useSrCreateDepartmentReadAllMedicationQuery({uuid_provider: selectedProvider.uuid_provider}, {skip: selectedProvider ? false : true});
     useEffect(() => {
         isError_allMedications && console.log(error_allMedications);
     }, [isError_allMedications, error_allMedications])
@@ -206,33 +210,75 @@ const DepartmentCreate = () => {
     }
 
     const handleCreate = () => {
-        // setMsgColor('red');
-        // setDialogMsg('1111111');
-        // dispatch(setShowDialog({showDialog: true}));
-
         const uuid_departmentGroup_ = document.getElementById("department-groups").value;
         const uuid_medication_ = document.getElementById("department-medication").value;
-
-        const departmentOptions = {
-            name: newInfor.name,
-            title: newInfor.title,
-            amount: newInfor.amount,
-            sold: newInfor.sold,
-            remain: newInfor.remain,
-            recover: newInfor.recover,
-            turnover: newInfor.turnover,
-            return: newInfor.return,
-            consultantCost: parseFloat(newInfor.consultantCost.trim()),
-            price: parseFloat(newInfor.price.trim()),
-            discount: parseFloat(newInfor.discount.trim()),
-            firstTime: newInfor.firstTime,
-            lastTime: newInfor.lastTime,
-            note: newInfor.note,
-            status: newInfor.status,
-            uuid_medication: uuid_medication_,
-            uuid_chest: newInfor.uuid_chest,
-            uuid_departmentGroup: uuid_departmentGroup_
-        }
+        
+        if (newInfor.name.trim().length === 0) {
+            setMsgColor('red');
+            setDialogMsg('Name is empty !');
+            dispatch(setShowDialog({showDialog: true}));
+        } else if (newInfor.title.trim().length === 0) {
+            setMsgColor('red');
+            setDialogMsg('Title is empty !');
+            dispatch(setShowDialog({showDialog: true}));
+        } else if (uuid_departmentGroup_==='Select') {
+            setMsgColor('red');
+            setDialogMsg('There is NOT a selected department group !');
+            dispatch(setShowDialog({showDialog: true}));
+        } else if (uuid_medication_==='Select') {
+            setMsgColor('red');
+            setDialogMsg('There is NOT a selected medication !');
+            dispatch(setShowDialog({showDialog: true}));
+        } else {
+            const departmentOptions = {
+                name: newInfor.name.trim(),
+                title: newInfor.title.trim(),
+                amount: newInfor.amount.trim(),
+                sold: newInfor.sold.trim(),
+                remain: newInfor.remain.trim(),
+                recover: newInfor.recover.trim(),
+                turnover: newInfor.turnover.trim(),
+                return: newInfor.return.trim(),
+                consultantCost: newInfor.consultantCost.trim().length > 0 ? parseFloat(newInfor.consultantCost.trim()) : 0,
+                price: newInfor.price.trim().length > 0 ? parseFloat(newInfor.price.trim()) : 0,
+                discount: newInfor.discount.trim().length > 0 ? parseFloat(newInfor.discount.trim()) : 0,
+                firstTime: newInfor.firstTime,
+                lastTime: newInfor.lastTime,
+                note: newInfor.note,
+                status: newInfor.status,
+                uuid_medication: uuid_medication_,
+                uuid_chest: newInfor.uuid_chest,
+                uuid_departmentGroup: uuid_departmentGroup_
+            }
+    
+            if (selectedProvider) {
+                console.log('createDepartment')
+                createDepartment({
+                    uuid_provider: selectedProvider.uuid_provider, 
+                    departmentOptions: departmentOptions
+                }).then(res => {
+                    const resData = res.data;
+                    console.log(resData)
+                    if (resData?.success) {
+                        setMsgColor('blue');
+                        setNewInfor(resData?.department);
+                    } else {
+                        setMsgColor('red');
+                    }
+                    setDialogMsg(resData?.message);
+                    dispatch(setShowDialog({showDialog: true}));
+                }).catch(err => {
+                    setMsgColor('red');
+                    setDialogMsg('There is a error !');
+                    dispatch(setShowDialog({showDialog: true}));
+                    console.error(err);
+                })
+            } else {
+                setMsgColor('red');
+                setDialogMsg('There is NOT a selected provider !');
+                dispatch(setShowDialog({showDialog: true}));
+            }
+        } 
     }
 
     const handleGotoEdit = () => {
@@ -240,7 +286,6 @@ const DepartmentCreate = () => {
     }
 
     const list_departmentGroup = departmentGroupAll.map((data, index) => {
-        console.log(data)
         return (
             <option key={index} value={data?.uuid_departmentGroup} title={data?.title}>{ data?.name }</option>
         )
@@ -318,6 +363,7 @@ const DepartmentCreate = () => {
                     <div>
                         <p>Discount</p>
                         <input value={ newInfor.discount } onChange={(e) => handleInput(e, 'discount')} placeholder="Return" />
+                        <p>%</p>
                     </div>
                     <div>
                         <p>Note</p>

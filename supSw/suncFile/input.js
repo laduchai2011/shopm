@@ -1,17 +1,7 @@
-'use strict';
-
-function Authorization(req, res, next) {
-    const { providerRole } = req.cookies;
-    if (providerRole === 'admin') {
-        next()
-    } else {
-        return res.status(200).json({
-            medications: null,
-            exist: false,
-            success: false,
-            message: 'There are not provider in your list !'
-        });
+function log(...ns) {
+    for (let n of ns) {
+        console.log(n)
     }
 }
 
-module.exports = { Authorization }
+log(1,2,3,4,5)

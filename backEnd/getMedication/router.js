@@ -159,13 +159,13 @@ router.get('/sreenCreateDepartmentRequireReadAllMedicationWithFK',
                 return res.status(200).json({
                     allMedications: allMedications,
                     success: true,
-                    message: `Get successly allMedications (${service}) !`
+                    message: `Get successly allMedications !`
                 });
             } else {
                 return res.status(200).json({
                     allMedications: allMedications,
                     success: false,
-                    message: `There are not allMedications registed yet (${service}) !`
+                    message: `There are not allMedications registed yet !`
                 });
             }
         }

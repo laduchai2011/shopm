@@ -24,4 +24,32 @@ async function getProvider(uuid_provider, callback) {
     svMessage.sendMessage('require__provider__via__uuid_provider', JSON.stringify({ id: _id, uuid_provider: uuid_provider }));
 }
 
-module.exports = { getProvider }
+function getProviderMid(req, res, next) {
+    if (process.env.NODE_ENV === 'development') {
+        console.log('\x1b[33m%s\x1b[0m', 'getProviderMid', 'getProviderMid');
+    }
+    
+    const uuid_provider = req.body.uuid_provider;
+    getProvider(uuid_provider, (provider, err) => {
+        if (err) {
+            logEvents(`${req.url}---${req.method}---${err}`);
+            return res.status(500).send({ 
+                message: `Can't get provider in isProvider !`,
+                err: err,
+                success: false
+            })
+        } else {
+            if (provider && provider!==null) {
+                req.providerMid = provider;
+                next();
+            } else {
+                return res.status(200).json({
+                    success: false,
+                    message: `This provider is NOT empty !`,
+                })
+            }
+        }
+    })
+}
+
+module.exports = { getProvider, getProviderMid }
