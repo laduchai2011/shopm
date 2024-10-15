@@ -62,8 +62,6 @@ const Log = () => {
                     for (let i2 = 0; i2 < q_pageIndexs.length; i2++) {
                         q_pageIndexs[i2].classList.remove('selected');
                     }
-
-                    console.log(i1)
     
                     switch(i1) {
                         case 0:

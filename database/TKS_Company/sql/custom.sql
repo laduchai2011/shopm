@@ -53,5 +53,5 @@ SET name='name3'
 where uuid_medication='f2137aca-ff7a-434f-bb07-419abe9e86ac'
 go
 
-DELETE FROM dbo.Logs
+DELETE FROM dbo.Departments
 go

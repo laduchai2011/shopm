@@ -1,0 +1,21 @@
+.Chest {
+    background-color: #eee;
+    height: 100vh;
+}
+
+.Chest-main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.Chest-center {
+    width: 1200px;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.Chest-center > div {
+    margin: 20px 0;
+}

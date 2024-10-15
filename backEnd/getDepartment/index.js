@@ -4,6 +4,7 @@ const express = require("express");
 const router = require('./router');
 const app = express();
 const cookieParser = require('cookie-parser');
+require('./serviceMessage');
 
 const baseURL_Selling = process.env.NODE_ENV_BASEURL_SELLING || `http://shopm.tks.local:3001`;
 const service = process.env.SERVICE;

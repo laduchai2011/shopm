@@ -67,10 +67,10 @@ router.post('/createDepartment',
     isNormalDepartmentGroup,
     (req, res) => {
     const departmentOptions = req.body.departmentOptions;
-    console.log(departmentOptions)
     departmentCRUD.create(departmentOptions, (department, err) => {
         if (err) {
             logEvents(`${req.url}---${req.method}---${err}`);
+            console.log('\x1b[33m%s\x1b[0m', err);
             return res.status(500).send(err);
         } else {
             if (department && department!==null) {

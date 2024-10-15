@@ -258,7 +258,6 @@ const DepartmentCreate = () => {
                     departmentOptions: departmentOptions
                 }).then(res => {
                     const resData = res.data;
-                    console.log(resData)
                     if (resData?.success) {
                         setMsgColor('blue');
                         setNewInfor(resData?.department);

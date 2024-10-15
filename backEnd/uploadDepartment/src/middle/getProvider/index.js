@@ -25,10 +25,6 @@ async function getProvider(uuid_provider, callback) {
 }
 
 function getProviderMid(req, res, next) {
-    if (process.env.NODE_ENV === 'development') {
-        console.log('\x1b[33m%s\x1b[0m', 'getProviderMid', 'getProviderMid');
-    }
-    
     const uuid_provider = req.body.uuid_provider;
     getProvider(uuid_provider, (provider, err) => {
         if (err) {

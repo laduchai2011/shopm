@@ -8,6 +8,8 @@ import DepartmentEdit from "screen/DepartmentEdit";
 import DepartmentGroupCreate from "screen/DepartmentGroupCreate";
 import DepartmentGroupSetup from "screen/DepartmentGroupSetup";
 
+import Chest from "screen/Chest";
+
 export const elements = [
     {
         path: '/firstProvider',
@@ -17,6 +19,8 @@ export const elements = [
         path: '/',
         element: <Home />
     },
+
+    // Department
     {
         path: '/department',
         element: <Department />
@@ -40,5 +44,11 @@ export const elements = [
     {
         path: '/departmentGroup/create',
         element: <DepartmentGroupCreate />
-    }
+    },
+
+    // Chest
+    {
+        path: '/chest',
+        element: <Chest />
+    },
 ]

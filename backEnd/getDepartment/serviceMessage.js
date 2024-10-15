@@ -8,6 +8,7 @@ const { departmentGroupCRUD } = require('./src/model/CRUDDATABASE/CRUD_Departmen
     await svMessage.init();
 
     await svMessage.receiveMessage('require__departmentGroup__via__uuid_departmentGroup', { unsubscribe: false }, (message) => {
+        console.log('\x1b[33m%s\x1b[0m', 'require__departmentGroup__via__uuid_departmentGroup');
         const uuid_departmentGroup = JSON.parse(message).uuid_departmentGroup;
         const id = JSON.parse(message).id;
         departmentGroupCRUD.readWithUid(uuid_departmentGroup, (departmentGroup, err) => {

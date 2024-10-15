@@ -1,4 +1,5 @@
 'use strict';
+const { Op } = require('sequelize');
 const { Sequelize, DataTypes } = require('sequelize');
 const { sequelize } = require('../../../config/database');
 
@@ -1305,11 +1306,13 @@ class DefineModel {
             },
             price: {
                 type: DataTypes.FLOAT,
-                allowNull: false
+                allowNull: false,
+                defaultValue: 0
             },
             discount: {
                 type: DataTypes.FLOAT,
-                allowNull: false
+                allowNull: false,
+                defaultValue: 0
             },
             firstTime: {
                 type: DataTypes.STRING,
@@ -1333,8 +1336,7 @@ class DefineModel {
             },
             uuid_chest: {
                 type: Sequelize.UUID,
-                allowNull: true,
-                unique: true
+                allowNull: true
             },
             uuid_departmentGroup: {
                 type: Sequelize.UUID,
@@ -1406,11 +1408,13 @@ class DefineModel {
             },
             price: {
                 type: DataTypes.FLOAT,
-                allowNull: false
+                allowNull: false,
+                defaultValue: 0
             },
             discount: {
                 type: DataTypes.FLOAT,
-                allowNull: false
+                allowNull: false,
+                defaultValue: 0
             },
             firstTime: {
                 type: DataTypes.STRING,

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import { AiOutlineMenu } from 'react-icons/ai';
 import { GrInstall } from "react-icons/gr";
+import { GiChest } from "react-icons/gi";
 
 import { setMenuStatus } from 'reduxStore/slice/headerSlice';
 
@@ -38,6 +39,12 @@ const HeaderMenu = () => {
                 <div className='HeaderMenu-option' onClick={() => navigate('/department')} title='Department'>
                     <GrInstall size={ 30 } />
                     <span>Department</span>
+                </div>
+            </div>
+            <div className='HeaderMenu-body'>
+                <div className='HeaderMenu-option' onClick={() => navigate('/chest')} title='Chest'>
+                    <GiChest size={ 30 } />
+                    <span>Chest</span>
                 </div>
             </div>
         </div>

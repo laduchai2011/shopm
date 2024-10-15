@@ -6,12 +6,26 @@ const app = express();
 const cookieParser = require('cookie-parser');
 
 const baseURL_TKS_manager = process.env.NODE_ENV_BASEURL_TKSManager || `http://shopm.tks.local:3002`;
+const baseURL_Selling = process.env.NODE_ENV_BASEURL_SELLING || `http://shopm.tks.local:3001`;
 const service = process.env.SERVICE;
 
 //add other middleware
 app.use(`/api/${service}`, function (req, res, next) {
     // specify CORS headers to send
     res.header('Access-Control-Allow-Origin', baseURL_TKS_manager);
+    res.header(
+        'Access-Control-Allow-Methods',
+        'POST, PUT, PATCH, GET, DELETE, OPTIONS',
+    );
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header(
+        'Access-Control-Allow-Headers', 'Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization, X-Firebase-CheckToken'
+    );
+    next();
+});
+app.use(`/api/${service}`, function (req, res, next) {
+    // specify CORS headers to send
+    res.header('Access-Control-Allow-Origin', baseURL_Selling);
     res.header(
         'Access-Control-Allow-Methods',
         'POST, PUT, PATCH, GET, DELETE, OPTIONS',
