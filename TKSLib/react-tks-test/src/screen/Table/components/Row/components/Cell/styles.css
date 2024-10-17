@@ -1,0 +1,13 @@
+.TKS-Cell {
+    --Cell-width: 150px;
+    --Cell-height: 30px;
+}
+
+.TKS-Cell {
+    width: var(--Cell-width);
+    height: var(--Cell-height);
+    border: 1px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
