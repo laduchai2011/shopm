@@ -39,3 +39,5 @@
 14-10-2024	41:41:00--------Redis Client Error Error: read ECONNRESET (publisher)
 14-10-2024	38:26:02--------Redis Client Error Error: Connection timeout
 15-10-2024	41:07:17--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---JsonWebTokenError: invalid signature: token.verify-accessTokentks
+18-10-2024	20:26:02--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---JsonWebTokenError: invalid signature: token.verify-accessTokentks
+18-10-2024	26:26:02--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---JsonWebTokenError: invalid signature: token.verify-accessTokentks

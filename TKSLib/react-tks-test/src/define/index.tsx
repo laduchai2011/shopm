@@ -1,3 +1,11 @@
+import React from 'react';
+
+export interface ContextTableProps {
+    resizableStatus: React.MutableRefObject<boolean>,
+    cellWidth: React.MutableRefObject<number>,
+    cellX: React.MutableRefObject<number>
+}
+
 export interface CellProps {
     content: string,
     width?: string,
