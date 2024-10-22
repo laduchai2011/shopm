@@ -1,0 +1,23 @@
+.TKS-Table-Control-selectPageContainer {
+    margin: 0 25px;
+    display: flex;
+}
+
+.TKS-Table-Control-selectPageContainer > div {
+    background-color: rgb(216, 216, 216);
+    margin: 0 5px;
+    height: 25px;
+    min-width: 25px;
+    padding: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.TKS-Table-Control-selectPageContainer > div.selected,
+.TKS-Table-Control-selectPageContainer > div:hover {
+    background-color: gray;
+    color: white;
+}

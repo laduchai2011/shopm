@@ -1,10 +1,13 @@
 import React, { FC, useEffect, useContext } from 'react';
 import './styles.css';
 
-import { ContextTable } from 'screen/Table/contextTable';
+// import { ContextTable } from 'Table/contextTable';
+import { ContextTable } from '../../../../../Table/contextTable';
 
-import { CellProps } from 'define';
-import { $$ } from 'tricks';
+// import { CellProps } from 'define/index';
+import { CellProps } from '../../../../../define/index';
+// import { $$ } from 'tricks/index';
+import { $$ } from '../../../../../tricks/index';
 
 
 const Cell: FC<{data: CellProps, index: number, column: number}> = ({ data, index: cellIndex, column }) => {

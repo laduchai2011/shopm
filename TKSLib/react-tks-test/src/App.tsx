@@ -26,7 +26,14 @@ const App: FC = () => {
     ]
   }
 
+  const tableControlData = {
+    pageIndex: 1,
+    pageSize: 20, 
+    maxRow: 81
+  }
+
   const initTable:  TableProps = {
+    tableControl: tableControlData,
     rows: [rowData, rowData, rowData, rowData]
   }
 

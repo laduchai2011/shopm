@@ -1,15 +1,22 @@
 import React, { FC, useContext } from 'react';
 import './styles.css';
 
-import { ContextTable } from 'screen/Table/contextTable';
+// import { ContextTable } from 'Table/contextTable';
+import { ContextTable } from '../../../Table/contextTable';
 
+// import { 
+//     RowProps,
+//     CellProps 
+// } from 'define/index';
 import { 
     RowProps,
     CellProps 
-} from 'define';
-import { $$ } from 'tricks';
+} from '../../../define/index';
 
-import Cell from './components/Cell';
+// import { $$ } from 'tricks/index';
+import { $$ } from '../../../tricks/index';
+
+import Cell from './components/Cell/index';
 
 
 const Row: FC<{data: RowProps, index: number}> = ({ data: rowData, index: rowIndex }) => {

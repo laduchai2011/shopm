@@ -3,7 +3,7 @@ import './styles.css';
 
 import Header from 'screen/Header';
 
-import { MyComponent, Table } from 'react-tks2';
+import { MyComponent } from 'react-tks2';
 
 const Chest = () => {
 
@@ -15,9 +15,9 @@ const Chest = () => {
                     <h3>Chest</h3>
                     <MyComponent message="Hello from my TypeScript package!" />
                     
-                    <Table message="My table" children={'dsfsdf'}>
+                    {/* <Table message="My table" children={'dsfsdf'}>
                         table
-                    </Table>
+                    </Table> */}
                 </div>
             </div>
         </div>

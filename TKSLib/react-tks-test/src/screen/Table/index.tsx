@@ -5,25 +5,32 @@ import { ContextTable } from './contextTable';
 
 import { 
     RowProps,
-    TableProps 
+    TableProps, 
 } from 'define';
 
 import Row from './components/Row';
+import Control from './components/Control';
 
-const Table: FC<{data: TableProps}> = ({ data }) => {
+const Table: FC<{data: TableProps}> = ({ data: tableData }) => {
     const resizableStatus: React.MutableRefObject<boolean> = useRef(false);
     const cellWidth: React.MutableRefObject<number> = useRef(0);
     const cellX: React.MutableRefObject<number> = useRef(0);
+    const selectedColumn: React.MutableRefObject<number | undefined> = useRef(undefined);
+    const columnAmount: React.MutableRefObject<number> = useRef(0);
+    const rowAmount: React.MutableRefObject<number> = useRef(0);
 
-    const list_row: React.ReactNode = data.rows.map((data: RowProps, index: number) => {
+    rowAmount.current = tableData.rows.length;
+
+    const list_row: React.ReactNode = tableData.rows.map((data: RowProps, index: number) => {
         return (
             <Row data={data} index={index} key={index} />
         )
     })
 
-    return <ContextTable.Provider value={{resizableStatus, cellWidth, cellX}}>
-        <div className="Log-main">
-            { list_row }
+    return <ContextTable.Provider value={{resizableStatus, cellWidth, cellX, selectedColumn, columnAmount, rowAmount}}>
+        <div className="TKS-Table">
+            <div><Control data={tableData.tableControl} /></div>
+            <div>{ list_row }</div>
         </div>;
     </ContextTable.Provider>
 };

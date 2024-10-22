@@ -1,8 +1,7 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import './styles.css';
-interface TableProps {
-    children: React.Component;
-    message: string;
-}
-declare const Table: FC<TableProps>;
+import { TableProps } from 'define/index';
+declare const Table: FC<{
+    data: TableProps;
+}>;
 export default Table;
