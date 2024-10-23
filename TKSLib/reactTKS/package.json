@@ -7,12 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build1": "tsc && babel src --out-dir dist --extensions \".ts,.tsx\" --copy-files",
     "build2": "webpack",
-    "buildProduction": "webpack --mode production"
+    "buildProduction": "tsc && webpack --mode production"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Hello react-tsk",
   "devDependencies": {
     "@babel/cli": "^7.25.7",
     "@babel/core": "^7.25.8",

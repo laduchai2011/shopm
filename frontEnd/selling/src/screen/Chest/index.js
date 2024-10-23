@@ -3,7 +3,7 @@ import './styles.css';
 
 import Header from 'screen/Header';
 
-import { MyComponent } from 'react-tks2';
+import { MyComponent } from 'react-tks';
 
 const Chest = () => {
 

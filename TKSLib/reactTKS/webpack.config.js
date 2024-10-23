@@ -11,7 +11,10 @@ module.exports = {
         umdNamedDefine: true, // Optional: names the UMD module
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.jsx'], // Resolve these extensions
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.d.ts'], // Resolve these extensions
+        // alias: {
+        //     '@define': path.resolve(__dirname, 'dist/define'), // Example alias
+        // }
     },
     module: {
         rules: [

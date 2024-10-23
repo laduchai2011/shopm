@@ -43,3 +43,4 @@
 18-10-2024	26:26:02--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---JsonWebTokenError: invalid signature: token.verify-accessTokentks
 19-10-2024	45:41:22--------/TKSManagerGetLogAll?pageIndex=4&pageSize=20---GET---JsonWebTokenError: invalid signature: token.verify-accessTokentks
 19-10-2024	47:41:22--------/TKSManagerGetLogAll?pageIndex=3&pageSize=20---GET---JsonWebTokenError: invalid signature: token.verify-accessTokentks
+23-10-2024	43:28:18--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---JsonWebTokenError: invalid signature: token.verify-accessTokentks
