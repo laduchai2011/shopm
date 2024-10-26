@@ -1,0 +1,15 @@
+.TKS-Row-indexColumn {
+    border: 1px solid gray;
+    box-sizing: border-box;
+    padding: 5px;
+    position: absolute;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.TKS-Row-column {
+    display: flex;
+    margin-left: 50px;
+}

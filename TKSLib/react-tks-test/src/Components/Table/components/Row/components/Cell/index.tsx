@@ -1,13 +1,15 @@
 import React, { FC, useEffect, useContext } from 'react';
 import './styles.css';
 
-import { ContextTable } from 'screen/Table/contextTable';
+import { ContextTable } from 'Components/Table/contextTable';
 
 import { CellProps } from 'define';
 import { $$ } from 'tricks';
 
 
 const Cell: FC<{data: CellProps, index: number, column: number}> = ({ data, index: cellIndex, column }) => {
+
+    console.log('cell', cellIndex)
 
     const context = useContext(ContextTable);
 

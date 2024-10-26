@@ -1,11 +1,14 @@
-import { FC, useState, useEffect, useCallback } from 'react';
+import React, { FC, useState, useEffect, useCallback, useContext } from 'react';
 import './styles.css';
 
+import { ContextTable } from 'Components/Table/contextTable';
 import { TableControlProps } from 'define';
 
 import { $ } from 'tricks';
 
 const Control: FC<{data: TableControlProps}> = ({data: tableControlData}) => {
+
+    const context = useContext(ContextTable);
 
     const indexInit = 1;
     const [pageIndexCluster, setPageIndexCluster] = useState<number>(0);
@@ -13,6 +16,12 @@ const Control: FC<{data: TableControlProps}> = ({data: tableControlData}) => {
     const pageSize: number = tableControlData.pageSize;
     const maxRow: number = tableControlData.maxRow;
    
+    if (!context) {
+        throw new Error('MyComponent must be used within a MyProvider');
+    }
+
+    const { } = context;
+
     const amountOfPages = useCallback((): number => {
         if (maxRow%pageSize > 0) {
             return Math.floor(maxRow/pageSize) + 1

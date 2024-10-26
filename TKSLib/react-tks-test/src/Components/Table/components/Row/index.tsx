@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react';
 import './styles.css';
 
-import { ContextTable } from 'screen/Table/contextTable';
+import { ContextTable } from 'Components/Table/contextTable';
 
 import { 
     RowProps,
@@ -13,6 +13,8 @@ import Cell from './components/Cell';
 
 
 const Row: FC<{data: RowProps, index: number}> = ({ data: rowData, index: rowIndex }) => {
+
+    console.log('row', rowIndex)
 
     const context = useContext(ContextTable);
 
@@ -61,8 +63,11 @@ const Row: FC<{data: RowProps, index: number}> = ({ data: rowData, index: rowInd
                 onMouseMove={(e) => handleMouseMove(e)}
                 onMouseUp={(e) => handleMouseUp(e)}
             >
-       { list_cell }
+            <div className='TKS-Row-indexColumn'>{ rowIndex }</div>
+            <div className='TKS-Row-column'>
+                { list_cell }
+            </div>
     </div>;
 };
 
-export default Row;
+export default React.memo(Row);
