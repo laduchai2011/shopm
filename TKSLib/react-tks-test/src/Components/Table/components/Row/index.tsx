@@ -14,15 +14,13 @@ import Cell from './components/Cell';
 
 const Row: FC<{data: RowProps, index: number}> = ({ data: rowData, index: rowIndex }) => {
 
-    console.log('row', rowIndex)
-
     const context = useContext(ContextTable);
 
     if (!context) {
         throw new Error('MyComponent must be used within a MyProvider');
     }
 
-    const { resizableStatus, cellWidth, cellX, selectedColumn, columnAmount, rowAmount } = context;
+    const { resizableStatus, cellWidth, cellX, selectedColumn, columnAmount, rowAmount, config } = context;
 
     columnAmount.current = rowData.cells.length;
 
@@ -63,7 +61,10 @@ const Row: FC<{data: RowProps, index: number}> = ({ data: rowData, index: rowInd
                 onMouseMove={(e) => handleMouseMove(e)}
                 onMouseUp={(e) => handleMouseUp(e)}
             >
-            <div className='TKS-Row-indexColumn'>{ rowIndex }</div>
+            <div className='TKS-Row-indexColumn'>
+                {rowIndex > 0 ? <div>{ rowIndex }</div> : <div>{ config.pageSize }</div> }
+                {rowIndex > 0 ? <div>{ rowIndex }</div> : <div>{ config.maxRow }</div> }
+            </div>
             <div className='TKS-Row-column'>
                 { list_cell }
             </div>

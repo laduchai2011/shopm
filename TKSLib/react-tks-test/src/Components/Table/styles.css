@@ -1,0 +1,10 @@
+.TKS-Table {
+    width: max-content;
+}
+
+.TKS-Table--Control {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

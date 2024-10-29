@@ -9,8 +9,6 @@ import { $$ } from 'tricks';
 
 const Cell: FC<{data: CellProps, index: number, column: number}> = ({ data, index: cellIndex, column }) => {
 
-    console.log('cell', cellIndex)
-
     const context = useContext(ContextTable);
 
     if (!context) {
@@ -22,11 +20,12 @@ const Cell: FC<{data: CellProps, index: number, column: number}> = ({ data, inde
     useEffect(() => {
         const q_Cell = $$('.TKS-Cell')[cellIndex] as HTMLElement;
 
-        data?.width && q_Cell.style.setProperty('--Cell-width', data?.width);
-        data?.height && q_Cell.style.setProperty('--Cell-height', data?.height);
-        data?.textColor && q_Cell.style.setProperty('--Cell-textColor', data?.textColor);
-        data?.textWeight && q_Cell.style.setProperty('--Cell-textWeight', data?.textWeight);
-
+        if (q_Cell!==undefined) {
+            data?.width && q_Cell.style.setProperty('--Cell-width', data?.width);
+            data?.height && q_Cell.style.setProperty('--Cell-height', data?.height);
+            data?.textColor && q_Cell.style.setProperty('--Cell-textColor', data?.textColor);
+            data?.textWeight && q_Cell.style.setProperty('--Cell-textWeight', data?.textWeight);
+        }
     }, [cellIndex, data])
 
     const handleMouseDown = (e: React.MouseEvent) => {

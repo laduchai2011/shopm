@@ -1,8 +1,13 @@
 .TKS-Row-indexColumn {
+    position: absolute;
+    width: 100px;
+    display: flex;
+}
+
+.TKS-Row-indexColumn > div {
     border: 1px solid gray;
     box-sizing: border-box;
     padding: 5px;
-    position: absolute;
     width: 50px;
     display: flex;
     justify-content: center;
@@ -11,5 +16,5 @@
 
 .TKS-Row-column {
     display: flex;
-    margin-left: 50px;
+    margin-left: 100px;
 }

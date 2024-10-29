@@ -20,7 +20,7 @@ const Control: FC<{data: TableControlProps}> = ({data: tableControlData}) => {
         throw new Error('MyComponent must be used within a MyProvider');
     }
 
-    const { } = context;
+    const { onSelectPage } = context;
 
     const amountOfPages = useCallback((): number => {
         if (maxRow%pageSize > 0) {
@@ -86,6 +86,9 @@ const Control: FC<{data: TableControlProps}> = ({data: tableControlData}) => {
         }
     }, [pageIndexCluster, pageIndex, amountOfPages])
 
+    useEffect(() => {
+        onSelectPage(pageIndex);
+    }, [pageIndex, onSelectPage])
 
     return  <div className="TKS-Table-Control">
         <div className="TKS-Table-Control-selectPageContainer">

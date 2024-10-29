@@ -12,6 +12,7 @@ const Home: FC<{}> = () => {
 
     const cellData = (content: string, textColor: string): CellProps => {
       return {
+        fieldName: '',
         content: content,
         textColor: textColor
       }
@@ -39,18 +40,40 @@ const Home: FC<{}> = () => {
     }
 
     const tableConfig = {
-      columnAmount: 1,
+      columnAmount: 5,
+      columnsInfor: [{columnName: 'Name', fieldName: 'name'}, {columnName: 'Title', fieldName: 'title'}, {columnName: 'Note', fieldName: 'note'}],
       pageIndex: 1,
-      pageSize: 1,
-      maxRow: 100
+      pageSize: 2,
+      maxRow: 80,
+      controlPos: 'bottom'
     }
+
+    const data = [
+      {
+        name: 'name 1',
+        title: 'title 1'
+      },
+      {
+        title: 'title 2',
+        name: 'name 2',
+        note: 'note 2'
+      },
+      {
+        name: 'name 3',
+        title: 'title 3'
+      },
+      {
+        name: 'name 4',
+        title: 'title 4'
+      }
+    ]
 
     const handleSelectPage = (number: number) => {
       console.log('handleSelectPage', number)
     }
 
     return <div className="TKS-Home">
-      <Table data={ initTable.rows } config={ tableConfig } onSelectPage={handleSelectPage} />
+      <Table data= {data} config={ tableConfig } onSelectPage={handleSelectPage} />
     </div>;
 };
 
