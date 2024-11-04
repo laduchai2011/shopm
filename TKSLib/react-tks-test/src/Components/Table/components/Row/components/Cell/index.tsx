@@ -2,8 +2,18 @@ import React, { FC, useEffect, useContext } from 'react';
 import './styles.css';
 
 import { ContextTable } from 'Components/Table/contextTable';
+import Loading from 'Components/Loading';
 
-import { CellProps } from 'define';
+import { 
+    CellProps,
+    LoadProps,
+    SkeletonLoadProps 
+} from 'define';
+
+import { 
+    LOAD_COMPONENTS_CONST 
+} from 'const';
+
 import { $$ } from 'tricks';
 
 
@@ -43,7 +53,21 @@ const Cell: FC<{data: CellProps, index: number, column: number}> = ({ data, inde
         }
     }
 
+    const skeletonLoad: SkeletonLoadProps = {
+        width: 100,
+        height: 100,
+        maxminWidth: 'max'
+    }
+
+    const load: LoadProps = {
+        type: LOAD_COMPONENTS_CONST.LOADING_TYPE.SKELETON,
+        infor: skeletonLoad
+    }
+
     return <div className="TKS-Cell">
+        <div>
+            <Loading load={ load } />
+        </div>
         <div>{ data.content }</div>
         <div onMouseDown={(e) => handleMouseDown(e)}></div>
     </div>;

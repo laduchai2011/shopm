@@ -6,10 +6,13 @@ export interface ContextTableProps {
     cellX: React.MutableRefObject<number>,
     selectedColumn: React.MutableRefObject<number | undefined>,
     columnAmount: React.MutableRefObject<number>,
-    rowAmount: React.MutableRefObject<number>
+    rowAmount: React.MutableRefObject<number>,
+    config: TableConfigProps,
+    onSelectPage: (number: number) => void
 }
 
 export interface CellProps {
+    fieldName: string,
     content: string,
     width?: string,
     height?: string, 
@@ -31,4 +34,18 @@ export interface TableControlProps {
 export interface TableProps {
     tableControl: TableControlProps,
     rows: RowProps[]
+}
+
+export interface TableConfigProps {
+    columnAmount: number,
+    columnsInfor?: ColumnsInforProps[],
+    pageIndex: number,
+    pageSize: number,
+    maxRow: number,
+    controlPos?: string;
+}
+
+export interface ColumnsInforProps {
+    columnName: string,
+    fieldName: string  // fieldName of data
 }

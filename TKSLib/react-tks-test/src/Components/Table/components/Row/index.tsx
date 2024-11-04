@@ -14,6 +14,8 @@ import Cell from './components/Cell';
 
 const Row: FC<{data: RowProps, index: number}> = ({ data: rowData, index: rowIndex }) => {
 
+    console.log('Row', rowIndex)
+
     const context = useContext(ContextTable);
 
     if (!context) {

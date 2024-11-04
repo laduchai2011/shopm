@@ -17,15 +17,17 @@ import Control from './components/Control';
 const Table: FC<{
         data: {[key: string]: any}[],
         config: TableConfigProps,
-        onSelectPage: (number: number) => void
+        onSelectPage: (number: number) => void,
+        loadDataState?: string | undefined
     }> = ({ 
         data,
         config, 
-        onSelectPage 
+        onSelectPage,
+        loadDataState
     }) => {
 
     const tableControlData = {
-        pageIndex: config.pageIndex,
+        pageIndex: 1,
         pageSize: config.pageSize, 
         maxRow: config.maxRow
     }
@@ -121,8 +123,9 @@ const Table: FC<{
         columnAmount, 
         rowAmount,
         config,
-        onSelectPage
-    }), [config, onSelectPage]);
+        onSelectPage,
+        loadDataState
+    }), [config, onSelectPage, loadDataState]);
 
     return <ContextTable.Provider value={contextValue}>
         <div className="TKS-Table">

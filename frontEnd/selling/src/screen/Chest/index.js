@@ -3,9 +3,42 @@ import './styles.css';
 
 import Header from 'screen/Header';
 
-import { MyComponent } from 'react-tks';
+import { Table } from 'react-tks';
 
 const Chest = () => {
+
+    const tableConfig = {
+        columnAmount: 5,
+        columnsInfor: [{columnName: 'Name', fieldName: 'name'}, {columnName: 'Title', fieldName: 'title'}, {columnName: 'Note', fieldName: 'note'}],
+        pageIndex: 1,
+        pageSize: 2,
+        maxRow: 80,
+        controlPos: 'bottom'
+    }
+
+    const data = [
+        {
+            name: 'name 1',
+            title: 'title 1'
+        },
+        {
+            title: 'title 2',
+            name: 'name 2',
+            note: 'note 2'
+        },
+        {
+            name: 'name 3',
+            title: 'title 3'
+        },
+        {
+            name: 'name 4',
+            title: 'title 4'
+        }
+    ]
+
+    const handleSelectPage = (pageIndex) => {
+    console.log('handleSelectPage', pageIndex)
+    }
 
     return (
         <div className='Chest'>
@@ -13,11 +46,7 @@ const Chest = () => {
             <div className='Chest-main'>
                 <div className='Chest-center'>
                     <h3>Chest</h3>
-                    <MyComponent message="Hello from my TypeScript package!" />
-                    
-                    {/* <Table message="My table" children={'dsfsdf'}>
-                        table
-                    </Table> */}
+                    <Table config={tableConfig} data={data} onSelectPage={handleSelectPage} />
                 </div>
             </div>
         </div>

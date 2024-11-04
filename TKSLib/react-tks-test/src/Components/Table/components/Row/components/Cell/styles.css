@@ -16,6 +16,11 @@
 }
 
 .TKS-Cell > div:nth-child(1) {
+    position: absolute;
+    width: 100%;
+}
+
+.TKS-Cell > div:nth-child(2) {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,18 +29,18 @@
     position: absolute;
 }
 
-.TKS-Cell > div:nth-child(2) {
+.TKS-Cell > div:nth-child(3) {
     width: 3px;
     height: 100%;
     position: absolute;
     right: 0;
 }
 
-.TKS-Cell > div:nth-child(2).selected {
+.TKS-Cell > div:nth-child(3).selected {
     background-color: blue;
     width: 2px;
 }
 
-.TKS-Cell > div:nth-child(2):hover {
+.TKS-Cell > div:nth-child(3):hover {
     background-color: blue;
 }
