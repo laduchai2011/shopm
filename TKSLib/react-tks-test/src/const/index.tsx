@@ -1,6 +1,10 @@
 // import React from 'react';
 
-export const LOAD_DATA_STATE = {
+
+// define color
+export const WARNING_COLOR = '#d3d602';
+
+export const LOAD_STATE = {
     LOADING: 'LOADING',
     SUCCESS: 'SUCCESS',
     FAILURE: 'FAILURE'

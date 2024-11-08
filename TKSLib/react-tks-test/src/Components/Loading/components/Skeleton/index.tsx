@@ -3,11 +3,10 @@ import './styles.css';
 
 import { SkeletonLoadProps } from 'define';
 
-import { $ } from 'tricks';
-
 const Skeleton: FC<{ skeletonLoad: SkeletonLoadProps }> = ({ skeletonLoad }) => {
 
     const myElementRef = useRef<HTMLDivElement | null>(null);
+
     useEffect(() => {
         // const q_skeletonCircle = $('.TKS-Load-Skeleton') as HTMLElement;
 
@@ -67,7 +66,7 @@ const Skeleton: FC<{ skeletonLoad: SkeletonLoadProps }> = ({ skeletonLoad }) => 
         }    
     }, [skeletonLoad])
 
-    return <div className="TKS-Load-Skeleton TKS-Load-Skeleton--Loading" ref={myElementRef} id="myElement">
+    return <div className="TKS-Load-Skeleton TKS-Load-Skeleton--Loading" ref={myElementRef}>
     </div>
 };
 

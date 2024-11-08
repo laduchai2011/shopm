@@ -12,9 +12,9 @@ import { $$ } from 'tricks';
 import Cell from './components/Cell';
 
 
-const Row: FC<{data: RowProps, index: number}> = ({ data: rowData, index: rowIndex }) => {
+const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }) => {
 
-    console.log('Row', rowIndex)
+    // console.log('Row', rowIndex)
 
     const context = useContext(ContextTable);
 
@@ -22,9 +22,11 @@ const Row: FC<{data: RowProps, index: number}> = ({ data: rowData, index: rowInd
         throw new Error('MyComponent must be used within a MyProvider');
     }
 
-    const { resizableStatus, cellWidth, cellX, selectedColumn, columnAmount, rowAmount, config } = context;
+    const { resizableStatus, cellWidth, cellX, selectedColumn, columnAmount, rowAmount, config, pageIndex } = context;
 
     columnAmount.current = rowData.cells.length;
+
+    const pageSize = config.pageSize;
 
     const handleMouseMove = (e: React.MouseEvent) => {
         const q_cells = $$('.TKS-Cell');
@@ -55,9 +57,11 @@ const Row: FC<{data: RowProps, index: number}> = ({ data: rowData, index: rowInd
 
     const list_cell: React.ReactNode = rowData.cells.map((data: CellProps, index: number) => {
         return (
-            <Cell data={data} index={handleTableIndex(rowData.cells.length, rowIndex, index)} column={index} key={index} />
+            <Cell data={data} cellIndex={handleTableIndex(rowData.cells.length, rowIndex, index)} rowIndex={rowIndex} column={index} key={index} />
         )
     })
+
+    const dataIndex: number = pageSize*(pageIndex - 1) + rowIndex; 
 
     return <div className="TKS-Row" 
                 onMouseMove={(e) => handleMouseMove(e)}
@@ -65,7 +69,7 @@ const Row: FC<{data: RowProps, index: number}> = ({ data: rowData, index: rowInd
             >
             <div className='TKS-Row-indexColumn'>
                 {rowIndex > 0 ? <div>{ rowIndex }</div> : <div>{ config.pageSize }</div> }
-                {rowIndex > 0 ? <div>{ rowIndex }</div> : <div>{ config.maxRow }</div> }
+                {rowIndex > 0 ? <div>{ dataIndex }</div> : <div>{ config.maxRow }</div> }
             </div>
             <div className='TKS-Row-column'>
                 { list_cell }

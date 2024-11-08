@@ -6,8 +6,8 @@ import Loading from 'Components/Loading';
 import { 
     LoadProps,
     // DotCircleLoadProps,
-    // LineCircleLoadProps,
-    SkeletonLoadProps 
+    LineCircleLoadProps,
+    // SkeletonLoadProps 
 } from 'define';
 
 import { 
@@ -24,20 +24,20 @@ const Load: FC<{}> = () => {
     //     circleSize: '10'
     // }
 
-    // const lineCircleLoad: LineCircleLoadProps = {
-    //     lineSize: 10,
-    //     lineBackgroundColor: 'brown',
-    //     circleSize: 150
-    // }
-
-    const skeletonLoad: SkeletonLoadProps = {
-        width: 100,
-        height: 100
+    const lineCircleLoad: LineCircleLoadProps = {
+        lineSize: 10,
+        lineBackgroundColor: 'brown',
+        circleSize: 150
     }
 
+    // const skeletonLoad: SkeletonLoadProps = {
+    //     width: 100,
+    //     height: 100
+    // }
+
     const load: LoadProps = {
-        type: LOAD_COMPONENTS_CONST.LOADING_TYPE.SKELETON,
-        infor: skeletonLoad
+        type: LOAD_COMPONENTS_CONST.LOADING_TYPE.LINE_CIRCLE,
+        infor: lineCircleLoad
 
     }
 

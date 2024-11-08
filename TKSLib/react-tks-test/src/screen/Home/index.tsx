@@ -1,7 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import './styles.css';
 
 import Table from 'Components/Table';
+
+import { LOAD_STATE } from 'const';
 
 const Home: FC<{}> = () => {
 
@@ -37,12 +39,12 @@ const Home: FC<{}> = () => {
     const tableConfig = {
       columnAmount: 5,
       columnsInfor: [{columnName: 'Name', fieldName: 'name'}, {columnName: 'Title', fieldName: 'title'}, {columnName: 'Note', fieldName: 'note'}],
-      pageSize: 2,
+      pageSize: 4,
       maxRow: 80,
       // controlPos: 'bottom'
     }
 
-    const data = [
+    const data1 = [
       {
         name: 'name 1',
         title: 'title 1'
@@ -62,12 +64,69 @@ const Home: FC<{}> = () => {
       }
     ]
 
-    const handleSelectPage = (number: number) => {
-      // console.log('handleSelectPage', number)
+    const data2 = [
+      {
+        name: 'name 5',
+        title: 'title 5'
+      },
+      {
+        title: 'title 6',
+        name: 'name 6',
+        note: 'note 6'
+      },
+      {
+        name: 'name 7',
+        title: 'title 7'
+      },
+      {
+        name: 'name 8',
+        title: 'title 8'
+      }
+    ]
+
+    const data3 = [
+      {
+        name: 'name 9',
+        title: 'title 9'
+      },
+      {
+        title: 'title 10',
+        name: 'name 10',
+        note: 'note 10'
+      },
+      {
+        name: 'name 11',
+        title: 'title 11'
+      },
+      {
+        name: 'name 12',
+        title: 'title 12'
+      }
+    ]
+
+    const [loadDataState, setLoadDataState] = useState<string | undefined>(undefined)
+    const [dataTest, setDataTest] = useState(data1)
+
+    const handleSelectPage = (nextPageIndex: number) => {
+      setLoadDataState(LOAD_STATE.LOADING)
+      setTimeout(() => {
+        
+        if (nextPageIndex===1) {
+          setLoadDataState(LOAD_STATE.SUCCESS)
+          setDataTest(data1)
+        } else if (nextPageIndex===2) {
+          setLoadDataState(LOAD_STATE.SUCCESS)
+          setDataTest(data2)
+        } else {
+          setLoadDataState(LOAD_STATE.SUCCESS)
+          setDataTest(data3)
+        }
+       
+      }, 3000)
     }
 
     return <div className="TKS-Home">
-      <Table data= {data} config={ tableConfig } onSelectPage={handleSelectPage} />
+      <Table data= {dataTest} config={ tableConfig } onSelectPage={handleSelectPage} loadDataState={ loadDataState } />
     </div>;
 };
 

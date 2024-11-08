@@ -5,15 +5,20 @@
     --amplify: 1
 }
 
-.TKS-Load-LineCircle > svg {
-    position: relative;
+.TKS-Load-LineCircle {
     width: var(--circleSize);
     aspect-ratio: 1 / 1;
-    animation: TKSLoadingLineCircle1 2s linear infinite;
+}
+
+.TKS-Load-LineCircle > svg {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
     /* background-color: aqua; */
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: TKSLoadingLineCircle1 10s linear infinite;
 }
 @keyframes TKSLoadingLineCircle1 {
     0% {
@@ -32,16 +37,18 @@
     stroke: var(--lineBackgroundColor);
     stroke-linecap: round;
     /* transform: translate(5px, 5px); */
-    stroke-dasharray: calc(440 * var(--amplify)); /* 440 is basic value for circleSize is 150px */
-    stroke-dashoffset: calc(440 * var(--amplify)); /* 440 is basic value for circleSize is 150px */
+    /* stroke-dasharray: calc(440 * var(--amplify)); /* 440 is basic value for circleSize is 150px */
+    /* stroke-dashoffset: calc(440 * var(--amplify)); /* 440 is basic value for circleSize is 150px */
     animation: TKSLoadingLineCircle2 4s linear infinite;
+    stroke-dasharray: calc(440px * var(--amplify));
+    stroke-dashoffset: calc(440px * var(--amplify));
 }
 @keyframes TKSLoadingLineCircle2 {
-    0%, 100% {
+    0%, 100%{
         stroke-dashoffset: calc(440px * var(--amplify)); /* 440 is basic value for circleSize is 150px */
     }
     50% {
-        stroke-dashoffset: 0;
+        stroke-dashoffset: 10px;
     }
     50.1% {
         stroke-dashoffset: calc(880px * var(--amplify));  /* 880 is basic value for circleSize is 150px */

@@ -11,13 +11,14 @@ import {
 } from 'define';
 
 import { 
+    LOAD_STATE,
     LOAD_COMPONENTS_CONST 
 } from 'const';
 
 import { $$ } from 'tricks';
 
 
-const Cell: FC<{data: CellProps, index: number, column: number}> = ({ data, index: cellIndex, column }) => {
+const Cell: FC<{data: CellProps, cellIndex: number, rowIndex: number, column: number}> = ({ data, cellIndex, rowIndex, column }) => {
 
     const context = useContext(ContextTable);
 
@@ -25,7 +26,7 @@ const Cell: FC<{data: CellProps, index: number, column: number}> = ({ data, inde
         throw new Error('MyComponent must be used within a MyProvider');
     }
 
-    const { resizableStatus, cellWidth, cellX, selectedColumn, columnAmount, rowAmount } = context;
+    const { resizableStatus, cellWidth, cellX, selectedColumn, columnAmount, rowAmount, loadDataState } = context;
 
     useEffect(() => {
         const q_Cell = $$('.TKS-Cell')[cellIndex] as HTMLElement;
@@ -66,7 +67,7 @@ const Cell: FC<{data: CellProps, index: number, column: number}> = ({ data, inde
 
     return <div className="TKS-Cell">
         <div>
-            <Loading load={ load } />
+            { loadDataState===LOAD_STATE.LOADING && rowIndex!==0 && <Loading load={ load } /> }
         </div>
         <div>{ data.content }</div>
         <div onMouseDown={(e) => handleMouseDown(e)}></div>

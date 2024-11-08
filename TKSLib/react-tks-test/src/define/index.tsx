@@ -9,7 +9,10 @@ export interface ContextTableProps {
     columnAmount: React.MutableRefObject<number>,
     rowAmount: React.MutableRefObject<number>,
     config: TableConfigProps,
-    onSelectPage: (number: number) => void
+    pageIndex: number,
+    setPageIndex: React.Dispatch<React.SetStateAction<number>>,
+    onSelectPage: (number: number) => void,
+    loadDataState: string | undefined
 }
 
 export interface CellProps {

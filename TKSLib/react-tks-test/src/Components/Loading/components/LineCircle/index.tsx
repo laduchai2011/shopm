@@ -1,9 +1,7 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import './styles.css';
 
 import { LineCircleLoadProps } from 'define';
-
-import { $ } from 'tricks';
 
 const LineCircle: FC<{ lineCircleLoad: LineCircleLoadProps }> = ({ lineCircleLoad }) => {
 
@@ -13,16 +11,18 @@ const LineCircle: FC<{ lineCircleLoad: LineCircleLoadProps }> = ({ lineCircleLoa
     const amplify: number = circleSize / 150;
     const r = (circleSize - lineSize) / 2;
 
-    useEffect(() => {
-        const q_lineCircle = $('.TKS-Load-LineCircle') as HTMLElement;
+    const myElementRef = useRef<HTMLDivElement | null>(null);
 
-        q_lineCircle.style.setProperty('--lineBackgroundColor', lineBackgroundColor);
-        q_lineCircle.style.setProperty('--lineSize', `${lineSize}`);
-        q_lineCircle.style.setProperty('--circleSize', `${circleSize}px`);
-        q_lineCircle.style.setProperty('--amplify', `${amplify}`);
+    useEffect(() => {
+        if (myElementRef.current) {
+            myElementRef.current.style.setProperty('--lineBackgroundColor', lineBackgroundColor);
+            myElementRef.current.style.setProperty('--lineSize', `${lineSize}`);
+            myElementRef.current.style.setProperty('--circleSize', `${circleSize}px`);
+            myElementRef.current.style.setProperty('--amplify', `${amplify}`);
+        }    
     }, [circleSize, lineBackgroundColor, lineSize, amplify])
     
-    return <div className="TKS-Load-LineCircle">
+    return <div className="TKS-Load-LineCircle" ref={myElementRef}>
         <svg>
             <circle cx={`${circleSize/2}`} cy={`${circleSize/2}`} r={r} />
         </svg>
