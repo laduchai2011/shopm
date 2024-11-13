@@ -7,7 +7,10 @@ export interface ContextTableProps {
     columnAmount: React.MutableRefObject<number>;
     rowAmount: React.MutableRefObject<number>;
     config: TableConfigProps;
+    pageIndex: number;
+    setPageIndex: React.Dispatch<React.SetStateAction<number>>;
     onSelectPage: (number: number) => void;
+    loadDataState: string | undefined;
 }
 export interface CellProps {
     fieldName: string;
@@ -33,7 +36,6 @@ export interface TableProps {
 export interface TableConfigProps {
     columnAmount: number;
     columnsInfor?: ColumnsInforProps[];
-    pageIndex: number;
     pageSize: number;
     maxRow: number;
     controlPos?: string;
@@ -41,4 +43,25 @@ export interface TableConfigProps {
 export interface ColumnsInforProps {
     columnName: string;
     fieldName: string;
+}
+export interface LoadProps {
+    type: string;
+    infor: DotCircleLoadProps | LineCircleLoadProps | SkeletonLoadProps;
+}
+export interface DotCircleLoadProps {
+    dotSize: string;
+    dotBackgroundColor: string;
+    dotAmount: string;
+    circleSize: string;
+}
+export interface LineCircleLoadProps {
+    lineSize: number;
+    lineBackgroundColor: string;
+    circleSize: number;
+}
+export interface SkeletonLoadProps {
+    width: number;
+    maxminWidth?: 'max' | 'min';
+    height: number;
+    maxminHeight?: 'max' | 'min';
 }

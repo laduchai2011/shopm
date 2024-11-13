@@ -2,12 +2,23 @@ import React, { FC, useEffect, useContext } from 'react';
 import './styles.css';
 
 import { ContextTable } from 'Components/Table/contextTable';
+import Loading from 'Components/Loading';
 
-import { CellProps } from 'define';
+import { 
+    CellProps,
+    LoadProps,
+    SkeletonLoadProps 
+} from 'define';
+
+import { 
+    LOAD_STATE,
+    LOAD_COMPONENTS_CONST 
+} from 'const';
+
 import { $$ } from 'tricks';
 
 
-const Cell: FC<{data: CellProps, index: number, column: number}> = ({ data, index: cellIndex, column }) => {
+const Cell: FC<{data: CellProps, cellIndex: number, rowIndex: number, column: number}> = ({ data, cellIndex, rowIndex, column }) => {
 
     const context = useContext(ContextTable);
 
@@ -15,7 +26,7 @@ const Cell: FC<{data: CellProps, index: number, column: number}> = ({ data, inde
         throw new Error('MyComponent must be used within a MyProvider');
     }
 
-    const { resizableStatus, cellWidth, cellX, selectedColumn, columnAmount, rowAmount } = context;
+    const { resizableStatus, cellWidth, cellX, selectedColumn, columnAmount, rowAmount, loadDataState } = context;
 
     useEffect(() => {
         const q_Cell = $$('.TKS-Cell')[cellIndex] as HTMLElement;
@@ -43,7 +54,21 @@ const Cell: FC<{data: CellProps, index: number, column: number}> = ({ data, inde
         }
     }
 
+    const skeletonLoad: SkeletonLoadProps = {
+        width: 100,
+        height: 100,
+        maxminWidth: 'max'
+    }
+
+    const load: LoadProps = {
+        type: LOAD_COMPONENTS_CONST.LOADING_TYPE.SKELETON,
+        infor: skeletonLoad
+    }
+
     return <div className="TKS-Cell">
+        <div>
+            { loadDataState===LOAD_STATE.LOADING && rowIndex!==0 && <Loading load={ load } /> }
+        </div>
         <div>{ data.content }</div>
         <div onMouseDown={(e) => handleMouseDown(e)}></div>
     </div>;

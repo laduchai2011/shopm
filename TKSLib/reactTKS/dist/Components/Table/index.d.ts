@@ -7,5 +7,6 @@ declare const Table: FC<{
     }[];
     config: TableConfigProps;
     onSelectPage: (number: number) => void;
+    loadDataState?: string | undefined;
 }>;
 export default Table;

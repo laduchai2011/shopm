@@ -3,7 +3,8 @@ import './styles.css';
 import { CellProps } from 'define';
 declare const Cell: FC<{
     data: CellProps;
-    index: number;
+    cellIndex: number;
+    rowIndex: number;
     column: number;
 }>;
 export default Cell;

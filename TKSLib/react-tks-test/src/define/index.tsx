@@ -78,3 +78,40 @@ export interface SkeletonLoadProps {
     height: number,
     maxminHeight?: 'max' | 'min'
 }
+
+// define icon
+export interface WarnTriangleProps {
+    size?: number,
+    background?: string,
+    fill?: string,
+    stroke?: string,
+    animation_time?: number,
+    stroke_width?: number
+}
+
+export interface ErrorCircleProps {
+    size?: number,
+    background?: string,
+    fill?: string,
+    stroke?: string,
+    animation_time?: number,
+    stroke_width?: number
+}
+
+export interface TickSymbolProps {
+    size?: number,
+    background?: string,
+    fill?: string,
+    stroke?: string,
+    animation_time?: number,
+    stroke_width?: number
+}
+
+export interface DeleteCircleProps {
+    size?: number,
+    background?: string,
+    fill?: string,
+    stroke?: string,
+    animation_time?: number,
+    stroke_width?: number
+}

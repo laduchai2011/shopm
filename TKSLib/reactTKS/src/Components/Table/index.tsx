@@ -1,4 +1,4 @@
-import React, { FC, useRef, useMemo } from 'react';
+import React, { FC, useRef, useMemo, useState } from 'react';
 import './styles.css';
 
 import { ContextTable } from './contextTable';
@@ -11,41 +11,51 @@ import {
     CellProps
 } from 'define';
 
+import { WARNING_COLOR } from 'const';
+
 import Row from './components/Row';
 import Control from './components/Control';
 
 const Table: FC<{
         data: {[key: string]: any}[],
         config: TableConfigProps,
-        onSelectPage: (number: number) => void
+        onSelectPage: (number: number) => void,
+        loadDataState?: string | undefined
     }> = ({ 
         data,
         config, 
-        onSelectPage 
+        onSelectPage,
+        loadDataState
     }) => {
 
+    const indexInit = 1;
+
     const tableControlData = {
-        pageIndex: config.pageIndex,
+        pageIndex: indexInit,
         pageSize: config.pageSize, 
         maxRow: config.maxRow
     }
 
-    const WARNING_COLOR = '#d3d602';
-
+    // const init: React.MutableRefObject<boolean> = useRef(false);
     const resizableStatus: React.MutableRefObject<boolean> = useRef(false);
     const cellWidth: React.MutableRefObject<number> = useRef(0);
     const cellX: React.MutableRefObject<number> = useRef(0);
     const selectedColumn: React.MutableRefObject<number | undefined> = useRef(undefined);
     const columnAmount: React.MutableRefObject<number> = useRef(0);
     const rowAmount: React.MutableRefObject<number> = useRef(0);
+    const [pageIndex, setPageIndex] = useState<number>(indexInit);
+    // const headerRow: React.MutableRefObject<RowProps> = useRef({
+    //     cells: []
+    // });
     const totalRow: React.MutableRefObject<RowProps[]> = useRef([]);
-    const rowForm: React.MutableRefObject<RowProps> = useRef({
-        cells: []
-    });
 
     rowAmount.current = data.length + 1;
 
-    // set-up header
+    const rowForm: RowProps = {
+        cells: []
+    };
+
+    // set-up header oncly one time
     const cellHeader = (fieldName: string, content: string, textColor: string, textWeight: string): CellProps => {
         return {
             fieldName: fieldName,
@@ -60,14 +70,14 @@ const Table: FC<{
     for (let i: number = 0; i < config.columnAmount; i++) {
         if ((config.columnsInfor!==undefined) && (config.columnsInfor[i]!==undefined)) {
             rowHeader.cells.push(cellHeader(config.columnsInfor[i].fieldName, config.columnsInfor[i].columnName, 'black', '700'));
-            rowForm.current.cells.push(cellHeader(config.columnsInfor[i].fieldName, '', 'black', '300'));
+            rowForm.cells.push(cellHeader(config.columnsInfor[i].fieldName, '', 'black', '300'));
         } else {
             rowHeader.cells.push(cellHeader('', `column ${i}`, 'black', '700'));
-            rowForm.current.cells.push(cellHeader('', '', WARNING_COLOR, '300'));
+            rowForm.cells.push(cellHeader('', '', WARNING_COLOR, '300'));
         }
     }
-    totalRow.current.unshift(rowHeader);
-
+    // headerRow.current = rowHeader;
+    
     // set-up data
     // const cellData = (content: string): CellProps => {
     //     return {
@@ -75,12 +85,13 @@ const Table: FC<{
     //         content: content
     //     }
     // }
+    const totalRow_m: RowProps[] = []
     for (let key: number = 0; key < data.length; key++) {
         // if (data.hasOwnProperty(key)) { 
         //     console.log(`log: ${key}: ${Object.keys(data[key])}`, data[key]);
         // }   
         // const rowData = { ...rowForm.current };
-        const rowData: RowProps = JSON.parse(JSON.stringify(rowForm.current));
+        const rowData: RowProps = JSON.parse(JSON.stringify(rowForm));
         for (let i: number = 0; i < rowData.cells.length; i++) {
             const keyIndexInRow = Object.keys(data[key]).indexOf(rowData.cells[i]?.fieldName);
             if (keyIndexInRow!==-1) {
@@ -91,9 +102,13 @@ const Table: FC<{
                 rowData.cells[i].textColor = WARNING_COLOR;
             }
         }
-        totalRow.current.push(rowData)
+        totalRow_m.push(rowData)
     }
 
+    totalRow_m.unshift(rowHeader);
+
+    totalRow.current = totalRow_m;
+    
     const tableProps: TableProps = {
         tableControl: tableControlData,
         rows: totalRow.current
@@ -109,7 +124,7 @@ const Table: FC<{
       
     const list_row: React.ReactNode = tableProps.rows.map((data: RowProps, index: number) => {
         return (
-            <Row data={data} index={index} key={index} />
+            <Row data={data} rowIndex={ index } key={index} />
         )
     })
 
@@ -121,8 +136,11 @@ const Table: FC<{
         columnAmount, 
         rowAmount,
         config,
-        onSelectPage
-    }), [config, onSelectPage]);
+        pageIndex,
+        setPageIndex,
+        onSelectPage,
+        loadDataState
+    }), [config, onSelectPage, loadDataState, pageIndex, setPageIndex]);
 
     return <ContextTable.Provider value={contextValue}>
         <div className="TKS-Table">

@@ -1,4 +1,7 @@
 import { FC } from 'react';
 import './styles.css';
-declare const Loading: FC<{}>;
+import { LoadProps } from 'define';
+declare const Loading: FC<{
+    load: LoadProps;
+}>;
 export default Loading;
