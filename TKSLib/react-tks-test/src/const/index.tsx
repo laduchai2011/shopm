@@ -29,3 +29,13 @@ export const TOAST_MESSAGE_CONST = {
         ERROR: 'ERROR'
     }
 }
+
+// overlay 
+export const OVERLAY_CONST = {
+    SHOW_TYPE: {
+        SHOW_TOP: 'SHOW_TOP',
+        SHOW_LEFT: 'SHOW_LEFT',
+        SHOW_RIGHT: 'SHOW_RIGHT',
+        SHOW_BOTTOM: 'SHOW_BOTTOM'
+    }
+}

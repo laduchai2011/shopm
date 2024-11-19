@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import './styles.css';
 
 import ToastMessage from 'Components/ToastMessage';
+import Overlay from 'Components/OverLay';
 
 import { ToastMessageProps } from 'define';
 
@@ -21,8 +22,11 @@ const Message: FC<{}> = () => {
     }
 
     return <div className="TKS-Message">
-         <button onClick={() => handleClick()}>click</button>
+        <button onClick={() => handleClick()}>click</button>
         <ToastMessage toastMessage={toastMessage} />
+        <Overlay  
+            isShow={true} 
+        />
     </div>;
 };
 

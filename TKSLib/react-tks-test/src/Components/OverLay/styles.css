@@ -1,0 +1,71 @@
+.TKS-Overlay {
+    --zIndex: 1000;
+    --opacity-time: 0.3;
+    --show-time: 0.3;
+    --blear-rate: 0.3
+}
+
+.TKS-Overlay {
+    position: fixed;
+    background-color: rgba(0, 0, 0, var(--blear-rate));
+    cursor: pointer;
+    z-index: var(--zIndex);
+}
+
+.TKS-Overlay.setupShowTop {
+    left: 0;
+    right: 0;
+    height: 100vh;
+    opacity: 0;
+    top: -100vh;
+    transition: top calc(var(--show-time) * 1s) linear, opacity calc(var(--opacity-time) * 1s) linear;
+}
+.TKS-Overlay.showTop {
+    opacity: 1;
+    top: 0;
+}
+
+.TKS-Overlay.setupShowBottom {
+    left: 0;
+    right: 0;
+    height: 100vh;
+    opacity: 0;
+    bottom: -100vh;
+    transition: bottom calc(var(--show-time) * 1s) linear, opacity calc(var(--opacity-time) * 1s) linear;
+}
+.TKS-Overlay.showBottom {
+    opacity: 1;
+    bottom: 0;
+}
+
+.TKS-Overlay.setupShowLeft {
+    top: 0;
+    bottom: 0;
+    width: 100vw;
+    opacity: 0;
+    left: -100vw;
+    transition: left calc(var(--show-time) * 1s) linear, opacity calc(var(--opacity-time) * 1s) linear;
+}
+.TKS-Overlay.showLeft {
+    opacity: 1;
+    left: 0;
+}
+
+.TKS-Overlay.setupShowRight {
+    top: 0;
+    bottom: 0;
+    width: 100vw;
+    opacity: 0;
+    right: -100vw;
+    transition: right calc(var(--show-time) * 1s) linear, opacity calc(var(--opacity-time) * 1s) linear;
+}
+.TKS-Overlay.showRight {
+    opacity: 1;
+    right: 0;
+}
+
+.TKS-Overlay.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -123,3 +123,12 @@ export interface ToastMessageProps {
     type: string,
     message: string
 }
+
+// overlay
+export interface OverlayProps {
+    zIndex?: number,
+    show_type?: string,
+    opacity_time?: number,
+    show_time?: number,
+    blear_rate?: number
+}
