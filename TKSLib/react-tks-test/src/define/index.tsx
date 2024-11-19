@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { TOAST_MESSAGE_CONST } from 'const';
+
 // define table
 export interface ContextTableProps {
     resizableStatus: React.MutableRefObject<boolean>,
@@ -114,4 +116,10 @@ export interface DeleteCircleProps {
     stroke?: string,
     animation_time?: number,
     stroke_width?: number
+}
+
+// message
+export interface ToastMessageProps {
+    type: string,
+    message: string
 }

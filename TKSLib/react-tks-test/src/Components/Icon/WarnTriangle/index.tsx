@@ -3,7 +3,12 @@ import './styles.css';
 
 import { WarnTriangleProps } from 'define';
 
-const WarnTriangle: FC<{ warnTriangle?: WarnTriangleProps }> = ({ warnTriangle }) => {
+interface MyWarnTriangleProps extends React.HTMLProps<SVGSVGElement> {
+    warnTriangle?: WarnTriangleProps;
+    [key: string]: any;
+}
+
+const WarnTriangle: FC<MyWarnTriangleProps> = ({warnTriangle, ...props}) => {
 
     const warnTriangleElement = useRef<SVGSVGElement | null>(null);
 
@@ -23,8 +28,10 @@ const WarnTriangle: FC<{ warnTriangle?: WarnTriangleProps }> = ({ warnTriangle }
         ref={warnTriangleElement}
         viewBox="0 0 24 24" 
         xmlns="http://www.w3.org/2000/svg"
+        {...props}
     >
         <path d="M1.608,18 L12,0 L22.4,18 Z M12,3 L12,13 Z M12,15 L12,16 Z"/>
+        {props.children}
     </svg>;
 };
 

@@ -1,5 +1,6 @@
 .TKS-ToastMessage-MessageBox {
     --message-color: ;
+    --show-time: 1;
 }
 
 .TKS-ToastMessage-MessageBox {
@@ -12,13 +13,13 @@
     align-items: center;
     overflow: hidden;
     width: 300px;
-    top: 50px;
     right: -300px;
+    top: 0;
     position: fixed;
+    opacity: 1;
 
-    transition: right 1s linear, top 3s linear;
+    transition: right calc(var(--show-time) * 1s) linear, top 1s linear, opacity 1s linear;
 }
-
 .TKS-ToastMessage-MessageBox.show {
     right: 0;
 }

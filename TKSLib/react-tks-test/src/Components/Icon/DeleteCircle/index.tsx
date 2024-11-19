@@ -3,7 +3,13 @@ import './styles.css';
 
 import { DeleteCircleProps } from 'define';
 
-const DeleteCircle: FC<{ deleteCircle?: DeleteCircleProps }> = ({ deleteCircle }) => {
+
+interface MyDeleteCircleProps extends React.HTMLProps<SVGSVGElement> {
+    deleteCircle?: DeleteCircleProps;
+    [key: string]: any;
+}
+
+const DeleteCircle: FC<MyDeleteCircleProps> = ({deleteCircle, ...props}) => {
 
     const deleteCircleElement = useRef<SVGSVGElement | null>(null);
 
@@ -23,9 +29,11 @@ const DeleteCircle: FC<{ deleteCircle?: DeleteCircleProps }> = ({ deleteCircle }
         ref={deleteCircleElement}
         viewBox="0 0 24 24" 
         xmlns="http://www.w3.org/2000/svg"
+        {...props}
     >
         <circle cx='12' cy='12' r='12' />
         <path d="M5,5 L19,19 Z M5,19 L19,5 Z"/>
+        {props.children}
     </svg>;
 };
 

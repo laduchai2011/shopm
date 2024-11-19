@@ -3,7 +3,12 @@ import './styles.css';
 
 import { TickSymbolProps } from 'define';
 
-const TickSymbol: FC<{ tickSymbol?: TickSymbolProps }> = ({ tickSymbol }) => {
+interface MyTickSymbolProps extends React.HTMLProps<SVGSVGElement> {
+    tickSymbol?: TickSymbolProps;
+    [key: string]: any;
+}
+
+const TickSymbol: FC<MyTickSymbolProps> = ({tickSymbol, ...props}) => {
 
     const tickSymbolElement = useRef<SVGSVGElement | null>(null);
 
@@ -23,9 +28,11 @@ const TickSymbol: FC<{ tickSymbol?: TickSymbolProps }> = ({ tickSymbol }) => {
         ref={tickSymbolElement}
         viewBox="0 0 24 24" 
         xmlns="http://www.w3.org/2000/svg"
+        {...props}
     >
         <circle cx='12' cy='12' r='12' />
         <path d="M7,11 L12,19 Z M12,18 L18,6 Z"/>
+        {props.children}
     </svg>;
 };
 

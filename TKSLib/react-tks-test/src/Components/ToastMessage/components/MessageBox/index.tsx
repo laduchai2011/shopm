@@ -13,39 +13,67 @@ import {
     DeleteCircleProps 
 } from 'define';
 
-const MessageBox: FC<{ index: number, type: string, data: any }> = ({ index, type, data }) => {
+import { TOAST_MESSAGE_CONST } from 'const';
+
+const MessageBox: FC<{ 
+    index: number, 
+    type: string, 
+    message: string
+}> = ({ index, type, message }) => {
 
     const messageBoxElement = useRef<HTMLDivElement | null>(null);
+    const autoRemoveShow = useRef<boolean>(true);
 
-    const distanceMessageBoxs = 60;
-    const topContainer = 50;
     let color: string | undefined;
     const successColor = '#6eff33';
     const warnColor = '#ffff00';
     const errorColor = 'red';
 
-    if (type==='success') {
+    if (type===TOAST_MESSAGE_CONST.TYPE.SUCCESS) {
         color = successColor;
     }
     
-    if (type==='warn') {
+    if (type===TOAST_MESSAGE_CONST.TYPE.WARN) {
         color = warnColor;
     } 
 
-    if (type==='error') {
+    if (type===TOAST_MESSAGE_CONST.TYPE.ERROR) {
         color = errorColor;
     } 
 
     useEffect(() => {
-        let top: number = (index + 1) * distanceMessageBoxs - (distanceMessageBoxs - topContainer);
-        if (index===0) {
-            top = topContainer;
-        }
+        // let top: number = (index + 1) * distanceMessageBoxs - (distanceMessageBoxs - topContainer);
+        let top: number = 50;
+       
         if (messageBoxElement.current) {
+            messageBoxElement.current.style.setProperty('--show-time', '1'); 
+            const interval_addShow = setInterval(() => {
+                messageBoxElement.current && messageBoxElement.current.classList.add('show'); 
+                clearInterval(interval_addShow);
+            }, 100)
+
             messageBoxElement.current.style.top = `${top}px`;
-            messageBoxElement.current.style.setProperty('--message-color', `${color}`)
+            messageBoxElement.current.style.setProperty('--message-color', `${color}`);
+
+            const interval_removeShow = setInterval(() => {
+                if (messageBoxElement.current && autoRemoveShow.current) {
+                    messageBoxElement.current.classList.remove('show'); 
+                }
+                clearInterval(interval_removeShow);
+            }, 5000)
         }    
     }, [index, color])
+
+    const handleDelete = () : void => {
+        if (messageBoxElement.current) {
+            messageBoxElement.current.style.setProperty('--show-time', '1'); 
+            messageBoxElement.current.classList.remove('show'); 
+        }
+    }
+
+    const handleMouseOver = () : void => {
+        autoRemoveShow.current = false;
+    }
 
     const tickSymbol: TickSymbolProps = {
         size: 30,
@@ -66,15 +94,15 @@ const MessageBox: FC<{ index: number, type: string, data: any }> = ({ index, typ
         size: 20
     }
 
-    return <div className="TKS-ToastMessage-MessageBox show" ref={messageBoxElement}>
+    return <div className="TKS-ToastMessage-MessageBox" ref={messageBoxElement} onMouseOver={() => handleMouseOver()}>
         <div></div>
         <div>
-            { type==='success' && <TickSymbol tickSymbol={tickSymbol} /> }
-            { type==='warn' && <WarnTriangle warnTriangle={warnTriangle} /> }
-            { type==='error' && <ErrorCircle errorCircle={errorCircle} /> }
+            { type===TOAST_MESSAGE_CONST.TYPE.SUCCESS && <TickSymbol tickSymbol={tickSymbol} /> }
+            { type===TOAST_MESSAGE_CONST.TYPE.WARN && <WarnTriangle warnTriangle={warnTriangle} /> }
+            { type===TOAST_MESSAGE_CONST.TYPE.ERROR && <ErrorCircle errorCircle={errorCircle} /> }
         </div>
-        <div>Message { data }</div>
-        <div><DeleteCircle deleteCircle={deleteCircle} /></div>
+        <div>Message { message }</div>
+        <div><DeleteCircle deleteCircle={deleteCircle} onClick={() => handleDelete()} /></div>
     </div>;
 };
 

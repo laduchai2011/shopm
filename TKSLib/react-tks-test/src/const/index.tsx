@@ -19,3 +19,13 @@ export const LOAD_COMPONENTS_CONST = {
         SKELETON: 'SKELETON'
     }
 }
+
+
+// message
+export const TOAST_MESSAGE_CONST = {
+    TYPE: {
+        SUCCESS: 'SUCCESS',
+        WARN: 'WARN',
+        ERROR: 'ERROR'
+    }
+}

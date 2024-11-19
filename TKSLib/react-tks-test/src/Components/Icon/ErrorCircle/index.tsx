@@ -3,7 +3,12 @@ import './styles.css';
 
 import { ErrorCircleProps } from 'define';
 
-const ErrorCircle: FC<{ errorCircle?: ErrorCircleProps }> = ({ errorCircle }) => {
+interface MyErrorCircleProps extends React.HTMLProps<SVGSVGElement> {
+    errorCircle?: ErrorCircleProps;
+    [key: string]: any;
+}
+
+const ErrorCircle: FC<MyErrorCircleProps> = ({errorCircle, ...props}) => {
 
     const errorCircleElement = useRef<SVGSVGElement | null>(null);
 
@@ -23,9 +28,11 @@ const ErrorCircle: FC<{ errorCircle?: ErrorCircleProps }> = ({ errorCircle }) =>
         ref={errorCircleElement}
         viewBox="0 0 24 24" 
         xmlns="http://www.w3.org/2000/svg"
+        {...props}
     >
         <circle cx='12' cy='12' r='12' />
         <path d="M12,3 L12,16 Z M12,18 L12,19 Z"/>
+        {props.children}
     </svg>;
 };
 
