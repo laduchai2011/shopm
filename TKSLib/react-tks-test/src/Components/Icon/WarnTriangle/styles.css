@@ -1,7 +1,8 @@
 .TKS-WarnTriangle {
     --size: 35;
     --background: ;
-    --fill: rgba(0, 0, 0, 0);
+    /* --fill: rgba(0, 0, 0, 0); */
+    --fill: yellow;
     --stroke: black;
     --animation-time: 0;
     --stroke-width: 1;

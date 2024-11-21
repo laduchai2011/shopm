@@ -36,4 +36,4 @@ const ErrorCircle: FC<MyErrorCircleProps> = ({errorCircle, ...props}) => {
     </svg>;
 };
 
-export default ErrorCircle;
+export default React.memo(ErrorCircle);

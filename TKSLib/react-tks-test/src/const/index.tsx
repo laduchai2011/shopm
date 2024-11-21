@@ -39,3 +39,12 @@ export const OVERLAY_CONST = {
         SHOW_BOTTOM: 'SHOW_BOTTOM'
     }
 }
+
+// dialog
+export const DIALOG_CONST = {
+    MESSAGE_TYPE: {
+        SUCCESS: 'SUCCESS',
+        WARN: 'WARN',
+        ERROR: 'ERROR'
+    }
+}

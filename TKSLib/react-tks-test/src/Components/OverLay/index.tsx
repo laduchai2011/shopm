@@ -9,10 +9,11 @@ interface MyOverlayProps extends React.HTMLProps<HTMLDivElement> {
     overlay?: OverlayProps;
     isShow?: boolean;
     isCenter?: boolean;
+    onClose?: () => void,
     [key: string]: any;
 }
 
-const Overlay: FC<MyOverlayProps> = ({overlay, isShow, isCenter, ...props}) => {
+const Overlay: FC<MyOverlayProps> = ({overlay, isShow, isCenter, onClose, ...props}) => {
 
     const overlayElement = useRef<HTMLDivElement | null>(null);
     const showCommand = useRef<string>('showTop'); 
@@ -97,20 +98,20 @@ const Overlay: FC<MyOverlayProps> = ({overlay, isShow, isCenter, ...props}) => {
         } 
     }, [isCenter])
 
-    const handleClick = () : void => {
-        if (overlayElement.current) {
-            overlayElement.current.classList.remove(showCommand.current);
+    const handleClick = (e: React.MouseEvent) : void => {
+        if (e.target === e.currentTarget) {
+            onClose && onClose();
         }
     }
 
     return <div 
         className="TKS-Overlay"
         ref={overlayElement}
-        onClick={() => handleClick()}
+        onClick={(e) => handleClick(e)}
         {...props}
     >
         {props.children}
     </div>;
 };
 
-export default Overlay;
+export default React.memo(Overlay);

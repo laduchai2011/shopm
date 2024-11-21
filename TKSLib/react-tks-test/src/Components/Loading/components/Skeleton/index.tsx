@@ -70,4 +70,4 @@ const Skeleton: FC<{ skeletonLoad: SkeletonLoadProps }> = ({ skeletonLoad }) => 
     </div>
 };
 
-export default Skeleton;
+export default React.memo(Skeleton);

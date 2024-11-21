@@ -75,4 +75,4 @@ const Loading: FC<{ load: LoadProps }> = ({ load }) => {
     </div>;
 };
 
-export default Loading;
+export default React.memo(Loading);

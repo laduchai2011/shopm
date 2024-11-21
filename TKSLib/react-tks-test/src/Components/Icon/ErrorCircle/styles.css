@@ -1,8 +1,8 @@
 .TKS-ErrorCircle {
     --size: 30;
-    --background: ;
+    --background: red;
     --fill: rgba(0, 0, 0, 0);
-    --stroke: black;
+    --stroke: white;
     --animation-time: 0;
     --stroke-width: 1;
 }

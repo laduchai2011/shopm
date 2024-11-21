@@ -132,3 +132,16 @@ export interface OverlayProps {
     show_time?: number,
     blear_rate?: number
 }
+
+// dialog
+export interface DialogProps {
+    message_type?: string,
+    activate_button_1?: boolean,
+    activate_button_2?: boolean,
+    activate_button_3?: boolean,
+    button_1_name?: string,
+    button_2_name?: string,
+    button_3_name?: string,
+    opacity_time?: number,
+    show_time?: number
+}

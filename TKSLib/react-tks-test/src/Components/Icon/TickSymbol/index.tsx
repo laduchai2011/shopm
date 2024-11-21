@@ -36,4 +36,4 @@ const TickSymbol: FC<MyTickSymbolProps> = ({tickSymbol, ...props}) => {
     </svg>;
 };
 
-export default TickSymbol;
+export default React.memo(TickSymbol);

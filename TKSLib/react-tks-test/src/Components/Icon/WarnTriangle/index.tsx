@@ -35,4 +35,4 @@ const WarnTriangle: FC<MyWarnTriangleProps> = ({warnTriangle, ...props}) => {
     </svg>;
 };
 
-export default WarnTriangle;
+export default React.memo(WarnTriangle);

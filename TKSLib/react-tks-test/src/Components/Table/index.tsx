@@ -151,4 +151,4 @@ const Table: FC<{
     </ContextTable.Provider>
 };
 
-export default Table;
+export default React.memo(Table);

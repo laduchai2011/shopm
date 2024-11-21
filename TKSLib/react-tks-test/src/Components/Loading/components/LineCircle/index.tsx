@@ -29,4 +29,4 @@ const LineCircle: FC<{ lineCircleLoad: LineCircleLoadProps }> = ({ lineCircleLoa
     </div>
 };
 
-export default LineCircle;
+export default React.memo(LineCircle);

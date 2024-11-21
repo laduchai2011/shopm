@@ -1,6 +1,6 @@
 .TKS-TickSymbol {
     --size: 30;
-    --background: ;
+    --background: rgb(0, 255, 0);
     --fill: rgba(0, 0, 0, 0);
     --stroke: black;
     --animation-time: 0;

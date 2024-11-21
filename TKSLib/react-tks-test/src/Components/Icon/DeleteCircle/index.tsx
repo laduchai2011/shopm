@@ -37,4 +37,4 @@ const DeleteCircle: FC<MyDeleteCircleProps> = ({deleteCircle, ...props}) => {
     </svg>;
 };
 
-export default DeleteCircle;
+export default React.memo(DeleteCircle);
