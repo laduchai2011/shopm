@@ -22,4 +22,4 @@ const DotCircle = ({ dotCircleLoad }) => {
     return React.createElement("div", { className: "TKS-Load-DotCircle" },
         React.createElement("div", null, list_dot));
 };
-export default DotCircle;
+export default React.memo(DotCircle);

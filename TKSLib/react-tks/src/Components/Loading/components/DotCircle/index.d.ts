@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import React from 'react';
 import './styles.css';
 import { DotCircleLoadProps } from 'define';
-declare const DotCircle: FC<{
+declare const _default: React.NamedExoticComponent<{
     dotCircleLoad: DotCircleLoadProps;
 }>;
-export default DotCircle;
+export default _default;

@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import React from 'react';
 import './styles.css';
 import { LoadProps } from 'define';
-declare const Loading: FC<{
+declare const _default: React.NamedExoticComponent<{
     load: LoadProps;
 }>;
-export default Loading;
+export default _default;

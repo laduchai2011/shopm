@@ -61,4 +61,4 @@ const Skeleton = ({ skeletonLoad }) => {
     }, [skeletonLoad]);
     return React.createElement("div", { className: "TKS-Load-Skeleton TKS-Load-Skeleton--Loading", ref: myElementRef });
 };
-export default Skeleton;
+export default React.memo(Skeleton);

@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import React from 'react';
 import './styles.css';
 import { LineCircleLoadProps } from 'define';
-declare const LineCircle: FC<{
+declare const _default: React.NamedExoticComponent<{
     lineCircleLoad: LineCircleLoadProps;
 }>;
-export default LineCircle;
+export default _default;

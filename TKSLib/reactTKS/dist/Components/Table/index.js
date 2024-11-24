@@ -116,4 +116,4 @@ const Table = ({ data, config, onSelectPage, loadDataState }) => {
             handleControlPos() === 'bottom' && React.createElement("div", { className: 'TKS-Table--Control' },
                 React.createElement(Control, { data: tableProps.tableControl }))));
 };
-export default Table;
+export default React.memo(Table);

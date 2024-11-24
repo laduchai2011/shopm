@@ -14,3 +14,28 @@ export const LOAD_COMPONENTS_CONST = {
         SKELETON: 'SKELETON'
     }
 };
+// message
+export const TOAST_MESSAGE_CONST = {
+    TYPE: {
+        SUCCESS: 'SUCCESS',
+        WARN: 'WARN',
+        ERROR: 'ERROR'
+    }
+};
+// overlay 
+export const OVERLAY_CONST = {
+    SHOW_TYPE: {
+        SHOW_TOP: 'SHOW_TOP',
+        SHOW_LEFT: 'SHOW_LEFT',
+        SHOW_RIGHT: 'SHOW_RIGHT',
+        SHOW_BOTTOM: 'SHOW_BOTTOM'
+    }
+};
+// dialog
+export const DIALOG_CONST = {
+    MESSAGE_TYPE: {
+        SUCCESS: 'SUCCESS',
+        WARN: 'WARN',
+        ERROR: 'ERROR'
+    }
+};

@@ -39,7 +39,7 @@ const Message: FC<{}> = () => {
             isShow={isShow} 
             onClose={() => handleClose()}
         >
-            <Dialog dialog={{message_type: 'SUCCESS'}} message='dfdsfsdf' isShow={isShow} onClose={() => handleClose()} />
+            <Dialog dialog={{message_type: 'SUCCESS', button_1_name: 'Yes', button_3_name: 'No'}} message='dfdsfsdf' isShow={isShow} onClose={() => handleClose()} />
         </Overlay>
     </div>;
 };

@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import React from 'react';
 import './styles.css';
 import { TableConfigProps } from 'define';
-declare const Table: FC<{
+declare const _default: React.NamedExoticComponent<{
     data: {
         [key: string]: any;
     }[];
@@ -9,4 +9,4 @@ declare const Table: FC<{
     onSelectPage: (number: number) => void;
     loadDataState?: string | undefined;
 }>;
-export default Table;
+export default _default;

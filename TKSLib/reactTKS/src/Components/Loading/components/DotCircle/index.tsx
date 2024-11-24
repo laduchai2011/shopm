@@ -38,4 +38,4 @@ const DotCircle: FC<{dotCircleLoad: DotCircleLoadProps}> = ({ dotCircleLoad }) =
     </div>
 };
 
-export default DotCircle;
+export default React.memo(DotCircle);

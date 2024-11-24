@@ -25,6 +25,11 @@ module.exports = {
                 use: ['ts-loader']
             },
             {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: 'babel-loader',
+            },
+            {
               test: /\.css$/, // Transpile both .ts and .tsx files
               use: ["style-loader", "css-loader"]
             }
@@ -33,5 +38,6 @@ module.exports = {
     externals: {
         react: 'react', // Exclude React from the bundle
         'react-dom': 'react-dom', // Exclude ReactDOM from the bundle
+        // 'react-dom/client': 'react-dom/client'
     },
 };

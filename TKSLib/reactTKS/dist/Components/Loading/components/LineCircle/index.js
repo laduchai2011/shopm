@@ -19,4 +19,4 @@ const LineCircle = ({ lineCircleLoad }) => {
         React.createElement("svg", null,
             React.createElement("circle", { cx: `${circleSize / 2}`, cy: `${circleSize / 2}`, r: r })));
 };
-export default LineCircle;
+export default React.memo(LineCircle);

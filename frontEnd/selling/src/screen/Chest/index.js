@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './styles.css';
+
+import ReactDOM from 'react-dom/client';
 
 import Header from 'screen/Header';
 
-import { Table } from 'react-tks';
+import { Table, OverLay, ToastMessage } from 'react-tks';
 
 const Chest = () => {
+
+    const toastMessageContainerElement = useRef(null);
+
+    useEffect(() => {
+        const element = React.createElement(OverLay, { isShow: true })
+        const newNode = document.createElement('div');
+        newNode.style.width = '300px';
+        ReactDOM.createRoot(newNode).render(element); 
+        toastMessageContainerElement.current?.insertBefore(newNode, toastMessageContainerElement.current.firstChild);
+    }, [])
 
     const tableConfig = {
         columnAmount: 5,
@@ -37,7 +49,12 @@ const Chest = () => {
     ]
 
     const handleSelectPage = (pageIndex) => {
-    console.log('handleSelectPage', pageIndex)
+        console.log('handleSelectPage', pageIndex)
+    }
+
+    const toastMessage = {
+        type: 'SUCCESS',
+        message: 'toastMessage'
     }
 
     return (
@@ -49,6 +66,9 @@ const Chest = () => {
                     <Table config={tableConfig} data={data} onSelectPage={handleSelectPage} />
                 </div>
             </div>
+            <ToastMessage toastMessage={toastMessage} />
+            <div ref={toastMessageContainerElement}></div>
+            {/* <OverLay isShow={false} /> */}
         </div>
     )
 }

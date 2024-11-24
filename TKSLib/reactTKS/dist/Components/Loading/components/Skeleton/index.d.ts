@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import React from 'react';
 import './styles.css';
 import { SkeletonLoadProps } from 'define';
-declare const Skeleton: FC<{
+declare const _default: React.NamedExoticComponent<{
     skeletonLoad: SkeletonLoadProps;
 }>;
-export default Skeleton;
+export default _default;

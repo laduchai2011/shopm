@@ -136,6 +136,7 @@ export interface OverlayProps {
 // dialog
 export interface DialogProps {
     message_type?: string,
+    message_color?: string,
     activate_button_1?: boolean,
     activate_button_2?: boolean,
     activate_button_3?: boolean,
@@ -143,5 +144,7 @@ export interface DialogProps {
     button_2_name?: string,
     button_3_name?: string,
     opacity_time?: number,
-    show_time?: number
+    show_time?: number, 
+    button_font_size?: number
+    button_min_width?: number
 }

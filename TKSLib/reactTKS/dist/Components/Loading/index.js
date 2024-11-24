@@ -51,4 +51,4 @@ const Loading = ({ load }) => {
         load.type === LOAD_COMPONENTS_CONST.LOADING_TYPE.LINE_CIRCLE && React.createElement(LineCircle, { lineCircleLoad: load.infor }),
         load.type === LOAD_COMPONENTS_CONST.LOADING_TYPE.SKELETON && React.createElement(Skeleton, { skeletonLoad: load.infor }));
 };
-export default Loading;
+export default React.memo(Loading);

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { TOAST_MESSAGE_CONST } from 'const';
+
 // define table
 export interface ContextTableProps {
     resizableStatus: React.MutableRefObject<boolean>,
@@ -77,4 +79,72 @@ export interface SkeletonLoadProps {
     maxminWidth?: 'max' | 'min',
     height: number,
     maxminHeight?: 'max' | 'min'
+}
+
+// define icon
+export interface WarnTriangleProps {
+    size?: number,
+    background?: string,
+    fill?: string,
+    stroke?: string,
+    animation_time?: number,
+    stroke_width?: number
+}
+
+export interface ErrorCircleProps {
+    size?: number,
+    background?: string,
+    fill?: string,
+    stroke?: string,
+    animation_time?: number,
+    stroke_width?: number
+}
+
+export interface TickSymbolProps {
+    size?: number,
+    background?: string,
+    fill?: string,
+    stroke?: string,
+    animation_time?: number,
+    stroke_width?: number
+}
+
+export interface DeleteCircleProps {
+    size?: number,
+    background?: string,
+    fill?: string,
+    stroke?: string,
+    animation_time?: number,
+    stroke_width?: number
+}
+
+// message
+export interface ToastMessageProps {
+    type: string,
+    message: string
+}
+
+// overlay
+export interface OverlayProps {
+    zIndex?: number,
+    show_type?: string,
+    opacity_time?: number,
+    show_time?: number,
+    blear_rate?: number
+}
+
+// dialog
+export interface DialogProps {
+    message_type?: string,
+    message_color?: string,
+    activate_button_1?: boolean,
+    activate_button_2?: boolean,
+    activate_button_3?: boolean,
+    button_1_name?: string,
+    button_2_name?: string,
+    button_3_name?: string,
+    opacity_time?: number,
+    show_time?: number, 
+    button_font_size?: number
+    button_min_width?: number
 }
