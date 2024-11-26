@@ -6,21 +6,35 @@ import Overlay from 'Components/OverLay';
 import Dialog from 'Components/Dialog';
 
 import { ToastMessageProps } from 'define';
+import { TOAST_MESSAGE_CONST } from 'const';
+import { TKSProps } from 'define';
 
 const Message: FC<{}> = () => {
-
-    const [toastMessage, setToastMessage] = useState<ToastMessageProps | undefined>(undefined);
 
     const [i, setI] = useState<number>(0)
     const [isShow, setIsshow] = useState<boolean>(false);
 
+    const [toastMessage, setToastMessage] = useState<ToastMessageProps>({
+        config: { name: '1234' },
+        event: {
+            onData: (TKS) => handleOnData(TKS)
+        }
+    });
+
     const handleClick = () => {
-        const newMessage: ToastMessageProps = {
-            type: 'SUCCESS',
-            message: `message ${i}`
-        } 
+        if ((i%2) > 0) {
+            setToastMessage({
+                ...toastMessage,
+                data: { message: `hello ${i}`, type: TOAST_MESSAGE_CONST.TYPE.WARN}
+            })
+        } else {
+            setToastMessage({
+                ...toastMessage,
+                data: { message: `hello ${i}`, type: TOAST_MESSAGE_CONST.TYPE.ERROR}
+            })
+        }
+        
         setI(x => x + 1)
-        setToastMessage(newMessage);
     }
 
     const handleShowDialog = () => {
@@ -31,6 +45,10 @@ const Message: FC<{}> = () => {
         setIsshow(false);
     }
 
+    const handleOnData = (TKS: TKSProps) : void => {
+        console.log(TKS)
+    }
+
     return <div className="TKS-Message">
         <button onClick={() => handleClick()}>click</button>
         <button onClick={() => handleShowDialog()}>showDialog</button>
@@ -39,7 +57,11 @@ const Message: FC<{}> = () => {
             isShow={isShow} 
             onClose={() => handleClose()}
         >
-            <Dialog dialog={{message_type: 'SUCCESS', button_1_name: 'Yes', button_3_name: 'No'}} message='dfdsfsdf' isShow={isShow} onClose={() => handleClose()} />
+            <Dialog dialog={{
+                data: {message: 'dialog', message_color: 'red', message_type: 'ERROR'},
+                control: {isShow: true}
+            }} />
+          
         </Overlay>
     </div>;
 };

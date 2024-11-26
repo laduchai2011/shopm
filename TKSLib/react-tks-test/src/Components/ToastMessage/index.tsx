@@ -1,82 +1,105 @@
-import React, { FC, useState, useRef, useEffect } from 'react';
+import React, { FC, useState, useRef, useEffect, useId } from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles.css';
 
 import MessageBox from './components/MessageBox';
 
-import { ToastMessageProps } from 'define';
+import { TKSProps, ToastMessageProps, ToastMessage_Data_Props } from 'define';
 
 import { handleCutPXInString } from 'utils';
 
 interface CreateElementProps {
-    message: string
+    message?: string
 }
 
-const ToastMessage: FC<{ 
-    toastMessage?: ToastMessageProps, 
-    onData?: (toastMessages: ToastMessageProps[] | []) => void
-}> = ({ toastMessage, onData }) => {
+interface MyToastMessageProps extends React.HTMLProps<HTMLDivElement> {
+    toastMessage?: ToastMessageProps;
+    [key: string]: any;
+}
+
+
+const ToastMessage: FC<MyToastMessageProps> = ({ toastMessage, ...props }) => {
+
+    const id = useRef<string>(`ToastMessage__T: ${useId()}`);
 
     const toastMessageElement = useRef<HTMLDivElement | null>(null);
     const toastMessageContainerElement = useRef<HTMLDivElement | null>(null);
 
-    const [allData, setAllData] = useState<ToastMessageProps[]>([]);
+    const maxMessage_ = useRef<number>(10);
+
+    const [allData, setAllData] = useState<ToastMessage_Data_Props[]>([]);
 
     const distanceMessageBoxs = 60;
 
     useEffect(() => {
-
-        const cp_allData: ToastMessageProps[] = [...allData];
-        if (toastMessage) {
-            cp_allData.unshift(toastMessage);
+        const cp_allData: ToastMessage_Data_Props[] = [...allData];
+        if (toastMessage?.data) {
+            cp_allData.unshift(toastMessage?.data);
             setAllData(cp_allData);
 
             if (toastMessageContainerElement.current) { 
-                // const messageBoxElements = toastMessageContainerElement.current.children;
                 const messageBoxDivElements_m: HTMLCollectionOf<HTMLDivElement> = toastMessageContainerElement.current.children as HTMLCollectionOf<HTMLDivElement>;
                 const messageBoxDivElements = Array.from(messageBoxDivElements_m);
 
-                if (messageBoxDivElements.length > 0) {
-                    for (let i: number = 0; i < messageBoxDivElements.length; i++) {
-                        const messageBoxElements: HTMLCollectionOf<HTMLDivElement> = messageBoxDivElements[i].children as HTMLCollectionOf<HTMLDivElement>;
-                        if (messageBoxElements[0]) { 
-                            const pre_top = messageBoxElements[0].style.top;
-                            const old_top: number = Number(handleCutPXInString(pre_top));
-                            messageBoxElements[0].style.top = `${old_top + distanceMessageBoxs}px`;
+                for (let i: number = 0; i < messageBoxDivElements.length; i++) {
+                    const messageBoxElements: HTMLCollectionOf<HTMLDivElement> = messageBoxDivElements[i].children as HTMLCollectionOf<HTMLDivElement>;
+                    if (messageBoxElements[0]) { 
+                        const pre_top = messageBoxElements[0].style.top;
+                        const old_top: number = Number(handleCutPXInString(pre_top));
+                        messageBoxElements[0].style.top = `${old_top + distanceMessageBoxs}px`;
 
-                            if (i > 4) {
-                                messageBoxElements[0].style.opacity = '0';
-                            }
+                        if (i === maxMessage_.current) {
+                            messageBoxElements[0].style.opacity = '0';
 
-                            if (i > 2) {
-                                messageBoxElements[0].remove();
-                            }
+                            const messageBoxDivElements_n: HTMLDivElement = messageBoxDivElements[i];
+
+                            const remove_interval = setInterval(() => {
+                                messageBoxDivElements_n.remove();
+                                clearInterval(remove_interval)
+                            }, 1000)
                         }
                     }
-                    createElement({message: toastMessage.message});
                 }
+                createElement({message: toastMessage?.data?.message});
             }
         }
 
         // eslint-disable-next-line
-    }, [toastMessage])
+    }, [toastMessage?.data])
 
     useEffect(() => {
-        onData && onData(allData);
-    }, [allData, onData])
+        if (toastMessage?.config?.max_message) {
+            maxMessage_.current = toastMessage?.config?.max_message;
+        }
+    }, [toastMessage?.config])
+
+    useEffect(() => {
+        if (toastMessage?.config?.id) {
+            id.current = toastMessage?.config?.id;
+        }
+    }, [toastMessage?.config?.id])
+
+    useEffect(() => {
+        const TKS: TKSProps = {
+            name: toastMessage?.config?.name,
+            id: id.current,
+            data: {
+                allData: allData
+            }
+        }
+        toastMessage?.event?.onData && toastMessage?.event?.onData(TKS);
+    }, [allData, toastMessage])
 
     const createElement = (createElement: CreateElementProps) : void => {
-        const element = React.createElement(MessageBox, { index: 1, type: 'SUCCESS', message: createElement.message})
+        const element = React.createElement(MessageBox, { type: toastMessage?.data?.type, message: createElement.message})
         const newNode = document.createElement('div');
         newNode.style.width = '300px';
         ReactDOM.createRoot(newNode).render(element); 
         toastMessageContainerElement.current?.insertBefore(newNode, toastMessageContainerElement.current.firstChild)
     }
 
-    return <div className="TKS-ToastMessage" ref={toastMessageElement}>
+    return <div className="TKS-ToastMessage" ref={toastMessageElement} {...props}>
         <div className='TKS-ToastMessage-Container' ref={toastMessageContainerElement}>
-            <div></div>
-            <div></div>
         </div>
     </div>;
 };

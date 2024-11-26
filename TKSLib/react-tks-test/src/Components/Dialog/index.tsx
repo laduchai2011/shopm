@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect } from 'react';
+import React, { FC, useRef, useEffect, useId } from 'react';
 import './styles.css';
 
 import DeleteCircle from 'Components/Icon/DeleteCircle';
@@ -6,31 +6,23 @@ import TickSymbol from 'Components/Icon/TickSymbol';
 import WarnTriangle from 'Components/Icon/WarnTriangle';
 import ErrorCircle from 'Components/Icon/ErrorCircle';
 
-import { DialogProps } from 'define';
+import { TKSProps, DialogProps } from 'define';
 import { DIALOG_CONST } from 'const';
 
 interface MyDialogProps extends React.HTMLProps<HTMLDivElement> {
     dialog?: DialogProps;
-    message?: string;
-    isShow?: boolean;
-    onClose?: () => void,
-    onClickButton1?: (e: React.MouseEvent) => void,
-    onClickButton2?: (e: React.MouseEvent) => void,
-    onClickButton3?: (e: React.MouseEvent) => void,
     [key: string]: any;
 }
 
 const Dialog: FC<MyDialogProps> = ({
-    dialog, 
-    message, 
-    isShow, 
-    onClickButton1,
-    onClickButton2,
-    onClickButton3,
-    onClose, 
+    dialog,
     ...props
 }) => {
+
+    const id = useRef<string>(`Dialog__T: ${useId()}`);
+
     const dialogElement = useRef<HTMLDivElement | null>(null);
+
     const showCommand = useRef<string>('show'); 
     const showTime = useRef<number>(0.3); 
     const messageType = useRef<string | undefined>(undefined);
@@ -41,49 +33,59 @@ const Dialog: FC<MyDialogProps> = ({
     const button_2_name = useRef<string | undefined>(undefined);
     const button_3_name = useRef<string | undefined>(undefined);
 
+    messageType.current = dialog?.data?.message_type;
 
-    messageType.current = dialog?.message_type;
-
-    activate_button_1.current = dialog?.activate_button_1;
-    activate_button_2.current = dialog?.activate_button_2;
-    activate_button_3.current = dialog?.activate_button_3;
-    button_1_name.current = dialog?.button_1_name;
-    button_2_name.current = dialog?.button_2_name;
-    button_3_name.current = dialog?.button_3_name;
+    activate_button_1.current = dialog?.config?.activate_button_1;
+    activate_button_2.current = dialog?.config?.activate_button_2;
+    activate_button_3.current = dialog?.config?.activate_button_3;
+    button_1_name.current = dialog?.config?.button_1_name;
+    button_2_name.current = dialog?.config?.button_2_name;
+    button_3_name.current = dialog?.config?.button_3_name;
 
     // set default button
-    if (dialog?.activate_button_1===true || dialog?.activate_button_1===undefined) {
+    if (dialog?.config?.activate_button_1===true || dialog?.config?.activate_button_1===undefined) {
         activate_button_1.current = true;
     } 
-    if (dialog?.activate_button_3===true || dialog?.activate_button_3===undefined) {
+    if (dialog?.config?.activate_button_3===true || dialog?.config?.activate_button_3===undefined) {
         activate_button_3.current = true;
     } 
-    if (dialog?.button_1_name===undefined) {
+    if (dialog?.config?.button_1_name===undefined) {
         button_1_name.current = 'Button 1';
     } 
-    if (dialog?.button_2_name===undefined) {
+    if (dialog?.config?.button_2_name===undefined) {
         button_2_name.current = 'Button 2';
     } 
-    if (dialog?.button_3_name===undefined) {
+    if (dialog?.config?.button_3_name===undefined) {
         button_3_name.current = 'Button 3';
     } 
 
     useEffect(() => {
-        if (dialogElement.current) {
-            dialog?.opacity_time && dialogElement.current.style.setProperty('--opacity-time', `${dialog.opacity_time}`);
-            dialog?.show_time && dialogElement.current.style.setProperty('--show-time', `${dialog.show_time}`) /*NOT USE*/
-            dialog?.button_font_size && dialogElement.current.style.setProperty('--button-font-size', `${dialog.button_font_size}`);
-            dialog?.button_min_width && dialogElement.current.style.setProperty('--button-min-width', `${dialog.button_min_width}`);
-            dialog?.message_color && dialogElement.current.style.setProperty('--message-color', `${dialog.message_color}`) /*NOT USE*/
-            if (dialog?.show_time) {
-                showTime.current = dialog.show_time;
-            }
+        if (dialog?.config?.id) {
+            id.current = dialog?.config?.id;
         }
-    }, [dialog])
+    }, [dialog?.config?.id])
 
     useEffect(() => {
         if (dialogElement.current) {
-            if (isShow) {
+            dialog?.config?.opacity_time && dialogElement.current.style.setProperty('--opacity-time', `${dialog?.config.opacity_time}`);
+            dialog?.config?.show_time && dialogElement.current.style.setProperty('--show-time', `${dialog?.config.show_time}`) /*NOT USE*/
+            dialog?.config?.button_font_size && dialogElement.current.style.setProperty('--button-font-size', `${dialog?.config.button_font_size}`);
+            dialog?.config?.button_min_width && dialogElement.current.style.setProperty('--button-min-width', `${dialog?.config.button_min_width}`);
+            if (dialog?.config?.show_time) {
+                showTime.current = dialog?.config.show_time;
+            }
+        }
+    }, [dialog?.config])
+
+    useEffect(() => {
+        if (dialogElement.current) {
+            dialog?.data?.message_color && dialogElement.current.style.setProperty('--message-color', `${dialog?.data?.message_color}`)
+        }
+    }, [dialog?.data])
+
+    useEffect(() => {
+        if (dialogElement.current) {
+            if (dialog?.control?.isShow) {
                 dialogElement.current.style.display = 'block';
                 const interval_display = setInterval(() => {
                     if (dialogElement.current) {
@@ -102,28 +104,56 @@ const Dialog: FC<MyDialogProps> = ({
                 }, showTime.current*1000)
             }
         } 
-    }, [isShow])
+    }, [dialog?.control?.isShow])
 
-    const handleDelete = () : void => {
-        onClose && onClose();
+    const handleDelete = (e: React.MouseEvent) : void => {
+        const TKS: TKSProps = {
+            name: dialog?.config?.name,
+            id: id.current,
+            event: {
+                defaultEvent: e
+            }
+        }
+        dialog?.event?.onClose && dialog?.event?.onClose(TKS);
     }
 
     const handleButton1Click = (e: React.MouseEvent) => {
-        onClickButton1 && onClickButton1(e);
+        const TKS: TKSProps = {
+            name: dialog?.config?.name,
+            id: id.current,
+            event: {
+                defaultEvent: e
+            }
+        }
+        dialog?.event?.onClickButton1 && dialog?.event?.onClickButton1(TKS);
     }
     const handleButton2Click = (e: React.MouseEvent) => {
-        onClickButton2 && onClickButton2(e);
+        const TKS: TKSProps = {
+            name: dialog?.config?.name,
+            id: id.current,
+            event: {
+                defaultEvent: e
+            }
+        }
+        dialog?.event?.onClickButton2 && dialog?.event?.onClickButton2(TKS);
     }
     const handleButton3Click = (e: React.MouseEvent) => {
-        onClickButton3 && onClickButton3(e);
+        const TKS: TKSProps = {
+            name: dialog?.config?.name,
+            id: id.current,
+            event: {
+                defaultEvent: e
+            }
+        }
+        dialog?.event?.onClickButton3 && dialog?.event?.onClickButton3(TKS);
     }
 
     return <div className="TKS-Dialog" {...props} ref={dialogElement}>
         <div>
-            <DeleteCircle deleteCircle={{size: 22}} onClick={() => handleDelete()} />
+            <DeleteCircle deleteCircle={{size: 22}} onClick={(e) => handleDelete(e)} />
         </div>
         <div>
-            <div>{message}</div>
+            <div>{dialog?.data?.message}</div>
             { messageType.current===DIALOG_CONST.MESSAGE_TYPE.SUCCESS && <div><TickSymbol /></div> }
             { messageType.current===DIALOG_CONST.MESSAGE_TYPE.WARN && <div><WarnTriangle /></div> }
             { messageType.current===DIALOG_CONST.MESSAGE_TYPE.ERROR && <div><ErrorCircle /></div> }

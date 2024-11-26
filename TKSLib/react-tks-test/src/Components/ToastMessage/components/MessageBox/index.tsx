@@ -16,10 +16,9 @@ import {
 import { TOAST_MESSAGE_CONST } from 'const';
 
 const MessageBox: FC<{ 
-    index: number, 
-    type: string, 
-    message: string
-}> = ({ index, type, message }) => {
+    type?: string, 
+    message?: string
+}> = ({ type, message }) => {
 
     const messageBoxElement = useRef<HTMLDivElement | null>(null);
     const autoRemoveShow = useRef<boolean>(true);
@@ -42,7 +41,6 @@ const MessageBox: FC<{
     } 
 
     useEffect(() => {
-        // let top: number = (index + 1) * distanceMessageBoxs - (distanceMessageBoxs - topContainer);
         let top: number = 50;
        
         if (messageBoxElement.current) {
@@ -62,7 +60,7 @@ const MessageBox: FC<{
                 clearInterval(interval_removeShow);
             }, 5000)
         }    
-    }, [index, color])
+    }, [color])
 
     const handleDelete = () : void => {
         if (messageBoxElement.current) {
@@ -101,9 +99,9 @@ const MessageBox: FC<{
             { type===TOAST_MESSAGE_CONST.TYPE.WARN && <WarnTriangle warnTriangle={warnTriangle} /> }
             { type===TOAST_MESSAGE_CONST.TYPE.ERROR && <ErrorCircle errorCircle={errorCircle} /> }
         </div>
-        <div>Message { message }</div>
+        <div>{ message }</div>
         <div><DeleteCircle deleteCircle={deleteCircle} onClick={() => handleDelete()} /></div>
     </div>;
 };
 
-export default MessageBox;
+export default React.memo(MessageBox);
