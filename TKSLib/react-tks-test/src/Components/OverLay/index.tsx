@@ -1,34 +1,34 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useEffect, useRef, useState, useId } from 'react';
 import './styles.css';
 
-import { OverlayProps } from 'define';
+import { TKSProps, TKS_Init, OverlayProps } from 'define';
 
 import { OVERLAY_CONST } from 'const';
 
 interface MyOverlayProps extends React.HTMLProps<HTMLDivElement> {
     overlay?: OverlayProps;
-    isShow?: boolean;
-    isCenter?: boolean;
-    onClose?: () => void,
     [key: string]: any;
 }
 
-const Overlay: FC<MyOverlayProps> = ({overlay, isShow, isCenter, onClose, ...props}) => {
+const Overlay: FC<MyOverlayProps> = ({overlay, ...props}) => {
 
     const overlayElement = useRef<HTMLDivElement | null>(null);
     const showCommand = useRef<string>('showTop'); 
 
-    useEffect(() => {
-        if (overlayElement.current) {
-            overlay?.zIndex && overlayElement.current.style.setProperty('--zIndex', `${overlay.zIndex}`);
-            overlay?.opacity_time && overlayElement.current.style.setProperty('--opacity-time', `${overlay.opacity_time}`);
-            overlay?.show_time && overlayElement.current.style.setProperty('--show-time', `${overlay.show_time}`);
-            overlay?.blear_rate && overlayElement.current.style.setProperty('--blear-rate', `${overlay.blear_rate}`);
-        }    
-    }, [overlay])
+    const id = useRef<string>(`Dialog__T: ${useId()}`);
+    const [isShow_, setIsShow_] = useState<boolean | undefined>();
 
     useEffect(() => {
-        const showType: string | undefined = overlay?.show_type;
+        if (overlayElement.current) {
+            overlay?.config?.zIndex && overlayElement.current.style.setProperty('--zIndex', `${overlay.config.zIndex}`);
+            overlay?.config?.opacity_time && overlayElement.current.style.setProperty('--opacity-time', `${overlay.config.opacity_time}`);
+            overlay?.config?.show_time && overlayElement.current.style.setProperty('--show-time', `${overlay.config.show_time}`);
+            overlay?.config?.blear_rate && overlayElement.current.style.setProperty('--blear-rate', `${overlay.config.blear_rate}`);
+        }    
+    }, [overlay?.config])
+
+    useEffect(() => {
+        const showType: string | undefined = overlay?.config?.show_type;
         if (overlayElement.current) {
 
             // remove all
@@ -76,38 +76,66 @@ const Overlay: FC<MyOverlayProps> = ({overlay, isShow, isCenter, onClose, ...pro
             } 
         } 
         
-    }, [overlay])
+    }, [overlay?.config])
+
+    useEffect(() => {
+        if (overlay?.config?.id) {
+            id.current = overlay?.config?.id;
+        }
+    }, [overlay?.config?.id])
+
+    useEffect(() => {
+        setIsShow_(overlay?.control?.isShow);
+    }, [overlay?.control?.isShow])
 
     useEffect(() => {
         if (overlayElement.current) {
-            if (isShow) {
+            if (isShow_) {
                 overlayElement.current.classList.add(showCommand.current);
             } else {
                 overlayElement.current.classList.remove(showCommand.current);
             }
         } 
-    }, [isShow])
+    }, [isShow_])
 
     useEffect(() => {
         if (overlayElement.current) {
-            if (isCenter || isCenter===undefined) {
+            if (overlay?.control?.isCenter || overlay?.control?.isCenter===undefined) {
                 overlayElement.current.classList.add('center');
             } else {
                 overlayElement.current.classList.remove('center');
             }
         } 
-    }, [isCenter])
+    }, [overlay?.control?.isCenter])
 
-    const handleClick = (e: React.MouseEvent) : void => {
+    const handleClose = (e: React.MouseEvent) : void => {
         if (e.target === e.currentTarget) {
-            onClose && onClose();
+            let isRemoveDefaultFunction = false;
+            const TKS: TKSProps = {
+                ...TKS_Init,
+                name: overlay?.config?.name,
+                id: id.current,
+                data: {
+                    isShow: false
+                },
+                event: {
+                    defaultEvent: e
+                },
+                removeDefaultFunction(): void {
+                    isRemoveDefaultFunction = true;
+                },
+            }
+            overlay?.event?.onClose && overlay?.event?.onClose(TKS);
+            if (!isRemoveDefaultFunction) {
+                setIsShow_(false);
+            }
         }
     }
 
     return <div 
         className="TKS-Overlay"
         ref={overlayElement}
-        onClick={(e) => handleClick(e)}
+        onClick={(e) => handleClose(e)}
         {...props}
     >
         {props.children}

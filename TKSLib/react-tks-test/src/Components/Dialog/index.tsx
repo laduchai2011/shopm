@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect, useId } from 'react';
+import React, { FC, useRef, useEffect, useId, useState } from 'react';
 import './styles.css';
 
 import DeleteCircle from 'Components/Icon/DeleteCircle';
@@ -6,7 +6,7 @@ import TickSymbol from 'Components/Icon/TickSymbol';
 import WarnTriangle from 'Components/Icon/WarnTriangle';
 import ErrorCircle from 'Components/Icon/ErrorCircle';
 
-import { TKSProps, DialogProps } from 'define';
+import { TKSProps, TKS_Init, DialogProps } from 'define';
 import { DIALOG_CONST } from 'const';
 
 interface MyDialogProps extends React.HTMLProps<HTMLDivElement> {
@@ -24,6 +24,7 @@ const Dialog: FC<MyDialogProps> = ({
     const dialogElement = useRef<HTMLDivElement | null>(null);
 
     const showCommand = useRef<string>('show'); 
+    const [isShow_, setIsShow_] = useState<boolean | undefined>();
     const showTime = useRef<number>(0.3); 
     const messageType = useRef<string | undefined>(undefined);
     const activate_button_1 = useRef<boolean | undefined>(undefined);
@@ -84,8 +85,12 @@ const Dialog: FC<MyDialogProps> = ({
     }, [dialog?.data])
 
     useEffect(() => {
+        setIsShow_(dialog?.control?.isShow);
+    }, [dialog?.control?.isShow])
+
+    useEffect(() => {
         if (dialogElement.current) {
-            if (dialog?.control?.isShow) {
+            if (isShow_) {
                 dialogElement.current.style.display = 'block';
                 const interval_display = setInterval(() => {
                     if (dialogElement.current) {
@@ -104,21 +109,38 @@ const Dialog: FC<MyDialogProps> = ({
                 }, showTime.current*1000)
             }
         } 
-    }, [dialog?.control?.isShow])
+    }, [isShow_])
 
     const handleDelete = (e: React.MouseEvent) : void => {
-        const TKS: TKSProps = {
-            name: dialog?.config?.name,
-            id: id.current,
-            event: {
-                defaultEvent: e
+        let isRemoveDefaultFunction = false;
+       
+        if (dialog?.event?.onClose) {
+            const TKS: TKSProps = {
+                ...TKS_Init,
+                name: dialog?.config?.name,
+                id: id.current,
+                data: {
+                    isShow: false
+                },
+                event: {
+                    defaultEvent: e
+                },
+                removeDefaultFunction(): void {
+                    isRemoveDefaultFunction = true;
+                },
             }
+            dialog?.event?.onClose(TKS);
+            if (!isRemoveDefaultFunction) {
+                setIsShow_(false);
+            }
+        } else {
+            setIsShow_(false);
         }
-        dialog?.event?.onClose && dialog?.event?.onClose(TKS);
     }
 
     const handleButton1Click = (e: React.MouseEvent) => {
         const TKS: TKSProps = {
+            ...TKS_Init,
             name: dialog?.config?.name,
             id: id.current,
             event: {
@@ -129,6 +151,7 @@ const Dialog: FC<MyDialogProps> = ({
     }
     const handleButton2Click = (e: React.MouseEvent) => {
         const TKS: TKSProps = {
+            ...TKS_Init,
             name: dialog?.config?.name,
             id: id.current,
             event: {
@@ -139,6 +162,7 @@ const Dialog: FC<MyDialogProps> = ({
     }
     const handleButton3Click = (e: React.MouseEvent) => {
         const TKS: TKSProps = {
+            ...TKS_Init,
             name: dialog?.config?.name,
             id: id.current,
             event: {
@@ -148,7 +172,7 @@ const Dialog: FC<MyDialogProps> = ({
         dialog?.event?.onClickButton3 && dialog?.event?.onClickButton3(TKS);
     }
 
-    return <div className="TKS-Dialog" {...props} ref={dialogElement}>
+    return <div className="TKS-Dialog" {...props} ref={dialogElement} id={id.current}>
         <div>
             <DeleteCircle deleteCircle={{size: 22}} onClick={(e) => handleDelete(e)} />
         </div>

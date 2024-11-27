@@ -4,7 +4,7 @@ import './styles.css';
 
 import MessageBox from './components/MessageBox';
 
-import { TKSProps, ToastMessageProps, ToastMessage_Data_Props } from 'define';
+import { TKSProps, TKS_Init, ToastMessageProps, ToastMessage_Data_Props } from 'define';
 
 import { handleCutPXInString } from 'utils';
 
@@ -81,6 +81,7 @@ const ToastMessage: FC<MyToastMessageProps> = ({ toastMessage, ...props }) => {
 
     useEffect(() => {
         const TKS: TKSProps = {
+            ...TKS_Init,
             name: toastMessage?.config?.name,
             id: id.current,
             data: {
@@ -98,7 +99,7 @@ const ToastMessage: FC<MyToastMessageProps> = ({ toastMessage, ...props }) => {
         toastMessageContainerElement.current?.insertBefore(newNode, toastMessageContainerElement.current.firstChild)
     }
 
-    return <div className="TKS-ToastMessage" ref={toastMessageElement} {...props}>
+    return <div className="TKS-ToastMessage" ref={toastMessageElement} {...props} id={id.current}>
         <div className='TKS-ToastMessage-Container' ref={toastMessageContainerElement}>
         </div>
     </div>;

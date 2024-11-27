@@ -6,7 +6,14 @@ export interface TKSProps {
     data?: any,
     event?: {
         defaultEvent?: React.MouseEvent
-    }
+    },
+    removeDefaultFunction: () => void,
+    [key: string]: any
+}
+export const TKS_Init: TKSProps = {
+    removeDefaultFunction() {
+        
+    },
 }
 
 // define table
@@ -127,7 +134,7 @@ export interface DeleteCircleProps {
 
 // message
 export interface ToastMessageProps {
-    config?: ToastMessage_Config_Props
+    config?: ToastMessage_Config_Props,
     data?: ToastMessage_Data_Props,
     control?: ToastMessage_Control_Props,
     event?: ToastMessage_Event_Props 
@@ -150,30 +157,34 @@ export interface ToastMessage_Event_Props {
 
 // overlay
 export interface OverlayProps {
+    config?: Overlay_Config_Props,
+    data?: Overlay_Data_Props,
+    control?: Overlay_Control_Props,
+    event?: Overlay_Event_Props
+}
+export interface Overlay_Config_Props {
+    name?: string,
+    id?: string,
     zIndex?: number,
     show_type?: string,
     opacity_time?: number,
     show_time?: number,
     blear_rate?: number
 }
+export interface Overlay_Data_Props {
+
+}
+export interface Overlay_Control_Props {
+    isShow?: boolean,
+    isCenter?: boolean
+}
+export interface Overlay_Event_Props {
+    onClose?: (TKS: TKSProps) => void,
+}
 
 // dialog
-// export interface DialogProps {
-//     message_type?: string,
-//     message_color?: string,
-//     activate_button_1?: boolean,
-//     activate_button_2?: boolean,
-//     activate_button_3?: boolean,
-//     button_1_name?: string,
-//     button_2_name?: string,
-//     button_3_name?: string,
-//     opacity_time?: number,
-//     show_time?: number, 
-//     button_font_size?: number
-//     button_min_width?: number
-// }
 export interface DialogProps {
-    config?: Dialog_Config_Props
+    config?: Dialog_Config_Props,
     data?: Dialog_Data_Props,
     control?: Dialog_Control_Props,
     event?: Dialog_Event_Props
@@ -189,7 +200,7 @@ export interface Dialog_Config_Props {
     button_3_name?: string,
     opacity_time?: number,
     show_time?: number, 
-    button_font_size?: number
+    button_font_size?: number,
     button_min_width?: number
 }
 export interface Dialog_Data_Props {
@@ -201,8 +212,8 @@ export interface Dialog_Control_Props {
     isShow?: boolean
 }
 export interface Dialog_Event_Props {
-    onClose?: (TKS: TKSProps) => void
-    onClickButton1?: (TKS: TKSProps) => void;
-    onClickButton2?: (TKS: TKSProps) => void;
-    onClickButton3?: (TKS: TKSProps) => void;
+    onClose?: (TKS: TKSProps) => void,
+    onClickButton1?: (TKS: TKSProps) => void,
+    onClickButton2?: (TKS: TKSProps) => void,
+    onClickButton3?: (TKS: TKSProps) => void,
 }

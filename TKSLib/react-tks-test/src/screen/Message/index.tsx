@@ -38,7 +38,7 @@ const Message: FC<{}> = () => {
     }
 
     const handleShowDialog = () => {
-        setIsshow(!isShow)
+        setIsshow(true)
     }
 
     const handleClose = () : void => {
@@ -46,20 +46,31 @@ const Message: FC<{}> = () => {
     }
 
     const handleOnData = (TKS: TKSProps) : void => {
-        console.log(TKS)
+        // TKS.test = 'asdfasfasf'
+    }
+
+    const handleClose_dialog = (TKS: TKSProps) => {
+        TKS.removeDefaultFunction();
+        setIsshow(false);
+    }
+
+    const handleClose_overlay = (TKS: TKSProps) => {
+        TKS.removeDefaultFunction();
+        setIsshow(false);
     }
 
     return <div className="TKS-Message">
         <button onClick={() => handleClick()}>click</button>
         <button onClick={() => handleShowDialog()}>showDialog</button>
         <ToastMessage toastMessage={toastMessage} />
-        <Overlay  
-            isShow={isShow} 
-            onClose={() => handleClose()}
-        >
+        <Overlay overlay={{
+            control: { isShow: isShow },
+            event: { onClose: (TKS) => handleClose_overlay(TKS)}
+        }} >
             <Dialog dialog={{
                 data: {message: 'dialog', message_color: 'red', message_type: 'ERROR'},
-                control: {isShow: true}
+                control: {isShow: isShow},
+                event: {onClose: (TKS) => handleClose_dialog(TKS)}
             }} />
           
         </Overlay>
