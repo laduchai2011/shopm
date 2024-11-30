@@ -17,7 +17,6 @@ interface MyToastMessageProps extends React.HTMLProps<HTMLDivElement> {
     [key: string]: any;
 }
 
-
 const ToastMessage: FC<MyToastMessageProps> = ({ toastMessage, ...props }) => {
 
     const id = useRef<string>(`ToastMessage__T: ${useId()}`);

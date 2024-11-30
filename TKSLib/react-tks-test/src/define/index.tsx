@@ -17,53 +17,71 @@ export const TKS_Init: TKSProps = {
 }
 
 // define table
+// export interface TableProps {
+//     tableControl: TableControlProps,
+//     rows: RowProps[]
+// }
+export interface TableProps {
+    config?: Table_Config_Props,
+    data?: Table_Data_Props,
+    control?: Table_Control_Props,
+    event?: Table_Event_Props
+}
+export interface Table_Config_Props {
+    name?: string,
+    id?: string,
+    columnsInfor?: ColumnsInforProps[],
+    pageSize?: number,
+    maxRow?: number,
+    controlPos?: string
+}
+export interface Table_Data_Props {
+    values?: {[key: string]: any}[],
+    all_values?: {[key: string]: any}[]
+}
+export interface Table_Control_Props {
+    pageIndex?: number
+}
+export interface Table_Event_Props {
+    onSelectedPage: (TKS: TKSProps) => void
+}
 export interface ContextTableProps {
+    table?: TableProps,
+    cellElements: React.MutableRefObject<(HTMLDivElement | null)[]>,
     resizableStatus: React.MutableRefObject<boolean>,
     cellWidth: React.MutableRefObject<number>,
     cellX: React.MutableRefObject<number>,
     selectedColumn: React.MutableRefObject<number | undefined>,
     columnAmount: React.MutableRefObject<number>,
     rowAmount: React.MutableRefObject<number>,
-    config: TableConfigProps,
     pageIndex: number,
     setPageIndex: React.Dispatch<React.SetStateAction<number>>,
-    onSelectPage: (number: number) => void,
     loadDataState: string | undefined
 }
-
 export interface CellProps {
-    fieldName: string,
-    content: string,
+    fieldName?: string,
+    content?: string,
     width?: string,
     height?: string, 
     textColor?: string,
     textWeight?: string
 }
-
 export interface RowProps {
     children?: React.ReactNode,
-    cells: CellProps[]
+    cells?: CellProps[]
 }
-
 export interface TableControlProps {
     pageIndex: number,
     pageSize: number, 
     maxRow: number
 }
-
-export interface TableProps {
-    tableControl: TableControlProps,
-    rows: RowProps[]
-}
-
 export interface TableConfigProps {
-    columnAmount: number,
+    columnAmount?: number,
     columnsInfor?: ColumnsInforProps[],
-    pageSize: number,
-    maxRow: number,
+    pageSize?: number,
+    maxRow?: number,
     controlPos?: string;
 }
-
 export interface ColumnsInforProps {
     columnName: string,
     fieldName: string  // fieldName of data

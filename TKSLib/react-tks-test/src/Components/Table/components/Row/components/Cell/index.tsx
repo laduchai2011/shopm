@@ -15,8 +15,6 @@ import {
     LOAD_COMPONENTS_CONST 
 } from 'const';
 
-import { $$ } from 'tricks';
-
 
 const Cell: FC<{data: CellProps, cellIndex: number, rowIndex: number, column: number}> = ({ data, cellIndex, rowIndex, column }) => {
 
@@ -26,12 +24,13 @@ const Cell: FC<{data: CellProps, cellIndex: number, rowIndex: number, column: nu
         throw new Error('MyComponent must be used within a MyProvider');
     }
 
-    const { resizableStatus, cellWidth, cellX, selectedColumn, columnAmount, rowAmount, loadDataState } = context;
+    const { cellElements, resizableStatus, cellWidth, cellX, selectedColumn, columnAmount, rowAmount, loadDataState } = context;
 
     useEffect(() => {
-        const q_Cell = $$('.TKS-Cell')[cellIndex] as HTMLElement;
+        // const q_Cell = $$('.TKS-Cell')[cellIndex] as HTMLElement;
+        const q_Cell = cellElements.current[cellIndex];
 
-        if (q_Cell!==undefined) {
+        if (q_Cell) {
             data?.width && q_Cell.style.setProperty('--Cell-width', data?.width);
             data?.height && q_Cell.style.setProperty('--Cell-height', data?.height);
             data?.textColor && q_Cell.style.setProperty('--Cell-textColor', data?.textColor);
@@ -40,9 +39,10 @@ const Cell: FC<{data: CellProps, cellIndex: number, rowIndex: number, column: nu
     }, [cellIndex, data])
 
     const handleMouseDown = (e: React.MouseEvent) => {
-        const q_cells = $$('.TKS-Cell');
+        // const q_cells = $$('.TKS-Cell');
+        const q_cells = cellElements.current;
         cellX.current = e.clientX;
-        let sbWidth = window.getComputedStyle(q_cells[cellIndex]).width;
+        let sbWidth = window.getComputedStyle(q_cells[cellIndex]!).width;
         cellWidth.current = parseInt(sbWidth, 10);
         resizableStatus.current = true;
         selectedColumn.current = column;
@@ -65,7 +65,7 @@ const Cell: FC<{data: CellProps, cellIndex: number, rowIndex: number, column: nu
         infor: skeletonLoad
     }
 
-    return <div className="TKS-Cell">
+    return <div className="TKS-Cell" ref={(el) => (cellElements.current[cellIndex] = el)}>
         <div>
             { loadDataState===LOAD_STATE.LOADING && rowIndex!==0 && <Loading load={ load } /> }
         </div>

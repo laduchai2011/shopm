@@ -1,14 +1,28 @@
+.TKS-Row {
+    --background-color: white;
+}
+
+.TKS-Row {
+    width: max-content;
+}
+
+.TKS-Row:not(:nth-child(1)) {
+    cursor: pointer;
+}
+
 .TKS-Row-indexColumn {
     position: absolute;
-    width: 100px;
     display: flex;
+    align-items: center;
+    z-index: 5;
+    background-color: var(--background-color);
 }
 
 .TKS-Row-indexColumn > div {
     border: 1px solid gray;
     box-sizing: border-box;
-    padding: 5px;
     width: 50px;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,4 +31,6 @@
 .TKS-Row-column {
     display: flex;
     margin-left: 100px;
+    z-index: 4;
+    background-color: var(--background-color);
 }

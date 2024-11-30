@@ -126,7 +126,7 @@ const Home: FC<{}> = () => {
     }
 
     return <div className="TKS-Home">
-      <Table data= {dataTest} config={ tableConfig } onSelectPage={handleSelectPage} loadDataState={ loadDataState } />
+      {/* <Table data= {dataTest} config={ tableConfig } onSelectPage={handleSelectPage} loadDataState={ loadDataState } /> */}
     </div>;
 };
 

@@ -1,5 +1,5 @@
 .TKS-Table {
-    width: max-content;
+    width: 100%;
 }
 
 .TKS-Table--Control {
@@ -7,4 +7,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.TKS-Table--Row {
+    width: 100%;
+    overflow-x: auto;
 }

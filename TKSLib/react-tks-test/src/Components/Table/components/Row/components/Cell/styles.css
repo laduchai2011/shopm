@@ -11,8 +11,10 @@
     color: var(--Cell-textColor);
     font-weight: var(--Cell-textWeight);
     border: 1px solid gray;
+    box-sizing: border-box;
     position: relative;
     overflow: hidden;
+    min-width: 50px;
 }
 
 .TKS-Cell > div:nth-child(1) {

@@ -1,9 +1,10 @@
-import React, { FC, useState, useEffect, useCallback, useContext, useRef } from 'react';
+import React, { FC, useState, useEffect, useCallback, useContext, useRef, useId } from 'react';
 import './styles.css';
 
 import { ContextTable } from 'Components/Table/contextTable';
 import { 
-    TableControlProps, 
+    TKSProps,
+    TKS_Init,
     LoadProps,
     LineCircleLoadProps
 } from 'define';
@@ -15,9 +16,17 @@ import {
 
 import Loading from 'Components/Loading';
 
-const Control: FC<{data: TableControlProps}> = ({data: tableControlData}) => {
+const Control: FC<{}> = ({}) => {
 
     const context = useContext(ContextTable);
+
+    if (!context) {
+        throw new Error('MyComponent must be used within a MyProvider');
+    }
+
+    const { table, pageIndex, setPageIndex, loadDataState } = context;
+
+    const id = useRef<string>(`Control__T: ${useId()}`);
 
     // const indexInit = 1;
     const firstIndex: number = 1;
@@ -27,26 +36,26 @@ const Control: FC<{data: TableControlProps}> = ({data: tableControlData}) => {
     const indexCell: number = 4;
     const [pageIndexCluster, setPageIndexCluster] = useState<number>(0);
     const [nextPageIndexCluster, setNextPageIndexCluster] = useState<number>(0);
-    // const [pageIndex, setPageIndex] = useState<number>(indexInit);
     const [nextPageIndex, setNextPageIndex] = useState<number | undefined>(undefined);
-    const pageSize: number = tableControlData.pageSize;
-    const maxRow: number = tableControlData.maxRow;
+    // const pageSize: number = tableControlData.pageSize;
+    // const maxRow: number = tableControlData.maxRow;
 
     const q_selectPageContainer = useRef<HTMLDivElement | null>(null);
     const q_loadingContainers = useRef<(HTMLDivElement | null)[]>([]);
     const [load, setLoad] = useState<LoadProps | undefined>(undefined);
    
-    if (!context) {
-        throw new Error('MyComponent must be used within a MyProvider');
-    }
-
-    const { pageIndex, setPageIndex, onSelectPage, loadDataState } = context;
+    const pageSize: number | undefined = table?.config?.pageSize;
+    const maxRow: number | undefined = table?.config?.maxRow;
 
     const amountOfPages = useCallback((): number => {
-        if (maxRow%pageSize > 0) {
-            return Math.floor(maxRow/pageSize) + 1
-        } else if (maxRow%pageSize === 0) {
-            return Math.floor(maxRow/pageSize);
+        if (pageSize && maxRow) {
+            if (maxRow%pageSize > 0) {
+                return Math.floor(maxRow/pageSize) + 1
+            } else if (maxRow%pageSize === 0) {
+                return Math.floor(maxRow/pageSize);
+            } else {
+                return 1;
+            }
         } else {
             return 1;
         }
@@ -230,7 +239,21 @@ const Control: FC<{data: TableControlProps}> = ({data: tableControlData}) => {
                         }
 
                         nextIndex.current = nextIndex_m;
-                        onSelectPage(nextIndex_m);
+                        // onSelectPage(nextIndex_m);
+
+                        let isRemoveDefaultFunction = false;
+                        const TKS: TKSProps = {
+                            ...TKS_Init,
+                            name: table?.config?.name,
+                            id: id.current,
+                            data: {
+                                selectedPage: nextIndex_m
+                            },
+                            removeDefaultFunction(): void {
+                                isRemoveDefaultFunction = true;
+                            },
+                        }
+                        table?.event?.onSelectedPage(TKS);
                     }
                 }
             }
@@ -244,7 +267,7 @@ const Control: FC<{data: TableControlProps}> = ({data: tableControlData}) => {
                 }
             }
         }
-    }, [pageIndexCluster, pageIndex, amountOfPages, loadDataState, onSelectPage, nextIndex])
+    }, [pageIndexCluster, pageIndex, amountOfPages, loadDataState, nextIndex])
 
     useEffect(() => {
         const qq_selectPageContainer = q_selectPageContainer.current;
