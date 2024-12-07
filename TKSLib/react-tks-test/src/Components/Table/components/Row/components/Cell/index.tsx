@@ -24,7 +24,9 @@ const Cell: FC<{data: CellProps, cellIndex: number, rowIndex: number, column: nu
         throw new Error('MyComponent must be used within a MyProvider');
     }
 
-    const { cellElements, resizableStatus, cellWidth, cellX, selectedColumn, columnAmount, rowAmount, loadDataState } = context;
+    const { table, cellElements, resizableStatus, cellWidth, cellX, selectedColumn, columnAmount, rowAmount } = context;
+
+    const loadDataState: string | undefined = table?.control?.loadDataState;
 
     useEffect(() => {
         // const q_Cell = $$('.TKS-Cell')[cellIndex] as HTMLElement;
@@ -36,7 +38,7 @@ const Cell: FC<{data: CellProps, cellIndex: number, rowIndex: number, column: nu
             data?.textColor && q_Cell.style.setProperty('--Cell-textColor', data?.textColor);
             data?.textWeight && q_Cell.style.setProperty('--Cell-textWeight', data?.textWeight);
         }
-    }, [cellIndex, data])
+    }, [cellElements, cellIndex, data])
 
     const handleMouseDown = (e: React.MouseEvent) => {
         // const q_cells = $$('.TKS-Cell');

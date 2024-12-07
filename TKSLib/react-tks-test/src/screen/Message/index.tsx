@@ -41,9 +41,9 @@ const Message: FC<{}> = () => {
         setIsshow(true)
     }
 
-    const handleClose = () : void => {
-        setIsshow(false);
-    }
+    // const handleClose = () : void => {
+    //     setIsshow(false);
+    // }
 
     const handleOnData = (TKS: TKSProps) : void => {
         // TKS.test = 'asdfasfasf'

@@ -3,6 +3,9 @@ import './styles.css';
 
 import { ContextTable } from './contextTable';
 
+import { useFollowState } from 'MyHooks';
+// import { FollowStateProps } from 'MyHooks/interface';
+
 import { 
     RowProps,
     TableProps, 
@@ -17,11 +20,9 @@ import Row from './components/Row';
 import Control from './components/Control';
 
 const Table: FC<{
-        table?: TableProps,
-        loadDataState?: string | undefined
+        table?: TableProps
     }> = ({ 
-        table,
-        loadDataState
+        table
     }) => {
 
     const config: Table_Config_Props = {...table?.config};
@@ -37,15 +38,74 @@ const Table: FC<{
     const columnAmount: React.MutableRefObject<number> = useRef(0);
     const rowAmount: React.MutableRefObject<number> = useRef(0);
     const [pageIndex, setPageIndex] = useState<number>(1);
+    const [loadDataState, setLoadDataState] = useState<string | undefined>(undefined);
     const totalRow: React.MutableRefObject<RowProps[]> = useRef([]);
+
+    let isControl_pageIndex_defaultFunction = useRef<boolean>(true);
+    let isControl_loadDataState_defaultFunction = useRef<boolean>(true);
+
+    const default_pageSize: number = 10;
+    const default_maxRow: number = 50;
+    const pageSize: number | undefined = table?.config?.pageSize;
+    const maxRow: number | undefined = table?.config?.maxRow;
+
+    const follow_loadingState = useFollowState();
+   
+
+    useEffect(() => {
+        if (table?.control?.pageIndex!==undefined && table?.control?.pageIndex!==null && table?.control?.pageIndex < 1) {
+            console.warn({
+                message: 'pageIndex must is a number > 0',
+                pageIndex: table?.control?.pageIndex
+            })
+        }
+        if (table?.control?.pageIndex) {
+            setPageIndex(table.control.pageIndex);
+            isControl_pageIndex_defaultFunction.current = false;
+        }
+    }, [table?.control?.pageIndex])
+    useEffect(() => {
+        if (table?.control?.loadDataState) {
+            setLoadDataState(table.control.loadDataState);
+            isControl_loadDataState_defaultFunction.current = false;
+        }
+    }, [table?.control?.loadDataState, loadDataState])
+
+    useEffect(() => {
+        if (loadDataState && follow_loadingState.setData?.addState) {
+            follow_loadingState.setData?.addState(loadDataState);
+        }
+    }, [loadDataState, follow_loadingState.setData])
 
     // cell
     const cellElements = useRef<(HTMLDivElement | null)[]>([]);
 
     if (data) {
         rowAmount.current = data.length + 1;
-    }
 
+        if (data.length > default_pageSize) {
+            console.warn({
+                message: 'Data more than default size (is 10). Data can lose',
+                dataSize: data.length,
+                defaultSize: default_pageSize
+            });
+        }
+
+        if (pageSize===undefined) {
+            console.warn({
+                message: 'You should pass a value for "pageSize"',
+                default_pageSize: default_pageSize
+            });
+        }
+
+        if (maxRow===undefined) {
+            console.warn({
+                message: 'You should pass a value for "maxRow"',
+                default_maxRow: default_maxRow
+            });
+        }
+    }
+    
     const rowForm: RowProps = {
         cells: []
     };
@@ -129,8 +189,14 @@ const Table: FC<{
         rowAmount,
         pageIndex,
         setPageIndex,
-        loadDataState
-    }), [table, loadDataState, pageIndex, setPageIndex]);
+        default_pageSize,
+        default_maxRow,
+        loadDataState,
+        setLoadDataState,
+        isControl_pageIndex_defaultFunction,
+        isControl_loadDataState_defaultFunction,
+        follow_loadingState
+    }), [table, pageIndex, setPageIndex, loadDataState, follow_loadingState]);
 
     return <ContextTable.Provider value={contextValue}>
         {isRender && <div className="TKS-Table">

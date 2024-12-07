@@ -1,4 +1,5 @@
 import React from 'react';
+import { FollowStateProps } from 'MyHooks/interface';
 
 export interface TKSProps {
     name?: string,
@@ -17,10 +18,6 @@ export const TKS_Init: TKSProps = {
 }
 
 // define table
-// export interface TableProps {
-//     tableControl: TableControlProps,
-//     rows: RowProps[]
-// }
 export interface TableProps {
     config?: Table_Config_Props,
     data?: Table_Data_Props,
@@ -40,7 +37,8 @@ export interface Table_Data_Props {
     all_values?: {[key: string]: any}[]
 }
 export interface Table_Control_Props {
-    pageIndex?: number
+    pageIndex?: number,
+    loadDataState?: string
 }
 export interface Table_Event_Props {
     onSelectedPage: (TKS: TKSProps) => void
@@ -55,8 +53,14 @@ export interface ContextTableProps {
     columnAmount: React.MutableRefObject<number>,
     rowAmount: React.MutableRefObject<number>,
     pageIndex: number,
+    default_pageSize: number,
+    default_maxRow: number
     setPageIndex: React.Dispatch<React.SetStateAction<number>>,
-    loadDataState: string | undefined
+    loadDataState: string | undefined,
+    setLoadDataState: React.Dispatch<React.SetStateAction<string | undefined>>,
+    isControl_pageIndex_defaultFunction: React.MutableRefObject<boolean>,
+    isControl_loadDataState_defaultFunction: React.MutableRefObject<boolean>,
+    follow_loadingState?: FollowStateProps
 }
 export interface CellProps {
     fieldName?: string,

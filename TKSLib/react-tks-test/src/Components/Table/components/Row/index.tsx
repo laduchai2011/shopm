@@ -21,7 +21,19 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
         throw new Error('Context in row is undefined');
     }
 
-    const { table, cellElements, resizableStatus, cellWidth, cellX, selectedColumn, columnAmount, rowAmount, pageIndex } = context;
+    const { 
+        table, 
+        default_pageSize, 
+        default_maxRow, 
+        cellElements, 
+        resizableStatus, 
+        cellWidth, 
+        cellX, 
+        selectedColumn, 
+        columnAmount, 
+        rowAmount, 
+        pageIndex 
+    } = context;
 
     const rowElement = useRef<HTMLDivElement | null>(null);
     const isSelectedRow = useRef<boolean>(false);
@@ -30,7 +42,15 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
         columnAmount.current = rowData.cells.length;
     }
 
-    const pageSize = table?.config?.pageSize;
+    const pageSize = useRef<number>(default_pageSize);
+    const maxRow = useRef<number>(default_maxRow);
+
+    if (table?.config?.pageSize) {
+        pageSize.current = table.config.pageSize;
+    }
+    if (table?.config?.maxRow) {
+        maxRow.current = table.config.maxRow;
+    }
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
@@ -69,7 +89,7 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
             document.removeEventListener('mouseup', (e) => handleMouseUp(e));
             document.removeEventListener('mouseleave', (e) => handleMouseLeave(e));
         }
-    }, [])
+    }, [cellElements, cellWidth, cellX, columnAmount, resizableStatus, rowAmount, selectedColumn])
 
     const handleHoverIn = (e: React.MouseEvent) => {
         const hoverColor: string = 'rgb(233, 233, 233)';
@@ -97,7 +117,7 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
         )
     })
 
-    const dataIndex: number = pageSize ? pageSize*(pageIndex - 1) + rowIndex : 0; 
+    const dataIndex: number = pageSize.current ? pageSize.current*(pageIndex - 1) + rowIndex : 0; 
 
     return <div className="TKS-Row" 
                 ref={rowElement}
@@ -113,8 +133,8 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
                 {/* {rowIndex > 0 ? <div>{ dataIndex }</div> : <div>
                     { table?.config?.maxRow ? <div>{table?.config?.maxRow}</div> : <div>1</div> }
                 </div> } */}
-                {table?.config?.pageSize && (rowIndex > 0 ? <div>{ rowIndex }</div> : <div>{table?.config?.pageSize}</div>)}
-                {table?.config?.maxRow && (rowIndex > 0 ? <div>{ dataIndex }</div> : <div>{table?.config?.maxRow}</div>)}
+                { rowIndex > 0 ? <div>{ rowIndex }</div> : <div>{ pageSize.current }</div> }
+                { rowIndex > 0 ? <div>{ dataIndex }</div> : <div>{ maxRow.current }</div> }
             </div>
             <div className='TKS-Row-column'>
                 { list_cell }
