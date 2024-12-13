@@ -7,7 +7,8 @@ export const WARNING_COLOR = '#d3d602';
 export const LOAD_STATE = {
     LOADING: 'LOADING',
     SUCCESS: 'SUCCESS',
-    FAILURE: 'FAILURE'
+    FAILURE: 'FAILURE',
+    READY: 'READY'
 }
 
 

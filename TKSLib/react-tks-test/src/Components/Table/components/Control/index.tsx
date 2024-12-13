@@ -207,6 +207,7 @@ const Control: FC<{}> = () => {
         ) {
             const qq_selectPageContainer = q_selectPageContainer.current;
             if (qq_selectPageContainer && nextPageIndex) {
+                console.log(666666666)
                 const q_pageIndexs = qq_selectPageContainer.children;
                 for (let i = 0; i < q_pageIndexs.length; i++) {
                     q_pageIndexs[i].classList.remove('selected');
@@ -214,10 +215,11 @@ const Control: FC<{}> = () => {
                 setPageIndexCluster(nextPageIndexCluster);
                 setPageIndex(nextPageIndex);
                 setNextPageIndex(undefined);
+                follow_loadingState.setData?.addState && follow_loadingState.setData?.addState(LOAD_STATE.READY);
                 q_pageIndexs[nextIndex.current].classList.add('selected');
             }
         }
-    }, [nextPageIndexCluster, nextPageIndex, setPageIndex, follow_loadingState?.event, isControl_pageIndex_defaultFunction])
+    }, [nextPageIndexCluster, nextPageIndex, setPageIndex, follow_loadingState?.event, follow_loadingState?.setData])
 
     useEffect(() => {
         // const qq_selectPageContainer = q_selectPageContainer.current;
@@ -247,7 +249,7 @@ const Control: FC<{}> = () => {
         //             pageTotal: amountOfPages()
         //         })
         //     }
-        // }
+        // }    
     }, [amountOfPages, pageIndex, isControl_pageIndex_defaultFunction])
 
     // useEffect(() => {

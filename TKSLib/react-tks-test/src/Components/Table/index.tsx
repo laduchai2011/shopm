@@ -4,7 +4,7 @@ import './styles.css';
 import { ContextTable } from './contextTable';
 
 import { useFollowState } from 'MyHooks';
-// import { FollowStateProps } from 'MyHooks/interface';
+import { FollowState_Config_RegisterState_Props } from 'MyHooks/interface';
 
 import { 
     RowProps,
@@ -14,7 +14,7 @@ import {
     CellProps,
 } from 'define';
 
-import { WARNING_COLOR } from 'const';
+import { WARNING_COLOR, LOAD_STATE } from 'const';
 
 import Row from './components/Row';
 import Control from './components/Control';
@@ -49,8 +49,29 @@ const Table: FC<{
     const pageSize: number | undefined = table?.config?.pageSize;
     const maxRow: number | undefined = table?.config?.maxRow;
 
-    const follow_loadingState = useFollowState();
-   
+    const registedStates: FollowState_Config_RegisterState_Props[] | undefined = [
+        {
+            descrition: 'When load data',
+            state: LOAD_STATE.LOADING
+        },
+        {
+            descrition: 'When load success',
+            state: LOAD_STATE.SUCCESS
+        },
+        {
+            descrition: 'When load failure',
+            state: LOAD_STATE.FAILURE
+        },
+        {
+            descrition: 'When load ready',
+            state: LOAD_STATE.READY
+        }
+    ]
+    const follow_loadingState = useFollowState({
+        config: {
+            registerState: registedStates
+        }
+    });
 
     useEffect(() => {
         if (table?.control?.pageIndex!==undefined && table?.control?.pageIndex!==null && table?.control?.pageIndex < 1) {
@@ -203,6 +224,7 @@ const Table: FC<{
             { handleControlPos()!=='bottom' && <div className='TKS-Table--Control'><Control /></div>}
             <div className='TKS-Table--Row'>{ list_row }</div>
             { handleControlPos()==='bottom' && <div className='TKS-Table--Control'><Control /></div>}
+            <button onClick={() => follow_loadingState.getData?.getAllState && console.log(follow_loadingState.getData?.getAllState())}>Click</button>
         </div>}
     </ContextTable.Provider>
 };
