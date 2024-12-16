@@ -33,7 +33,6 @@ const Control: FC<{}> = () => {
         default_pageSize, 
         default_maxRow, 
         loadDataState, 
-        isControl_pageIndex_defaultFunction,
         follow_loadingState
     } = context;
 
@@ -200,7 +199,7 @@ const Control: FC<{}> = () => {
         //         q_pageIndexs[nextIndex.current].classList.add('selected');
         //     }
         // }
-        follow_loadingState?.event?.isBeforCurrent && console.log(11111111, follow_loadingState.event.isBeforCurrent(LOAD_STATE.LOADING, LOAD_STATE.SUCCESS))
+        // follow_loadingState?.event?.isBeforCurrent && console.log(11111111, follow_loadingState.event.isBeforCurrent(LOAD_STATE.LOADING, LOAD_STATE.SUCCESS))
         if (
             follow_loadingState?.event?.isBeforCurrent && 
             follow_loadingState.event.isBeforCurrent(LOAD_STATE.LOADING, LOAD_STATE.SUCCESS)
@@ -250,7 +249,7 @@ const Control: FC<{}> = () => {
         //         })
         //     }
         // }    
-    }, [amountOfPages, pageIndex, isControl_pageIndex_defaultFunction])
+    }, [amountOfPages, pageIndex])
 
     // useEffect(() => {
     //     if (q_loadingContainers.current[nextIndex.current] && loadDataState===LOAD_STATE.LOADING) {

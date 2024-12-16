@@ -224,7 +224,7 @@ const Table: FC<{
             { handleControlPos()!=='bottom' && <div className='TKS-Table--Control'><Control /></div>}
             <div className='TKS-Table--Row'>{ list_row }</div>
             { handleControlPos()==='bottom' && <div className='TKS-Table--Control'><Control /></div>}
-            <button onClick={() => follow_loadingState.getData?.getAllState && console.log(follow_loadingState.getData?.getAllState())}>Click</button>
+            {/* <button onClick={() => follow_loadingState.getData?.getAllState && console.log(follow_loadingState.getData?.getAllState())}>Click</button> */}
         </div>}
     </ContextTable.Provider>
 };

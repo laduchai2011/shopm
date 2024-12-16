@@ -1,5 +1,5 @@
-function handleNext <T>(...args: ((data: T, next: () => void) => void)[]): void {
-    let data: T;
+function handleNext <T>(...args: ((data: T | undefined, next: () => void) => void)[]): void {
+    let data: T | undefined = undefined;
     let gen: Generator<void, void, unknown>;
 
     function next() {   
@@ -18,4 +18,4 @@ function handleNext <T>(...args: ((data: T, next: () => void) => void)[]): void 
     gen.next();
 }
 
-export default handleNext
+export default handleNext;

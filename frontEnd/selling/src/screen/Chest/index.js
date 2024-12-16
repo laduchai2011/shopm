@@ -1,61 +1,70 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import './styles.css';
 
-import ReactDOM from 'react-dom/client';
 
 import Header from 'screen/Header';
 
-import { Table, OverLay, ToastMessage } from 'react-tks';
+// import { 
+//     Table, 
+//     // OverLay, 
+//     // ToastMessage, 
+// } from 'react-tks/components';
+import { Table } from 'react-tks';
+
+
 
 const Chest = () => {
 
-    const toastMessageContainerElement = useRef(null);
+    const [loadDataState, setLoadDataState] = useState(undefined);
+    const [page, setPage] = useState(1)
 
-    useEffect(() => {
-        const element = React.createElement(OverLay, { isShow: true })
-        const newNode = document.createElement('div');
-        newNode.style.width = '300px';
-        ReactDOM.createRoot(newNode).render(element); 
-        toastMessageContainerElement.current?.insertBefore(newNode, toastMessageContainerElement.current.firstChild);
-    }, [])
-
-    const tableConfig = {
-        columnAmount: 5,
-        columnsInfor: [{columnName: 'Name', fieldName: 'name'}, {columnName: 'Title', fieldName: 'title'}, {columnName: 'Note', fieldName: 'note'}],
-        pageIndex: 1,
-        pageSize: 2,
-        maxRow: 80,
-        controlPos: 'bottom'
-    }
-
-    const data = [
-        {
-            name: 'name 1',
-            title: 'title 1'
-        },
-        {
-            title: 'title 2',
-            name: 'name 2',
-            note: 'note 2'
-        },
-        {
-            name: 'name 3',
-            title: 'title 3'
-        },
-        {
-            name: 'name 4',
-            title: 'title 4'
-        }
+    const columnsInfor = [
+        { columnName: 'Name', fieldName: 'name'},
+        { columnName: 'Age', fieldName: 'age'},
+        { columnName: 'Address', fieldName: 'address'},
+        { columnName: 'Page', fieldName: 'page'}
     ]
 
-    const handleSelectPage = (pageIndex) => {
-        console.log('handleSelectPage', pageIndex)
+    const data = (page) => {
+        return [
+            {
+                name: 'name 1',
+                age: '1',
+                address: 'address 1',
+                page: page
+            },
+            {
+                name: 'name 2',
+                age: '2',
+                address: 'address 2',
+                page: page
+            },
+            {
+                name: 'name 3',
+                age: '3',
+                address: 'address 3',
+                page: page
+            },
+            {
+                name: 'name 4',
+                age: '4',
+                address: 'address 4',
+                page: page
+            }
+        ]
+    } 
+
+    const LOAD_STATE = {
+        LOADING: 'LOADING',
+        SUCCESS: 'SUCCESS',
+        FAILURE: 'FAILURE',
+        READY: 'READY'
     }
 
-    const toastMessage = {
-        type: 'SUCCESS',
-        message: 'toastMessage'
-    }
+    // const toastMessage = {
+    //     type: 'SUCCESS',
+    //     message: 'toastMessage'
+    // }
 
     return (
         <div className='Chest'>
@@ -63,11 +72,24 @@ const Chest = () => {
             <div className='Chest-main'>
                 <div className='Chest-center'>
                     <h3>Chest</h3>
-                    <Table config={tableConfig} data={data} onSelectPage={handleSelectPage} />
+                    {/* <Table table={{
+                        data: {values: data(page)},
+                        config: {columnsInfor: columnsInfor, pageSize: 4, maxRow: 4*20},
+                        control: {loadDataState: loadDataState, pageIndex: page},
+                        event: {onSelectedPage(TKS) {
+                            setLoadDataState(LOAD_STATE.LOADING);
+                            const interval = setInterval(() => {
+                                const pageIndex_m = TKS.data.selectedPage;
+                                setPage(pageIndex_m)
+                                setLoadDataState(LOAD_STATE.SUCCESS);
+                                clearInterval(interval)
+                            }, 2000)
+                        },}
+                    }} /> */}
                 </div>
             </div>
-            <ToastMessage toastMessage={toastMessage} />
-            <div ref={toastMessageContainerElement}></div>
+            {/* <ToastMessage toastMessage={toastMessage} /> */}
+            {/* <div ref={toastMessageContainerElement}></div> */}
             {/* <OverLay isShow={false} /> */}
         </div>
     )

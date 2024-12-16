@@ -1,8 +1,8 @@
 {
-    "compilerOptions": {
-      "strict": true,
-      "skipLibCheck": true,
-      "baseUrl": "src"
-    },
-    "include": ["src/**/*"]
+  "compilerOptions": {
+    "strict": true,
+    "skipLibCheck": true,
+    "baseUrl": "src"
+  },
+  "include": ["src/**/*"]
 }
