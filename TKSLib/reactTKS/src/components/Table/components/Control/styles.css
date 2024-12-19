@@ -1,0 +1,35 @@
+.TKS-Table-Control-selectPageContainer {
+    margin: 0 25px;
+    display: flex;
+}
+
+.TKS-Table-Control-selectPageContainer > div {
+    background-color: rgb(216, 216, 216);
+    margin: 0 5px;
+    height: 25px;
+    min-width: 25px;
+    padding: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgb(206, 206, 206);
+}
+
+.TKS-Table-Control-selectPageContainer > div.selected,
+.TKS-Table-Control-selectPageContainer > div:hover {
+    background-color: gray;
+    color: white;
+}
+
+.TKS-Table-Control-selectPageContainer > div > div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

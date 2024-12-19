@@ -1,0 +1,15 @@
+.TKS-Table {
+    width: 100%;
+}
+
+.TKS-Table--Control {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.TKS-Table--Row {
+    width: 100%;
+    overflow-x: auto;
+}

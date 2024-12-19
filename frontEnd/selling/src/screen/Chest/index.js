@@ -4,13 +4,7 @@ import './styles.css';
 
 import Header from 'screen/Header';
 
-// import { 
-//     Table, 
-//     // OverLay, 
-//     // ToastMessage, 
-// } from 'react-tks/components';
-import { Table } from 'react-tks';
-
+import { Table } from 'react-tks/components';
 
 
 const Chest = () => {
@@ -72,7 +66,7 @@ const Chest = () => {
             <div className='Chest-main'>
                 <div className='Chest-center'>
                     <h3>Chest</h3>
-                    {/* <Table table={{
+                    <Table table={{
                         data: {values: data(page)},
                         config: {columnsInfor: columnsInfor, pageSize: 4, maxRow: 4*20},
                         control: {loadDataState: loadDataState, pageIndex: page},
@@ -85,7 +79,7 @@ const Chest = () => {
                                 clearInterval(interval)
                             }, 2000)
                         },}
-                    }} /> */}
+                    }} />
                 </div>
             </div>
             {/* <ToastMessage toastMessage={toastMessage} /> */}

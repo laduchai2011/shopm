@@ -1,8 +1,24 @@
 {
-  "compilerOptions": {
-    "strict": true,
-    "skipLibCheck": true,
-    "baseUrl": "src"
-  },
-  "include": ["src/**/*"]
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "target": "es5",
+        "lib": ["dom", "esnext"],
+        "module": "esnext",
+        "moduleResolution": "node",
+        "strict": true,
+        "jsx": "react",
+        "declaration": true,
+        "declarationDir": "./types",
+        "outDir": "./dist",
+        "typeRoots": ["./node_modules/@types", "./types"],
+        "baseUrl": "src"
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "tsconfig.json",
+        "rollup.config.mjs"
+    ]
 }

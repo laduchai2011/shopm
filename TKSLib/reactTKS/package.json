@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build1": "tsc && babel src --out-dir dist --extensions \".ts,.tsx\" --copy-files",
     "build2": "webpack",
-    "buildProduction": "tsc && webpack --mode production"
+    "buildProduction": "tsc && webpack --mode production",
+    "buildProduction1": "tsc --build"
   },
   "keywords": [],
   "author": "",

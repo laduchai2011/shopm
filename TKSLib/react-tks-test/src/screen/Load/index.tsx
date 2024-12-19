@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import './styles.css';
 
-import Loading from 'Components/Loading';
+import Loading from 'components/Loading';
 
 import { 
     LoadProps,

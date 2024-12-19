@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import './styles.css';
 
-import WarnTriangle from 'Components/Icon/WarnTriangle';
-import ErrorCircle from 'Components/Icon/ErrorCircle';
-import TickSymbol from 'Components/Icon/TickSymbol';
-import DeleteCircle from 'Components/Icon/DeleteCircle';
+import WarnTriangle from 'components/Icon/WarnTriangle';
+import ErrorCircle from 'components/Icon/ErrorCircle';
+import TickSymbol from 'components/Icon/TickSymbol';
+import DeleteCircle from 'components/Icon/DeleteCircle';
 
 const IconScreen: FC<{}> = () => {
 

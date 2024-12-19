@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react';
 import './styles.css';
 
-import ToastMessage from 'Components/ToastMessage';
-import Overlay from 'Components/OverLay';
-import Dialog from 'Components/Dialog';
+import ToastMessage from 'components/ToastMessage';
+import Overlay from 'components/OverLay';
+import Dialog from 'components/Dialog';
 
 import { ToastMessageProps } from 'define';
 import { TOAST_MESSAGE_CONST } from 'const';

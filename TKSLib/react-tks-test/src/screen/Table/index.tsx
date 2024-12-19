@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import './styles.css';
 
-import Table from 'Components/Table';
+import Table from 'components/Table';
 
 import { ColumnsInforProps } from 'define';
 import { LOAD_STATE } from 'const';
