@@ -1,28 +1,104 @@
 import React, { createContext, useMemo, useState, useCallback, useEffect, useRef, useContext, useId } from 'react';
 
-const ContextTable = createContext(undefined);
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css_248z$8 = "";
+styleInject(css_248z$8);
+
+/******************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* global Reflect, Promise, SuppressedError, Symbol, Iterator */
+
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+function __spreadArray(to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+}
+
+typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
+    var e = new Error(message);
+    return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
+};
+
+var css_248z$7 = ".TKS-Table{width:100%}.TKS-Table--Control{align-items:center;display:flex;justify-content:center;margin:10px 0}.TKS-Table--Row{overflow-x:auto;width:100%}";
+styleInject(css_248z$7);
+
+var ContextTable = createContext(undefined);
 
 function useFollowState(input) {
-    const initialValue = input === null || input === void 0 ? void 0 : input.initialValue;
-    const config = input === null || input === void 0 ? void 0 : input.config;
-    const registerState = config === null || config === void 0 ? void 0 : config.registerState;
+    var initialValue = input === null || input === void 0 ? void 0 : input.initialValue;
+    var config = input === null || input === void 0 ? void 0 : input.config;
+    var registerState = config === null || config === void 0 ? void 0 : config.registerState;
     // const registerStates_: string[] = [];
-    const countOccurrences = (arr, value) => {
-        return arr.reduce((count, currentValue) => {
+    var countOccurrences = function (arr, value) {
+        return arr.reduce(function (count, currentValue) {
             return currentValue === value ? count + 1 : count;
         }, 0);
     };
-    const getRegisterState_ = (registerState_) => {
-        const registerStates__ = [];
-        for (let i = 0; i < registerState_.length; i++) {
-            const state_i = registerState_[i].state;
+    var getRegisterState_ = function (registerState_) {
+        var registerStates__ = [];
+        for (var i = 0; i < registerState_.length; i++) {
+            var state_i = registerState_[i].state;
             if (state_i) {
                 registerStates__.push(state_i);
             }
         }
         return registerStates__;
     };
-    const registerStates_ = useMemo(() => {
+    var registerStates_ = useMemo(function () {
         if (registerState) {
             return getRegisterState_(registerState);
         }
@@ -31,12 +107,12 @@ function useFollowState(input) {
         }
     }, [registerState]);
     if (registerState) {
-        for (let i = 0; i < registerStates_.length; i++) {
-            const valueToCount = registerStates_[i];
-            const counter = countOccurrences(registerStates_, valueToCount);
+        for (var i = 0; i < registerStates_.length; i++) {
+            var valueToCount = registerStates_[i];
+            var counter = countOccurrences(registerStates_, valueToCount);
             if (counter > 1) {
                 console.warn({
-                    message: `Having states that is more one (${counter})`,
+                    message: "Having states that is more one (".concat(counter, ")"),
                     state: valueToCount,
                     all_states: registerStates_
                 });
@@ -50,10 +126,10 @@ function useFollowState(input) {
             config: config
         });
     }
-    const [states, setSates] = useState(() => {
+    var _a = useState(function () {
         if (initialValue && registerState) {
-            const valueToCount = initialValue;
-            const counter = countOccurrences(registerState, valueToCount);
+            var valueToCount = initialValue;
+            var counter = countOccurrences(registerState, valueToCount);
             if (counter === 1) {
                 return [initialValue];
             }
@@ -69,15 +145,15 @@ function useFollowState(input) {
         else {
             return [];
         }
-    });
-    const [newState, setNewState] = useState(undefined);
-    [...registerStates_];
-    const getRegistedStateConst = useCallback(() => {
+    }), states = _a[0], setSates = _a[1];
+    var _b = useState(undefined), newState = _b[0], setNewState = _b[1];
+    __spreadArray([], registerStates_, true);
+    var getRegistedStateConst = useCallback(function () {
         var _a;
-        const CONST = {};
+        var CONST = {};
         if (registerState) {
-            for (let i = 0; i < registerState.length; i++) {
-                const state = (_a = registerState[i]) === null || _a === void 0 ? void 0 : _a.state;
+            for (var i = 0; i < registerState.length; i++) {
+                var state = (_a = registerState[i]) === null || _a === void 0 ? void 0 : _a.state;
                 if (state) {
                     CONST[state] = state;
                 }
@@ -85,16 +161,16 @@ function useFollowState(input) {
         }
         return CONST;
     }, [registerState]);
-    const addState = useCallback((newState) => {
+    var addState = useCallback(function (newState) {
         setNewState(newState);
     }, []);
-    useEffect(() => {
+    useEffect(function () {
         if (registerState && newState) {
             // const registerStates_: string[] = getRegisterState_(registerState);
-            const valueToCount = newState;
-            const counter = countOccurrences(registerStates_, valueToCount);
+            var valueToCount = newState;
+            var counter = countOccurrences(registerStates_, valueToCount);
             if (counter === 1) {
-                setSates(pre => [...pre, newState]);
+                setSates(function (pre) { return __spreadArray(__spreadArray([], pre, true), [newState], false); });
             }
             else {
                 console.warn({
@@ -106,29 +182,29 @@ function useFollowState(input) {
             setNewState(undefined);
         }
     }, [newState, config, registerStates_, registerState]);
-    const clearStates = useCallback(() => {
+    var clearStates = useCallback(function () {
         setSates([]);
     }, []);
-    const getCurrrentState = useCallback(() => {
-        const len = states.length;
+    var getCurrrentState = useCallback(function () {
+        var len = states.length;
         return states[len - 1];
     }, [states]);
-    const getBeforeState = useCallback((index) => {
-        const len = states.length;
+    var getBeforeState = useCallback(function (index) {
+        var len = states.length;
         return states[len - 1 - index];
     }, [states]);
-    const getAllState = useCallback(() => {
+    var getAllState = useCallback(function () {
         return states;
     }, [states]);
-    const isBeforCurrent = useCallback((beforeState, currentState) => {
-        const beforeState_m = getBeforeState(1);
-        const currentState_m = getCurrrentState();
+    var isBeforCurrent = useCallback(function (beforeState, currentState) {
+        var beforeState_m = getBeforeState(1);
+        var currentState_m = getCurrrentState();
         if (beforeState_m === beforeState && currentState_m === currentState) {
             return true;
         }
         return false;
     }, [getBeforeState, getCurrrentState]);
-    const [followState, setFollowState] = useState(() => {
+    var _c = useState(function () {
         return {
             config: config,
             getData: {
@@ -143,7 +219,7 @@ function useFollowState(input) {
             },
             event: { isBeforCurrent: isBeforCurrent }
         };
-    });
+    }), followState = _c[0], setFollowState = _c[1];
     // useEffect(() => {
     //     setFollowState(pre => {
     //         return {
@@ -152,34 +228,34 @@ function useFollowState(input) {
     //         }
     //     })
     // }, [])
-    useEffect(() => {
-        setFollowState(pre => {
-            return Object.assign(Object.assign({}, pre), { setData: Object.assign(Object.assign({}, pre.setData), { addState: addState }) });
+    useEffect(function () {
+        setFollowState(function (pre) {
+            return __assign(__assign({}, pre), { setData: __assign(__assign({}, pre.setData), { addState: addState }) });
         });
     }, [addState]);
-    useEffect(() => {
-        setFollowState(pre => {
-            return Object.assign(Object.assign({}, pre), { setData: Object.assign(Object.assign({}, pre.setData), { clearStates: clearStates }) });
+    useEffect(function () {
+        setFollowState(function (pre) {
+            return __assign(__assign({}, pre), { setData: __assign(__assign({}, pre.setData), { clearStates: clearStates }) });
         });
     }, [clearStates]);
-    useEffect(() => {
-        setFollowState(pre => {
-            return Object.assign(Object.assign({}, pre), { getData: Object.assign(Object.assign({}, pre.getData), { getCurrrentState: getCurrrentState }) });
+    useEffect(function () {
+        setFollowState(function (pre) {
+            return __assign(__assign({}, pre), { getData: __assign(__assign({}, pre.getData), { getCurrrentState: getCurrrentState }) });
         });
     }, [getCurrrentState]);
-    useEffect(() => {
-        setFollowState(pre => {
-            return Object.assign(Object.assign({}, pre), { getData: Object.assign(Object.assign({}, pre.getData), { getBeforeState: getBeforeState }) });
+    useEffect(function () {
+        setFollowState(function (pre) {
+            return __assign(__assign({}, pre), { getData: __assign(__assign({}, pre.getData), { getBeforeState: getBeforeState }) });
         });
     }, [getBeforeState]);
-    useEffect(() => {
-        setFollowState(pre => {
-            return Object.assign(Object.assign({}, pre), { getData: Object.assign(Object.assign({}, pre.getData), { getAllState: getAllState }) });
+    useEffect(function () {
+        setFollowState(function (pre) {
+            return __assign(__assign({}, pre), { getData: __assign(__assign({}, pre.getData), { getAllState: getAllState }) });
         });
     }, [getAllState]);
-    useEffect(() => {
-        setFollowState(pre => {
-            return Object.assign(Object.assign({}, pre), { event: { isBeforCurrent: isBeforCurrent } });
+    useEffect(function () {
+        setFollowState(function (pre) {
+            return __assign(__assign({}, pre), { event: { isBeforCurrent: isBeforCurrent } });
         });
     }, [isBeforCurrent]);
     return followState;
@@ -187,15 +263,15 @@ function useFollowState(input) {
 
 // import React from 'react';
 // define color
-const WARNING_COLOR = '#d3d602';
-const LOAD_STATE = {
+var WARNING_COLOR = '#d3d602';
+var LOAD_STATE = {
     LOADING: 'LOADING',
     SUCCESS: 'SUCCESS',
     FAILURE: 'FAILURE',
     READY: 'READY'
 };
 // load componets
-const LOAD_COMPONENTS_CONST = {
+var LOAD_COMPONENTS_CONST = {
     LOADING_TYPE: {
         LINE_CIRCLE: 'LINE_CIRCLE',
         DOT_CIRCLE: 'DOT_CIRCLE',
@@ -203,26 +279,39 @@ const LOAD_COMPONENTS_CONST = {
     }
 };
 
+var css_248z$6 = ".TKS-Row{--background-color:#fff;width:max-content}.TKS-Row:not(:first-child){cursor:pointer}.TKS-Row-indexColumn{align-items:center;background-color:var(--background-color);display:flex;position:absolute;z-index:5}.TKS-Row-indexColumn>div{align-items:center;border:1px solid gray;box-sizing:border-box;display:flex;height:30px;justify-content:center;width:50px}.TKS-Row-column{background-color:var(--background-color);display:flex;margin-left:100px;z-index:4}";
+styleInject(css_248z$6);
+
+var css_248z$5 = ".TKS-Cell{--Cell-width:150px;--Cell-height:30px;--Cell-textColor:#000;--Cell-textWeight:300;border:1px solid gray;box-sizing:border-box;color:var(--Cell-textColor);font-weight:var(--Cell-textWeight);height:var(--Cell-height);min-width:50px;overflow:hidden;position:relative;width:var(--Cell-width)}.TKS-Cell>div:first-child,.TKS-Cell>div:nth-child(2){position:absolute;width:100%}.TKS-Cell>div:nth-child(2){align-items:center;display:flex;height:100%;justify-content:center}.TKS-Cell>div:nth-child(3){height:100%;position:absolute;right:0;width:3px}.TKS-Cell>div:nth-child(3).selected{background-color:blue;width:2px}.TKS-Cell>div:nth-child(3):hover{background-color:blue}";
+styleInject(css_248z$5);
+
+var css_248z$4 = ".TKS-Loading{align-items:center;display:flex;height:100%;justify-content:center;width:100%}";
+styleInject(css_248z$4);
+
+var css_248z$3 = ".TKS-Load-DotCircle{--dot-index:0;--dotSize:0;--dotBackgroundColor:0;--dotAmount:0;--circleSize:0;height:100vh;width:100vw}.TKS-Load-DotCircle,.TKS-Load-DotCircle>div{align-items:center;display:flex;justify-content:center}.TKS-Load-DotCircle>div{height:50px;width:50px}.TKS-Load-DotCircle>div>span{aspect-ratio:1/1;background-color:var(--dotBackgroundColor);border-radius:50%;height:calc(5px*(var(--dot-index)/var(--dotSize)));position:absolute;transform:rotate(calc(var(--dot-index)*(1turn/var(--dotAmount)))) translateY(var(--circleSize))}";
+styleInject(css_248z$3);
+
 document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
+var $$ = document.querySelectorAll.bind(document);
 document.getElementById.bind(document);
 
-const DotCircle = ({ dotCircleLoad }) => {
-    useEffect(() => {
-        const q_dots = $$('.TKS-Load-DotCircle-dot');
-        for (let i = 0; i < q_dots.length; i++) {
+var DotCircle = function (_a) {
+    var dotCircleLoad = _a.dotCircleLoad;
+    useEffect(function () {
+        var q_dots = $$('.TKS-Load-DotCircle-dot');
+        for (var i = 0; i < q_dots.length; i++) {
             if (q_dots !== undefined) {
-                const q_dot = q_dots[i];
-                q_dot.style.setProperty('--dot-index', `${i + 1}`);
+                var q_dot = q_dots[i];
+                q_dot.style.setProperty('--dot-index', "".concat(i + 1));
                 q_dot.style.setProperty('--dotSize', dotCircleLoad.dotSize);
                 q_dot.style.setProperty('--dotBackgroundColor', dotCircleLoad.dotBackgroundColor);
                 q_dot.style.setProperty('--dotAmount', dotCircleLoad.dotAmount);
-                q_dot.style.setProperty('--circleSize', `${dotCircleLoad.circleSize}px`);
+                q_dot.style.setProperty('--circleSize', "".concat(dotCircleLoad.circleSize, "px"));
             }
         }
     }, [dotCircleLoad]);
-    const spanArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
-    const list_dot = spanArr.map((data, index) => {
+    var spanArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+    var list_dot = spanArr.map(function (data, index) {
         return (React.createElement("span", { className: 'TKS-Load-DotCircle-dot', key: index }));
     });
     return React.createElement("div", { className: "TKS-Load-DotCircle" },
@@ -230,30 +319,38 @@ const DotCircle = ({ dotCircleLoad }) => {
 };
 var DotCircle$1 = React.memo(DotCircle);
 
-const LineCircle = ({ lineCircleLoad }) => {
-    const circleSize = lineCircleLoad.circleSize;
-    const lineSize = lineCircleLoad.lineSize;
-    const lineBackgroundColor = lineCircleLoad.lineBackgroundColor;
-    const amplify = circleSize / 150;
-    const r = (circleSize - lineSize) / 2;
-    const myElementRef = useRef(null);
-    useEffect(() => {
+var css_248z$2 = ".TKS-Load-LineCircle{--lineBackgroundColor:#000;--lineSize:10;--circleSize:150px;--amplify:1;aspect-ratio:1/1;width:var(--circleSize)}.TKS-Load-LineCircle>svg{align-items:center;animation:TKSLoadingLineCircle1 10s linear infinite;aspect-ratio:1/1;display:flex;justify-content:center;position:relative;width:100%}@keyframes TKSLoadingLineCircle1{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.TKS-Load-LineCircle>svg>circle{fill:none;stroke-width:var(--lineSize);stroke:var(--lineBackgroundColor);stroke-linecap:round;stroke-dasharray:calc(440px*var(--amplify));stroke-dashoffset:calc(440px*var(--amplify));animation:TKSLoadingLineCircle2 4s linear infinite;height:100%;width:100%}@keyframes TKSLoadingLineCircle2{0%,to{stroke-dashoffset:calc(440px*var(--amplify))}50%{stroke-dashoffset:10px}50.1%{stroke-dashoffset:calc(880px*var(--amplify))}}";
+styleInject(css_248z$2);
+
+var LineCircle = function (_a) {
+    var lineCircleLoad = _a.lineCircleLoad;
+    var circleSize = lineCircleLoad.circleSize;
+    var lineSize = lineCircleLoad.lineSize;
+    var lineBackgroundColor = lineCircleLoad.lineBackgroundColor;
+    var amplify = circleSize / 150;
+    var r = (circleSize - lineSize) / 2;
+    var myElementRef = useRef(null);
+    useEffect(function () {
         if (myElementRef.current) {
             myElementRef.current.style.setProperty('--lineBackgroundColor', lineBackgroundColor);
-            myElementRef.current.style.setProperty('--lineSize', `${lineSize}`);
-            myElementRef.current.style.setProperty('--circleSize', `${circleSize}px`);
-            myElementRef.current.style.setProperty('--amplify', `${amplify}`);
+            myElementRef.current.style.setProperty('--lineSize', "".concat(lineSize));
+            myElementRef.current.style.setProperty('--circleSize', "".concat(circleSize, "px"));
+            myElementRef.current.style.setProperty('--amplify', "".concat(amplify));
         }
     }, [circleSize, lineBackgroundColor, lineSize, amplify]);
     return React.createElement("div", { className: "TKS-Load-LineCircle", ref: myElementRef },
         React.createElement("svg", null,
-            React.createElement("circle", { cx: `${circleSize / 2}`, cy: `${circleSize / 2}`, r: r })));
+            React.createElement("circle", { cx: "".concat(circleSize / 2), cy: "".concat(circleSize / 2), r: r })));
 };
 var LineCircle$1 = React.memo(LineCircle);
 
-const Skeleton = ({ skeletonLoad }) => {
-    const myElementRef = useRef(null);
-    useEffect(() => {
+var css_248z$1 = ".TKS-Load-Skeleton{--width:100px;--height:100px;--circleSize:100}.TKS-Load-Skeleton--Loading{height:var(--height);overflow:hidden;position:relative;width:var(--width)}.TKS-Load-Skeleton--Loading:after{background-color:#ddd;z-index:2}.TKS-Load-Skeleton--Loading:after,.TKS-Load-Skeleton--Loading:before{bottom:0;content:\"\";height:100%;left:0;position:absolute;right:0;top:0;width:100%}.TKS-Load-Skeleton--Loading:before{animation:skeletonLoading 1.5s infinite alternate;background:linear-gradient(90deg,#ddd,#fff,#ddd);z-index:3}@keyframes skeletonLoading{0%{left:-50%}to{left:50%}}";
+styleInject(css_248z$1);
+
+var Skeleton = function (_a) {
+    var skeletonLoad = _a.skeletonLoad;
+    var myElementRef = useRef(null);
+    useEffect(function () {
         // const q_skeletonCircle = $('.TKS-Load-Skeleton') as HTMLElement;
         // q_skeletonCircle.style.setProperty('--width', `${skeletonLoad.width}px`);
         // q_skeletonCircle.style.setProperty('--height', `${skeletonLoad.height}px`);
@@ -281,7 +378,7 @@ const Skeleton = ({ skeletonLoad }) => {
         // }
         if (myElementRef.current) {
             if (skeletonLoad.maxminWidth === undefined) {
-                myElementRef.current.style.setProperty('--width', `${skeletonLoad.width}px`);
+                myElementRef.current.style.setProperty('--width', "".concat(skeletonLoad.width, "px"));
             }
             else {
                 if (skeletonLoad.maxminWidth === 'max') {
@@ -295,7 +392,7 @@ const Skeleton = ({ skeletonLoad }) => {
                 }
             }
             if (skeletonLoad.maxminHeight === undefined) {
-                myElementRef.current.style.setProperty('--height', `${skeletonLoad.height}px`);
+                myElementRef.current.style.setProperty('--height', "".concat(skeletonLoad.height, "px"));
             }
             else {
                 if (skeletonLoad.maxminHeight === 'max') {
@@ -314,8 +411,9 @@ const Skeleton = ({ skeletonLoad }) => {
 };
 var Skeleton$1 = React.memo(Skeleton);
 
-const Loading = ({ load }) => {
-    const infor = load.infor;
+var Loading = function (_a) {
+    var load = _a.load;
+    var infor = load.infor;
     switch (load.type) {
         case LOAD_COMPONENTS_CONST.LOADING_TYPE.DOT_CIRCLE: {
             if (!((typeof (infor.dotSize) === 'string') &&
@@ -324,7 +422,7 @@ const Loading = ({ load }) => {
                 (typeof (infor.circleSize) === 'string'))) {
                 console.warn({
                     type: 'Data type NOT valid',
-                    message: `Loading type is a ${LOAD_COMPONENTS_CONST.LOADING_TYPE.DOT_CIRCLE}, when data type is NOT a DotCircleLoadProps`
+                    message: "Loading type is a ".concat(LOAD_COMPONENTS_CONST.LOADING_TYPE.DOT_CIRCLE, ", when data type is NOT a DotCircleLoadProps")
                 });
             }
             break;
@@ -335,7 +433,7 @@ const Loading = ({ load }) => {
                 (typeof (infor.circleSize) === 'number'))) {
                 console.warn({
                     type: 'Data type NOT valid',
-                    message: `Loading type is a ${LOAD_COMPONENTS_CONST.LOADING_TYPE.LINE_CIRCLE}, when data type is NOT a LineCircleLoadProps`
+                    message: "Loading type is a ".concat(LOAD_COMPONENTS_CONST.LOADING_TYPE.LINE_CIRCLE, ", when data type is NOT a LineCircleLoadProps")
                 });
             }
             break;
@@ -347,7 +445,7 @@ const Loading = ({ load }) => {
                 ((infor.maxminHeight === 'max') || (infor.maxminHeight === 'min') || (infor.maxminHeight === undefined)))) {
                 console.warn({
                     type: 'Data type NOT valid',
-                    message: `Loading type is a ${LOAD_COMPONENTS_CONST.LOADING_TYPE.SKELETON}, when data type is NOT a SkeletonLoadProps`
+                    message: "Loading type is a ".concat(LOAD_COMPONENTS_CONST.LOADING_TYPE.SKELETON, ", when data type is NOT a SkeletonLoadProps")
                 });
             }
             break;
@@ -360,17 +458,18 @@ const Loading = ({ load }) => {
 };
 var Loading$1 = React.memo(Loading);
 
-const Cell = ({ data, cellIndex, rowIndex, column }) => {
-    var _a;
-    const context = useContext(ContextTable);
+var Cell = function (_a) {
+    var _b;
+    var data = _a.data, cellIndex = _a.cellIndex, rowIndex = _a.rowIndex, column = _a.column;
+    var context = useContext(ContextTable);
     if (!context) {
         throw new Error('MyComponent must be used within a MyProvider');
     }
-    const { table, cellElements, resizableStatus, cellWidth, cellX, selectedColumn, columnAmount, rowAmount } = context;
-    const loadDataState = (_a = table === null || table === void 0 ? void 0 : table.control) === null || _a === void 0 ? void 0 : _a.loadDataState;
-    useEffect(() => {
+    var table = context.table, cellElements = context.cellElements, resizableStatus = context.resizableStatus, cellWidth = context.cellWidth, cellX = context.cellX, selectedColumn = context.selectedColumn, columnAmount = context.columnAmount, rowAmount = context.rowAmount;
+    var loadDataState = (_b = table === null || table === void 0 ? void 0 : table.control) === null || _b === void 0 ? void 0 : _b.loadDataState;
+    useEffect(function () {
         // const q_Cell = $$('.TKS-Cell')[cellIndex] as HTMLElement;
-        const q_Cell = cellElements.current[cellIndex];
+        var q_Cell = cellElements.current[cellIndex];
         if (q_Cell) {
             (data === null || data === void 0 ? void 0 : data.width) && q_Cell.style.setProperty('--Cell-width', data === null || data === void 0 ? void 0 : data.width);
             (data === null || data === void 0 ? void 0 : data.height) && q_Cell.style.setProperty('--Cell-height', data === null || data === void 0 ? void 0 : data.height);
@@ -378,118 +477,119 @@ const Cell = ({ data, cellIndex, rowIndex, column }) => {
             (data === null || data === void 0 ? void 0 : data.textWeight) && q_Cell.style.setProperty('--Cell-textWeight', data === null || data === void 0 ? void 0 : data.textWeight);
         }
     }, [cellElements, cellIndex, data]);
-    const handleMouseDown = (e) => {
+    var handleMouseDown = function (e) {
         // const q_cells = $$('.TKS-Cell');
-        const q_cells = cellElements.current;
+        var q_cells = cellElements.current;
         cellX.current = e.clientX;
-        let sbWidth = window.getComputedStyle(q_cells[cellIndex]).width;
+        var sbWidth = window.getComputedStyle(q_cells[cellIndex]).width;
         cellWidth.current = parseInt(sbWidth, 10);
         resizableStatus.current = true;
         selectedColumn.current = column;
         if (resizableStatus.current && selectedColumn.current !== undefined) {
-            for (let i = 0; i < rowAmount.current; i++) {
-                const qq_cells = q_cells[(columnAmount.current * i + selectedColumn.current)];
+            for (var i = 0; i < rowAmount.current; i++) {
+                var qq_cells = q_cells[(columnAmount.current * i + selectedColumn.current)];
                 qq_cells.children[1].classList.add('selected');
             }
         }
     };
-    const skeletonLoad = {
+    var skeletonLoad = {
         width: 100,
         height: 100,
         maxminWidth: 'max'
     };
-    const load = {
+    var load = {
         type: LOAD_COMPONENTS_CONST.LOADING_TYPE.SKELETON,
         infor: skeletonLoad
     };
-    return React.createElement("div", { className: "TKS-Cell", ref: (el) => (cellElements.current[cellIndex] = el) },
+    return React.createElement("div", { className: "TKS-Cell", ref: function (el) { return (cellElements.current[cellIndex] = el); } },
         React.createElement("div", null, loadDataState === LOAD_STATE.LOADING && rowIndex !== 0 && React.createElement(Loading$1, { load: load })),
         React.createElement("div", null, data.content),
-        React.createElement("div", { onMouseDown: (e) => handleMouseDown(e) }));
+        React.createElement("div", { onMouseDown: function (e) { return handleMouseDown(e); } }));
 };
 
-const Row = ({ data: rowData, rowIndex }) => {
+var Row = function (_a) {
     // console.log('Row', rowIndex)
-    var _a, _b;
-    const context = useContext(ContextTable);
+    var _b, _c;
+    var rowData = _a.data, rowIndex = _a.rowIndex;
+    var context = useContext(ContextTable);
     if (!context) {
         throw new Error('Context in row is undefined');
     }
-    const { table, default_pageSize, default_maxRow, cellElements, resizableStatus, cellWidth, cellX, selectedColumn, columnAmount, rowAmount, pageIndex } = context;
-    const rowElement = useRef(null);
-    const isSelectedRow = useRef(false);
+    var table = context.table, default_pageSize = context.default_pageSize, default_maxRow = context.default_maxRow, cellElements = context.cellElements, resizableStatus = context.resizableStatus, cellWidth = context.cellWidth, cellX = context.cellX, selectedColumn = context.selectedColumn, columnAmount = context.columnAmount, rowAmount = context.rowAmount, pageIndex = context.pageIndex;
+    var rowElement = useRef(null);
+    var isSelectedRow = useRef(false);
     if (rowData === null || rowData === void 0 ? void 0 : rowData.cells) {
         columnAmount.current = rowData.cells.length;
     }
-    const pageSize = useRef(default_pageSize);
-    const maxRow = useRef(default_maxRow);
-    if ((_a = table === null || table === void 0 ? void 0 : table.config) === null || _a === void 0 ? void 0 : _a.pageSize) {
+    var pageSize = useRef(default_pageSize);
+    var maxRow = useRef(default_maxRow);
+    if ((_b = table === null || table === void 0 ? void 0 : table.config) === null || _b === void 0 ? void 0 : _b.pageSize) {
         pageSize.current = table.config.pageSize;
     }
-    if ((_b = table === null || table === void 0 ? void 0 : table.config) === null || _b === void 0 ? void 0 : _b.maxRow) {
+    if ((_c = table === null || table === void 0 ? void 0 : table.config) === null || _c === void 0 ? void 0 : _c.maxRow) {
         maxRow.current = table.config.maxRow;
     }
-    useEffect(() => {
-        const handleMouseMove = (e) => {
+    useEffect(function () {
+        var handleMouseMove = function (e) {
             // const q_cells = $$('.TKS-Cell');
-            const q_cells = cellElements.current;
-            const dx = e.clientX - cellX.current;
-            const cw = cellWidth.current + dx;
+            var q_cells = cellElements.current;
+            var dx = e.clientX - cellX.current;
+            var cw = cellWidth.current + dx;
             if (resizableStatus.current && selectedColumn.current !== undefined) {
-                for (let i = 0; i < rowAmount.current; i++) {
-                    const qq_cells = q_cells[(columnAmount.current * i + selectedColumn.current)];
-                    qq_cells.style.width = `${cw}px`;
+                for (var i = 0; i < rowAmount.current; i++) {
+                    var qq_cells = q_cells[(columnAmount.current * i + selectedColumn.current)];
+                    qq_cells.style.width = "".concat(cw, "px");
                 }
             }
         };
-        const handleMouseUp = (e) => {
+        var handleMouseUp = function (e) {
             resizableStatus.current = false;
             // const q_cells = $$('.TKS-Cell');
-            const q_cells = cellElements.current;
+            var q_cells = cellElements.current;
             if (selectedColumn.current !== undefined) {
-                for (let i = 0; i < rowAmount.current; i++) {
-                    const qq_cells = q_cells[(columnAmount.current * i + selectedColumn.current)];
+                for (var i = 0; i < rowAmount.current; i++) {
+                    var qq_cells = q_cells[(columnAmount.current * i + selectedColumn.current)];
                     qq_cells.children[1].classList.remove('selected');
                 }
             }
         };
-        const handleMouseLeave = (e) => {
+        var handleMouseLeave = function (e) {
             resizableStatus.current = false;
         };
-        document.addEventListener('mousemove', (e) => handleMouseMove(e));
-        document.addEventListener('mouseup', (e) => handleMouseUp());
-        document.addEventListener('mouseleave', (e) => handleMouseLeave());
-        return () => {
-            document.removeEventListener('mousemove', (e) => handleMouseMove(e));
-            document.removeEventListener('mouseup', (e) => handleMouseUp());
-            document.removeEventListener('mouseleave', (e) => handleMouseLeave());
+        document.addEventListener('mousemove', function (e) { return handleMouseMove(e); });
+        document.addEventListener('mouseup', function (e) { return handleMouseUp(); });
+        document.addEventListener('mouseleave', function (e) { return handleMouseLeave(); });
+        return function () {
+            document.removeEventListener('mousemove', function (e) { return handleMouseMove(e); });
+            document.removeEventListener('mouseup', function (e) { return handleMouseUp(); });
+            document.removeEventListener('mouseleave', function (e) { return handleMouseLeave(); });
         };
     }, [cellElements, cellWidth, cellX, columnAmount, resizableStatus, rowAmount, selectedColumn]);
-    const handleHoverIn = (e) => {
-        const hoverColor = 'rgb(233, 233, 233)';
+    var handleHoverIn = function (e) {
+        var hoverColor = 'rgb(233, 233, 233)';
         if (rowElement.current && rowIndex > 0) {
             rowElement.current.style.setProperty('--background-color', hoverColor);
         }
     };
-    const handleHoverOut = (e) => {
-        const hoverColor = 'white';
+    var handleHoverOut = function (e) {
+        var hoverColor = 'white';
         if (rowElement.current && !isSelectedRow.current) {
             rowElement.current.style.setProperty('--background-color', hoverColor);
         }
     };
-    const handleClick = (e) => {
+    var handleClick = function (e) {
         isSelectedRow.current = !isSelectedRow.current;
     };
-    const handleTableIndex = (columnAmount, rowIndex, cellIndex) => {
+    var handleTableIndex = function (columnAmount, rowIndex, cellIndex) {
         return columnAmount * rowIndex + cellIndex;
     };
-    const list_cell = (rowData === null || rowData === void 0 ? void 0 : rowData.cells) && rowData.cells.map((data, index) => {
+    var list_cell = (rowData === null || rowData === void 0 ? void 0 : rowData.cells) && rowData.cells.map(function (data, index) {
         return (rowData === null || rowData === void 0 ? void 0 : rowData.cells) && (React.createElement(Cell, { data: data, cellIndex: handleTableIndex(rowData.cells.length, rowIndex, index), rowIndex: rowIndex, column: index, key: index }));
     });
-    const dataIndex = pageSize.current ? pageSize.current * (pageIndex - 1) + rowIndex : 0;
+    var dataIndex = pageSize.current ? pageSize.current * (pageIndex - 1) + rowIndex : 0;
     return React.createElement("div", { className: "TKS-Row", ref: rowElement, 
         // handle hover
-        onMouseOver: e => handleHoverIn(), onMouseOut: e => handleHoverOut(), onClick: e => handleClick() },
+        onMouseOver: function (e) { return handleHoverIn(); }, onMouseOut: function (e) { return handleHoverOut(); }, onClick: function (e) { return handleClick(); } },
         React.createElement("div", { className: 'TKS-Row-indexColumn' },
             rowIndex > 0 ? React.createElement("div", null, rowIndex) : React.createElement("div", null, pageSize.current),
             rowIndex > 0 ? React.createElement("div", null, dataIndex) : React.createElement("div", null, maxRow.current)),
@@ -497,50 +597,53 @@ const Row = ({ data: rowData, rowIndex }) => {
 };
 var Row$1 = React.memo(Row);
 
-const TKS_Init = {
-    removeDefaultFunction() {
+var css_248z = ".TKS-Table-Control-selectPageContainer{display:flex;margin:0 25px}.TKS-Table-Control-selectPageContainer>div{align-items:center;background-color:#d8d8d8;border:1px solid #cecece;border-radius:5px;cursor:pointer;display:flex;height:25px;justify-content:center;margin:0 5px;min-width:25px;overflow:hidden;padding:3px;position:relative}.TKS-Table-Control-selectPageContainer>div.selected,.TKS-Table-Control-selectPageContainer>div:hover{background-color:gray;color:#fff}.TKS-Table-Control-selectPageContainer>div>div{align-items:center;display:flex;height:100%;justify-content:center;position:absolute;width:100%}";
+styleInject(css_248z);
+
+var TKS_Init = {
+    removeDefaultFunction: function () {
     },
 };
 
-const handleCutPXInString = (s) => {
-    const arr = ['p', 'x'];
-    let s_new = '';
-    for (let i = 0; i < s.length; i++) {
+var handleCutPXInString = function (s) {
+    var arr = ['p', 'x'];
+    var s_new = '';
+    for (var i = 0; i < s.length; i++) {
         if (arr.indexOf(s[i]) === -1) {
-            s_new = `${s_new}${s[i]}`;
+            s_new = "".concat(s_new).concat(s[i]);
         }
     }
     return s_new.trim();
 };
 
-const Control = () => {
+var Control = function () {
     var _a, _b, _c;
-    const context = useContext(ContextTable);
+    var context = useContext(ContextTable);
     if (!context) {
         throw new Error('MyComponent must be used within a MyProvider');
     }
-    const { table, pageIndex, setPageIndex, default_pageSize, default_maxRow, loadDataState, follow_loadingState } = context;
-    const id = useRef(`Control__T: ${useId()}`);
+    var table = context.table, pageIndex = context.pageIndex, setPageIndex = context.setPageIndex, default_pageSize = context.default_pageSize, default_maxRow = context.default_maxRow, loadDataState = context.loadDataState, follow_loadingState = context.follow_loadingState;
+    var id = useRef("Control__T: ".concat(useId()));
     // const indexInit = 1;
-    const firstIndex = 1;
-    const nextIndex = useRef(0);
-    const amountOfIndexCell = 4;
-    const [pageIndexCluster, setPageIndexCluster] = useState(0);
-    const [nextPageIndexCluster, setNextPageIndexCluster] = useState(0);
-    const [nextPageIndex, setNextPageIndex] = useState(undefined);
-    const q_selectPageContainer = useRef(null);
-    const q_loadingContainers = useRef([]);
-    const [load, setLoad] = useState(undefined);
-    const [loadIndex, setLoadIndex] = useState(1);
-    const pageSize = useRef(default_pageSize);
-    const maxRow = useRef(default_maxRow);
+    var firstIndex = 1;
+    var nextIndex = useRef(0);
+    var amountOfIndexCell = 4;
+    var _d = useState(0), pageIndexCluster = _d[0], setPageIndexCluster = _d[1];
+    var _e = useState(0), nextPageIndexCluster = _e[0], setNextPageIndexCluster = _e[1];
+    var _f = useState(undefined), nextPageIndex = _f[0], setNextPageIndex = _f[1];
+    var q_selectPageContainer = useRef(null);
+    var q_loadingContainers = useRef([]);
+    var _g = useState(undefined), load = _g[0], setLoad = _g[1];
+    var _h = useState(1), loadIndex = _h[0], setLoadIndex = _h[1];
+    var pageSize = useRef(default_pageSize);
+    var maxRow = useRef(default_maxRow);
     if ((_a = table === null || table === void 0 ? void 0 : table.config) === null || _a === void 0 ? void 0 : _a.pageSize) {
         pageSize.current = table.config.pageSize;
     }
     if ((_b = table === null || table === void 0 ? void 0 : table.config) === null || _b === void 0 ? void 0 : _b.maxRow) {
         maxRow.current = table.config.maxRow;
     }
-    const amountOfPages = useCallback(() => {
+    var amountOfPages = useCallback(function () {
         if (maxRow.current % pageSize.current > 0) {
             return Math.floor(maxRow.current / pageSize.current) + 1;
         }
@@ -551,26 +654,26 @@ const Control = () => {
             return 1;
         }
     }, [maxRow, pageSize]);
-    const pageIndexCluster_max = amountOfPages() - amountOfIndexCell;
-    const handleLoad = useCallback((index) => {
+    var pageIndexCluster_max = amountOfPages() - amountOfIndexCell;
+    var handleLoad = useCallback(function (index) {
         if (q_loadingContainers.current[index]) {
-            let style_loadingContainer;
+            var style_loadingContainer = void 0;
             style_loadingContainer = getComputedStyle(q_loadingContainers.current[index]);
-            let circleSize_m = 0;
-            const width = Number(handleCutPXInString(style_loadingContainer.width));
-            const height = Number(handleCutPXInString(style_loadingContainer.height));
+            var circleSize_m = 0;
+            var width = Number(handleCutPXInString(style_loadingContainer.width));
+            var height = Number(handleCutPXInString(style_loadingContainer.height));
             if (width > height) {
                 circleSize_m = height;
             }
             else {
                 circleSize_m = width;
             }
-            const lineCircleLoad = {
+            var lineCircleLoad = {
                 lineSize: 3,
                 lineBackgroundColor: 'blue',
                 circleSize: circleSize_m
             };
-            const load_m = {
+            var load_m = {
                 type: LOAD_COMPONENTS_CONST.LOADING_TYPE.LINE_CIRCLE,
                 infor: lineCircleLoad
             };
@@ -578,15 +681,15 @@ const Control = () => {
             setLoadIndex(index);
         }
     }, []);
-    useEffect(() => {
-        const qq_selectPageContainer = q_selectPageContainer.current;
+    useEffect(function () {
+        var qq_selectPageContainer = q_selectPageContainer.current;
         if (qq_selectPageContainer) {
-            const q_pageIndexs = qq_selectPageContainer.children;
-            for (let i1 = 0; i1 < q_pageIndexs.length; i1++) {
+            var q_pageIndexs = qq_selectPageContainer.children;
+            var _loop_1 = function (i1) {
                 if ((![5, 7].includes(i1)) && (loadDataState !== LOAD_STATE.LOADING)) {
                     q_pageIndexs[i1].onclick = function (e) {
                         var _a, _b;
-                        let nextIndex_m = 0;
+                        var nextIndex_m = 0;
                         switch (i1) {
                             case 0:
                                 setNextPageIndexCluster(0);
@@ -596,7 +699,7 @@ const Control = () => {
                                 break;
                             case 1:
                                 if (pageIndexCluster > 0) {
-                                    setNextPageIndexCluster(x => x - 1);
+                                    setNextPageIndexCluster(function (x) { return x - 1; });
                                     nextIndex_m = i1 + 1;
                                     // setNextIndex(i1 + 1);
                                 }
@@ -608,7 +711,7 @@ const Control = () => {
                                 break;
                             case 4:
                                 if (pageIndex < amountOfPages() - 1) {
-                                    setNextPageIndexCluster(x => x + 1);
+                                    setNextPageIndexCluster(function (x) { return x + 1; });
                                     nextIndex_m = i1 - 1;
                                     // setNextIndex(i1 - 1);
                                 }
@@ -634,24 +737,27 @@ const Control = () => {
                         if (loadIndex !== i1 && loadDataState !== LOAD_STATE.LOADING) {
                             handleLoad(i1);
                         }
-                        const TKS = Object.assign(Object.assign({}, TKS_Init), { name: (_a = table === null || table === void 0 ? void 0 : table.config) === null || _a === void 0 ? void 0 : _a.name, id: id.current, data: {
+                        var TKS = __assign(__assign({}, TKS_Init), { name: (_a = table === null || table === void 0 ? void 0 : table.config) === null || _a === void 0 ? void 0 : _a.name, id: id.current, data: {
                                 selectedPage: nextIndex_m
                             } });
                         (_b = table === null || table === void 0 ? void 0 : table.event) === null || _b === void 0 ? void 0 : _b.onSelectedPage(TKS);
                     };
                 }
+            };
+            for (var i1 = 0; i1 < q_pageIndexs.length; i1++) {
+                _loop_1(i1);
             }
         }
-        return () => {
+        return function () {
             if (qq_selectPageContainer) {
-                const q_pageIndexs = qq_selectPageContainer.children;
-                for (let i1 = 0; i1 < q_pageIndexs.length; i1++) {
+                var q_pageIndexs = qq_selectPageContainer.children;
+                for (var i1 = 0; i1 < q_pageIndexs.length; i1++) {
                     q_pageIndexs[i1].removeAttribute("onclick");
                 }
             }
         };
     }, [(_c = table === null || table === void 0 ? void 0 : table.config) === null || _c === void 0 ? void 0 : _c.name, table === null || table === void 0 ? void 0 : table.event, pageIndexCluster, pageIndex, amountOfPages, loadDataState, nextIndex, handleLoad, loadIndex]);
-    useEffect(() => {
+    useEffect(function () {
         var _a, _b, _c;
         // if (beforeLoadDataState.current===LOAD_STATE.LOADING && loadDataState===LOAD_STATE.SUCCESS && isControl_pageIndex_defaultFunction.current===true) {
         //     const qq_selectPageContainer = q_selectPageContainer.current;
@@ -669,11 +775,11 @@ const Control = () => {
         // follow_loadingState?.event?.isBeforCurrent && console.log(11111111, follow_loadingState.event.isBeforCurrent(LOAD_STATE.LOADING, LOAD_STATE.SUCCESS))
         if (((_a = follow_loadingState === null || follow_loadingState === void 0 ? void 0 : follow_loadingState.event) === null || _a === void 0 ? void 0 : _a.isBeforCurrent) &&
             follow_loadingState.event.isBeforCurrent(LOAD_STATE.LOADING, LOAD_STATE.SUCCESS)) {
-            const qq_selectPageContainer = q_selectPageContainer.current;
+            var qq_selectPageContainer = q_selectPageContainer.current;
             if (qq_selectPageContainer && nextPageIndex) {
                 console.log(666666666);
-                const q_pageIndexs = qq_selectPageContainer.children;
-                for (let i = 0; i < q_pageIndexs.length; i++) {
+                var q_pageIndexs = qq_selectPageContainer.children;
+                for (var i = 0; i < q_pageIndexs.length; i++) {
                     q_pageIndexs[i].classList.remove('selected');
                 }
                 setPageIndexCluster(nextPageIndexCluster);
@@ -684,7 +790,7 @@ const Control = () => {
             }
         }
     }, [nextPageIndexCluster, nextPageIndex, setPageIndex, follow_loadingState === null || follow_loadingState === void 0 ? void 0 : follow_loadingState.event, follow_loadingState === null || follow_loadingState === void 0 ? void 0 : follow_loadingState.setData]);
-    useEffect(() => {
+    useEffect(function () {
         // const qq_selectPageContainer = q_selectPageContainer.current;
         // if (qq_selectPageContainer && isControl_pageIndex_defaultFunction.current===false) {
         //     const q_pageIndexs = qq_selectPageContainer.children;
@@ -750,50 +856,51 @@ const Control = () => {
         React.createElement("div", { className: "TKS-Table-Control-selectPageContainer", ref: q_selectPageContainer },
             React.createElement("div", null,
                 "First",
-                React.createElement("div", { ref: (el) => (q_loadingContainers.current[0] = el) }, loadDataState === LOAD_STATE.LOADING && load !== undefined && loadIndex === 0 && React.createElement(Loading$1, { load: load }))),
+                React.createElement("div", { ref: function (el) { return (q_loadingContainers.current[0] = el); } }, loadDataState === LOAD_STATE.LOADING && load !== undefined && loadIndex === 0 && React.createElement(Loading$1, { load: load }))),
             amountOfPages() >= 1 && React.createElement("div", { className: "selected" },
                 pageIndexCluster + 1,
-                React.createElement("div", { ref: (el) => (q_loadingContainers.current[1] = el) }, loadDataState === LOAD_STATE.LOADING && load !== undefined && loadIndex === 1 && React.createElement(Loading$1, { load: load }))),
+                React.createElement("div", { ref: function (el) { return (q_loadingContainers.current[1] = el); } }, loadDataState === LOAD_STATE.LOADING && load !== undefined && loadIndex === 1 && React.createElement(Loading$1, { load: load }))),
             amountOfPages() >= 2 && React.createElement("div", null,
                 pageIndexCluster + 2,
-                React.createElement("div", { ref: (el) => (q_loadingContainers.current[2] = el) }, loadDataState === LOAD_STATE.LOADING && load !== undefined && loadIndex === 2 && React.createElement(Loading$1, { load: load }))),
+                React.createElement("div", { ref: function (el) { return (q_loadingContainers.current[2] = el); } }, loadDataState === LOAD_STATE.LOADING && load !== undefined && loadIndex === 2 && React.createElement(Loading$1, { load: load }))),
             amountOfPages() >= 3 && React.createElement("div", null,
                 pageIndexCluster + 3,
-                React.createElement("div", { ref: (el) => (q_loadingContainers.current[3] = el) }, loadDataState === LOAD_STATE.LOADING && load !== undefined && loadIndex === 3 && React.createElement(Loading$1, { load: load }))),
+                React.createElement("div", { ref: function (el) { return (q_loadingContainers.current[3] = el); } }, loadDataState === LOAD_STATE.LOADING && load !== undefined && loadIndex === 3 && React.createElement(Loading$1, { load: load }))),
             amountOfPages() >= 4 && React.createElement("div", null,
                 pageIndexCluster + 4,
-                React.createElement("div", { ref: (el) => (q_loadingContainers.current[4] = el) }, loadDataState === LOAD_STATE.LOADING && load !== undefined && loadIndex === 4 && React.createElement(Loading$1, { load: load }))),
+                React.createElement("div", { ref: function (el) { return (q_loadingContainers.current[4] = el); } }, loadDataState === LOAD_STATE.LOADING && load !== undefined && loadIndex === 4 && React.createElement(Loading$1, { load: load }))),
             amountOfPages() >= 5 && (pageIndex <= amountOfPages() - 1) && (pageIndexCluster !== pageIndexCluster_max) && React.createElement(React.Fragment, null,
                 React.createElement("div", null,
                     "...",
-                    React.createElement("div", { ref: (el) => (q_loadingContainers.current[5] = el) }, loadDataState === LOAD_STATE.LOADING && load !== undefined && loadIndex === 5 && React.createElement(Loading$1, { load: load }))),
+                    React.createElement("div", { ref: function (el) { return (q_loadingContainers.current[5] = el); } }, loadDataState === LOAD_STATE.LOADING && load !== undefined && loadIndex === 5 && React.createElement(Loading$1, { load: load }))),
                 React.createElement("div", null,
                     "Last",
-                    React.createElement("div", { ref: (el) => (q_loadingContainers.current[6] = el) }, loadDataState === LOAD_STATE.LOADING && load !== undefined && loadIndex === 6 && React.createElement(Loading$1, { load: load })))),
-            React.createElement("div", null, `${pageIndex}/${amountOfPages()}`)));
+                    React.createElement("div", { ref: function (el) { return (q_loadingContainers.current[6] = el); } }, loadDataState === LOAD_STATE.LOADING && load !== undefined && loadIndex === 6 && React.createElement(Loading$1, { load: load })))),
+            React.createElement("div", null, "".concat(pageIndex, "/").concat(amountOfPages()))));
 };
 
-const Table = ({ table }) => {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
-    const config = Object.assign({}, table === null || table === void 0 ? void 0 : table.config);
-    const isRender = ((_a = table === null || table === void 0 ? void 0 : table.config) === null || _a === void 0 ? void 0 : _a.columnsInfor) ? true : false;
-    const data = (_b = table === null || table === void 0 ? void 0 : table.data) === null || _b === void 0 ? void 0 : _b.values;
-    const resizableStatus = useRef(false);
-    const cellWidth = useRef(0);
-    const cellX = useRef(0);
-    const selectedColumn = useRef(undefined);
-    const columnAmount = useRef(0);
-    const rowAmount = useRef(0);
-    const [pageIndex, setPageIndex] = useState(1);
-    const [loadDataState, setLoadDataState] = useState(undefined);
-    const totalRow = useRef([]);
-    let isControl_pageIndex_defaultFunction = useRef(true);
-    let isControl_loadDataState_defaultFunction = useRef(true);
-    const default_pageSize = 10;
-    const default_maxRow = 50;
-    const pageSize = (_c = table === null || table === void 0 ? void 0 : table.config) === null || _c === void 0 ? void 0 : _c.pageSize;
-    const maxRow = (_d = table === null || table === void 0 ? void 0 : table.config) === null || _d === void 0 ? void 0 : _d.maxRow;
-    const registedStates = [
+var Table = function (_a) {
+    var _b, _c, _d, _e, _f, _g, _h, _j, _k;
+    var table = _a.table;
+    var config = __assign({}, table === null || table === void 0 ? void 0 : table.config);
+    var isRender = ((_b = table === null || table === void 0 ? void 0 : table.config) === null || _b === void 0 ? void 0 : _b.columnsInfor) ? true : false;
+    var data = (_c = table === null || table === void 0 ? void 0 : table.data) === null || _c === void 0 ? void 0 : _c.values;
+    var resizableStatus = useRef(false);
+    var cellWidth = useRef(0);
+    var cellX = useRef(0);
+    var selectedColumn = useRef(undefined);
+    var columnAmount = useRef(0);
+    var rowAmount = useRef(0);
+    var _l = useState(1), pageIndex = _l[0], setPageIndex = _l[1];
+    var _m = useState(undefined), loadDataState = _m[0], setLoadDataState = _m[1];
+    var totalRow = useRef([]);
+    var isControl_pageIndex_defaultFunction = useRef(true);
+    var isControl_loadDataState_defaultFunction = useRef(true);
+    var default_pageSize = 10;
+    var default_maxRow = 50;
+    var pageSize = (_d = table === null || table === void 0 ? void 0 : table.config) === null || _d === void 0 ? void 0 : _d.pageSize;
+    var maxRow = (_e = table === null || table === void 0 ? void 0 : table.config) === null || _e === void 0 ? void 0 : _e.maxRow;
+    var registedStates = [
         {
             descrition: 'When load data',
             state: LOAD_STATE.LOADING
@@ -811,12 +918,12 @@ const Table = ({ table }) => {
             state: LOAD_STATE.READY
         }
     ];
-    const follow_loadingState = useFollowState({
+    var follow_loadingState = useFollowState({
         config: {
             registerState: registedStates
         }
     });
-    useEffect(() => {
+    useEffect(function () {
         var _a, _b, _c, _d, _e;
         if (((_a = table === null || table === void 0 ? void 0 : table.control) === null || _a === void 0 ? void 0 : _a.pageIndex) !== undefined && ((_b = table === null || table === void 0 ? void 0 : table.control) === null || _b === void 0 ? void 0 : _b.pageIndex) !== null && ((_c = table === null || table === void 0 ? void 0 : table.control) === null || _c === void 0 ? void 0 : _c.pageIndex) < 1) {
             console.warn({
@@ -828,22 +935,22 @@ const Table = ({ table }) => {
             setPageIndex(table.control.pageIndex);
             isControl_pageIndex_defaultFunction.current = false;
         }
-    }, [(_e = table === null || table === void 0 ? void 0 : table.control) === null || _e === void 0 ? void 0 : _e.pageIndex]);
-    useEffect(() => {
+    }, [(_f = table === null || table === void 0 ? void 0 : table.control) === null || _f === void 0 ? void 0 : _f.pageIndex]);
+    useEffect(function () {
         var _a;
         if ((_a = table === null || table === void 0 ? void 0 : table.control) === null || _a === void 0 ? void 0 : _a.loadDataState) {
             setLoadDataState(table.control.loadDataState);
             isControl_loadDataState_defaultFunction.current = false;
         }
-    }, [(_f = table === null || table === void 0 ? void 0 : table.control) === null || _f === void 0 ? void 0 : _f.loadDataState, loadDataState]);
-    useEffect(() => {
+    }, [(_g = table === null || table === void 0 ? void 0 : table.control) === null || _g === void 0 ? void 0 : _g.loadDataState, loadDataState]);
+    useEffect(function () {
         var _a, _b;
         if (loadDataState && ((_a = follow_loadingState.setData) === null || _a === void 0 ? void 0 : _a.addState)) {
             (_b = follow_loadingState.setData) === null || _b === void 0 ? void 0 : _b.addState(loadDataState);
         }
     }, [loadDataState, follow_loadingState.setData]);
     // cell
-    const cellElements = useRef([]);
+    var cellElements = useRef([]);
     if (data) {
         rowAmount.current = data.length + 1;
         if (data.length > default_pageSize) {
@@ -866,11 +973,11 @@ const Table = ({ table }) => {
             });
         }
     }
-    const rowForm = {
+    var rowForm = {
         cells: []
     };
     // set-up header oncly one time
-    const cellHeader = (fieldName, content, textColor, textWeight) => {
+    var cellHeader = function (fieldName, content, textColor, textWeight) {
         return {
             fieldName: fieldName,
             content: content,
@@ -878,11 +985,11 @@ const Table = ({ table }) => {
             textWeight: textWeight
         };
     };
-    const rowHeader = {
+    var rowHeader = {
         cells: []
     };
     if ((config === null || config === void 0 ? void 0 : config.columnsInfor) && (rowHeader === null || rowHeader === void 0 ? void 0 : rowHeader.cells) && (rowForm === null || rowForm === void 0 ? void 0 : rowForm.cells)) {
-        for (let i = 0; i < config.columnsInfor.length; i++) {
+        for (var i = 0; i < config.columnsInfor.length; i++) {
             // if (config.columnsInfor[i]!==undefined) {
             //     rowHeader.cells.push(cellHeader(config.columnsInfor[i].fieldName, config.columnsInfor[i].columnName, 'black', '700'));
             //     rowForm.cells.push(cellHeader(config.columnsInfor[i].fieldName, '', 'black', '300'));
@@ -894,19 +1001,19 @@ const Table = ({ table }) => {
             rowForm.cells.push(cellHeader(config.columnsInfor[i].fieldName, '', 'black', '300'));
         }
     }
-    const totalRow_m = [];
+    var totalRow_m = [];
     if (data) {
-        for (let key = 0; key < data.length; key++) {
+        for (var key = 0; key < data.length; key++) {
             // if (data.hasOwnProperty(key)) { 
             //     console.log(`log: ${key}: ${Object.keys(data[key])}`, data[key]);
             // }   
             // const rowData = { ...rowForm.current };
-            const rowData = JSON.parse(JSON.stringify(rowForm));
-            if ((_g = rowData === null || rowData === void 0 ? void 0 : rowData.cells) === null || _g === void 0 ? void 0 : _g.length) {
-                for (let i = 0; i < rowData.cells.length; i++) {
-                    const keyIndexInRow = Object.keys(data[key]).indexOf((_h = rowData.cells[i]) === null || _h === void 0 ? void 0 : _h.fieldName);
+            var rowData = JSON.parse(JSON.stringify(rowForm));
+            if ((_h = rowData === null || rowData === void 0 ? void 0 : rowData.cells) === null || _h === void 0 ? void 0 : _h.length) {
+                for (var i = 0; i < rowData.cells.length; i++) {
+                    var keyIndexInRow = Object.keys(data[key]).indexOf((_j = rowData.cells[i]) === null || _j === void 0 ? void 0 : _j.fieldName);
                     if (keyIndexInRow !== -1) {
-                        const selectedKey = (_j = rowData.cells[i]) === null || _j === void 0 ? void 0 : _j.fieldName;
+                        var selectedKey = (_k = rowData.cells[i]) === null || _k === void 0 ? void 0 : _k.fieldName;
                         rowData.cells[i].content = data[key][selectedKey];
                     }
                     else {
@@ -920,7 +1027,7 @@ const Table = ({ table }) => {
     }
     totalRow_m.unshift(rowHeader);
     totalRow.current = totalRow_m;
-    const handleControlPos = () => {
+    var handleControlPos = function () {
         if (config.controlPos === "bottom") {
             return 'bottom';
         }
@@ -928,28 +1035,28 @@ const Table = ({ table }) => {
             return 'top';
         }
     };
-    const list_row = totalRow.current.map((data, index) => {
+    var list_row = totalRow.current.map(function (data, index) {
         return (React.createElement(Row$1, { data: data, rowIndex: index, key: index }));
     });
-    const contextValue = useMemo(() => ({
-        table,
-        cellElements,
-        resizableStatus,
-        cellWidth,
-        cellX,
-        selectedColumn,
-        columnAmount,
-        rowAmount,
-        pageIndex,
-        setPageIndex,
-        default_pageSize,
-        default_maxRow,
-        loadDataState,
-        setLoadDataState,
-        isControl_pageIndex_defaultFunction,
-        isControl_loadDataState_defaultFunction,
-        follow_loadingState
-    }), [table, pageIndex, setPageIndex, loadDataState, follow_loadingState]);
+    var contextValue = useMemo(function () { return ({
+        table: table,
+        cellElements: cellElements,
+        resizableStatus: resizableStatus,
+        cellWidth: cellWidth,
+        cellX: cellX,
+        selectedColumn: selectedColumn,
+        columnAmount: columnAmount,
+        rowAmount: rowAmount,
+        pageIndex: pageIndex,
+        setPageIndex: setPageIndex,
+        default_pageSize: default_pageSize,
+        default_maxRow: default_maxRow,
+        loadDataState: loadDataState,
+        setLoadDataState: setLoadDataState,
+        isControl_pageIndex_defaultFunction: isControl_pageIndex_defaultFunction,
+        isControl_loadDataState_defaultFunction: isControl_loadDataState_defaultFunction,
+        follow_loadingState: follow_loadingState
+    }); }, [table, pageIndex, setPageIndex, loadDataState, follow_loadingState]);
     return React.createElement(ContextTable.Provider, { value: contextValue }, isRender && React.createElement("div", { className: "TKS-Table" },
         handleControlPos() !== 'bottom' && React.createElement("div", { className: 'TKS-Table--Control' },
             React.createElement(Control, null)),

@@ -10,3 +10,5 @@
 13-12-2024	24:40:14--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---JsonWebTokenError: invalid signature: token.verify-accessTokentks
 14-12-2024	24:07:00--------Redis Client Error Error: Connection timeout
 14-12-2024	34:41:03--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---JsonWebTokenError: invalid signature: token.verify-accessTokentks
+20-12-2024	45:24:01--------Redis Client Error Error: Connection timeout
+20-12-2024	01:55:01--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---JsonWebTokenError: invalid signature: token.verify-accessTokentks

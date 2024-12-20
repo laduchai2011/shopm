@@ -1,39 +1,19 @@
 {
   "name": "react-tks",
-  "version": "2.3.8",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "types/index.d.ts",
-  "exports": {
-    "./components": {
-      "types": "./types/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
+  "version": "1.0.0",
+  "description": "React-TKS package for working with component that packaged.",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
-  "peerDependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^28.0.2",
-    "@rollup/plugin-node-resolve": "^16.0.0",
-    "@types/react": "^18.3.11",
-    "@types/react-dom": "^18.3.1",
-    "rollup": "^4.28.1",
-    "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-typescript2": "^0.36.0",
-    "typescript": "^5.7.2"
+    "@types/react-tks": "^1.0.0"
+  }, 
+  "exports": {
+    ".": "./index.js",
+    "./components": "./components.js"
   }
 }

@@ -16,11 +16,11 @@ export default {
       format: 'esm',  // ES module format
       sourcemap: true,
     },
-    {
-      file: 'dist/index.css', 
-      format: 'esm',
-      sourcemap: true,
-    },
+    // {
+    //   file: 'dist/index.css', 
+    //   format: 'esm',
+    //   sourcemap: true,
+    // },
   ],
   plugins: [
     commonjs(), // Handle CommonJS modules
@@ -30,7 +30,7 @@ export default {
       useTsconfigDeclarationDir: true
     }),
     postcss({
-      extract: true,  // Optional: Extracts CSS to a separate file
+      // extract: true,  // Optional: Extracts CSS to a separate file
       minimize: true, // Optional: Minifies CSS
       inject: true,  // Nhúng CSS vào tệp JS
     })

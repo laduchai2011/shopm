@@ -3,6 +3,7 @@
         "allowSyntheticDefaultImports": true,
         "target": "es5",
         "lib": ["dom", "esnext"],
+        // "types": ["node"],
         "module": "esnext",
         "moduleResolution": "node",
         "strict": true,
@@ -10,8 +11,12 @@
         "declaration": true,
         "declarationDir": "./types",
         "outDir": "./dist",
-        "typeRoots": ["./node_modules/@types", "./types"],
-        "baseUrl": "src"
+        // "typeRoots": ["./node_modules/@types", "./types"],
+        "baseUrl": "src",
+        // "paths": {
+        //     "components/*": ["src/components/*"],
+        //     "define/*": ["src/define/*"],
+        // }
     },
     "include": [
         "src/**/*"
