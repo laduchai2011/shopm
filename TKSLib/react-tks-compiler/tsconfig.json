@@ -11,12 +11,9 @@
         "declaration": true,
         "declarationDir": "./types",
         "outDir": "./dist",
+        // "emitDeclarationOnly": true,
         // "typeRoots": ["./node_modules/@types", "./types"],
         "baseUrl": "src",
-        // "paths": {
-        //     "components/*": ["src/components/*"],
-        //     "define/*": ["src/define/*"],
-        // }
     },
     "include": [
         "src/**/*"

@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "TypeScript definitions for react-tks",
   "main": "",
-    "types": "index.d.ts",
+  "types": "index.d.ts",
+  "private": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

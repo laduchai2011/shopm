@@ -4,7 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 
 export default {
-  input: 'src/index.tsx',  // Adjust the entry point to your library's main file
+  input: 'index.tsx',  // Adjust the entry point to your library's main file
   output: [
     {
       file: 'dist/index.js',

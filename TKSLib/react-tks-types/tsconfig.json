@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        // "module": "esnext",
+        // "moduleResolution": "node",
+        // "strict": true,
+        // "target": "es5",
+        // "lib": ["dom", "esnext"],
+        "jsx": "react",
+        "baseUrl": "src"
+    }
+}
