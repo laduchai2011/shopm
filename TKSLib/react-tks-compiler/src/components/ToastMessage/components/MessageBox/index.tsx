@@ -6,17 +6,17 @@ import WarnTriangle from 'components/Icon/WarnTriangle';
 import ErrorCircle from 'components/Icon/ErrorCircle';
 import DeleteCircle from 'components/Icon/DeleteCircle';
 
-import { 
+import {
     TickSymbolProps,
     WarnTriangleProps,
     ErrorCircleProps,
-    DeleteCircleProps 
+    DeleteCircleProps
 } from 'define';
 
 import { TOAST_MESSAGE_CONST } from 'const';
 
-const MessageBox: FC<{ 
-    type?: string, 
+const MessageBox: FC<{
+    type?: string,
     message?: string
 }> = ({ type, message }) => {
 
@@ -31,22 +31,22 @@ const MessageBox: FC<{
     if (type===TOAST_MESSAGE_CONST.TYPE.SUCCESS) {
         color = successColor;
     }
-    
+
     if (type===TOAST_MESSAGE_CONST.TYPE.WARN) {
         color = warnColor;
-    } 
+    }
 
     if (type===TOAST_MESSAGE_CONST.TYPE.ERROR) {
         color = errorColor;
-    } 
+    }
 
     useEffect(() => {
         let top: number = 50;
-       
+
         if (messageBoxElement.current) {
-            messageBoxElement.current.style.setProperty('--show-time', '1'); 
+            messageBoxElement.current.style.setProperty('--show-time', '1');
             const interval_addShow = setInterval(() => {
-                messageBoxElement.current && messageBoxElement.current.classList.add('show'); 
+                messageBoxElement.current && messageBoxElement.current.classList.add('show');
                 clearInterval(interval_addShow);
             }, 100)
 
@@ -55,17 +55,17 @@ const MessageBox: FC<{
 
             const interval_removeShow = setInterval(() => {
                 if (messageBoxElement.current && autoRemoveShow.current) {
-                    messageBoxElement.current.classList.remove('show'); 
+                    messageBoxElement.current.classList.remove('show');
                 }
                 clearInterval(interval_removeShow);
             }, 5000)
-        }    
+        }
     }, [color])
 
     const handleDelete = () : void => {
         if (messageBoxElement.current) {
-            messageBoxElement.current.style.setProperty('--show-time', '1'); 
-            messageBoxElement.current.classList.remove('show'); 
+            messageBoxElement.current.style.setProperty('--show-time', '1');
+            messageBoxElement.current.classList.remove('show');
         }
     }
 

@@ -1,18 +1,17 @@
 {
-  "name": "react-tks-compiler",
+  "name": "react-tks",
   "version": "2.4.2",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
   "types": "types/index.d.ts",
-  "exports": {
-    "./components": {
-      "types": "./types/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
+
+  "files": [
+    "dist",
+    "package.json"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c",
+    "build": "npx unbuild --config unbuild.config.ts",
     "build_tsc": "tsc",
     "build_webpack_development": "tsc && webpack --mode development --watch",
     "build_webpack_production": "tsc && webpack --mode production"
@@ -47,6 +46,7 @@
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15"
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
+    "unbuild": "^3.0.1"
   }
 }
