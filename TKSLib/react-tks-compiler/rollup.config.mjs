@@ -3,16 +3,25 @@ import postcss from 'rollup-plugin-postcss';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 
+const inputArr = [
+  'index',
+  'components',
+  'handles',
+  'hooks'
+]
+
+const input = inputArr[0];
+
 export default {
-  input: 'index.tsx',  // Adjust the entry point to your library's main file
+  input: `${input}.tsx`,  // Adjust the entry point to your library's main file
   output: [
     {
-      file: 'dist/index.js',
+      file: `dist/${input}/index.js`,
       format: 'cjs',  // CommonJS format
       sourcemap: true,
     },
     {
-      file: 'dist/index.esm.js',
+      file: `dist/${input}/index.esm.js`,
       format: 'esm',  // ES module format
       sourcemap: true,
     },

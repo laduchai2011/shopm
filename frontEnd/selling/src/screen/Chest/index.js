@@ -4,7 +4,8 @@ import './styles.css';
 
 import Header from 'screen/Header';
 
-import { Table } from 'react-tks/components';
+import * as ReactTKS from 'react-tks';
+// const components = require('react-tks/components');
 
 
 const Chest = () => {
@@ -18,6 +19,8 @@ const Chest = () => {
         { columnName: 'Address', fieldName: 'address'},
         { columnName: 'Page', fieldName: 'page'}
     ]
+
+    console.log(ReactTKS)
 
     const data = (page) => {
         return [
@@ -66,7 +69,7 @@ const Chest = () => {
             <div className='Chest-main'>
                 <div className='Chest-center'>
                     <h3>Chest</h3>
-                    <Table table={{
+                    {/* { ReactTKS.ReactTKS.Components.Table && <ReactTKS.ReactTKS.Components.Table table={{
                         data: {values: data(page)},
                         config: {columnsInfor: columnsInfor, pageSize: 4, maxRow: 4*20},
                         control: {loadDataState: loadDataState, pageIndex: page},
@@ -79,7 +82,7 @@ const Chest = () => {
                                 clearInterval(interval)
                             }, 2000)
                         },}
-                    }} />
+                    }} /> } */}
                 </div>
             </div>
             {/* <ToastMessage toastMessage={toastMessage} /> */}
