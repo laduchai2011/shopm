@@ -1,7 +1,7 @@
 import React, { FC, useRef, useEffect } from 'react';
 import './styles.css';
 
-import { TickSymbolProps } from 'define';
+import { TickSymbolProps } from '@define/index';
 
 interface MyTickSymbolProps extends React.HTMLProps<SVGSVGElement> {
     tickSymbol?: TickSymbolProps;

@@ -1,5 +1,4 @@
 const path = require('path');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const inputArr = [
     'index',
@@ -53,10 +52,10 @@ module.exports = {
         'react-dom': 'react-dom', // Exclude ReactDOM from the bundle
         // 'react-dom/client': 'react-dom/client'
     },
-    plugins: [
-        new ReactRefreshWebpackPlugin(),
-    ],
-    devServer: {
-        hot: true,
-    },
+    // plugins: [
+    //     new ReactRefreshWebpackPlugin(),
+    // ],
+    // devServer: {
+    //     hot: true,
+    // },
 };

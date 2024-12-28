@@ -19,7 +19,19 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "baseUrl": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@Router/*": ["src/Router/*"],
+      "@screen/*": ["src/screen/*"],
+      "@components/*": ["src/components/*"],
+      "@const/*": ["src/const/*"],
+      "@define/*": ["src/define/*"],
+      "@handles/*": ["src/handles/*"],
+      "@myHooks/*": ["src/myHooks/*"],
+      "@TKSQuery/*": ["src/TKSQuery/*"],  
+      "@tricks/*": ["src/tricks/*"],
+      "@utils/*": ["src/utils/*"]
+    }
   },
   // "include": [
   //   "src"

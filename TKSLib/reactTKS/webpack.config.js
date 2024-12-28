@@ -12,9 +12,10 @@ module.exports = {
     },
     resolve: {
         modules: [path.resolve(__dirname, 'src'), 'node_modules'],
-        extensions: ['.ts', '.tsx', '.js', '.jsx', '.d.ts'], // Resolve these extensions
+        extensions: ['.ts', '.tsx', '.js', '.jsx'], // Resolve these extensions
         // alias: {
-        //     '@define': path.resolve(__dirname, 'dist/define'), // Example alias
+        //     react: require.resolve('react'),
+        //     'react-dom': require.resolve('react-dom')
         // }
     },
     module: {

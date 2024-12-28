@@ -1,0 +1,48 @@
+.TKS-Cell {
+    --Cell-width: 150px;
+    --Cell-height: 30px;
+    --Cell-textColor: black;
+    --Cell-textWeight: 300;
+}
+
+.TKS-Cell {
+    width: var(--Cell-width);
+    height: var(--Cell-height);
+    color: var(--Cell-textColor);
+    font-weight: var(--Cell-textWeight);
+    border: 1px solid gray;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    min-width: 50px;
+}
+
+.TKS-Cell > div:nth-child(1) {
+    position: absolute;
+    width: 100%;
+}
+
+.TKS-Cell > div:nth-child(2) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.TKS-Cell > div:nth-child(3) {
+    width: 3px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+}
+
+.TKS-Cell > div:nth-child(3).selected {
+    background-color: blue;
+    width: 2px;
+}
+
+.TKS-Cell > div:nth-child(3):hover {
+    background-color: blue;
+}

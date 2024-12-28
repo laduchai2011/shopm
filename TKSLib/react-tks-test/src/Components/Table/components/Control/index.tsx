@@ -1,22 +1,22 @@
 import React, { FC, useState, useEffect, useCallback, useContext, useRef, useId } from 'react';
 import './styles.css';
 
-import { ContextTable } from 'components/Table/contextTable';
+import { ContextTable } from '@components/Table/contextTable';
 import { 
     TKSProps,
     TKS_Init,
     LoadProps,
     LineCircleLoadProps
-} from 'define';
+} from '@define/index';
 
 import { 
     LOAD_STATE,
     LOAD_COMPONENTS_CONST 
-} from 'const';
+} from '@const/index';
 
-import { handleCutPXInString } from 'utils';
+import { handleCutPXInString } from '@utils/index';
 
-import Loading from 'components/Loading';
+import Loading from '@components/Loading';
 
 const Control: FC<{}> = () => {
 

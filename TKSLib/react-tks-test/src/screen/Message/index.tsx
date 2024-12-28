@@ -1,13 +1,13 @@
 import React, { FC, useState } from 'react';
 import './styles.css';
 
-import ToastMessage from 'components/ToastMessage';
-import Overlay from 'components/OverLay';
-import Dialog from 'components/Dialog';
+import ToastMessage from '@components/ToastMessage';
+import Overlay from '@components/OverLay';
+import Dialog from '@components/Dialog';
 
-import { ToastMessageProps } from 'define';
-import { TOAST_MESSAGE_CONST } from 'const';
-import { TKSProps } from 'define';
+import { ToastMessageProps } from '@define/index';
+import { TOAST_MESSAGE_CONST } from '@const/index';
+import { TKSProps } from '@define/index';
 
 const Message: FC<{}> = () => {
 

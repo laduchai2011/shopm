@@ -1,3 +1,5 @@
-/src
-.babelrc
-webpack.config.js
+node_modules
+src
+rollup.config.js
+tsconfig.json
+.gitignore

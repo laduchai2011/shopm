@@ -1,18 +1,18 @@
 import React, { FC } from 'react';
 import './styles.css';
 
-import Loading from 'components/Loading';
+import Loading from '@components/Loading';
 
 import { 
     LoadProps,
     // DotCircleLoadProps,
     LineCircleLoadProps,
     // SkeletonLoadProps 
-} from 'define';
+} from '@define/index';
 
 import { 
     LOAD_COMPONENTS_CONST 
-} from 'const';
+} from '@const/index';
 
 
 const Load: FC<{}> = () => {

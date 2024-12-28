@@ -1,4 +1,4 @@
-import { $id } from "tricks";
+import { $id } from "@tricks/index";
 
 class TKS_QUERY {
     constructor() {}

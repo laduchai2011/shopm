@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useRef, useState, useId } from 'react';
 import './styles.css';
 
-import { TKSProps, TKS_Init, OverlayProps } from 'define';
+import { TKSProps, TKS_Init, OverlayProps } from '@define/index';
 
-import { OVERLAY_CONST } from 'const';
+import { OVERLAY_CONST } from '@const/index';
 
 interface MyOverlayProps extends React.HTMLProps<HTMLDivElement> {
     overlay?: OverlayProps;
