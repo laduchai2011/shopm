@@ -113,10 +113,12 @@ const Control: FC<{}> = () => {
                 if ((![5, 7].includes(i1)) && (loadDataState!==LOAD_STATE.LOADING)) {
                     (q_pageIndexs[i1] as HTMLElement).onclick = function(e: Event) {
                         let nextIndex_m: number = 0;
+                        let nextPageIndex_m: number = 0;
                         switch(i1) {
                             case 0:
                                 setNextPageIndexCluster(0);
-                                setNextPageIndex(firstIndex);
+                                // setNextPageIndex(firstIndex);
+                                nextPageIndex_m = firstIndex;
                                 nextIndex_m = i1 + 1;
                                 // setNextIndex(i1 + 1);
                                 break;
@@ -129,7 +131,8 @@ const Control: FC<{}> = () => {
                                     nextIndex_m = i1;
                                     // setNextIndex(i1);
                                 }
-                                setNextPageIndex(pageIndexCluster + i1);
+                                // setNextPageIndex(pageIndexCluster + i1);
+                                nextPageIndex_m = pageIndexCluster + i1;
                                 break;
                             case 4:
                                 if (pageIndex < amountOfPages() - 1) {
@@ -140,22 +143,26 @@ const Control: FC<{}> = () => {
                                     nextIndex_m = i1;
                                     // setNextIndex(i1);
                                 }
-                                setNextPageIndex(pageIndexCluster + i1);
+                                // setNextPageIndex(pageIndexCluster + i1);
+                                nextPageIndex_m = pageIndexCluster + i1;
                                 break;
                             case 6:
                                 setNextPageIndexCluster(amountOfPages() - amountOfIndexCell);
-                                setNextPageIndex(amountOfPages());
+                                // setNextPageIndex(amountOfPages());
+                                nextPageIndex_m = amountOfPages();
                                 nextIndex_m = i1 - 2;
                                 // setNextIndex(i1 - 2);
                                 break;
                             default:
                                 nextIndex_m = i1;
                                 // setNextIndex(i1);
-                                setNextPageIndex(pageIndexCluster + i1);
+                                // setNextPageIndex(pageIndexCluster + i1);
+                                nextPageIndex_m = pageIndexCluster + i1;
                         }
 
                         nextIndex.current = nextIndex_m;
                         // onSelectPage(nextIndex_m);
+                        setNextPageIndex(nextPageIndex_m);
 
                         if (loadIndex!==i1 && loadDataState!==LOAD_STATE.LOADING) {
                             handleLoad(i1);
@@ -166,7 +173,7 @@ const Control: FC<{}> = () => {
                             name: table?.config?.name,
                             id: id.current,
                             data: {
-                                selectedPage: nextIndex_m
+                                selectedPage: nextPageIndex_m
                             }
                         }
                         table?.event?.onSelectedPage(TKS);
@@ -206,7 +213,6 @@ const Control: FC<{}> = () => {
         ) {
             const qq_selectPageContainer = q_selectPageContainer.current;
             if (qq_selectPageContainer && nextPageIndex) {
-                console.log(666666666)
                 const q_pageIndexs = qq_selectPageContainer.children;
                 for (let i = 0; i < q_pageIndexs.length; i++) {
                     q_pageIndexs[i].classList.remove('selected');

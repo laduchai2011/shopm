@@ -15,7 +15,8 @@ const TableScreen: FC<{}> = () => {
         { columnName: 'Name', fieldName: 'name'},
         { columnName: 'Age', fieldName: 'age'},
         { columnName: 'Address', fieldName: 'address'},
-        { columnName: 'Page', fieldName: 'page'}
+        { columnName: 'Page', fieldName: 'page'},
+        { columnName: 'Phone', fieldName: 'phone'}
     ]
 
     const data = (page: number) => {
@@ -42,6 +43,7 @@ const TableScreen: FC<{}> = () => {
                 name: 'name 4',
                 age: '4',
                 address: 'address 4',
+                phone: '0789860854',
                 page: page
             }
         ]

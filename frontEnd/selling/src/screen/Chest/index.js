@@ -20,8 +20,6 @@ const Chest = () => {
         { columnName: 'Page', fieldName: 'page'}
     ]
 
-    console.log(Table)
-
     const data = (page) => {
         return [
             {
@@ -46,6 +44,12 @@ const Chest = () => {
                 name: 'name 4',
                 age: '4',
                 address: 'address 4',
+                page: page
+            },
+            {
+                name: 'name 5',
+                age: '5',
+                address: 'address 5',
                 page: page
             }
         ]
@@ -77,6 +81,7 @@ const Chest = () => {
                             setLoadDataState(LOAD_STATE.LOADING);
                             const interval = setInterval(() => {
                                 const pageIndex_m = TKS.data.selectedPage;
+                                console.log(pageIndex_m)
                                 setPage(pageIndex_m)
                                 setLoadDataState(LOAD_STATE.SUCCESS);
                                 clearInterval(interval)

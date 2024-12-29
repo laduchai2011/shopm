@@ -16,7 +16,12 @@ import DotCircle from './components/DotCircle';
 import LineCircle from './components/LineCircle';
 import Skeleton from './components/Skeleton';
 
-const Loading: FC<{ load: LoadProps }> = ({ load }) => {
+interface MyLoadProps extends React.HTMLProps<HTMLDivElement> {
+    load: LoadProps ;
+    [key: string]: any;
+}
+
+const Loading: FC<MyLoadProps> = ({ load, ...props }) => {
 
     const infor: any = load.infor;
 
@@ -68,7 +73,7 @@ const Loading: FC<{ load: LoadProps }> = ({ load }) => {
         } 
     } 
 
-    return <div className="TKS-Loading">
+    return <div className="TKS-Loading" {...props}>
         { load.type===LOAD_COMPONENTS_CONST.LOADING_TYPE.DOT_CIRCLE && <DotCircle dotCircleLoad={ load.infor as DotCircleLoadProps } />}
         { load.type===LOAD_COMPONENTS_CONST.LOADING_TYPE.LINE_CIRCLE && <LineCircle lineCircleLoad={ load.infor as LineCircleLoadProps } />}
         { load.type===LOAD_COMPONENTS_CONST.LOADING_TYPE.SKELETON && <Skeleton skeletonLoad={ load.infor as SkeletonLoadProps } />}

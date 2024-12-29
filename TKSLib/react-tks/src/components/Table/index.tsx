@@ -19,10 +19,15 @@ import { WARNING_COLOR, LOAD_STATE } from 'src/const';
 import Row from './components/Row';
 import Control from './components/Control';
 
-const Table: FC<{
-        table?: TableProps
-    }> = ({ 
-        table
+
+interface MyTableProps extends React.HTMLProps<HTMLDivElement> {
+    table?: TableProps
+    [key: string]: any;
+}
+
+const Table: FC<MyTableProps> = ({ 
+        table,
+        ...props
     }) => {
 
     const config: Table_Config_Props = {...table?.config};
@@ -220,7 +225,7 @@ const Table: FC<{
     }), [table, pageIndex, setPageIndex, loadDataState, follow_loadingState]);
 
     return <ContextTable.Provider value={contextValue}>
-        {isRender && <div className="TKS-Table">
+        {isRender && <div className="TKS-Table" {...props}>
             { handleControlPos()!=='bottom' && <div className='TKS-Table--Control'><Control /></div>}
             <div className='TKS-Table--Row'>{ list_row }</div>
             { handleControlPos()==='bottom' && <div className='TKS-Table--Control'><Control /></div>}

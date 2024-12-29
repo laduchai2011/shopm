@@ -175,9 +175,11 @@ interface Dialog_Event_Props {
     onClickButton3?: (TKS: TKSProps) => void;
 }
 
-declare const _default$8: React.NamedExoticComponent<{
+interface MyTableProps extends React.HTMLProps<HTMLDivElement> {
     table?: TableProps;
-}>;
+    [key: string]: any;
+}
+declare const _default$8: React.NamedExoticComponent<MyTableProps>;
 
 interface MyDialogProps extends React.HTMLProps<HTMLDivElement> {
     dialog?: DialogProps;
@@ -185,9 +187,11 @@ interface MyDialogProps extends React.HTMLProps<HTMLDivElement> {
 }
 declare const _default$7: React.NamedExoticComponent<MyDialogProps>;
 
-declare const _default$6: React.NamedExoticComponent<{
+interface MyLoadProps extends React.HTMLProps<HTMLDivElement> {
     load: LoadProps;
-}>;
+    [key: string]: any;
+}
+declare const _default$6: React.NamedExoticComponent<MyLoadProps>;
 
 interface MyOverlayProps extends React.HTMLProps<HTMLDivElement> {
     overlay?: OverlayProps;

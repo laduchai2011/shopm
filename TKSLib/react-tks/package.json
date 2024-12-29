@@ -1,6 +1,6 @@
 {
   "name": "react-tks",
-  "version": "2.9.6",
+  "version": "2.9.9",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
