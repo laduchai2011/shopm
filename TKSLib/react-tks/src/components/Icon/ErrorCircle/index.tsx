@@ -1,7 +1,7 @@
 import React, { FC, useRef, useEffect } from 'react';
 import './styles.css';
 
-import { ErrorCircleProps } from '../../../define';
+import { ErrorCircleProps } from 'src/define';
 
 interface MyErrorCircleProps extends React.HTMLProps<SVGSVGElement> {
     errorCircle?: ErrorCircleProps;

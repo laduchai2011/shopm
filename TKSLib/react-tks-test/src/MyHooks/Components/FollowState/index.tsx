@@ -4,7 +4,7 @@ import {
     FollowState_Config_Props,
     FollowState_CONST_STATE_Props,
     FollowState_Config_RegisterState_Props
-} from '@myHooks/interface';
+} from 'src/myHooks/interface';
 
 type inputProps = {
     initialValue?: string,

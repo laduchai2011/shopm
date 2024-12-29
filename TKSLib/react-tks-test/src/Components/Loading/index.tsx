@@ -6,11 +6,11 @@ import {
     DotCircleLoadProps,
     LineCircleLoadProps,
     SkeletonLoadProps
-} from '@define/index';
+} from 'src/define';
 
 import { 
     LOAD_COMPONENTS_CONST 
-} from '@const/index';
+} from 'src/const';
 
 import DotCircle from './components/DotCircle';
 import LineCircle from './components/LineCircle';

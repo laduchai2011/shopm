@@ -1,19 +1,19 @@
 import React, { FC, useEffect, useContext } from 'react';
 import './styles.css';
 
-import { ContextTable } from '../../../../../Table/contextTable';
-import Loading from '../../../../../Loading';
+import { ContextTable } from 'src/components/Table/contextTable';
+import Loading from 'src/components/Loading';
 
 import { 
     CellProps,
     LoadProps,
     SkeletonLoadProps 
-} from '../../../../../../define';
+} from 'src/define';
 
 import { 
     LOAD_STATE,
     LOAD_COMPONENTS_CONST 
-} from '../../../../../../const';
+} from 'src/const';
 
 
 const Cell: FC<{data: CellProps, cellIndex: number, rowIndex: number, column: number}> = ({ data, cellIndex, rowIndex, column }) => {

@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react';
 import './styles.css';
 
-import Table from '@components/Table';
+import Table from 'src/components/Table';
 
-import { ColumnsInforProps } from '@define/index';
-import { LOAD_STATE } from '@const/index';
+import { ColumnsInforProps } from 'src/define';
+import { LOAD_STATE } from 'src/const';
 
 const TableScreen: FC<{}> = () => {
 

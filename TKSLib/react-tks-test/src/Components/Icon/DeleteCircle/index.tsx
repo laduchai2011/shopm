@@ -1,7 +1,7 @@
 import React, { FC, useRef, useEffect } from 'react';
 import './styles.css';
 
-import { DeleteCircleProps } from '@define/index';
+import { DeleteCircleProps } from 'src/define';
 
 
 interface MyDeleteCircleProps extends React.HTMLProps<SVGSVGElement> {

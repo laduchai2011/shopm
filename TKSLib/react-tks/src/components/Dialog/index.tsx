@@ -1,13 +1,13 @@
 import React, { FC, useRef, useEffect, useId, useState } from 'react';
 import './styles.css';
 
-import DeleteCircle from '../Icon/DeleteCircle';
-import TickSymbol from '../Icon/TickSymbol';
-import WarnTriangle from '../Icon/WarnTriangle';
-import ErrorCircle from '../Icon/ErrorCircle';
+import DeleteCircle from 'src/components/Icon/DeleteCircle';
+import TickSymbol from 'src/components/Icon/TickSymbol';
+import WarnTriangle from 'src/components/Icon/WarnTriangle';
+import ErrorCircle from 'src/components/Icon/ErrorCircle';
 
-import { TKSProps, TKS_Init, DialogProps } from '../../define';
-import { DIALOG_CONST } from '../../const';
+import { TKSProps, TKS_Init, DialogProps } from 'src/define';
+import { DIALOG_CONST } from 'src/const';
 
 interface MyDialogProps extends React.HTMLProps<HTMLDivElement> {
     dialog?: DialogProps;

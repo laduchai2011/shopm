@@ -1,7 +1,7 @@
 import React, { FC, useRef, useEffect } from 'react';
 import './styles.css';
 
-import { WarnTriangleProps } from '@define/index';
+import { WarnTriangleProps } from 'src/define';
 
 interface MyWarnTriangleProps extends React.HTMLProps<SVGSVGElement> {
     warnTriangle?: WarnTriangleProps;

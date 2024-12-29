@@ -1,10 +1,10 @@
 import React from "react";
 
-import Home from "@screen/Home";
-import TableScreen from "@screen/Table";
-import Load from "@screen/Load";
-import Message from "@screen/Message";
-import IconScreen from "@screen/IconScreen";
+import Home from "src/screen/Home";
+import TableScreen from "src/screen/Table";
+import Load from "src/screen/Load";
+import Message from "src/screen/Message";
+import IconScreen from "src/screen/IconScreen";
 
 export const elements = [
     {

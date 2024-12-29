@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef } from 'react';
 import './styles.css';
 
-import { LineCircleLoadProps } from '../../../../define';
+import { LineCircleLoadProps } from 'src/define';
 
 const LineCircle: FC<{ lineCircleLoad: LineCircleLoadProps }> = ({ lineCircleLoad }) => {
 

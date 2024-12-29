@@ -4,9 +4,9 @@ import './styles.css';
 
 import MessageBox from './components/MessageBox';
 
-import { TKSProps, TKS_Init, ToastMessageProps, ToastMessage_Data_Props } from '../../define';
+import { TKSProps, TKS_Init, ToastMessageProps, ToastMessage_Data_Props } from 'src/define';
 
-import { handleCutPXInString } from '../../utils';
+import { handleCutPXInString } from 'src/utils';
 
 interface CreateElementProps {
     message?: string

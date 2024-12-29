@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef } from 'react';
 import './styles.css';
 
-import { SkeletonLoadProps } from '@define/index';
+import { SkeletonLoadProps } from 'src/define';
 
 const Skeleton: FC<{ skeletonLoad: SkeletonLoadProps }> = ({ skeletonLoad }) => {
 

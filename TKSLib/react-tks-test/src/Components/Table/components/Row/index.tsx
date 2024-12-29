@@ -1,12 +1,12 @@
 import React, { FC, useContext, useRef, useEffect } from 'react';
 import './styles.css';
 
-import { ContextTable } from '@components/Table/contextTable';
+import { ContextTable } from 'src/components/Table/contextTable';
 
 import { 
     RowProps,
     CellProps 
-} from '@define/index';
+} from 'src/define';
 
 import Cell from './components/Cell';
 

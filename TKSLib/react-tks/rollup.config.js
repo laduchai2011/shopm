@@ -5,9 +5,28 @@ import dts from "rollup-plugin-dts";
 import terser from "@rollup/plugin-terser";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import postcss from "rollup-plugin-postcss";
-// import alias from '@rollup/plugin-alias';
+import alias from '@rollup/plugin-alias';
+
 
 const packageJson = require("./package.json");
+
+
+const entries = [
+  // { find: 'Router', replacement: './src/Router' },
+  // { find: 'screen', replacement: './src/screen' },
+  // { find: 'components', replacement: './src/components' },
+  // { find: 'const', replacement: './src/const' },
+  // { find: 'define', replacement: './src/define' },
+  // { find: 'handles', replacement: './src/handles' },
+  // { find: 'myHooks', replacement: './src/myHooks' },
+  // { find: 'TKSQuery', replacement: './src/TKSQuery' },
+  // { find: 'tricks', replacement: './src/tricks' },
+  // { find: 'utils', replacement: './src/utils' }
+  { find: 'src', replacement: './src' }
+]
+const customResolver = resolve({
+  extensions: ['.ts', '.tsx', '.js', '.jsx',]
+});
 
 export default [
   {
@@ -30,14 +49,25 @@ export default [
       commonjs(),
       typescript({ tsconfig: "./tsconfig.json" }),
       terser(),
-      postcss()
+      postcss(),
+      alias({
+        entries: entries,
+        customResolver
+      }),
     ],
     external: ["react", "react-dom"],
   },
   {
     input: "src/index.ts",
     output: [{ file: packageJson.types }],
-    plugins: [dts.default()],
+    plugins: [
+      dts.default(),
+      typescript({ tsconfig: "./tsconfig.json" }),
+      alias({
+        entries: entries,
+        customResolver
+      }),
+    ],
     external: [/\.css$/],
   },
 
@@ -62,7 +92,11 @@ export default [
       commonjs(),
       typescript({ tsconfig: "./tsconfig.json" }),
       terser(),
-      postcss()
+      postcss(),
+      alias({
+        entries: entries,
+        customResolver
+      }),
     ],
     external: ["react", "react-dom"],
   },
@@ -70,7 +104,12 @@ export default [
     input: "src/components.ts",
     output: [{ file: packageJson.exports["./components"].types }],
     plugins: [
-      dts.default()
+      dts.default(),
+      typescript({ tsconfig: "./tsconfig.json" }),
+      alias({
+        entries: entries,
+        customResolver
+      }),
     ],
     external: [/\.css$/],
   },
@@ -96,7 +135,11 @@ export default [
       commonjs(),
       typescript({ tsconfig: "./tsconfig.json" }),
       terser(),
-      postcss()
+      postcss(),
+      alias({
+        entries: entries,
+        customResolver
+      }),
     ],
     external: ["react", "react-dom"],
   },
@@ -104,7 +147,12 @@ export default [
     input: "src/handles.ts",
     output: [{ file: packageJson.exports["./handles"].types }],
     plugins: [
-      dts.default()
+      dts.default(),
+      typescript({ tsconfig: "./tsconfig.json" }),
+      alias({
+        entries: entries,
+        customResolver
+      }),
     ],
     external: [/\.css$/],
   },
@@ -130,15 +178,24 @@ export default [
       commonjs(),
       typescript({ tsconfig: "./tsconfig.json" }),
       terser(),
-      postcss()
+      postcss(),
+      alias({
+        entries: entries,
+        customResolver
+      }),
     ],
-    external: ["react", "react-dom"],
+    external: ["react", "react-dom", 'src/myHooks/interface'],
   },
   {
     input: "src/hooks.ts",
     output: [{ file: packageJson.exports["./hooks"].types }],
     plugins: [
-      dts.default()
+      dts.default(),
+      typescript({ tsconfig: "./tsconfig.json" }),
+      alias({
+        entries: entries,
+        customResolver
+      }),
     ],
     external: [/\.css$/],
   }

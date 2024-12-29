@@ -1,19 +1,19 @@
 import React, { FC, useRef, useEffect } from 'react';
 import './styles.css';
 
-import TickSymbol from '@components/Icon/TickSymbol';
-import WarnTriangle from '@components/Icon/WarnTriangle';
-import ErrorCircle from '@components/Icon/ErrorCircle';
-import DeleteCircle from '@components/Icon/DeleteCircle';
+import TickSymbol from 'src/components/Icon/TickSymbol';
+import WarnTriangle from 'src/components/Icon/WarnTriangle';
+import ErrorCircle from 'src/components/Icon/ErrorCircle';
+import DeleteCircle from 'src/components/Icon/DeleteCircle';
 
 import { 
     TickSymbolProps,
     WarnTriangleProps,
     ErrorCircleProps,
     DeleteCircleProps 
-} from '@define/index';
+} from 'src/define';
 
-import { TOAST_MESSAGE_CONST } from '@const/index';
+import { TOAST_MESSAGE_CONST } from 'src/const';
 
 const MessageBox: FC<{ 
     type?: string, 

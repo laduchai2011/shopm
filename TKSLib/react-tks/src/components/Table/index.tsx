@@ -3,8 +3,8 @@ import './styles.css';
 
 import { ContextTable } from './contextTable';
 
-import { useFollowState } from '../../myHooks';
-import { FollowState_Config_RegisterState_Props } from '../../myHooks/interface';
+import { useFollowState } from 'src/myHooks';
+import { FollowState_Config_RegisterState_Props } from 'src/myHooks/interface';
 
 import { 
     RowProps,
@@ -12,9 +12,9 @@ import {
     Table_Config_Props,
     ContextTableProps,
     CellProps,
-} from '../../define';
+} from 'src/define';
 
-import { WARNING_COLOR, LOAD_STATE } from '../../const';
+import { WARNING_COLOR, LOAD_STATE } from 'src/const';
 
 import Row from './components/Row';
 import Control from './components/Control';

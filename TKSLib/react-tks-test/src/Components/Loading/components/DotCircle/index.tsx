@@ -1,9 +1,9 @@
 import React, { FC, useEffect } from 'react';
 import './styles.css';
 
-import { DotCircleLoadProps } from '@define/index';
+import { DotCircleLoadProps } from 'src/define';
 
-import { $$ } from '@tricks/index';
+import { $$ } from 'src/tricks';
 
 const DotCircle: FC<{dotCircleLoad: DotCircleLoadProps}> = ({ dotCircleLoad }) => {
 

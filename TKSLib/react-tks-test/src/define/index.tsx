@@ -1,5 +1,5 @@
 import React from 'react';
-import { FollowStateProps } from '@myHooks/interface';
+import { FollowStateProps } from 'src/myHooks/interface';
 
 export interface TKSProps {
     name?: string,
