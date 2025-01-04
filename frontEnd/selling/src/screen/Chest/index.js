@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles.css';
 
 
 import Header from 'screen/Header';
 
-import { Table } from 'react-tks/components';
+import { Table, ToastMessage } from 'react-tks/components';
 // const components = require('react-tks/components');
+import { useGetChestListQuery } from 'reduxStore/RTKQuery/chestRTKQuery';
+
+import { getCookie } from 'auth/cookie';
+import { PROVIDER_CONST } from 'utilize/constant';
 
 
 const Chest = () => {
@@ -19,6 +23,27 @@ const Chest = () => {
         { columnName: 'Address', fieldName: 'address'},
         { columnName: 'Page', fieldName: 'page'}
     ]
+
+    const selectedProvider_cookie = getCookie(PROVIDER_CONST.SELECTED_PROVIDER);
+    const uuid_provider_current = JSON.parse(selectedProvider_cookie).uuid_provider;
+    console.log(uuid_provider_current)
+
+    const {
+        data: data_chestList, 
+        // isFetching: isFetching_chestList, 
+        isError: isError_chestList, 
+        error: error_chestList
+    } = useGetChestListQuery({uuid_provider: uuid_provider_current, pageIndex: 1, pageSize: 5});
+    useEffect(() => {
+        isError_chestList && console.error(error_chestList);
+    }, [isError_chestList, error_chestList])
+    useEffect(() => {
+        const resData = data_chestList;
+        if (resData?.success) {
+            // setProviderList(resData.providers);
+            console.log(resData)
+        }
+    }, [data_chestList])
 
     const data = (page) => {
         return [
@@ -62,10 +87,10 @@ const Chest = () => {
         READY: 'READY'
     }
 
-    // const toastMessage = {
-    //     type: 'SUCCESS',
-    //     message: 'toastMessage'
-    // }
+    const toastMessage = {
+        type: 'SUCCESS',
+        message: 'toastMessage'
+    }
 
     return (
         <div className='Chest'>
@@ -81,7 +106,6 @@ const Chest = () => {
                             setLoadDataState(LOAD_STATE.LOADING);
                             const interval = setInterval(() => {
                                 const pageIndex_m = TKS.data.selectedPage;
-                                console.log(pageIndex_m)
                                 setPage(pageIndex_m)
                                 setLoadDataState(LOAD_STATE.SUCCESS);
                                 clearInterval(interval)
@@ -90,9 +114,9 @@ const Chest = () => {
                     }} />
                 </div>
             </div>
-            {/* <ToastMessage toastMessage={toastMessage} /> */}
-            {/* <div ref={toastMessageContainerElement}></div> */}
-            {/* <OverLay isShow={false} /> */}
+            <ToastMessage toastMessage={toastMessage} />
+            {/* <div ref={toastMessageContainerElement}></div>
+            <OverLay isShow={false} /> */}
         </div>
     )
 }

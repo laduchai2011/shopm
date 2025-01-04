@@ -3,10 +3,10 @@ const { Op } = require('sequelize');
 const { sequelize } = require('../../../config/database');
 const { defineModel } = require('../defineModel');
 
-class DepartmentGroup {
+class Department {
     constructor() {
-        this._DepartmentGroup = defineModel.getDepartmentGroup();
-        this._DepartmentGroup_CH = defineModel.getDepartmentGroup_CH();
+        this._Department = defineModel.getDepartment();
+        this._Department_CH = defineModel.getDepartment_CH();
     }
 
     readAllWithFK(uuid_provider, callback) {
@@ -51,58 +51,32 @@ class DepartmentGroup {
         })
     }
 
-    readWithUid(uuid_departmentGroup, callback) {
-        let departmentGroup;
+    read__All__Uuid__By__Uuid_DepatmentGroup(callback) {
+        let allDepartment;
         let err;
         
-        const departmentGroupPromise = new Promise((resolve, reject) => {
+        const departmentPromise = new Promise((resolve, reject) => {
             try {
                 sequelize.transaction(async (t) => {
                     try {
-                        const isDepartmentGroup = await this._DepartmentGroup.findOne({
-                            where: {
-                                uuid_departmentGroup: uuid_departmentGroup,
-                                [Op.not]: { status: 'delete' }
-                            },
-                        }, { transaction: t })
-
-                        resolve(isDepartmentGroup); 
-                    } catch (error) {
-                        reject(error);
-                    }
-                });
-            } catch (error) {
-                reject(error);
-            }
-        });
-
-        departmentGroupPromise
-        .then(isDepartmentGroup => {
-            departmentGroup = isDepartmentGroup;
-        }).catch(error => {
-            err = error;
-        }).finally(() => {
-            callback(departmentGroup, err);
-        })
-    }
-
-    read__All__Uuid__By__Uuid_Provider(uuid_provider, callback) {
-        let allDepartmentGroup;
-        let err;
-        
-        const departmentGroupPromise = new Promise((resolve, reject) => {
-            try {
-                sequelize.transaction(async (t) => {
-                    try {
-                        const isAllDepartmentGroup = await this._DepartmentGroup.findAll({
+                        const isAllDepartments = await this._Department.findAll({
                             where: {
                                 uuid_provider: uuid_provider,
-                                [Op.not]: { status: 'delete' }
+                                [Op.or]: {
+
+                                },
+                                [Op.not]: {
+                                    status: 'delete'
+                                }    
                             },
-                            attributes: ['uuid_departmentGroup']
+                            attributes: ['uuid_department']
                         }, { transaction: t })
 
-                        resolve(isAllDepartmentGroup); 
+                        if (isAllDepartments.length === 0) {
+                            resolve(null);
+                        } else {
+                            resolve(isAllDepartments);
+                        }   
                     } catch (error) {
                         reject(error);
                     }
@@ -112,17 +86,17 @@ class DepartmentGroup {
             }
         });
 
-        departmentGroupPromise
-        .then(isAllDepartmentGroup => {
-            allDepartmentGroup = isAllDepartmentGroup;
+        departmentPromise
+        .then(isAllDepartments => {
+            allDepartment = isAllDepartments;
         }).catch(error => {
             err = error;
         }).finally(() => {
-            callback(allDepartmentGroup, err);
+            callback(allDepartment, err);
         })
     }
 }
 
-const departmentGroupCRUD = new DepartmentGroup();
+const departmentCRUD = new Department();
 
-module.exports = { departmentGroupCRUD }
+module.exports = { departmentCRUD }

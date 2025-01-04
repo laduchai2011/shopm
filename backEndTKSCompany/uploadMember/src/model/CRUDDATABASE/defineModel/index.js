@@ -369,10 +369,6 @@ class DefineModel {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            uuid_departmentChest: {
-                type: Sequelize.UUID,
-                allowNull: true
-            },
             uuid_chestGroup: {
                 type: Sequelize.UUID,
                 allowNull: false
@@ -380,19 +376,12 @@ class DefineModel {
         }, {
             indexes: [
                 {
-                    name: 'uuid_departmentChest_indexes',
-                    using: 'BTREE',
-                    fields: ['uuid_departmentChest']
-                },
-                {
                     name: 'uuid_chestGroup_indexes',
                     using: 'BTREE',
                     fields: ['uuid_chestGroup']
                 }
             ]
         })
-        // this._DepartmentChest.hasMany(this._Chest, { foreignKey: 'uuid_departmentChest' })
-        // this._Chest.belongsTo(this._DepartmentChest, { foreignKey: 'uuid_departmentChest', targetKey: 'uuid_departmentChest', as: 'uuid_DepartmentChest' })
         this._ChestGroup.hasMany(this._Chest, { foreignKey: 'uuid_chestGroup' })
         this._Chest.belongsTo(this._ChestGroup, { foreignKey: 'uuid_chestGroup', targetKey: 'uuid_chestGroup', as: 'uuid_ChestGroup' })
 

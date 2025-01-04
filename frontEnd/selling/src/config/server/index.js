@@ -13,3 +13,7 @@ export const SERVER_ADDRESS_SR_CREATEDEPARTMENT_READALL_MEDICATION_WITH_FK     =
 export const SERVER_ADDRESS_DEPARTMENT = {
     CREATE : `${baseURL}:4500/api/svUploadDepartment/createDepartment`
 }
+
+export const SERVER_ADDRESS_CHEST = {
+    GET_CHEST_LIST : `${baseURL}:3700/api/svGetChest/SellingGetChestList`
+}

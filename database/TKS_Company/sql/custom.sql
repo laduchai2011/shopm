@@ -55,3 +55,10 @@ go
 
 DELETE FROM dbo.Departments
 go
+
+
+DROP INDEX uuid_departmentChest_indexes ON Chests;
+GO
+ALTER TABLE Chests
+DROP COLUMN uuid_departmentChest;
+GO

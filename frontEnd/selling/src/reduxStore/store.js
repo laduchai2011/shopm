@@ -9,6 +9,7 @@ import { providerRTKQuery } from './RTKQuery/providerRTKQuery';
 import { departmentGroupRTKQuery } from './RTKQuery/departmentGroupRTKQuery';
 import { departmentRTKQuery } from './RTKQuery/departmentRTKQuery';
 import { medicationRTKQuery } from './RTKQuery/medicationRTKQuery';
+import { chestRTKQuery } from './RTKQuery/chestRTKQuery';
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
     [departmentGroupRTKQuery.reducerPath]: departmentGroupRTKQuery.reducer,
     [departmentRTKQuery.reducerPath]: departmentRTKQuery.reducer,
     [medicationRTKQuery.reducerPath]: medicationRTKQuery.reducer,
+    [chestRTKQuery.reducerPath]: chestRTKQuery.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([
     // headerRTKQuery.middleware,
@@ -28,5 +30,6 @@ export const store = configureStore({
     departmentGroupRTKQuery.middleware,
     departmentRTKQuery.middleware,
     medicationRTKQuery.middleware,
+    chestRTKQuery.middleware,
   ])
 })

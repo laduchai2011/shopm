@@ -21,6 +21,8 @@ const { chestGroupCRUD } = require('./src/model/CRUDDATABASE/CRUD_ChestGroup');
 //     handleDataWithStatusTKS
 // } = require('./src/middle/ChestGroupRole');
 
+const { get__All__Uuid_depatmentGroup } = require('./src/middle/getUuidDepatmentGroup');
+
 
 
 router.get('/TKSManagerGetChestGroup', 
@@ -73,6 +75,17 @@ router.get('/TKSManagerGetChestGroup',
             }
         }
     })
+})
+
+router.get('/SellingGetChestList', 
+    Authentication,
+    get__All__Uuid_depatmentGroup,
+    (req, res) => {
+    return res.status(200).json({
+        data: req.all_uuid_depatmentGroup,
+        success: true,
+        message: 'SellingGetChestList is read chest list successly (svGetChest) !'
+    });
 })
 
 module.exports = router;

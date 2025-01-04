@@ -2,6 +2,9 @@
 const { logEvents } = require('./logEvents');
 const { SvMessage } = require('./src/model/svMessage');
 const { departmentGroupCRUD } = require('./src/model/CRUDDATABASE/CRUD_DepartmentGroup');
+const ServiceMessage = require('./src/serviceMessage/index').default;
+
+
 
 (async () => {
     const svMessage = new SvMessage();
@@ -19,4 +22,7 @@ const { departmentGroupCRUD } = require('./src/model/CRUDDATABASE/CRUD_Departmen
             svMessage.sendMessage(`feedback_require__departmentGroup__via__uuid_departmentGroup___${id}`, JSON.stringify({id: id, departmentGroup: departmentGroup, err: err }));
         })
     })
+
+    const serviceMessage = new ServiceMessage(svMessage);
+    serviceMessage.withServerGChest();
 })();
