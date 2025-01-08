@@ -18,7 +18,15 @@ router.get('/getRoom', Authentication, (req, res) => {
     const status = req.query.status;
     getSocketSMRoom(userOptions.uuid, type, status, async (socketSMRoom, err) => {
         if (err) {
-            logEvents(`${req.url}---${req.method}---${err}`);
+            // logEvents(`${req.url}---${req.method}---${err}`);
+            const createErr = {
+                file: 'router.js',
+                path: 'D:/shopm/backEnd/socketSM/router.js',
+                url: req.url,
+                err: err, 
+                message: ''
+            }
+            logEvents(JSON.stringify(createErr));
             return res.status(500).send({ 
                 message: "Can't get socketSM room !",
                 err: err,

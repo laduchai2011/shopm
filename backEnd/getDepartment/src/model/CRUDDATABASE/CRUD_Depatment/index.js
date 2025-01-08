@@ -9,28 +9,28 @@ class Department {
         this._Department_CH = defineModel.getDepartment_CH();
     }
 
-    readAllWithFK(uuid_provider, callback) {
-        let departmentGroupAll;
+    read__All__Uuid__By__All__Uuid_DepatmentGroup(s_all_uuid_depatmentGroup, callback) {
+        let allDepartment;
         let err;
         
-        const departmentGroupPromise = new Promise((resolve, reject) => {
+        const departmentPromise = new Promise((resolve, reject) => {
             try {
                 sequelize.transaction(async (t) => {
                     try {
-                        const isDepartmentGroups = await this._DepartmentGroup.findAll({
+                        const isAllDepartments = await this._Department.findAll({
                             where: {
-                                uuid_provider: uuid_provider,
+                                [Op.or]: s_all_uuid_depatmentGroup,
                                 [Op.not]: {
                                     status: 'delete'
                                 }    
                             },
-                            attributes: ['uuid_departmentGroup', 'name', 'title']
+                            attributes: ['uuid_department']
                         }, { transaction: t })
 
-                        if (isDepartmentGroups.length === 0) {
+                        if (isAllDepartments.length === 0) {
                             resolve(null);
                         } else {
-                            resolve(isDepartmentGroups);
+                            resolve(isAllDepartments);
                         }   
                     } catch (error) {
                         reject(error);
@@ -41,17 +41,17 @@ class Department {
             }
         });
 
-        departmentGroupPromise
-        .then(isDepartmentGroups => {
-            departmentGroupAll = isDepartmentGroups;
+        departmentPromise
+        .then(isAllDepartments => {
+            allDepartment = isAllDepartments;
         }).catch(error => {
             err = error;
         }).finally(() => {
-            callback(departmentGroupAll, err);
+            callback(allDepartment, err);
         })
     }
 
-    read__All__Uuid__By__Uuid_DepatmentGroup(callback) {
+    read__All__Uuid_Chest__By__All__Uuid_DepatmentGroup(s_all_uuid_depatmentGroup, callback) {
         let allDepartment;
         let err;
         
@@ -61,15 +61,13 @@ class Department {
                     try {
                         const isAllDepartments = await this._Department.findAll({
                             where: {
-                                uuid_provider: uuid_provider,
+                                [Op.or]: s_all_uuid_depatmentGroup,
                                 [Op.or]: {
-
-                                },
-                                [Op.not]: {
-                                    status: 'delete'
-                                }    
+                                    [Op.not]: { status: 'delete' },
+                                    [Op.not]: { uuid_chest: null },
+                                }  
                             },
-                            attributes: ['uuid_department']
+                            attributes: ['uuid_chest']
                         }, { transaction: t })
 
                         if (isAllDepartments.length === 0) {

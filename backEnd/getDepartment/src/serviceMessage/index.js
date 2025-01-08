@@ -9,7 +9,8 @@ class ServiceMessage {
     withServerGChest() {
         const withServerGChest = new WithServerGChest(this._svMessage);
         withServerGChest.required__All__Uuid_DepatmentGroup__By__Uuid_Provider();
-        withServerGChest.required__All__Uuid_Depatment__By__Uuid_DepatmentGroup();
+        withServerGChest.required__All__Uuid_Depatment__By__All__Uuid_DepatmentGroup();
+        withServerGChest.required__All__Uuid_Chest__By__All__Uuid_DepatmentGroup();
     }
 }
 

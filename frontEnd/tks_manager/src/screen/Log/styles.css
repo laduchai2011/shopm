@@ -145,6 +145,10 @@
     margin: 0 10px;
 }
 
+.Log-json-pretty {
+    height: max-content;
+}
+
 .Log-table-row-data-detail {
     box-sizing: border-box;
     padding: 10px;

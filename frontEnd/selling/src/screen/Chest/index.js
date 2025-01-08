@@ -15,70 +15,37 @@ import { PROVIDER_CONST } from 'utilize/constant';
 const Chest = () => {
 
     const [loadDataState, setLoadDataState] = useState(undefined);
-    const [page, setPage] = useState(1)
+    const [pageIndex, setPageIndex] = useState(1);
+    const pageSize = 5;
+    const [chestList, setChestList] = useState(undefined);
 
     const columnsInfor = [
         { columnName: 'Name', fieldName: 'name'},
-        { columnName: 'Age', fieldName: 'age'},
-        { columnName: 'Address', fieldName: 'address'},
-        { columnName: 'Page', fieldName: 'page'}
+        { columnName: 'Title', fieldName: 'title'},
+        { columnName: 'Type', fieldName: 'type'},
+        { columnName: 'Note', fieldName: 'note'},
+        { columnName: 'Size', fieldName: 'size'},
+        { columnName: 'Max Amount', fieldName: 'maxAmount'}
     ]
 
     const selectedProvider_cookie = getCookie(PROVIDER_CONST.SELECTED_PROVIDER);
     const uuid_provider_current = JSON.parse(selectedProvider_cookie).uuid_provider;
-    console.log(uuid_provider_current)
 
     const {
         data: data_chestList, 
         // isFetching: isFetching_chestList, 
         isError: isError_chestList, 
         error: error_chestList
-    } = useGetChestListQuery({uuid_provider: uuid_provider_current, pageIndex: 1, pageSize: 5});
+    } = useGetChestListQuery({uuid_provider: uuid_provider_current, pageIndex: pageIndex, pageSize: pageSize});
     useEffect(() => {
         isError_chestList && console.error(error_chestList);
     }, [isError_chestList, error_chestList])
     useEffect(() => {
         const resData = data_chestList;
         if (resData?.success) {
-            // setProviderList(resData.providers);
-            console.log(resData)
+            setChestList(resData.chestList)
         }
     }, [data_chestList])
-
-    const data = (page) => {
-        return [
-            {
-                name: 'name 1',
-                age: '1',
-                address: 'address 1',
-                page: page
-            },
-            {
-                name: 'name 2',
-                age: '2',
-                address: 'address 2',
-                page: page
-            },
-            {
-                name: 'name 3',
-                age: '3',
-                address: 'address 3',
-                page: page
-            },
-            {
-                name: 'name 4',
-                age: '4',
-                address: 'address 4',
-                page: page
-            },
-            {
-                name: 'name 5',
-                age: '5',
-                address: 'address 5',
-                page: page
-            }
-        ]
-    } 
 
     const LOAD_STATE = {
         LOADING: 'LOADING',
@@ -92,31 +59,59 @@ const Chest = () => {
         message: 'toastMessage'
     }
 
+    const product = {
+        name: "Shirt",
+        type: {
+            title: 213,
+            image: '124123432dfdzfszdf'
+        }
+    };
+    
+
     return (
         <div className='Chest'>
             <Header />
             <div className='Chest-main'>
                 <div className='Chest-center'>
                     <h3>Chest</h3>
-                    <Table table={{
-                        data: {values: data(page)},
-                        config: {columnsInfor: columnsInfor, pageSize: 4, maxRow: 4*20},
-                        control: {loadDataState: loadDataState, pageIndex: page},
+                    { chestList && <Table table={{
+                        data: {values: chestList?.rows},
+                        config: {columnsInfor: columnsInfor, pageSize: pageSize, maxRow: chestList?.count},
+                        control: {loadDataState: loadDataState, pageIndex: pageIndex},
                         event: {onSelectedPage(TKS) {
                             setLoadDataState(LOAD_STATE.LOADING);
                             const interval = setInterval(() => {
                                 const pageIndex_m = TKS.data.selectedPage;
-                                setPage(pageIndex_m)
+                                setPageIndex(pageIndex_m)
                                 setLoadDataState(LOAD_STATE.SUCCESS);
                                 clearInterval(interval)
                             }, 2000)
                         },}
-                    }} />
+                    }} /> }
                 </div>
             </div>
             <ToastMessage toastMessage={toastMessage} />
-            {/* <div ref={toastMessageContainerElement}></div>
-            <OverLay isShow={false} /> */}
+            <pre>{JSON.stringify(product, null, 2)}</pre>
+            {/* <pre>
+                <code> {[ 
+                    { 
+                        product_id: "001", 
+                        name: "Wireless Headphones", 
+                        price: 99.99, 
+                        color: "Black", 
+                        description: "High-quality wireless headphones with noise-cancellation and long battery life.", 
+                        category: "Electronics" 
+                    }, 
+                    { 
+                        product_id: "002", 
+                        name: "Smartwatch", 
+                        price: 199.99, 
+                        color: "Silver", 
+                        description: "Stylish smartwatch with fitness tracking, heart rate monitor, and GPS.", 
+                        category: "Wearables" 
+                    }
+                ]} </code>
+            </pre> */}
         </div>
     )
 }

@@ -62,3 +62,12 @@ GO
 ALTER TABLE Chests
 DROP COLUMN uuid_departmentChest;
 GO
+
+INSERT INTO Chests (uuid_chest, name, title, type, size, maxAmount, note, status, uuid_chestGroup, createdAt, updatedAt)
+VALUES ('dfd-98dsdf-434f4-34f-43', '1234', '123', 'no', '10', '5', '', 'normal', '5dedf171-42c8-46e6-9094-9c91f58402ad', '2025-01-06 14:30:00.1234567 +05:00', '2025-01-06 14:30:00.1234567 +05:00');
+go
+
+DELETE FROM Logs
+go
+DELETE FROM Log_CHes
+go

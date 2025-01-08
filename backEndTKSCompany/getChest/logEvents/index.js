@@ -23,6 +23,19 @@ const logEvents = async ( msg ) => {
     }
 }
 
+const logEvents1 = async ( content ) => {
+    const dateTime = `${format(new Date(), 'dd-MM-yyyy\tss:mm:HH')}`;
+    const contentLog = {
+        time: dateTime,
+        content: content
+    }
+    try {
+        LogError(contentLog);
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 const LogError = async (contentLog) => {
     const svMessage = new SvMessage();
     await svMessage.init();
@@ -53,4 +66,4 @@ const LogError = async (contentLog) => {
     svMessage.sendMessage('require__TKS_log_Error', JSON.stringify({ id: _id, logOptions: logOptions }));
 }
 
-module.exports = { logEvents };
+module.exports = { logEvents, logEvents1 };

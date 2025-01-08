@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect, useCallback, useContext } from "rea
 import './styles.css';
 
 import { ThemeContextApp } from "utilize/ContextApp";
+import JSONPretty from 'react-json-pretty';
+import JSONPrettyMon from 'react-json-pretty/themes/monikai.css';
 
 import { BiSolidChevronDown, BiSolidChevronUp } from "react-icons/bi";
 
@@ -203,6 +205,10 @@ const Log = () => {
         })
     } 
 
+    const datatest = {
+        name: 'hai'
+    }
+
     const log_list = logs.map((data, index) => {
         const images = data?.image.length > 0 && JSON.parse(data?.image).images;
         const videos = data?.video.length > 0 && JSON.parse(data?.video).videos;
@@ -271,7 +277,8 @@ const Log = () => {
                         <div>Read: { data?.read ? <strong>Yes</strong> : <strong>No</strong> }</div>
                         <div>Fixbug: { data?.fixbug ? <strong>Yes</strong> : <strong>No</strong> }</div>
                     </div>
-                    <div>{ data?.log }</div>
+                    {/* <div>{ data?.log }</div> */}
+                    <JSONPretty className="Log-json-pretty" data={data?.log} theme={JSONPrettyMon}></JSONPretty>
                     <div className="Log-table-row-data-detail-imgContainer">
                         { images.length > 0 && image_list(images) }
                     </div>

@@ -97,6 +97,46 @@ class Provider {
             callback(provider, err);
         })
     }
+
+    read__uuid_user(uuid_provider, callback) {
+        let provider;
+        let err;
+
+        const providerPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isProvider = await this._Provider.findOne(
+                            {
+                                where: {
+                                    uuid_provider,
+                                    [Op.not]: {
+                                        status: 'delete'
+                                    }
+                                },
+                                attributes: ['uuid_user']
+                            },
+                            { transaction: t }
+                        )
+                        resolve(isProvider);
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        providerPromise
+        .then(isProvider => {
+            provider = isProvider;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(provider, err);
+        })
+    }
 }
 
 const providerCRUD = new Provider();

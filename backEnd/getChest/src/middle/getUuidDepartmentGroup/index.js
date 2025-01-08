@@ -6,7 +6,7 @@ const { SvMessage } = require('../../model/svMessage');
 
 const service = process.env.SERVICE;
 
-async function getAllUuidDepatmentGroupFromSVChest(uuid_provider, callback) {
+async function getAllUuidDepartmentGroupFromSVChest(uuid_provider, callback) {
     const svMessage = new SvMessage();
     await svMessage.init();
     const _id = uuidv4();
@@ -20,13 +20,13 @@ async function getAllUuidDepatmentGroupFromSVChest(uuid_provider, callback) {
         }
     }
 
-    await svMessage.receiveMessage(`feedback__require__all__uuid_depatmentGroup__from__uuid_provider___${_id}`, { unsubscribe: true }, getAllUuidDepatmentGroup_);
-    svMessage.sendMessage('require__all__uuid_depatmentGroup__from__uuid_provider', JSON.stringify({ id: _id, uuid_provider: uuid_provider }));
+    await svMessage.receiveMessage(`feedback__require__all__uuid_departmentGroup__from__uuid_provider___${_id}`, { unsubscribe: true }, getAllUuidDepatmentGroup_);
+    svMessage.sendMessage('require__all__uuid_departmentGroup__from__uuid_provider', JSON.stringify({ id: _id, uuid_provider: uuid_provider }));
 }
 
-function get__All__Uuid_depatmentGroup(req, res, next) {
+function get__All__Uuid_departmentGroup(req, res, next) {
     const uuid_provider = req.query.uuid_provider;
-    getAllUuidDepatmentGroupFromSVChest(uuid_provider, allDepartmentGroup => {
+    getAllUuidDepartmentGroupFromSVChest(uuid_provider, allDepartmentGroup => {
         if (allDepartmentGroup) {
             let all_uuid_depatmentGroup = [];
             for (let i = 0; i < allDepartmentGroup.length; i++) {
@@ -44,4 +44,4 @@ function get__All__Uuid_depatmentGroup(req, res, next) {
     })
 }
 
-module.exports = { get__All__Uuid_depatmentGroup }
+module.exports = { get__All__Uuid_departmentGroup }
