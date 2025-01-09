@@ -2,7 +2,7 @@
 const { v4: uuidv4 } = require('uuid');
 const { token } = require('../../model/token');
 const { serviceRedis } = require('../../model/serviceRedis');
-const { logEvents } = require('../../../logEvents');
+const { logEvents1 } = require('../../../logEvents');
 const { serviceRedlock } = require('../../config/serviceRedlock');
 
 const path_of_this_file = 'D:/shopm/backEnd/socketSM/src/auth/Authentication/index.js';
@@ -30,7 +30,7 @@ async function Authentication(req, res, next) {
                             err: err1,
                             message: 'token.verify-accessToken'
                         }
-                        logEvents(JSON.stringify(createErr));
+                        logEvents1(createErr);
                         if ((redisData.refreshedToken === accessToken) && (redisData.refreshToken === refreshToken)) {
                             req.decodedToken = redisData.decodedToken;
                             await lock.release();
@@ -46,7 +46,7 @@ async function Authentication(req, res, next) {
                                         err: err2,
                                         message: 'Token expired. Please login again !'
                                     }
-                                    logEvents(JSON.stringify(createErr));
+                                    logEvents1(createErr);
                                     await lock.release();
                                     return res.status(200).json({
                                         message: 'Token expired. Please login again !',
@@ -69,7 +69,7 @@ async function Authentication(req, res, next) {
                                         err: error,
                                         message: 'Please login 1 !'
                                     }
-                                    logEvents(JSON.stringify(createErr));
+                                    logEvents1(createErr);
                                     await lock.release();
                                     return res.status(200).json({
                                         message: 'Please login 1 !',
@@ -110,7 +110,7 @@ async function Authentication(req, res, next) {
                                         err: error,
                                         message: 'Please login 2 !'
                                     }
-                                    logEvents(JSON.stringify(createErr));
+                                    logEvents1(createErr);
                                     await lock.release();
                                     return res.status(200).json({
                                         message: 'Please login 2 !',
@@ -160,7 +160,7 @@ async function Authentication(req, res, next) {
                                         err: error,
                                         message: 'Access token expired !'
                                     }
-                                    logEvents(JSON.stringify(createErr));
+                                    logEvents1(createErr);
                                     await lock.release();
                                     return res.status(200).json({
                                         message: 'Access token expired !',
@@ -183,7 +183,7 @@ async function Authentication(req, res, next) {
                                     err: error,
                                     message: 'Your account is attacked. Please login again !'
                                 }
-                                logEvents(JSON.stringify(createErr));
+                                logEvents1(createErr);
                                 await lock.release();
                                 return res.status(200).json({
                                     message: 'Your account is attacked. Please login again !',
@@ -199,7 +199,7 @@ async function Authentication(req, res, next) {
                                     err: error,
                                     message: 'Invalid token. Please login !'
                                 }
-                                logEvents(JSON.stringify(createErr));
+                                logEvents1(createErr);
                                 await lock.release();
                                 return res.status(200).json({
                                     message: 'Invalid token. Please login !',
@@ -228,7 +228,7 @@ async function Authentication(req, res, next) {
                     err: error,
                     message: 'Please login 3 !'
                 }
-                logEvents(JSON.stringify(createErr));
+                logEvents1(createErr);
                 await lock.release();
                 return res.status(200).json({
                     message: 'Please login 3 !',
@@ -246,7 +246,7 @@ async function Authentication(req, res, next) {
             err: error,
             message: 'Please login 4 !'
         }
-        logEvents(JSON.stringify(createErr));
+        logEvents1(createErr);
         return res.status(200).json({
             message: 'Please login 4 !',
             status: false, 

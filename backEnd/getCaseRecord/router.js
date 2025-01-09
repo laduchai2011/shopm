@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const { serviceRedis } = require('./src/model/serviceRedis');
 const { serviceRedlock } = require('./src/config/serviceRedlock');
-const { Authentication } = require('./src/auth/Authentication');
+const { Authentication_SHOPM } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
 const { caseRecordCRUD } = require('./src/model/CRUDDATABASE/CRUD_CaseRecod');
@@ -38,7 +38,8 @@ if (process.env.NODE_ENV !== 'development') {
     secure_cookie = true;
 }
 
-router.get('/caseRecord/getList', (req, res) => {
+router.get('/caseRecord/getList', 
+    (req, res) => {
     const pageIndex = req.query.pageIndex;
     const pageSize = req.query.pageSize;
     const uuid_user = req.query.uuid_user;
@@ -60,7 +61,9 @@ router.get('/caseRecord/getList', (req, res) => {
     })
 })
 
-router.get('/getCaseRecord', Authentication, async (req, res) => {
+router.get('/getCaseRecord', 
+    Authentication_SHOPM, 
+    async (req, res) => {
     const uuid_caseRecord = req.query.uuid_caseRecord;
     const userOptions = req.decodedToken.data;
     const _id = uuidv4();
@@ -119,7 +122,10 @@ router.get('/getCaseRecord', Authentication, async (req, res) => {
     svMessage.sendMessage('require__Uuid_doctorOrPharmacist__via__uuid_user', JSON.stringify({ id: _id, uuid_user: userOptions.uuid }));
 })
 
-router.get('/getCaseRecordDescription', Authentication, doctorOrPharmacistAndPatientRole, (req, res) => {
+router.get('/getCaseRecordDescription', 
+    Authentication_SHOPM, 
+    doctorOrPharmacistAndPatientRole, 
+    (req, res) => {
     const pageNumber = req.query.pageNumber;
     const uuid_caseRecord = req.query.uuid_caseRecord;
 
@@ -141,7 +147,10 @@ router.get('/getCaseRecordDescription', Authentication, doctorOrPharmacistAndPat
     })
 })
 
-router.get('/getCaseRecordImage', Authentication, doctorOrPharmacistAndPatientRole, (req, res) => {
+router.get('/getCaseRecordImage', 
+    Authentication_SHOPM, 
+    doctorOrPharmacistAndPatientRole, 
+    (req, res) => {
     const pageNumber = req.query.pageNumber;
     const uuid_caseRecord = req.query.uuid_caseRecord;
 
@@ -163,7 +172,10 @@ router.get('/getCaseRecordImage', Authentication, doctorOrPharmacistAndPatientRo
     })
 })
 
-router.get('/getCaseRecordImageAll', Authentication, doctorOrPharmacistAndPatientRole, (req, res) => {
+router.get('/getCaseRecordImageAll', 
+    Authentication_SHOPM, 
+    doctorOrPharmacistAndPatientRole, 
+    (req, res) => {
     const pageNumber = req.query.pageNumber;
     const uuid_caseRecord = req.query.uuid_caseRecord;
 
@@ -185,7 +197,10 @@ router.get('/getCaseRecordImageAll', Authentication, doctorOrPharmacistAndPatien
     })
 })
 
-router.get('/getCaseRecordVideo', Authentication, doctorOrPharmacistAndPatientRole, (req, res) => {
+router.get('/getCaseRecordVideo', 
+    Authentication_SHOPM, 
+    doctorOrPharmacistAndPatientRole, 
+    (req, res) => {
     const pageNumber = req.query.pageNumber;
     const uuid_caseRecord = req.query.uuid_caseRecord;
 
@@ -207,7 +222,10 @@ router.get('/getCaseRecordVideo', Authentication, doctorOrPharmacistAndPatientRo
     })
 })
 
-router.get('/getCaseRecordPrescription', Authentication, doctorOrPharmacistAndPatientRole, (req, res) => {
+router.get('/getCaseRecordPrescription', 
+    Authentication_SHOPM, 
+    doctorOrPharmacistAndPatientRole, 
+    (req, res) => {
     const pageNumber = req.query.pageNumber;
     const uuid_caseRecord = req.query.uuid_caseRecord;
 
@@ -229,11 +247,17 @@ router.get('/getCaseRecordPrescription', Authentication, doctorOrPharmacistAndPa
     })
 })
 
-router.get('/getCaseRecordMedication', Authentication, doctorOrPharmacistAndPatientRole, (req, res) => {
+router.get('/getCaseRecordMedication', 
+    Authentication_SHOPM, 
+    doctorOrPharmacistAndPatientRole, 
+    (req, res) => {
 
 })
 
-router.get('/getCaseRecordMedicationsAll', Authentication, doctorOrPharmacistAndPatientRole, (req, res) => {
+router.get('/getCaseRecordMedicationsAll', 
+    Authentication_SHOPM, 
+    doctorOrPharmacistAndPatientRole, 
+    (req, res) => {
     const pageNumber = req.query.pageNumber;
     const uuid_caseRecord = req.query.uuid_caseRecord;
 
@@ -277,7 +301,10 @@ router.get('/getCaseRecordMedicationsAll', Authentication, doctorOrPharmacistAnd
 //     })
 // })
 
-router.get('/caseRecord/getLock', Authentication, doctorOrPharmacistAndPatientRole, async (req, res) => {
+router.get('/caseRecord/getLock', 
+    Authentication_SHOPM, 
+    doctorOrPharmacistAndPatientRole, 
+    async (req, res) => {
     const uuid_caseRecord = req.query.uuid_caseRecord;
     const caseRecordLockKey = `redlock-caseRecordLock-${ uuid_caseRecord }`;
     const caseRecordLockKey_dataCache = `caseRecordLock-${ uuid_caseRecord }`;

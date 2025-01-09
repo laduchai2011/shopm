@@ -18,3 +18,6 @@
 08-01-2025	45:14:04--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---JsonWebTokenError: invalid signature: token.verify-accessTokentks
 08-01-2025	23:15:04--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---JsonWebTokenError: invalid signature: token.verify-accessTokentks
 08-01-2025	56:17:04--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---JsonWebTokenError: invalid signature: token.verify-accessTokentks
+08-01-2025	39:21:11--------Redis Client Error Error: Connection timeout
+09-01-2025	09:02:04--------Redis Client Error Error: read ECONNRESET
+09-01-2025	10:02:04--------Redis Client Error Error: connect ECONNREFUSED 127.0.0.1:6379

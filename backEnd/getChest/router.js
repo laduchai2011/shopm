@@ -3,15 +3,15 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 
-const { serviceRedis } = require('./src/model/serviceRedis');
-const { serviceRedlock } = require('./src/config/serviceRedlock');
+// const { serviceRedis } = require('./src/model/serviceRedis');
+// const { serviceRedlock } = require('./src/config/serviceRedlock');
 const { 
-    Authentication,
-    AuthenticationTKS
+    Authentication_SHOPM,
+    Authentication_TKS
 } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
-const { SvMessage } = require('./src/model/svMessage');
+// const { SvMessage } = require('./src/model/svMessage');
 
 const { chestGroupCRUD } = require('./src/model/CRUDDATABASE/CRUD_ChestGroup');
 const { chestCRUD } = require('./src/model/CRUDDATABASE/CRUD_Chest');
@@ -32,7 +32,7 @@ const service = process.env.SERVICE;
 
 
 router.get('/TKSManagerGetChestGroup', 
-    AuthenticationTKS,
+    Authentication_TKS,
     (req, res) => {
     const uuid_chestGroup = req.query.uuid_chestGroup;
     chestGroupCRUD.TKSManagerRead(uuid_chestGroup, (chestGroup, err) => {
@@ -58,7 +58,7 @@ router.get('/TKSManagerGetChestGroup',
 })
 
 router.get('/TKSManagerGetChestGroup', 
-    Authentication,
+    Authentication_SHOPM,
     (req, res) => {
     const uuid_chestGroup = req.query.uuid_chestGroup;
     chestGroupCRUD.TKSManagerRead(uuid_chestGroup, (chestGroup, err) => {
@@ -84,7 +84,7 @@ router.get('/TKSManagerGetChestGroup',
 })
 
 router.get('/SellingGetChestList', 
-    Authentication,
+    Authentication_SHOPM,
     isMyProvider,
     get__All__Uuid_departmentGroup,
     // get__All__Uuid_department,

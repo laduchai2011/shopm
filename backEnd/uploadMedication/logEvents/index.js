@@ -12,12 +12,45 @@ const service = process.env.SERVICE;
 
 // const fileName = path.join(__dirname, '../Logs', 'logs.log');
 
+const logError = async ( msg ) => {
+    const dateTime = `${format(new Date(), 'dd-MM-yyyy\tss:mm:HH')}`;
+    const contentLog = `${dateTime}--------${msg}\n`;
+    try {
+        // fs.appendFile(fileName, contentLog);
+        Log(contentLog, 'error');
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+const logWarn = async ( msg ) => {
+    const dateTime = `${format(new Date(), 'dd-MM-yyyy\tss:mm:HH')}`;
+    const contentLog = `${dateTime}--------${msg}\n`;
+    try {
+        // fs.appendFile(fileName, contentLog);
+        Log(contentLog, 'warn');
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+const logEvent = async ( msg ) => {
+    const dateTime = `${format(new Date(), 'dd-MM-yyyy\tss:mm:HH')}`;
+    const contentLog = `${dateTime}--------${msg}\n`;
+    try {
+        // fs.appendFile(fileName, contentLog);
+        Log(contentLog, 'event');
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 const logEvents = async ( msg ) => {
     const dateTime = `${format(new Date(), 'dd-MM-yyyy\tss:mm:HH')}`;
     const contentLog = `${dateTime}--------${msg}\n`;
     try {
         // fs.appendFile(fileName, contentLog);
-        LogError(contentLog);
+        Log(contentLog, 'error');
     } catch (error) {
         console.error(error)
     }
@@ -30,20 +63,20 @@ const logEvents1 = async ( content ) => {
         content: content
     }
     try {
-        LogError(contentLog);
+        Log(contentLog, 'error');
     } catch (error) {
         console.error(error)
     }
 }
 
-const LogError = async (contentLog) => {
+const Log = async (contentLog, type) => {
     const svMessage = new SvMessage();
     await svMessage.init();
     const _id = uuidv4();
     const logOptions = {
         VM: VM,
         service: service,
-        type: 'error',
+        type: type,
         log: contentLog,      
         image: '',
         video: '',
@@ -66,4 +99,10 @@ const LogError = async (contentLog) => {
     svMessage.sendMessage('require__TKS_log_Error', JSON.stringify({ id: _id, logOptions: logOptions }));
 }
 
-module.exports = { logEvents, logEvents1 };
+module.exports = { 
+    logEvents, 
+    logEvents1, 
+    logEvent, 
+    logError, 
+    logWarn 
+};
