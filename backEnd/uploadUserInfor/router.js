@@ -10,7 +10,7 @@ const { doctorOrPharmacist } = require('./src/model/CRUDDATABASE/CRUDDOCTORORPHA
 const { sickPerson } = require('./src/model/CRUDDATABASE/CRUDSICKPERSON');
 const { token } = require('./src/model/token');
 const { serviceRedis } = require('./src/model/serviceRedis');
-const { Authentication } = require('./src/auth/Authentication');
+const { Authentication_SHOPM } = require('./src/auth/Authentication');
 const { logEvents } = require('./logEvents');
 
 let secure_cookie = false;
@@ -18,7 +18,8 @@ if (process.env.NODE_ENV !== 'development') {
     secure_cookie = true;
 }
 
-router.post('/signup', (req, res) => {
+router.post('/signup', 
+    (req, res) => {
     const userOptions = req.body;
     crudUser.create(userOptions, (user, err) => {
         if (err) {
@@ -41,7 +42,8 @@ router.post('/signup', (req, res) => {
     });
 })
 
-router.post('/login', (req, res) => {
+router.post('/login', 
+    (req, res) => {
     const loginOptions = req.body;
     crudUser.read(loginOptions, async (user, err) => {
         if (err) {
@@ -117,7 +119,9 @@ router.post('/login', (req, res) => {
     })
 })
 
-router.post('/logout', Authentication, (req, res) => {
+router.post('/logout', 
+    Authentication_SHOPM, 
+    (req, res) => {
     res.cookie('uid', '', {
         httpOnly: true,
         secure: secure_cookie,
@@ -146,7 +150,9 @@ router.post('/logout', Authentication, (req, res) => {
     });
 })
 
-router.post('/registerDoctorOrPharmacist', Authentication, (req, res) => {   
+router.post('/registerDoctorOrPharmacist', 
+    Authentication_SHOPM, 
+    (req, res) => {   
     const doctorOrPharmacistOptions = req.body;
     const userOptions = req.decodedToken.data;
     doctorOrPharmacistOptions.uuid_user = userOptions.uuid;
@@ -172,7 +178,9 @@ router.post('/registerDoctorOrPharmacist', Authentication, (req, res) => {
     })
 })
 
-router.post('/sickPerson/create', Authentication, (req, res) => {   
+router.post('/sickPerson/create', 
+    Authentication_SHOPM, 
+    (req, res) => {   
     const sickpersonOptions = req.body;
     const userOptions = req.decodedToken.data;
     sickpersonOptions.uuid_user = userOptions.uuid;

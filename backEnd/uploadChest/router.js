@@ -3,15 +3,15 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 
-const { serviceRedis } = require('./src/model/serviceRedis');
-const { serviceRedlock } = require('./src/config/serviceRedlock');
+// const { serviceRedis } = require('./src/model/serviceRedis');
+// const { serviceRedlock } = require('./src/config/serviceRedlock');
 const { 
-    Authentication,
-    AuthenticationTKS
+    // Authentication_SHOPM,
+    Authentication_TKS
 } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
-const { SvMessage } = require('./src/model/svMessage');
+// const { SvMessage } = require('./src/model/svMessage');
 
 const { chestGroupCRUD } = require('./src/model/CRUDDATABASE/CRUD_ChestGroup');
 const { chestCRUD } = require('./src/model/CRUDDATABASE/CRUD_Chest');
@@ -19,13 +19,13 @@ const { chestCRUD } = require('./src/model/CRUDDATABASE/CRUD_Chest');
 const { ChestGroupRead } = require('./src/middle/ChestGroupRead');
 const { 
     isReadyToCustom,
-    handleDataWithStatusTKS
+    // handleDataWithStatusTKS
 } = require('./src/middle/ChestGroupRole');
 
 
 // chest group
 router.post('/createChestGroup', 
-    AuthenticationTKS,
+    Authentication_TKS,
     (req, res) => {
     const chestGroupOptions = req.body.chestGroupOptions;
     chestGroupCRUD.create(chestGroupOptions, (chestGroup, err) => {
@@ -51,7 +51,7 @@ router.post('/createChestGroup',
 })
 
 router.patch('/TKSManagerPatchNoteOfChestGroupWhenCustom', 
-    AuthenticationTKS,
+    Authentication_TKS,
     (req, res) => {
     const uuid_chestGroup = req.body.uuid_chestGroup;
     const note = req.body.note;
@@ -78,7 +78,7 @@ router.patch('/TKSManagerPatchNoteOfChestGroupWhenCustom',
 })
 
 router.patch('/TKSManagerPatchChestGroup', 
-    AuthenticationTKS,
+    Authentication_TKS,
     ChestGroupRead,
     isReadyToCustom,
     (req, res) => {
@@ -108,7 +108,7 @@ router.patch('/TKSManagerPatchChestGroup',
 
 // chest 
 router.post('/TKSManagerCreateChest', 
-    AuthenticationTKS,
+    Authentication_TKS,
     (req, res) => {
     const chestOptions = req.body.chestOptions;
     chestCRUD.TKSManagerCreate(chestOptions, (chest, err) => {

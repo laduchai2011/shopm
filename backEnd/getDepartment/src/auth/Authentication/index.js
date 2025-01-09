@@ -5,7 +5,9 @@ const { serviceRedis } = require('../../model/serviceRedis');
 const { logEvent, logError } = require('../../../logEvents');
 const { serviceRedlock } = require('../../config/serviceRedlock');
 
-const path_of_this_file = 'D:/shopm/backEnd/socketSM/src/auth/Authentication/index.js';
+const PARENT_FOLDER_OF_SERVICE = process.env.PARENT_FOLDER_OF_SERVICE;
+const SERVICE_FOLDER = process.env.SERVICE_FOLDER;
+const path_of_this_file = `${PARENT_FOLDER_OF_SERVICE}/${SERVICE_FOLDER}/src/auth/Authentication/index.js`;
 
 async function Authentication_SHOPM(req, res, next) {
     const { refreshToken, accessToken, loginCode, uid } = req.cookies;

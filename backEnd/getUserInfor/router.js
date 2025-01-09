@@ -5,14 +5,16 @@ const { crudUser } = require('./src/model/CRUDDATABASE/CRUDUSER');
 const { doctorOrPharmacist } = require('./src/model/CRUDDATABASE/CRUDDOCTORORPHARMACIST');
 const { sickPerson } = require('./src/model/CRUDDATABASE/CRUDSICKPERSON');
 // const { serviceRedis } = require('./src/model/serviceRedis');
-const { Authentication } = require('./src/auth/Authentication');
+const { Authentication_SHOPM } = require('./src/auth/Authentication');
 const { logEvents } = require('./logEvents');
 
 router.get('/', (req, res) => {
     res.send('get user infor')
 });
 
-router.get('/getUserWithPk_notification', Authentication, (req, res) => {
+router.get('/getUserWithPk_notification', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const uuid_user = req.query.uuid_user;
     crudUser.readWithPk_notification(uuid_user, (user, err) => {
         if (err) {
@@ -37,7 +39,9 @@ router.get('/getUserWithPk_notification', Authentication, (req, res) => {
     })
 })
 
-router.get('/doctorOrPharmacist/getfromCaseRecord', Authentication, (req, res) => {
+router.get('/doctorOrPharmacist/getfromCaseRecord', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const uuid_doctorOrPharmacist = req.query.uuid_doctorOrPharmacist;
     doctorOrPharmacist.readFromCaseRecord(uuid_doctorOrPharmacist, (doctorOrPharmacist, err) => {
         if (err) {
@@ -62,7 +66,9 @@ router.get('/doctorOrPharmacist/getfromCaseRecord', Authentication, (req, res) =
     })
 })
 
-router.get('/sickPerson/getFromCaseRecord', Authentication, (req, res) => {
+router.get('/sickPerson/getFromCaseRecord', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const uuid_sickPerson = req.query.uuid_sickPerson;
 
     sickPerson.readWithFk(uuid_sickPerson, (sickPerson, err) => {
@@ -88,7 +94,9 @@ router.get('/sickPerson/getFromCaseRecord', Authentication, (req, res) => {
     })
 })
 
-router.get('/doctorOrPharmacist/getfromCaseRecord/search', Authentication, (req, res) => {
+router.get('/doctorOrPharmacist/getfromCaseRecord/search', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const uuid_doctorOrPharmacist = req.query.uuid_doctorOrPharmacist;
     doctorOrPharmacist.readFromCaseRecord(uuid_doctorOrPharmacist, (doctorOrPharmacist, err) => {
         if (err) {

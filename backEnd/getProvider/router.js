@@ -6,7 +6,7 @@ const router = express.Router();
 const { providerCRUD } = require('./src/model/CRUDDATABASE/CRUD_Provider');
 const { crudProviderAbout } = require('./src/model/CRUDDATABASE/CRUDPROVIDERABOUT');
 // const { serviceRedis } = require('./src/model/serviceRedis');
-const { Authentication } = require('./src/auth/Authentication');
+const { Authentication_SHOPM } = require('./src/auth/Authentication');
 const { logEvents } = require('./logEvents');
 // const { Authorization } = require('./src/auth/Authorization');
 const { getProviderMid } = require('./src/middle/getProviderMid');
@@ -18,7 +18,9 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 
-router.get('/provider/list', Authentication, (req, res) => {
+router.get('/provider/list', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const { uid } = req.cookies;
     providerCRUD.readList(uid, (providers, err) => {
         if (err) {
@@ -39,7 +41,8 @@ router.get('/provider/list', Authentication, (req, res) => {
     });
 });
 
-router.get('/provider/:id', (req, res) => {
+router.get('/provider/:id', 
+    (req, res) => {
     const uuid_provider = req.params.id;
     const { uid } = req.cookies;
     providerCRUD.read(uuid_provider, (provider, err) => {
@@ -68,7 +71,8 @@ router.get('/provider/:id', (req, res) => {
     })
 })
 
-router.get('/provider/about/list', (req, res) => {
+router.get('/provider/about/list', 
+    (req, res) => {
     const uuid_provider = req.query.uuid_provider;
     crudProviderAbout.readList(uuid_provider, (providerAbouts, err) => {
         if (err) {
@@ -91,7 +95,7 @@ router.get('/provider/about/list', (req, res) => {
 
 //----------------selling-------------------------//
 router.get('/selling/provider/:id', 
-    Authentication, 
+    Authentication_SHOPM, 
     getProviderMid,
     providerRole,
     (req, res) => {

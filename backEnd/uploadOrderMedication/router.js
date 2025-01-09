@@ -4,12 +4,12 @@ const express = require('express');
 const router = express.Router();
 
 const { orderMedicationCRUD } = require('./src/model/CRUDDATABASE/CRUD_OrderMedication');
-const { historyCRUD } = require('./src/model/CRUDDATABASE/CRUD_History');
-const { transportCRUD } = require('./src/model/CRUDDATABASE/CRUD_Transport');
-const { paymentMedicationCRUD } = require('./src/model/CRUDDATABASE/CRUD_PaymentMedication');
-const { medicationsOfOrderMyselfCRUD } = require('./src/model/CRUDDATABASE/CRUD_MedicationsOfOrderMyself');
+// const { historyCRUD } = require('./src/model/CRUDDATABASE/CRUD_History');
+// const { transportCRUD } = require('./src/model/CRUDDATABASE/CRUD_Transport');
+// const { paymentMedicationCRUD } = require('./src/model/CRUDDATABASE/CRUD_PaymentMedication');
+// const { medicationsOfOrderMyselfCRUD } = require('./src/model/CRUDDATABASE/CRUD_MedicationsOfOrderMyself');
 const { serviceRedis } = require('./src/model/serviceRedis');
-const { Authentication } = require('./src/auth/Authentication');
+const { Authentication_SHOPM } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
 // const { orderFinalMedication } = require('./src/middle/orderFinalMedication');
@@ -28,7 +28,9 @@ const { bulkUpdateSold } = require('./src/middle/updateMedication');
 *} currentCartOptions
 */ 
 
-router.post('/orderMedication/create', Authentication, (req, res) => {
+router.post('/orderMedication/create', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const orderFinalMedicationOptions = req.body;
     const userOptions = req.decodedToken.data;
     // console.log(orderFinalMedicationOptions)
@@ -43,7 +45,7 @@ router.post('/orderMedication/create', Authentication, (req, res) => {
 })
 
 router.post('/orderMedication/createWithCaseRecord', 
-    Authentication, 
+    Authentication_SHOPM, 
     getCaseRecordMid,
     patientRole, 
     isCurrentPage,
@@ -73,7 +75,9 @@ router.post('/orderMedication/createWithCaseRecord',
     })
 })
 
-router.patch('/patchCurrentCart', Authentication, async (req, res) => {
+router.patch('/patchCurrentCart', 
+    Authentication_SHOPM, 
+    async (req, res) => {
     const uuid_caseRecord = req.body.uuid_caseRecord;
     const pageNumber = req.body.pageNumber;
     const userOptions = req.decodedToken.data;
@@ -99,7 +103,9 @@ router.patch('/patchCurrentCart', Authentication, async (req, res) => {
     })
 })
 
-router.delete('/deleteCurrentCart', Authentication, async (req, res) => {
+router.delete('/deleteCurrentCart', 
+    Authentication_SHOPM, 
+    async (req, res) => {
     const userOptions = req.decodedToken.data;
     const currentCartKey = `currentCart-${userOptions.uuid}`;
     const isDeleteKey = await serviceRedis.deleteData(currentCartKey);

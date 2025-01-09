@@ -5,7 +5,7 @@ const router = express.Router();
 
 const { serviceRedis } = require('./src/model/serviceRedis');
 const { serviceRedlock } = require('./src/config/serviceRedlock');
-const { Authentication } = require('./src/auth/Authentication');
+const { Authentication_TKS } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
 
@@ -19,7 +19,7 @@ const { chestCRUD } = require('./src/model/CRUDDATABASE/CRUD_Chest');
 
 // chest group
 router.post('/TKSManagerCreateChestGroup',
-    Authentication,
+    Authentication_TKS,
     (req, res) => {
     const chestGroupOptions = req.body.chestGroupOptions;
     chestGroupCRUD.create(chestGroupOptions, (chestGroup, err) => {
@@ -44,7 +44,7 @@ router.post('/TKSManagerCreateChestGroup',
 })
 
 router.patch('/TKSManagerPatchChestGroup',
-    Authentication,
+    Authentication_TKS,
     (req, res) => {
     const uuid_chestGroup = req.body.uuid_chestGroup;
     const chestGroupOptions = req.body.chestGroupOptions;
@@ -71,7 +71,7 @@ router.patch('/TKSManagerPatchChestGroup',
 })
 
 router.patch('/TKSManagerPatchChestGroupStatus',
-    Authentication,
+    Authentication_TKS,
     (req, res) => {
     const uuid_chestGroup = req.body.uuid_chestGroup;
     const status = req.body.status;
@@ -98,7 +98,7 @@ router.patch('/TKSManagerPatchChestGroupStatus',
 })
 
 router.patch('/TKSManagerPatchNoteOfChestGroupWhenCustomCompletion',
-    Authentication,
+    Authentication_TKS,
     (req, res) => {
     const uuid_chestGroup = req.body.uuid_chestGroup;
     const note = req.body.note;
@@ -126,7 +126,7 @@ router.patch('/TKSManagerPatchNoteOfChestGroupWhenCustomCompletion',
 
 // chest
 router.post('/TKSManagerCreateChest',
-    Authentication,
+    Authentication_TKS,
     (req, res) => {
     const chestOptions = req.body.chestOptions;
     const member = req.decodedToken;

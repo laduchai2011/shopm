@@ -163,7 +163,7 @@ const CaseRecordOrder = () => {
     }
 
     const handleAgree = () => {
-        const orderMedicationFromCaseRecordOptions = {}
+        // const orderMedicationFromCaseRecordOptions = {}
 
         const orderMedicationOptions = {
             title: caseRecord_orderMedication?.caseRecord?.title,

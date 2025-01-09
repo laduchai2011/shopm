@@ -5,14 +5,16 @@ const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
 
 
-const { Authentication } = require('./src/auth/Authentication');
+const { Authentication_SHOPM } = require('./src/auth/Authentication');
 const { logEvents } = require('./logEvents');
 const { token } = require('./src/model/token');
 const { serviceRedis } = require('./src/model/serviceRedis');
 const { getSocketSMRoom } = require('./src/middle/getSocketSMRoom');
 
 
-router.get('/getRoom', Authentication, (req, res) => {
+router.get('/getRoom', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const userOptions = req.decodedToken.data;
     const type = req.query.type;
     const status = req.query.status;

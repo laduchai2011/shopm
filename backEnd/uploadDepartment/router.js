@@ -3,15 +3,15 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 
-const { serviceRedis } = require('./src/model/serviceRedis');
-const { serviceRedlock } = require('./src/config/serviceRedlock');
+// const { serviceRedis } = require('./src/model/serviceRedis');
+// const { serviceRedlock } = require('./src/config/serviceRedlock');
 const { 
-    Authentication,
-    AuthenticationTKS
+    Authentication_SHOPM,
+    // Authentication_TKS
 } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
-const { SvMessage } = require('./src/model/svMessage');
+// const { SvMessage } = require('./src/model/svMessage');
 
 const { departmentGroupCRUD } = require('./src/model/CRUDDATABASE/CRUD_DepartmentGroup');
 const { departmentCRUD } = require('./src/model/CRUDDATABASE/CRUD_Department');
@@ -28,7 +28,7 @@ const service = process.env.SERVICE;
 
 // department group
 router.post('/createDepartmentGroup', 
-    Authentication,
+    Authentication_SHOPM,
     (req, res) => {
     const departmentGroupOptions = req.body.departmentGroupOptions;
     departmentGroupCRUD.create(departmentGroupOptions, (departmentGroup, err) => {
@@ -55,7 +55,7 @@ router.post('/createDepartmentGroup',
 
 // department
 router.post('/createDepartment', 
-    Authentication,
+    Authentication_SHOPM,
     getProviderMid,
     isMyProvider,
     isNormalProvider,

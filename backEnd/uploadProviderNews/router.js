@@ -7,11 +7,13 @@ const { crudProvider } = require('./src/model/CRUDDATABASE/CRUDPROVIDER');
 const { crudProviderNews } = require('./src/model/CRUDDATABASE/CRUDPROVIDERNEWS');
 // const { serviceRedis } = require('./src/model/serviceRedis');
 const { logEvents } = require('./logEvents');
-const { Authentication } = require('./src/auth/Authentication');
+const { Authentication_SHOPM } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 
 
-router.post('/provider/news/add', Authentication, (req, res) => {
+router.post('/provider/news/add', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const decodedToken = req.decodedToken;
     const uuid_user = decodedToken.data.uuid;
     const providerNewsBody = req.body;

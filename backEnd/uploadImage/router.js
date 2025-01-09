@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 
 // const { verifyToken } = require('./src/middle/checkToken');
 const { crudImage } = require('./src/model/CRUDDATABASE/CRUDIMAGE');
-const { Authentication } = require('./src/auth/Authentication');
+const { Authentication_SHOPM } = require('./src/auth/Authentication');
 const { logEvents } = require('./logEvents');
 
 
@@ -13,7 +13,9 @@ router.get('/', (req, res) => {
     res.send('Successful response.');
 });
 
-router.post('/image', Authentication, (req, res) => {
+router.post('/image', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const data = req.body;
     const decodedToken = req.decodedToken;
     const imageUrls = data.imageUrls;
@@ -42,7 +44,9 @@ router.post('/image', Authentication, (req, res) => {
     })
 })
 
-router.post('/image/upload', Authentication, (req, res) => {
+router.post('/image/upload', 
+    Authentication_SHOPM, 
+    (req, res) => {
     if (!req.files) {
         logEvents(`${req.url}---${req.method}---${'file is not found'}`);
         return res.status(500).send({ msg: "file is not found" });

@@ -5,7 +5,7 @@ const router = express.Router();
 
 const { serviceRedis } = require('./src/model/serviceRedis');
 const { serviceRedlock } = require('./src/config/serviceRedlock');
-const { Authentication } = require('./src/auth/Authentication');
+const { Authentication_TKS } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
 
@@ -16,7 +16,7 @@ const { chestCRUD } = require('./src/model/CRUDDATABASE/CRUD_Chest');
 
 
 // router.get('/readChestGroupList', // doing
-//     Authentication,
+//     Authentication_TKS,
 //     (req, res) => {
 //     const chestGroupOptions = req.body.chestGroupOptions;
 //     const uuid_member = req.body.uuid_member;
@@ -42,7 +42,7 @@ const { chestCRUD } = require('./src/model/CRUDDATABASE/CRUD_Chest');
 // })
 
 router.get('/TKSManagerGetChestGroup', // doing
-    Authentication,
+    Authentication_TKS,
     (req, res) => {
     const uuid_chestGroup = req.query.uuid_chestGroup;
     chestCRUD.readChestGroup(uuid_chestGroup, (chestGroup, err) => {

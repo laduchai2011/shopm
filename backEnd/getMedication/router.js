@@ -8,7 +8,7 @@ const { medicationImageCRUD } = require('./src/model/CRUDDATABASE/CRUD_Medicatio
 // const { crudProvider } = require('./src/model/CRUDDATABASE/CRUDPROVIDER');
 // const { serviceRedis } = require('./src/model/serviceRedis');
 const { logEvents } = require('./logEvents');
-const { Authentication } = require('./src/auth/Authentication');
+const { Authentication_SHOPM } = require('./src/auth/Authentication');
 const { Authorization } = require('./src/auth/Authorization');
 const { isMyProvider } = require('./src/middle/checkMedication');
 
@@ -16,7 +16,7 @@ const service = process.env.SERVICE;
 
 
 router.get('/provider/medicationManager/list', 
-    Authentication, 
+    Authentication_SHOPM, 
     Authorization, 
     (req, res) => {
     const uuid_provider = req.query.uuid_provider;
@@ -44,7 +44,8 @@ router.get('/provider/medicationManager/list',
     })
 })
 
-router.get('/provider/medication/list', (req, res) => {
+router.get('/provider/medication/list', 
+    (req, res) => {
     const uuid_provider = req.query.uuid_provider;
     const pageIndex = req.query.pageIndex;
     const pageSize = req.query.pageSize;
@@ -70,7 +71,8 @@ router.get('/provider/medication/list', (req, res) => {
     })
 })
 
-router.get('/home/medication/list', (req, res) => {
+router.get('/home/medication/list', 
+    (req, res) => {
     const pageIndex = req.query.pageIndex;
     const pageSize = req.query.pageSize;
     
@@ -95,7 +97,8 @@ router.get('/home/medication/list', (req, res) => {
     })
 })
 
-router.get('/medication/:id', (req, res) => {
+router.get('/medication/:id', 
+    (req, res) => {
     const uuid_medication = req.params.id;
     
     medicationCRUD.readWithUid(uuid_medication, (medication, err) => {
@@ -119,7 +122,8 @@ router.get('/medication/:id', (req, res) => {
     })
 })
 
-router.get('/medicationImage/list', (req, res) => {
+router.get('/medicationImage/list', 
+    (req, res) => {
     const uuid_medication = req.query.uuid_medication;
     
     medicationImageCRUD.bulkReadFromMedication(uuid_medication, (medicationImages, err) => {
@@ -145,7 +149,7 @@ router.get('/medicationImage/list', (req, res) => {
 })
 
 router.get('/sreenCreateDepartmentRequireReadAllMedicationWithFK', 
-    Authentication,
+    Authentication_SHOPM,
     isMyProvider,
     (req, res) => {
     const uuid_provider = req.query.uuid_provider;

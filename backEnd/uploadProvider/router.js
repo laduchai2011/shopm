@@ -5,7 +5,7 @@ const router = express.Router();
 // const { v4: uuidv4 } = require('uuid');
 
 // const { serviceRedis } = require('./src/model/serviceRedis');
-const { Authentication } = require('./src/auth/Authentication');
+const { Authentication_SHOPM } = require('./src/auth/Authentication');
 const { logEvents } = require('./logEvents');
 const { providerCRUD } = require('./src/model/CRUDDATABASE/CRUD_Provider');
 const { providerAboutCRUD } = require('./src/model/CRUDDATABASE/CRUD_ProviderAbout');
@@ -15,7 +15,7 @@ const { isMyProvider } = require('./src/middle/providerRole');
 
 
 router.post('/provider/create', 
-    Authentication, 
+    Authentication_SHOPM, 
     (req, res) => {
     const providerOptions = req.body;
     const userOptions = req.decodedToken.data;
@@ -41,7 +41,7 @@ router.post('/provider/create',
 })
 
 router.patch('/provider/delete', 
-    Authentication, 
+    Authentication_SHOPM, 
     getProviderMid,
     isMyProvider,
     (req, res) => {
@@ -66,7 +66,7 @@ router.patch('/provider/delete',
 })
 
 router.post('/provider/about/create', 
-    Authentication, 
+    Authentication_SHOPM, 
     getProviderMid,
     isMyProvider,
     (req, res) => {
@@ -91,7 +91,7 @@ router.post('/provider/about/create',
 })
 
 // router.post('/selling/provider/select', 
-//     Authentication, 
+//     Authentication_SHOPM, 
 //     getProviderMid,
 //     providerRole,
 //     (req, res) => {

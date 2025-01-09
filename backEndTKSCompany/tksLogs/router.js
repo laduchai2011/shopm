@@ -5,7 +5,7 @@ const router = express.Router();
 
 // const { serviceRedis } = require('./src/model/serviceRedis');
 // const { serviceRedlock } = require('./src/config/serviceRedlock');
-const { Authentication } = require('./src/auth/Authentication');
+const { Authentication_TKS } = require('./src/auth/Authentication');
 const { logEvents } = require('./logEvents');
 // const { SvMessage } = require('./src/model/svMessage');
 
@@ -15,7 +15,7 @@ const { logCRUD } = require('./src/model/CRUDDATABASE/CRUD_Log');
 
 
 router.get('/TKSManagerGetLogAll', 
-    Authentication,
+    Authentication_TKS,
     (req, res) => {
     const pageIndex = req.query.pageIndex;
     const pageSize = req.query.pageSize;

@@ -6,12 +6,13 @@ const router = express.Router();
 const { crudProvider } = require('./src/model/CRUDDATABASE/CRUDPROVIDER');
 const { crudProviderNews } = require('./src/model/CRUDDATABASE/CRUDPROVIDERNEWS');
 // const { serviceRedis } = require('./src/model/serviceRedis');
-const { Authentication } = require('./src/auth/Authentication');
+const { Authentication_SHOPM } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
 
 
-router.get('/provider/news/list', (req, res) => {
+router.get('/provider/news/list', 
+    (req, res) => {
     const uuid_provider = req.query.uuid_provider;
     const pageIndex = req.query.pageIndex;
     const pageSize = req.query.pageSize;

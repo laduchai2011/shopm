@@ -5,7 +5,7 @@ const router = express.Router();
 
 const { serviceRedis } = require('./src/model/serviceRedis');
 const { serviceRedlock } = require('./src/config/serviceRedlock');
-const { Authentication } = require('./src/auth/Authentication');
+const { Authentication_SHOPM } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
 const { caseRecordCRUD } = require('./src/model/CRUDDATABASE/CRUD_CaseRecord');
@@ -44,7 +44,9 @@ svMessage.init();
 *} caseRecordLockOptions
 */ 
 
-router.post('/caseRecord/createCaseRecord', Authentication, (req, res) => {
+router.post('/caseRecord/createCaseRecord', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const caseRecordOptions = req.body.caseRecordOptions;
     const userOptions = req.decodedToken.data;
     caseRecordOptions.uuid_user = userOptions.uuid;
@@ -70,7 +72,9 @@ router.post('/caseRecord/createCaseRecord', Authentication, (req, res) => {
     })
 })
 
-router.post('/caseRecord/createDescription', Authentication, (req, res) => {
+router.post('/caseRecord/createDescription', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const caseRecordDescriptionOptions = req.body.caseRecordDescriptionOptions;
     caseRecordDescriptionCRUD.create(caseRecordDescriptionOptions, (caseRecordDescription, err) => {
         if (err) {
@@ -94,7 +98,9 @@ router.post('/caseRecord/createDescription', Authentication, (req, res) => {
     })
 })
 
-router.post('/caseRecord/bulkCreateImage', Authentication, (req, res) => {
+router.post('/caseRecord/bulkCreateImage', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const caseRecordImageOptionsArray = req.body.caseRecordImageOptionsArray;
     caseRecordImageCRUD.bulkCreate(caseRecordImageOptionsArray, (caseRecordImages, err) => {
         if (err) {
@@ -119,7 +125,7 @@ router.post('/caseRecord/bulkCreateImage', Authentication, (req, res) => {
 })
 
 router.post('/caseRecord/createImage', 
-    Authentication, 
+    Authentication_SHOPM, 
     getCaseRecordMid, 
     patientRole, 
     isCurrentPage, 
@@ -152,7 +158,9 @@ router.post('/caseRecord/createImage',
     })
 })
 
-router.post('/caseRecord/createPrescription', Authentication, (req, res) => {
+router.post('/caseRecord/createPrescription', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const caseRecordPrescriptionOptions = req.body.caseRecordPrescriptionOptions;
     caseRecordPrescription.create(caseRecordPrescriptionOptions, (caseRecordPrescription, err) => {
         if (err) {
@@ -176,7 +184,9 @@ router.post('/caseRecord/createPrescription', Authentication, (req, res) => {
     })
 })
 
-router.patch('/caseRecord/sendRequireToDoctorPharmacist', Authentication, (req, res) => {
+router.patch('/caseRecord/sendRequireToDoctorPharmacist', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const userOptions = req.decodedToken.data;
     const uuid_caseRecord = req.body.uuid_caseRecord;
     const uuid_doctorOrPharmacist = req.body.uuid_doctorOrPharmacist;
@@ -202,7 +212,9 @@ router.patch('/caseRecord/sendRequireToDoctorPharmacist', Authentication, (req, 
     })
 })
 
-router.patch('/caseRecord/patchDoctorPharmacist', Authentication, (req, res) => {
+router.patch('/caseRecord/patchDoctorPharmacist', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const userOptions = req.decodedToken.data;
     const uuid_caseRecord = req.body.uuid_caseRecord;
     const uuid_doctorOrPharmacist = req.body.uuid_doctorOrPharmacist;
@@ -221,7 +233,7 @@ router.patch('/caseRecord/patchDoctorPharmacist', Authentication, (req, res) => 
 })
 
 router.patch('/caseRecord/patchStatusCRCCaseRecord', 
-    Authentication, 
+    Authentication_SHOPM, 
     patientRole, 
     (req, res) => {
     const caseRecordOptions = req.body.caseRecord;
@@ -249,7 +261,7 @@ router.patch('/caseRecord/patchStatusCRCCaseRecord',
 })
 
 router.patch('/caseRecord/patchDescription', 
-    Authentication, 
+    Authentication_SHOPM, 
     getCaseRecordMid, 
     patientRole, 
     isCurrentPage, 
@@ -275,7 +287,7 @@ router.patch('/caseRecord/patchDescription',
     })
 })
 
-// router.patch('/caseRecord/patchImages', Authentication, patientRole, caseRecordCheckLock, (req, res) => {
+// router.patch('/caseRecord/patchImages', Authentication_SHOPM, patientRole, caseRecordCheckLock, (req, res) => {
 //     const caseRecord = req.body.caseRecord;
 //     const uuid_caseRecordImage = req.body.uuid_caseRecordImage;
 //     const images = req.body.images;
@@ -295,7 +307,7 @@ router.patch('/caseRecord/patchDescription',
 // })
 
 router.patch('/caseRecord/patchCaseRecordImageTitle', 
-    Authentication, 
+    Authentication_SHOPM, 
     getCaseRecordMid, 
     patientRole, 
     isCurrentPage, 
@@ -321,7 +333,7 @@ router.patch('/caseRecord/patchCaseRecordImageTitle',
 })
 
 router.patch('/caseRecord/deleteCaseRecordImage', 
-    Authentication, 
+    Authentication_SHOPM, 
     getCaseRecordMid, 
     patientRole, 
     isCurrentPage,  
@@ -346,7 +358,7 @@ router.patch('/caseRecord/deleteCaseRecordImage',
 })
 
 router.patch('/caseRecord/savePrescription', 
-    Authentication, 
+    Authentication_SHOPM, 
     getCaseRecordMid, 
     doctorOrPharmacistRole, 
     isCurrentPage, 
@@ -373,7 +385,7 @@ router.patch('/caseRecord/savePrescription',
 })
 
 router.post('/caseRecord/addMedication', 
-    Authentication, 
+    Authentication_SHOPM, 
     getCaseRecordMid, 
     doctorOrPharmacistRole, 
     isCurrentPage, 
@@ -409,7 +421,7 @@ router.post('/caseRecord/addMedication',
 })
 
 router.patch('/caseRecord/editMedication', 
-    Authentication, 
+    Authentication_SHOPM, 
     getCaseRecordMid, 
     doctorOrPharmacistRole, 
     isCurrentPage, 
@@ -444,7 +456,7 @@ router.patch('/caseRecord/editMedication',
 })
 
 router.delete('/caseRecord/deleteMedication', 
-    Authentication, 
+    Authentication_SHOPM, 
     getCaseRecordMid, 
     doctorOrPharmacistRole, 
     isCurrentPage, 
@@ -476,7 +488,7 @@ router.delete('/caseRecord/deleteMedication',
 })
 
 router.post('/caseRecord/createLock', 
-    Authentication, 
+    Authentication_SHOPM, 
     getCaseRecordMid, 
     doctorOrPharmacistAndPatientRole, 
     isCurrentPage, 
@@ -521,7 +533,7 @@ router.post('/caseRecord/createLock',
 })
 
 router.delete('/caseRecord/deleteLock', 
-    Authentication, 
+    Authentication_SHOPM, 
     getCaseRecordMid, 
     doctorOrPharmacistAndPatientRole, 
     isCurrentPage, 
@@ -549,7 +561,7 @@ router.delete('/caseRecord/deleteLock',
 })
 
 router.patch('/caseRecord/patchStatusIsCompletedPrescription', 
-    Authentication, 
+    Authentication_SHOPM, 
     getCaseRecordMid, 
     doctorOrPharmacistRole, 
     isCurrentPage, 
@@ -581,7 +593,7 @@ router.patch('/caseRecord/patchStatusIsCompletedPrescription',
 })
 
 router.patch('/caseRecord/patchStatusIsCompleted', 
-    Authentication, 
+    Authentication_SHOPM, 
     getCaseRecordMid, 
     patientRole, 
     isCurrentPage, 
@@ -615,7 +627,7 @@ router.patch('/caseRecord/patchStatusIsCompleted',
 })
 
 router.patch('/caseRecord/doctorOrPharmacistRequirePrescriptionAgain', 
-    Authentication, 
+    Authentication_SHOPM, 
     getCaseRecordMid, 
     doctorOrPharmacistRole, 
     isCurrentPage, 
@@ -646,7 +658,7 @@ router.patch('/caseRecord/doctorOrPharmacistRequirePrescriptionAgain',
 })
 
 router.patch('/caseRecord/patientAgreeRequirePrescriptionAgain', 
-    Authentication, 
+    Authentication_SHOPM, 
     getCaseRecordMid, 
     doctorOrPharmacistRole, 
     isCurrentPage,

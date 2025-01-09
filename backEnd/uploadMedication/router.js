@@ -5,12 +5,12 @@ const router = express.Router();
 
 const { medicationCRUD } = require('./src/model/CRUDDATABASE/CRUD_Medication');
 const { isProvider } = require('./src/middle/isProvider');
-const { Authentication } = require('./src/auth/Authentication');
+const { Authentication_SHOPM } = require('./src/auth/Authentication');
 const { logEvents } = require('./logEvents');
 
 
 router.post('/provider/createMedication', 
-    Authentication, 
+    Authentication_SHOPM, 
     isProvider,
     (req, res) => {
     const createMedicationOptions = req.body.createMedicationOptions; 
@@ -37,7 +37,9 @@ router.post('/provider/createMedication',
     })
 })
 
-router.patch('/provider/medication/patch', Authentication, (req, res) => {
+router.patch('/provider/medication/patch', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const decodedToken = req.decodedToken;
     const uuid_user = decodedToken.data.uuid;
     const medicateOptions = req.body;

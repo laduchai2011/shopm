@@ -6,7 +6,7 @@ const router = express.Router();
 // const { serviceRedis } = require('./src/model/serviceRedis');
 // const { serviceRedlock } = require('./src/config/serviceRedlock');
 const { 
-    // Authentication_SHOPM,
+    Authentication_SHOPM,
     // Authentication_TKS
 } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');

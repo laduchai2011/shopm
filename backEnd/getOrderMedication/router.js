@@ -6,7 +6,7 @@ const router = express.Router();
 // const { crudMedication } = require('./src/model/CRUDDATABASE/CRUDMEDICATION');
 // const { crudProvider } = require('./src/model/CRUDDATABASE/CRUDPROVIDER');
 const { serviceRedis } = require('./src/model/serviceRedis');
-const { Authentication } = require('./src/auth/Authentication');
+const { Authentication_SHOPM } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
 // const { patientRole } = require('./src/middle/patientRole');
@@ -24,7 +24,9 @@ const { doctorOrPharmacistAndPatientRole } = require('./src/middle/doctorOrPharm
 */ 
 
 
-router.get('/orderMedication/readWithUuid', Authentication, (req, res) => {
+router.get('/orderMedication/readWithUuid', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const uuid_orderMedication = req.query.uuid_orderMedication;
     orderMedicationCRUD.readWithUuid(uuid_orderMedication, (orderMedication, err) => {
         if (err) {
@@ -47,7 +49,9 @@ router.get('/orderMedication/readWithUuid', Authentication, (req, res) => {
     })
 })
 
-router.get('/orderMedication/getListFromProfile', Authentication, (req, res) => {
+router.get('/orderMedication/getListFromProfile', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const uuid_user = req.query.uuid_user;
     const pageIndex = req.query.pageIndex;
     const pageSize = req.query.pageSize;
@@ -71,7 +75,9 @@ router.get('/orderMedication/getListFromProfile', Authentication, (req, res) => 
     })
 })
 
-router.get('/orderMedication/readHistoriesWithFK', Authentication, (req, res) => {
+router.get('/orderMedication/readHistoriesWithFK', 
+    Authentication_SHOPM, 
+    (req, res) => {
     // const uuid_orderMedication = req.query.uuid_orderMedication;
     // historyCRUD.realAll(uuid_orderMedication, (historyOptionsList, err) => {
     //     if (err) {
@@ -94,7 +100,10 @@ router.get('/orderMedication/readHistoriesWithFK', Authentication, (req, res) =>
     // })
 })
 
-router.get('/orderMedication/readWithCaseRecord', Authentication, doctorOrPharmacistAndPatientRole, (req, res) => {
+router.get('/orderMedication/readWithCaseRecord', 
+    Authentication_SHOPM, 
+    doctorOrPharmacistAndPatientRole, 
+    (req, res) => {
     // const pageNumber = req.query.pageNumber;
     // const uuid_caseRecord = req.query.uuid_caseRecord;
     // orderMedicationCRUD.readWithCaseRecord(uuid_caseRecord, pageNumber, (orderMedication, err) => {
@@ -118,7 +127,9 @@ router.get('/orderMedication/readWithCaseRecord', Authentication, doctorOrPharma
     // })
 })
 
-router.get('/orderMedication/getTransportWithFk', Authentication, (req, res) => {
+router.get('/orderMedication/getTransportWithFk', 
+    Authentication_SHOPM, 
+    (req, res) => {
     // const uuid_orderMedication = req.query.uuid_orderMedication;
     // transportCRUD.readWithFk(uuid_orderMedication, (transport, err) => {
     //     if (err) {
@@ -141,7 +152,9 @@ router.get('/orderMedication/getTransportWithFk', Authentication, (req, res) => 
     // })
 })
 
-router.get('/orderMedication/getPaymentMedicationtWithFk', Authentication, (req, res) => {
+router.get('/orderMedication/getPaymentMedicationtWithFk', 
+    Authentication_SHOPM, 
+    (req, res) => {
     // const uuid_orderMedication = req.query.uuid_orderMedication;
     // paymentMedicationCRUD.readWithFk(uuid_orderMedication, (paymentMedication, err) => {
     //     if (err) {
@@ -164,7 +177,9 @@ router.get('/orderMedication/getPaymentMedicationtWithFk', Authentication, (req,
     // })
 })
 
-router.get('/getCurrentCart', Authentication, (req, res) => {
+router.get('/getCurrentCart', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const userOptions = req.decodedToken.data;
     const currentCartKey = `currentCart-${userOptions.uuid}`;
     serviceRedis.getData(currentCartKey, (currentCart) => {

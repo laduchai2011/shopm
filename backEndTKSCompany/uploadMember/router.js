@@ -5,9 +5,9 @@ const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
 
 const { serviceRedis } = require('./src/model/serviceRedis');
-const { serviceRedlock } = require('./src/config/serviceRedlock');
+// const { serviceRedlock } = require('./src/config/serviceRedlock');
 const { token } = require('./src/model/token');
-const { Authentication } = require('./src/auth/Authentication');
+// const { Authentication_TKS } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
 // const { SvMessage } = require('./src/model/svMessage');
@@ -19,7 +19,8 @@ if (process.env.NODE_ENV !== 'development') {
     secure_cookie = true;
 }
 
-router.post('/login', (req, res) => {
+router.post('/login', 
+    (req, res) => {
     const loginOptions = req.body.loginOptions;
     memberCRUD.readToLogin(loginOptions, async (member, err) => {
         if (err) {

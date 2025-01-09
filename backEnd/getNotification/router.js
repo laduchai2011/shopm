@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 // const { serviceRedis } = require('./src/model/serviceRedis');
-const { Authentication } = require('./src/auth/Authentication');
+const { Authentication_SHOPM } = require('./src/auth/Authentication');
 // const { Authorization } = require('./src/auth/Authorization');
 const { logEvents } = require('./logEvents');
 const { notification } = require('./src/model/CRUDDATABASE/CRUDNOTIFICATION');
@@ -15,7 +15,9 @@ if (process.env.NODE_ENV !== 'development') {
     secure_cookie = true;
 }
 
-router.get('/getNotificationCount', Authentication, (req, res) => {
+router.get('/getNotificationCount', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const type = req.query.type;
     const status = req.query.status;
     const userOptions = req.decodedToken.data;
@@ -39,7 +41,9 @@ router.get('/getNotificationCount', Authentication, (req, res) => {
     })
 })
 
-router.get('/getNotificationList', Authentication, (req, res) => {
+router.get('/getNotificationList', 
+    Authentication_SHOPM, 
+    (req, res) => {
     const pageIndex = req.query.pageIndex;
     const pageSize = req.query.pageSize;
     const type = req.query.type;
