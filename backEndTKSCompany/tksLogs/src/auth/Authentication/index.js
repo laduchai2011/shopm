@@ -2,7 +2,7 @@
 const { v4: uuidv4 } = require('uuid');
 const { token } = require('../../model/token');
 const { serviceRedis } = require('../../model/serviceRedis');
-const { logEvent, logError } = require('../../../logEvents');
+const { logEvents } = require('../../../logEvents');
 const { serviceRedlock } = require('../../config/serviceRedlock');
 
 const PARENT_FOLDER_OF_SERVICE = process.env.PARENT_FOLDER_OF_SERVICE;
@@ -24,15 +24,8 @@ async function Authentication_SHOPM(req, res, next) {
                 const preSecretKey = redisData.preSecretKey;
                 token.verify(accessToken, secretKey, async (err1, decodedAccessToken) => {
                     if(err1) {
-                        // logEvents(`${req.url}---${req.method}---${err1}: token.verify-accessToken`);
-                        const createErr = {
-                            file: 'index.js',
-                            path: path_of_this_file,
-                            url: req.url,
-                            err: err1,
-                            message: 'token.verify-accessToken'
-                        }
-                        logEvent(createErr);
+                        logEvents(`${req.url}---${req.method}---${err1}: token.verify-accessToken`);
+                       
                         if ((redisData.refreshedToken === accessToken) && (redisData.refreshToken === refreshToken)) {
                             req.decodedToken = redisData.decodedToken;
                             await lock.release();
@@ -40,15 +33,8 @@ async function Authentication_SHOPM(req, res, next) {
                         } else if ((redisData.accessToken === accessToken) && (redisData.refreshToken === refreshToken)) {
                             token.verify(refreshToken, secretKey, async (err2, decodedRefreshToken) => {
                                 if(err2) {
-                                    // logEvents(`${req.url}---${req.method}---${err2}: Token expired. Please login again !`);
-                                    const createErr = {
-                                        file: 'index.js',
-                                        path: path_of_this_file,
-                                        url: req.url,
-                                        err: err2,
-                                        message: 'Token expired. Please login again !'
-                                    }
-                                    logEvent(createErr);
+                                    logEvents(`${req.url}---${req.method}---${err2}: Token expired. Please login again !`);
+                                    
                                     await lock.release();
                                     return res.status(200).json({
                                         message: 'Token expired. Please login again !',
@@ -63,15 +49,8 @@ async function Authentication_SHOPM(req, res, next) {
                                     newRefreshToken = await token.createRefreshToken(newSecretKey, decodedRefreshToken.data);
                                     newAccessToken = await token.createAccessTokens(newSecretKey, decodedRefreshToken.data);
                                 } catch (error) {
-                                    // logEvents(`${req.url}---${req.method}---${error}: Please login 1 !`);
-                                    const createErr = {
-                                        file: 'index.js',
-                                        path: path_of_this_file,
-                                        url: req.url,
-                                        err: error,
-                                        message: 'Please login 1 !'
-                                    }
-                                    logError(createErr);
+                                    logEvents(`${req.url}---${req.method}---${error}: Please login 1 !`);
+                                   
                                     await lock.release();
                                     return res.status(200).json({
                                         message: 'Please login 1 !',
@@ -104,15 +83,8 @@ async function Authentication_SHOPM(req, res, next) {
                                 try {
                                     await serviceRedis.setData(keyServiceRedis, jsonValue, timeExpireat);
                                 } catch (error) {
-                                    // logEvents(`${req.url}---${req.method}---${error}: Please login 2 !`);
-                                    const createErr = {
-                                        file: 'index.js',
-                                        path: path_of_this_file,
-                                        url: req.url,
-                                        err: error,
-                                        message: 'Please login 2 !'
-                                    }
-                                    logError(createErr);
+                                    logEvents(`${req.url}---${req.method}---${error}: Please login 2 !`);
+                                    
                                     await lock.release();
                                     return res.status(200).json({
                                         message: 'Please login 2 !',
@@ -154,15 +126,8 @@ async function Authentication_SHOPM(req, res, next) {
                         } else if ((redisData.preAccessToken === accessToken) && (redisData.preRefreshToken === refreshToken)) {
                             token.verify(refreshToken, preSecretKey, async (err2, decodedRefreshToken) => {
                                 if(err2) {
-                                    // logEvents(`${req.url}---${req.method}---${err2}: Access token expired !`);
-                                    const createErr = {
-                                        file: 'index.js',
-                                        path: path_of_this_file,
-                                        url: req.url,
-                                        err: error,
-                                        message: 'Access token expired !'
-                                    }
-                                    logEvent(createErr);
+                                    logEvents(`${req.url}---${req.method}---${err2}: Access token expired !`);
+                                    
                                     await lock.release();
                                     return res.status(200).json({
                                         message: 'Access token expired !',
@@ -177,15 +142,8 @@ async function Authentication_SHOPM(req, res, next) {
                             })
                         } else {
                             if(redisData.refreshToken_used.includes(refreshToken)) {
-                                // logEvents(`${req.url}---${req.method}: Your account is attacked. Please login again !`);
-                                const createErr = {
-                                    file: 'index.js',
-                                    path: path_of_this_file,
-                                    url: req.url,
-                                    err: error,
-                                    message: 'Your account is attacked. Please login again !'
-                                }
-                                logError(createErr);
+                                logEvents(`${req.url}---${req.method}: Your account is attacked. Please login again !`);
+                                
                                 await lock.release();
                                 return res.status(200).json({
                                     message: 'Your account is attacked. Please login again !',
@@ -193,15 +151,8 @@ async function Authentication_SHOPM(req, res, next) {
                                     success: false
                                 })
                             } else {
-                                // logEvents(`${req.url}---${req.method}: Invalid token. Please login !`);
-                                const createErr = {
-                                    file: 'index.js',
-                                    path: path_of_this_file,
-                                    url: req.url,
-                                    err: error,
-                                    message: 'Invalid token. Please login !'
-                                }
-                                logError(createErr);
+                                logEvents(`${req.url}---${req.method}: Invalid token. Please login !`);
+                                
                                 await lock.release();
                                 return res.status(200).json({
                                     message: 'Invalid token. Please login !',
@@ -222,15 +173,8 @@ async function Authentication_SHOPM(req, res, next) {
                     }
                 })
             } else {
-                // logEvents(`${req.url}---${req.method}: Please login 3 !`);
-                const createErr = {
-                    file: 'index.js',
-                    path: path_of_this_file,
-                    url: req.url,
-                    err: error,
-                    message: 'Please login 3 !'
-                }
-                logEvent(createErr);
+                logEvents(`${req.url}---${req.method}: Please login 3 !`);
+                
                 await lock.release();
                 return res.status(200).json({
                     message: 'Please login 3 !',
@@ -240,15 +184,8 @@ async function Authentication_SHOPM(req, res, next) {
             }
         })
     } catch (error) {
-        // logEvents(`${req.url}---${req.method}: Please login 4 !`);
-        const createErr = {
-            file: 'index.js',
-            path: path_of_this_file,
-            url: req.url,
-            err: error,
-            message: 'Please login 4 !'
-        }
-        logError(createErr);
+        logEvents(`${req.url}---${req.method}: Please login 4 !`);
+        
         return res.status(200).json({
             message: 'Please login 4 !',
             status: false, 
@@ -273,15 +210,8 @@ async function Authentication_TKS(req, res, next) {
                 const preSecretKey = redisData.preSecretKey;
                 token.verify(accessTokenTKS, secretKey, async (err1, decodedAccessToken) => {
                     if(err1) {
-                        // logEvents(`${req.url}---${req.method}---${err1}: token.verify-accessToken`);
-                        const createErr = {
-                            file: 'index.js',
-                            path: path_of_this_file,
-                            url: req.url,
-                            err: err1,
-                            message: 'token.verify-accessToken'
-                        }
-                        logEvent(createErr);
+                        logEvents(`${req.url}---${req.method}---${err1}: token.verify-accessToken`);
+                        
                         if ((redisData.refreshedToken === accessTokenTKS) && (redisData.refreshToken === refreshTokenTKS)) {
                             req.decodedToken = redisData.decodedToken;
                             await lock.release();
@@ -289,15 +219,8 @@ async function Authentication_TKS(req, res, next) {
                         } else if ((redisData.accessToken === accessTokenTKS) && (redisData.refreshToken === refreshTokenTKS)) {
                             token.verify(refreshTokenTKS, secretKey, async (err2, decodedRefreshToken) => {
                                 if(err2) {
-                                     // logEvents(`${req.url}---${req.method}---${err2}: Token expired. Please login again !`);
-                                     const createErr = {
-                                        file: 'index.js',
-                                        path: path_of_this_file,
-                                        url: req.url,
-                                        err: err2,
-                                        message: 'Token expired. Please login again !'
-                                    }
-                                    logEvent(createErr);
+                                    logEvents(`${req.url}---${req.method}---${err2}: Token expired. Please login again !`);
+                                    
                                     await lock.release();
                                     return res.status(200).json({
                                         message: 'Token expired. Please login again !',
@@ -312,15 +235,8 @@ async function Authentication_TKS(req, res, next) {
                                     newRefreshToken = await token.createRefreshToken(newSecretKey, decodedRefreshToken.data);
                                     newAccessToken = await token.createAccessTokens(newSecretKey, decodedRefreshToken.data);
                                 } catch (error) {
-                                    // logEvents(`${req.url}---${req.method}---${error}: Please login 1 !`);
-                                    const createErr = {
-                                        file: 'index.js',
-                                        path: path_of_this_file,
-                                        url: req.url,
-                                        err: error,
-                                        message: 'Please login 1 !'
-                                    }
-                                    logError(createErr);
+                                    logEvents(`${req.url}---${req.method}---${error}: Please login 1 !`);
+                                    
                                     await lock.release();
                                     return res.status(200).json({
                                         message: 'Please login 1 !',
@@ -353,15 +269,8 @@ async function Authentication_TKS(req, res, next) {
                                 try {
                                     await serviceRedis.setData(keyServiceRedis, jsonValue, timeExpireat);
                                 } catch (error) {
-                                    // logEvents(`${req.url}---${req.method}---${error}: Please login 2 !`);
-                                    const createErr = {
-                                        file: 'index.js',
-                                        path: path_of_this_file,
-                                        url: req.url,
-                                        err: error,
-                                        message: 'Please login 2 !'
-                                    }
-                                    logError(createErr);
+                                    logEvents(`${req.url}---${req.method}---${error}: Please login 2 !`);
+                                    
                                     await lock.release();
                                     return res.status(200).json({
                                         message: 'Please login 2 !',
@@ -403,15 +312,8 @@ async function Authentication_TKS(req, res, next) {
                         } else if ((redisData.preAccessToken === accessTokenTKS) && (redisData.preRefreshToken === refreshTokenTKS)) {
                             token.verify(refreshTokenTKS, preSecretKey, async (err2, decodedRefreshToken) => {
                                 if(err2) {
-                                    // logEvents(`${req.url}---${req.method}---${err2}: Access token expired !`);
-                                    const createErr = {
-                                        file: 'index.js',
-                                        path: path_of_this_file,
-                                        url: req.url,
-                                        err: error,
-                                        message: 'Access token expired !'
-                                    }
-                                    logEvent(createErr);
+                                    logEvents(`${req.url}---${req.method}---${err2}: Access token expired !`);
+                                    
                                     await lock.release();
                                     return res.status(200).json({
                                         message: 'Access token expired !',
@@ -426,15 +328,8 @@ async function Authentication_TKS(req, res, next) {
                             })
                         } else {
                             if(redisData.refreshToken_used.includes(refreshTokenTKS) !== -1) {
-                                // logEvents(`${req.url}---${req.method}: Your account is attacked. Please login again !`);
-                                const createErr = {
-                                    file: 'index.js',
-                                    path: path_of_this_file,
-                                    url: req.url,
-                                    err: error,
-                                    message: 'Your account is attacked. Please login again !'
-                                }
-                                logError(createErr);
+                                logEvents(`${req.url}---${req.method}: Your account is attacked. Please login again !`);
+                                
                                 await lock.release();
                                 return res.status(200).json({
                                     message: 'Your account is attacked. Please login again !',
@@ -442,15 +337,8 @@ async function Authentication_TKS(req, res, next) {
                                     success: false
                                 })
                             } else {
-                                // logEvents(`${req.url}---${req.method}: Invalid token. Please login !`);
-                                const createErr = {
-                                    file: 'index.js',
-                                    path: path_of_this_file,
-                                    url: req.url,
-                                    err: error,
-                                    message: 'Invalid token. Please login !'
-                                }
-                                logError(createErr);
+                                logEvents(`${req.url}---${req.method}: Invalid token. Please login !`);
+                                
                                 await lock.release();
                                 return res.status(200).json({
                                     message: 'Invalid token. Please login !',
@@ -471,15 +359,8 @@ async function Authentication_TKS(req, res, next) {
                     }
                 })
             } else {
-                // logEvents(`${req.url}---${req.method}: Please login 3 !`);
-                const createErr = {
-                    file: 'index.js',
-                    path: path_of_this_file,
-                    url: req.url,
-                    err: error,
-                    message: 'Please login 3 !'
-                }
-                logEvent(createErr);
+                logEvents(`${req.url}---${req.method}: Please login 3 !`);
+                
                 await lock.release();
                 return res.status(200).json({
                     message: 'Please login 3 !',
@@ -489,15 +370,8 @@ async function Authentication_TKS(req, res, next) {
             }
         })
     } catch (error) {
-         // logEvents(`${req.url}---${req.method}: Please login 4 !`);
-         const createErr = {
-            file: 'index.js',
-            path: path_of_this_file,
-            url: req.url,
-            err: error,
-            message: 'Please login 4 !'
-        }
-        logError(createErr);
+        logEvents(`${req.url}---${req.method}: Please login 4 !`);
+         
         return res.status(200).json({
             message: 'Please login 4 !',
             status: false, 

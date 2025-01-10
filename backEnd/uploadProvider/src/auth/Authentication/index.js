@@ -159,7 +159,7 @@ async function Authentication_SHOPM(req, res, next) {
                                         file: 'index.js',
                                         path: path_of_this_file,
                                         url: req.url,
-                                        err: error,
+                                        err: err2,
                                         message: 'Access token expired !'
                                     }
                                     logEvent(createErr);
@@ -182,7 +182,7 @@ async function Authentication_SHOPM(req, res, next) {
                                     file: 'index.js',
                                     path: path_of_this_file,
                                     url: req.url,
-                                    err: error,
+                                    err: null,
                                     message: 'Your account is attacked. Please login again !'
                                 }
                                 logError(createErr);
@@ -198,7 +198,7 @@ async function Authentication_SHOPM(req, res, next) {
                                     file: 'index.js',
                                     path: path_of_this_file,
                                     url: req.url,
-                                    err: error,
+                                    err: null,
                                     message: 'Invalid token. Please login !'
                                 }
                                 logError(createErr);
@@ -227,7 +227,7 @@ async function Authentication_SHOPM(req, res, next) {
                     file: 'index.js',
                     path: path_of_this_file,
                     url: req.url,
-                    err: error,
+                    err: null,
                     message: 'Please login 3 !'
                 }
                 logEvent(createErr);
@@ -408,7 +408,7 @@ async function Authentication_TKS(req, res, next) {
                                         file: 'index.js',
                                         path: path_of_this_file,
                                         url: req.url,
-                                        err: error,
+                                        err: err2,
                                         message: 'Access token expired !'
                                     }
                                     logEvent(createErr);
@@ -431,7 +431,7 @@ async function Authentication_TKS(req, res, next) {
                                     file: 'index.js',
                                     path: path_of_this_file,
                                     url: req.url,
-                                    err: error,
+                                    err: null,
                                     message: 'Your account is attacked. Please login again !'
                                 }
                                 logError(createErr);
@@ -447,7 +447,7 @@ async function Authentication_TKS(req, res, next) {
                                     file: 'index.js',
                                     path: path_of_this_file,
                                     url: req.url,
-                                    err: error,
+                                    err: null,
                                     message: 'Invalid token. Please login !'
                                 }
                                 logError(createErr);
@@ -476,7 +476,7 @@ async function Authentication_TKS(req, res, next) {
                     file: 'index.js',
                     path: path_of_this_file,
                     url: req.url,
-                    err: error,
+                    err: null,
                     message: 'Please login 3 !'
                 }
                 logEvent(createErr);
