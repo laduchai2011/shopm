@@ -5,6 +5,7 @@ import './styles.css';
 const Home: FC<{}> = () => {
 
     return <div className="TKS-Home">
+        Home
     </div>;
 };
 
