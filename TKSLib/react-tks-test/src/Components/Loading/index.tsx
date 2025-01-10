@@ -17,8 +17,8 @@ import LineCircle from './components/LineCircle';
 import Skeleton from './components/Skeleton';
 
 interface MyLoadProps extends React.HTMLProps<HTMLDivElement> {
-    load: LoadProps ;
-    [key: string]: any;
+    load: LoadProps,
+    [key: string]: any
 }
 
 const Loading: FC<MyLoadProps> = ({ load, ...props }) => {

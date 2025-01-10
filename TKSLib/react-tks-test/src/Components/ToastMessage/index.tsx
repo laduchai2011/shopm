@@ -13,8 +13,8 @@ interface CreateElementProps {
 }
 
 interface MyToastMessageProps extends React.HTMLProps<HTMLDivElement> {
-    toastMessage?: ToastMessageProps;
-    [key: string]: any;
+    toastMessage?: ToastMessageProps,
+    [key: string]: any
 }
 
 const ToastMessage: FC<MyToastMessageProps> = ({ toastMessage, ...props }) => {

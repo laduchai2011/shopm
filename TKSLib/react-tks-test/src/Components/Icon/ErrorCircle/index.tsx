@@ -4,8 +4,8 @@ import './styles.css';
 import { ErrorCircleProps } from 'src/define';
 
 interface MyErrorCircleProps extends React.HTMLProps<SVGSVGElement> {
-    errorCircle?: ErrorCircleProps;
-    [key: string]: any;
+    errorCircle?: ErrorCircleProps,
+    [key: string]: any
 }
 
 const ErrorCircle: FC<MyErrorCircleProps> = ({errorCircle, ...props}) => {

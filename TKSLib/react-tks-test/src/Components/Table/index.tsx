@@ -21,8 +21,8 @@ import Control from './components/Control';
 
 
 interface MyTableProps extends React.HTMLProps<HTMLDivElement> {
-    table?: TableProps
-    [key: string]: any;
+    table?: TableProps,
+    [key: string]: any
 }
 
 const Table: FC<MyTableProps> = ({ 

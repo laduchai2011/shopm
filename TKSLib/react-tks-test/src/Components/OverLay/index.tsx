@@ -6,8 +6,8 @@ import { TKSProps, TKS_Init, OverlayProps } from 'src/define';
 import { OVERLAY_CONST } from 'src/const';
 
 interface MyOverlayProps extends React.HTMLProps<HTMLDivElement> {
-    overlay?: OverlayProps;
-    [key: string]: any;
+    overlay?: OverlayProps,
+    [key: string]: any
 }
 
 const Overlay: FC<MyOverlayProps> = ({overlay, ...props}) => {

@@ -5,8 +5,8 @@ import { DeleteCircleProps } from 'src/define';
 
 
 interface MyDeleteCircleProps extends React.HTMLProps<SVGSVGElement> {
-    deleteCircle?: DeleteCircleProps;
-    [key: string]: any;
+    deleteCircle?: DeleteCircleProps,
+    [key: string]: any
 }
 
 const DeleteCircle: FC<MyDeleteCircleProps> = ({deleteCircle, ...props}) => {

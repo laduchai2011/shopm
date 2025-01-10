@@ -10,8 +10,8 @@ import { TKSProps, TKS_Init, DialogProps } from 'src/define';
 import { DIALOG_CONST } from 'src/const';
 
 interface MyDialogProps extends React.HTMLProps<HTMLDivElement> {
-    dialog?: DialogProps;
-    [key: string]: any;
+    dialog?: DialogProps,
+    [key: string]: any
 }
 
 const Dialog: FC<MyDialogProps> = ({
