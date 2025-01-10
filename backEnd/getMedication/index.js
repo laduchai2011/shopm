@@ -7,13 +7,18 @@ const cookieParser = require('cookie-parser');
 require('./serviceMessage');
 
 const baseURL_shopm = process.env.NODE_ENV_BASEURL_SHOPM || `http://shopm.tks.local:3000`;
-const baseURL_Selling = process.env.NODE_ENV_BASEURL_SELLING || `http://shopm.tks.local:3001`;
+const baseURL_selling = process.env.NODE_ENV_BASEURL_SELLING || `http://shopm.tks.local:3001`;
 const service = process.env.SERVICE;
+
+const allowedOrigins = [baseURL_shopm, baseURL_selling];
 
 //add other middleware
 app.use(`/api/${service}`, function (req, res, next) {
     // specify CORS headers to send
-    res.header('Access-Control-Allow-Origin', baseURL_shopm);
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.header('Access-Control-Allow-Origin', origin);
+    }
     res.header(
         'Access-Control-Allow-Methods',
         'POST, PUT, PATCH, GET, DELETE, OPTIONS',
@@ -24,20 +29,6 @@ app.use(`/api/${service}`, function (req, res, next) {
     );
     next();
 });
-app.use(`/api/${service}`, function (req, res, next) {
-    // specify CORS headers to send
-    res.header('Access-Control-Allow-Origin', baseURL_Selling);
-    res.header(
-        'Access-Control-Allow-Methods',
-        'POST, PUT, PATCH, GET, DELETE, OPTIONS',
-    );
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header(
-        'Access-Control-Allow-Headers', 'Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization, X-Firebase-CheckToken'
-    );
-    next();
-});
-
 
 if (process.env.NODE_ENV === 'development') {
     const morgan = require('morgan');

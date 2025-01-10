@@ -205,10 +205,6 @@ const Log = () => {
         })
     } 
 
-    const datatest = {
-        name: 'hai'
-    }
-
     const log_list = logs.map((data, index) => {
         const images = data?.image.length > 0 && JSON.parse(data?.image).images;
         const videos = data?.video.length > 0 && JSON.parse(data?.video).videos;

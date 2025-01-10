@@ -9,39 +9,25 @@ import MedicationCatalog from "./components/MedicationCatalog";
 import MedicationProvider from "./components/MedicationProvider";
 import MedicationInformation from "./components/MedicationInformation";
 import MedicationPay from "./components/MedicationPay";
+import MedicationDepartment from "./components/MedicationDepartment";
 
 import { MedicationContext } from './MedicationContext';
 import { useGetMedicationQuery } from "reduxStore/RTKQuery/medicationRTKQuery";
 
 
 /**
-*@typedef {
-*title: string,
-*avatar: text,
-*subject: string,
-*object: string,
-*symptom: string,
-*type: string,
-*price: float,
-*note: string,
-*catalog: text,
-*information: text,
-*amount: integer,
-*sold: integer,
-*discount: float,
-*averageRating: float,
-*rateCount: integer,
-*status: string
-*uuid_provider: uuid
-*} medicateOptions
-*/ 
+ * @typedef {import('define/madication').medicateOptions} medicateOptions
+*/
 
-const Medication = () => {
+const Medication = () => { 
+   
+    /** @type {[medicateOptions | undefined, React.Dispatch<React.SetStateAction<medicateOptions | undefined>>]} */
     const [medicationSate, setMedicationState] = useState();
     const [buyNow, setBuyNow] = useState({
         priceTotal: 0,
         status: false
     })
+
     const {id: uuid_medication} = useParams();
 
     const {
@@ -69,6 +55,7 @@ const Medication = () => {
             {medicationSate && <MedicationContext.Provider value={{ medicationSate, buyNow, setBuyNow }}>
                 <div className="Medication-main">
                     <MedicationCommonInfor />
+                    <MedicationDepartment />
                     <MedicationCatalog />
                     <MedicationProvider />
                     <MedicationInformation />

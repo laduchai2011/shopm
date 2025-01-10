@@ -18,23 +18,11 @@ import {
     useGetMedicationImageListQuery 
 } from "reduxStore/RTKQuery/medicationRTKQuery";
 
-import { baseURL } from "config/server";
-
+import { baseURL } from "config/server"; 
 
 /**
-*@typedef {
-*pageNumber: string,
-*name: string,
-*amount: INTEGER.UNSIGNED,
-*note: text,
-*price: INTEGER.UNSIGNED,
-*discount: FLOAT,
-*cost: INTEGER.UNSIGNED,
-*status: string,
-*uuid_caseRecord: uuid,
-*uuid_medication: uuid
-*} caseRecordMedicationOptions
-*/  
+ * @typedef {import('define/caseRecord').caseRecordMedicationOptions} caseRecordMedicationOptions
+*/
 
 const MedicationCommonInfor = () => {
     const { medicationSate, setBuyNow } = useContext(MedicationContext);
@@ -153,6 +141,7 @@ const MedicationCommonInfor = () => {
                 const resData = res.data;
                 if (resData?.success) {
                     // const caseRecord = resData.caseRecord;
+                    /** @type {caseRecordMedicationOptions} */
                     const caseRecordMedicationOptions = {
                         pageNumber: currentCart.pageNumber,
                         name: medicationSate.name,

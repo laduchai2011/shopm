@@ -58,14 +58,6 @@ const Chest = () => {
         type: 'SUCCESS',
         message: 'toastMessage'
     }
-
-    const product = {
-        name: "Shirt",
-        type: {
-            title: 213,
-            image: '124123432dfdzfszdf'
-        }
-    };
     
 
     return (
@@ -91,27 +83,6 @@ const Chest = () => {
                 </div>
             </div>
             <ToastMessage toastMessage={toastMessage} />
-            <pre>{JSON.stringify(product, null, 2)}</pre>
-            {/* <pre>
-                <code> {[ 
-                    { 
-                        product_id: "001", 
-                        name: "Wireless Headphones", 
-                        price: 99.99, 
-                        color: "Black", 
-                        description: "High-quality wireless headphones with noise-cancellation and long battery life.", 
-                        category: "Electronics" 
-                    }, 
-                    { 
-                        product_id: "002", 
-                        name: "Smartwatch", 
-                        price: 199.99, 
-                        color: "Silver", 
-                        description: "Stylish smartwatch with fitness tracking, heart rate monitor, and GPS.", 
-                        category: "Wearables" 
-                    }
-                ]} </code>
-            </pre> */}
         </div>
     )
 }
