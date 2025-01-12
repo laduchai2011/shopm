@@ -16,13 +16,12 @@ import socketSM from 'socketSM';
 import { usePatchNotificationStatusMutation } from 'reduxStore/RTKQuery/notificationRTKQuery';
 
 
-
 function App() {
 
     const [patchNotificationStatus] = usePatchNotificationStatusMutation();
     const [socketSMConnected, setSocketSMConnected] = useState(false);
     const [socketSM_sm, setSocketSM_sm] = useState();
-    
+
     // initFirebase();
     // const firebaseConfig = {
     //     apiKey: "AIzaSyDQAhwt3o-q8geqz-aH3cviIP8BIrHotoU",

@@ -19,7 +19,13 @@
     background-color: white;
 }
 
-.MedicationDepartment-catalogContainer {
-    display: grid;
-    grid-template-columns: 140px calc(100% - 200px);
+.MedicationDepartment-body > div {
+    box-sizing: border-box;
+    padding: 10px;
+    width: 100%;
+}
+
+.MedicationDepartment-table {
+    width: 100%;
+    z-index: 800;
 }

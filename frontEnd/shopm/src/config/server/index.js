@@ -1,3 +1,7 @@
+import { ADDRESS_DEPARTMENT } from "config/address";
+import { PORT_DEPARTMENT } from "config/port";
+
+
 export const baseURL                                                           = 'http://shopm.tks.local';
 export const baseURL_socket                                                    = 'ws://shopm.tks.local';
 
@@ -81,3 +85,7 @@ export const SERVER_ADDRESS_ORDERMEDICATION_GET_PAYMENTMEDICATION_WITH_FK      =
 export const SERVER_ADDRESS_GET_CURRENTCART                                    = `${baseURL}:8400/api/svGetOrderMedication/getCurrentCart`; 
 export const SERVER_ADDRESS_PATCH_CURRENTCART                                  = `${baseURL}:7400/api/svUploadOrderMedication/patchCurrentCart`; 
 export const SERVER_ADDRESS_DELETE_CURRENTCART                                 = `${baseURL}:7400/api/svUploadOrderMedication/deleteCurrentCart`; 
+
+export const SERVER_ADDRESS_DEPARTMENT = {
+    GET_FROM_MEDICATION : `${ADDRESS_DEPARTMENT.SV_GET}:${PORT_DEPARTMENT.SV_GET}/api/${ADDRESS_DEPARTMENT.NAME_SV_GET}/SHOPM_getList_department_from_medicationScreen`
+}

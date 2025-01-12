@@ -46,9 +46,7 @@ export const medicationRTKQuery = createApi({
                 } else {
                     return ['Medication'];
                 }
-            }
-                
-                
+            }      
         }),
         getMedicationListFromHome: builder.query({
             query: ({pageIndex, pageSize}) => ({

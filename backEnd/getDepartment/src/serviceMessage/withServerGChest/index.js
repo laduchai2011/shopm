@@ -1,9 +1,8 @@
 'use strict';
 require('dotenv').config();
 const { logEvents } = require('../../../logEvents');
-const { departmentCRUD } = require('../../model/CRUDDATABASE/CRUD_Depatment');
+const { departmentCRUD } = require('../../model/CRUDDATABASE/CRUD_Department');
 const { departmentGroupCRUD } = require('../../model/CRUDDATABASE/CRUD_DepartmentGroup');
-
 
 
 const service = process.env.SERVICE;

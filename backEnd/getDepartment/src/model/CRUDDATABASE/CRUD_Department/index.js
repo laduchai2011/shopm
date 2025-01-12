@@ -93,6 +93,52 @@ class Department {
             callback(allDepartment, err);
         })
     }
+
+    SHOPM_getList_department_from_medicationScreen(uuid_medication, pageIndex, pageSize, callback) {
+        let departmentList;
+        let err;
+        
+        const departmentPromise = new Promise((resolve, reject) => {
+            try {
+                sequelize.transaction(async (t) => {
+                    try {
+                        const isDepartmentList = await this._Department.findAndCountAll({
+                            where: {
+                                uuid_medication: uuid_medication,
+                                [Op.or]: {
+                                    [Op.not]: { status: 'delete' }
+                                }  
+                            },
+                            order: [
+                                ['id', 'DESC']
+                            ],
+                            offset: pageSize * (pageIndex - 1),
+                            limit: pageSize
+                        }, { transaction: t })
+
+                        if (isDepartmentList.length === 0) {
+                            resolve(null);
+                        } else {
+                            resolve(isDepartmentList);
+                        }   
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        departmentPromise
+        .then(isDepartmentList => {
+            departmentList = isDepartmentList;
+        }).catch(error => {
+            err = error;
+        }).finally(() => {
+            callback(departmentList, err);
+        })
+    }
 }
 
 const departmentCRUD = new Department();
