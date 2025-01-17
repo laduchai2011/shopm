@@ -5,6 +5,8 @@ import WarnTriangle from 'src/components/Icon/WarnTriangle';
 import ErrorCircle from 'src/components/Icon/ErrorCircle';
 import TickSymbol from 'src/components/Icon/TickSymbol';
 import DeleteCircle from 'src/components/Icon/DeleteCircle';
+import AddCircle from 'src/components/Icon/AddCircle';
+import SubCircle from 'src/components/Icon/SubCircle';
 
 const IconScreen: FC<{}> = () => {
 
@@ -13,6 +15,8 @@ const IconScreen: FC<{}> = () => {
         <ErrorCircle />
         <TickSymbol />
         <DeleteCircle />
+        <AddCircle />
+        <SubCircle />
     </div>;
 };
 

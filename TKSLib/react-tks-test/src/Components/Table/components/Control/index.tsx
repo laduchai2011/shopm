@@ -14,7 +14,7 @@ import {
     LOAD_COMPONENTS_CONST 
 } from 'src/const';
 
-import { handleCutPXInString } from 'src/utils';
+import { handleCutPXInString } from 'src/utils/string';
 
 import Loading from 'src/components/Loading';
 

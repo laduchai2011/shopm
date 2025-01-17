@@ -30,7 +30,11 @@ export interface Table_Config_Props {
     columnsInfor?: ColumnsInforProps[],
     pageSize?: number,
     maxRow?: number,
-    controlPos?: string
+    controlPos?: string,
+    customColumn?: string
+}
+export interface Table_Config_CustomColumn_Props {
+    type?: 'add-sub' | 'get-data';
 }
 export interface Table_Data_Props {
     values?: {[key: string]: any}[],
@@ -146,6 +150,24 @@ export interface TickSymbolProps {
 }
 
 export interface DeleteCircleProps {
+    size?: number,
+    background?: string,
+    fill?: string,
+    stroke?: string,
+    animation_time?: number,
+    stroke_width?: number
+}
+
+export interface AddCircleProps {
+    size?: number,
+    background?: string,
+    fill?: string,
+    stroke?: string,
+    animation_time?: number,
+    stroke_width?: number
+}
+
+export interface SubCircleProps {
     size?: number,
     background?: string,
     fill?: string,

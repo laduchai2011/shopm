@@ -1,0 +1,91 @@
+.TKS-CalculateMoney {
+    --add-color: ;
+    --sub-color: ;
+}
+
+.TKS-CalculateMoney {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.TKS-CalculateMoney > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 5px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+.TKS-CalculateMoney > div > input {
+    text-align: center; 
+    width: 40px; 
+    font-size: 16px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    outline: none; 
+    margin: 0 5px;
+    border: none;
+    outline: none;
+}
+
+.TKS-CalculateMoney > div > input:focus {
+    border: 1px solid gray;
+}
+
+.TKS-CalculateMoney-- {
+    width: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.TKS-CalculateMoney-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 90px;
+    /* background-color: antiquewhite; */
+    /* border: 1px dashed gray; */
+    overflow: hidden;
+    /* box-sizing: border-box;
+    padding: 5px; */
+    border-radius: 5px;
+    text-align: center;
+    margin: 0 3px;
+}
+
+.TKS-CalculateMoney > div > svg {
+    cursor: pointer;
+}
+
+.TKS-CalculateMoney > div > svg {
+    scale: 1;
+
+    transition: scale 0.3s linear;
+}
+
+.TKS-CalculateMoney > div > svg:nth-child(1):hover {
+    background-color: white;
+    border: 1px solid var(--sub-color);
+    scale: 1.2;
+}
+.TKS-CalculateMoney > div > svg:nth-child(1):active {
+    background-color: var(--sub-color);
+}
+
+.TKS-CalculateMoney > div > svg:nth-child(7):hover {
+    background-color: white;
+    border: 1px solid var(--add-color);
+    scale: 1.2;
+}
+.TKS-CalculateMoney > div > svg:nth-child(7):active {
+    background-color: var(--add-color);
+}

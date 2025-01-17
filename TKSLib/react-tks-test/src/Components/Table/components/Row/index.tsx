@@ -32,7 +32,7 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
         selectedColumn, 
         columnAmount, 
         rowAmount, 
-        pageIndex 
+        // pageIndex 
     } = context;
 
     const rowElement = useRef<HTMLDivElement | null>(null);
@@ -117,7 +117,7 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
         )
     })
 
-    const dataIndex: number = pageSize.current ? pageSize.current*(pageIndex - 1) + rowIndex : 0; 
+    // const dataIndex: number = pageSize.current ? pageSize.current*(pageIndex - 1) + rowIndex : 0; 
 
     return <div className="TKS-Row" 
                 ref={rowElement}
@@ -126,19 +126,16 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
                 onMouseOut={e => handleHoverOut(e)}
                 onClick={e => handleClick(e)}
             >
-            <div className='TKS-Row-indexColumn'>
-                {/* {rowIndex > 0 ? <div>{ rowIndex }</div> : <div>
-                    { table?.config?.pageSize ? <div>{table?.config?.pageSize}</div> : <div>1</div> }
-                </div> } */}
-                {/* {rowIndex > 0 ? <div>{ dataIndex }</div> : <div>
-                    { table?.config?.maxRow ? <div>{table?.config?.maxRow}</div> : <div>1</div> }
-                </div> } */}
+            {/* <div className='TKS-Row-indexColumn'>
                 { rowIndex > 0 ? <div>{ rowIndex }</div> : <div>{ pageSize.current }</div> }
                 { rowIndex > 0 ? <div>{ dataIndex }</div> : <div>{ maxRow.current }</div> }
-            </div>
+            </div> */}
             <div className='TKS-Row-column'>
                 { list_cell }
             </div>
+            {/* <div className='TKS-Row-buttonColumn'>
+                <div><button>dsfsdf</button></div>
+            </div> */}
     </div>;
 };
 

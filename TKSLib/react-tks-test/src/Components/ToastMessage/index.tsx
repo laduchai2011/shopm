@@ -6,7 +6,7 @@ import MessageBox from './components/MessageBox';
 
 import { TKSProps, TKS_Init, ToastMessageProps, ToastMessage_Data_Props } from 'src/define';
 
-import { handleCutPXInString } from 'src/utils';
+import { handleCutPXInString } from 'src/utils/string';
 
 interface CreateElementProps {
     message?: string

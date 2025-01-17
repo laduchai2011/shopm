@@ -1,0 +1,55 @@
+.TKS-AddSub {
+    --add-color: ;
+    --sub-color: ;
+}
+
+.TKS-AddSub {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.TKS-AddSub > div {
+    display: flex;
+    align-items: center;
+}
+
+.TKS-AddSub > div > input:nth-child(2) {
+    text-align: center; 
+    width: 30px; 
+    font-size: 16px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    outline: none; 
+    margin: 0 5px;
+}
+
+.TKS-AddSub > div > svg {
+    cursor: pointer;
+}
+
+.TKS-AddSub > div > svg {
+    scale: 1;
+
+    transition: scale 0.3s linear;
+}
+
+.TKS-AddSub > div > svg:nth-child(1):hover {
+    background-color: white;
+    border: 1px solid var(--sub-color);
+    scale: 1.2;
+}
+.TKS-AddSub > div > svg:nth-child(1):active {
+    background-color: var(--sub-color);
+}
+
+.TKS-AddSub > div > svg:nth-child(3):hover {
+    background-color: white;
+    border: 1px solid var(--add-color);
+    scale: 1.2;
+}
+.TKS-AddSub > div > svg:nth-child(3):active {
+    background-color: var(--add-color);
+}
