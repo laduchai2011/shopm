@@ -7,6 +7,8 @@ import TickSymbol from 'src/components/Icon/TickSymbol';
 import DeleteCircle from 'src/components/Icon/DeleteCircle';
 import AddCircle from 'src/components/Icon/AddCircle';
 import SubCircle from 'src/components/Icon/SubCircle';
+import BigLeftArrow from 'src/components/Icon/BigLeftArrow';
+import BigRightArrow from 'src/components/Icon/BigRightArrow';
 
 const IconScreen: FC<{}> = () => {
 
@@ -17,6 +19,8 @@ const IconScreen: FC<{}> = () => {
         <DeleteCircle />
         <AddCircle />
         <SubCircle />
+        <BigLeftArrow />
+        <BigRightArrow />
     </div>;
 };
 

@@ -9,7 +9,7 @@ interface MyAddCircleProps extends React.HTMLProps<SVGSVGElement> {
     [key: string]: any
 }
 
-const DeleteCircle: FC<MyAddCircleProps> = ({addCircle, ...props}) => {
+const AddCircle: FC<MyAddCircleProps> = ({addCircle, ...props}) => {
 
     const addCircleElement = useRef<SVGSVGElement | null>(null);
 
@@ -37,4 +37,4 @@ const DeleteCircle: FC<MyAddCircleProps> = ({addCircle, ...props}) => {
     </svg>;
 };
 
-export default React.memo(DeleteCircle);
+export default React.memo(AddCircle);

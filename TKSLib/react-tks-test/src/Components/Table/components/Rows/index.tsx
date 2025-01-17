@@ -138,8 +138,9 @@ const Rows: FC<{}> = () => {
         
         if (centerElement.current && rightElement.current) {
             // console.log(centerElement, rightElement)
-            const width_rightElement = rightElement.current.style.width;
-            console.log(11111111111, width_rightElement)
+            const width_rightElement = rightElement.current.offsetWidth;
+            // console.log(11111111111, width_rightElement)
+            centerElement.current.style.paddingRight = `${width_rightElement}px`;
         }
     }, [centerElement, rightElement])
     

@@ -176,6 +176,18 @@ export interface SubCircleProps {
     stroke_width?: number
 }
 
+export interface BigLeftArrowProps {
+    fill?: string,
+    stroke?: string,
+    stroke_width?: number
+}
+
+export interface BigRightArrowProps {
+    fill?: string,
+    stroke?: string,
+    stroke_width?: number
+}
+
 // message
 export interface ToastMessageProps {
     config?: ToastMessage_Config_Props,
