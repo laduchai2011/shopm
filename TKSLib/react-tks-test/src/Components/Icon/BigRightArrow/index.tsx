@@ -9,7 +9,7 @@ interface MyBigRightArrowProps extends React.HTMLProps<SVGSVGElement> {
     [key: string]: any
 }
 
-const BigRightArrow: FC<MyBigRightArrowProps> = ({bigRightArrow, ...props}) => {
+const BigRightArrow: FC<MyBigRightArrowProps> = ({bigRightArrow, className, ...props}) => {
 
     const bigRightArrowElement = useRef<SVGSVGElement | null>(null);
 
@@ -22,7 +22,7 @@ const BigRightArrow: FC<MyBigRightArrowProps> = ({bigRightArrow, ...props}) => {
     }, [bigRightArrow])
 
     return <svg 
-        className="TKS-BigRightArrow"
+        className={`TKS-BigRightArrow ${className  || ''}`}
         ref={bigRightArrowElement}
         viewBox="0 0 24 24" 
         xmlns="http://www.w3.org/2000/svg"  
@@ -30,8 +30,8 @@ const BigRightArrow: FC<MyBigRightArrowProps> = ({bigRightArrow, ...props}) => {
         {...props}
     >
         <path d="M0,0 L24,0 L24,24 L0,24 Z" />
-        <path d="M12,0 L0,12 L12,24 L24,24 L12,12 L24,0 L12,0 Z" />
-        <path d="M18,0 L6,12 L18,24 L6,12 L18,0 Z" />
+        <path d="M12,0 L24,12 L12,24 L0,24 L12,12 L0,0 L12,0 Z" />
+        <path d="M6,0 L18,12 L6,24 L18,12 L6,0 Z" />
         {props.children}
     </svg>;
 };

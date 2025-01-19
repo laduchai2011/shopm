@@ -10,6 +10,14 @@ import {
 
 import Cell from './components/Cell';
 
+import { 
+    rowHoverIn,
+    rowHoverOut,
+    rowToggle 
+} from '../utils';
+
+import { clickStatus_of_row_Types } from '../utils/type';
+import { CLICK_STATUS_TYPE } from '../utils/const';
 
 const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }) => {
 
@@ -32,11 +40,23 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
         selectedColumn, 
         columnAmount, 
         rowAmount, 
-        // pageIndex 
+        elements,
+        row_hoverColor
     } = context;
 
-    const rowElement = useRef<HTMLDivElement | null>(null);
-    const isSelectedRow = useRef<boolean>(false);
+    // const rowElement = useRef<HTMLDivElement | null>(null);
+    const element_rowsOfIndex: React.MutableRefObject<(HTMLDivElement | null)[]> = elements.current.rowsOfIndex;
+    const element_rows: React.MutableRefObject<(HTMLDivElement | null)[]> = elements.current.rows;
+    const element_rowsOfCalculate: React.MutableRefObject<(HTMLDivElement | null)[]> = elements.current.rowsOfCalculate;
+    // const isSelectedRow = useRef<boolean>(false);
+
+    const clickStatus_of_row = useRef<clickStatus_of_row_Types>(CLICK_STATUS_TYPE.READY);
+
+    useEffect(() => {
+        if (element_rows.current[rowIndex] && rowIndex > 0) {
+            (element_rows.current[rowIndex]!).style.setProperty('--background-color', row_hoverColor);
+        }
+    }, [element_rows, rowIndex, row_hoverColor])
 
     if (rowData?.cells) {
         columnAmount.current = rowData.cells.length;
@@ -52,6 +72,7 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
         maxRow.current = table.config.maxRow;
     }
 
+    // handle resizable
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
             // const q_cells = $$('.TKS-Cell');
@@ -92,19 +113,25 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
     }, [cellElements, cellWidth, cellX, columnAmount, resizableStatus, rowAmount, selectedColumn])
 
     const handleHoverIn = (e: React.MouseEvent) => {
-        const hoverColor: string = 'rgb(233, 233, 233)';
-        if (rowElement.current && rowIndex > 0) {
-           rowElement.current.style.setProperty('--background-color', hoverColor);
+        if (rowIndex > 0) {
+            rowHoverIn(rowIndex, element_rowsOfIndex, element_rows, element_rowsOfCalculate)
         }
     }
     const handleHoverOut = (e: React.MouseEvent) => {
-        const hoverColor: string = 'white';
-        if (rowElement.current && !isSelectedRow.current) {
-           rowElement.current.style.setProperty('--background-color', hoverColor);
+        if (rowIndex > 0) {
+            rowHoverOut(rowIndex, element_rowsOfIndex, element_rows, element_rowsOfCalculate)
         }
     }
     const handleClick = (e: React.MouseEvent) => {
-        isSelectedRow.current = !isSelectedRow.current;
+        if ((rowIndex > 0) && (clickStatus_of_row.current===CLICK_STATUS_TYPE.READY)) {
+            rowToggle(rowIndex, element_rowsOfIndex, element_rows, element_rowsOfCalculate);
+        }
+    }
+    const handleMouseDown = (e: React.MouseEvent) => {
+        clickStatus_of_row.current = CLICK_STATUS_TYPE.READY;
+        setTimeout(() => {
+            clickStatus_of_row.current = CLICK_STATUS_TYPE.LOCKED;
+        }, 200)
     }
 
     const handleTableIndex = (columnAmount: number, rowIndex: number, cellIndex: number): number => {
@@ -120,11 +147,13 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
     // const dataIndex: number = pageSize.current ? pageSize.current*(pageIndex - 1) + rowIndex : 0; 
 
     return <div className="TKS-Row" 
-                ref={rowElement}
+                // ref={rowElement}
+                ref={(el) => (element_rows.current[rowIndex] = el)}
                 // handle hover
                 onMouseOver={e => handleHoverIn(e)}
                 onMouseOut={e => handleHoverOut(e)}
                 onClick={e => handleClick(e)}
+                onMouseDown={(e)=> handleMouseDown(e)}
             >
             {/* <div className='TKS-Row-indexColumn'>
                 { rowIndex > 0 ? <div>{ rowIndex }</div> : <div>{ pageSize.current }</div> }

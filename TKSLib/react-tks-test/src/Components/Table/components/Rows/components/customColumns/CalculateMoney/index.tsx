@@ -34,10 +34,15 @@ const CalculateMoney: FC<{}> = () => {
     const input_change = (e: React.ChangeEvent<HTMLInputElement>) => {
 
     }
+
+    const handleSub = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        console.log(222222222222)
+    }
     
     return <div className="TKS-CalculateMoney" ref={addSubElement}>
         <div>
-            <SubCircle subCircle={{size: 23, background: SUB_COLOR}} />
+            <SubCircle subCircle={{size: 23, background: SUB_COLOR}} onClick={(e) => handleSub(e)} />
             <input 
                 value={moneyString_.clusted_rounded_numberString} 
                 title={moneyString_.clusted_string} 

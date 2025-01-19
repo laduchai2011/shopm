@@ -47,6 +47,11 @@ export interface Table_Control_Props {
 export interface Table_Event_Props {
     onSelectedPage: (TKS: TKSProps) => void
 }
+export interface Table_Element_Props {
+    rowsOfIndex: React.MutableRefObject<(HTMLDivElement | null)[]>,
+    rows: React.MutableRefObject<(HTMLDivElement | null)[]>,
+    rowsOfCalculate: React.MutableRefObject<(HTMLDivElement | null)[]>
+}
 export interface ContextTableProps {
     table?: TableProps,
     cellElements: React.MutableRefObject<(HTMLDivElement | null)[]>,
@@ -64,7 +69,9 @@ export interface ContextTableProps {
     setLoadDataState: React.Dispatch<React.SetStateAction<string | undefined>>,
     isControl_pageIndex_defaultFunction: React.MutableRefObject<boolean>,
     isControl_loadDataState_defaultFunction: React.MutableRefObject<boolean>,
-    follow_loadingState?: FollowStateProps
+    follow_loadingState?: FollowStateProps,
+    elements: React.MutableRefObject<Table_Element_Props>,
+    row_hoverColor: string
 }
 export interface CellProps {
     fieldName?: string,

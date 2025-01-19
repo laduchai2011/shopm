@@ -5,6 +5,10 @@
 .TKS-Row {
     width: max-content;
 }
+.TKS-Row.hover,
+.TKS-Row.selected {
+    background-color: var(--background-color);
+}
 
 .TKS-Row:not(:nth-child(1)) {
     cursor: pointer;
@@ -36,8 +40,8 @@
     /* margin-left: 100px;
     margin-right: 100px; */
     z-index: 4;
-    background-color: var(--background-color);
 }
+
 /* 
 .TKS-Row-buttonColumn {
     position: absolute;

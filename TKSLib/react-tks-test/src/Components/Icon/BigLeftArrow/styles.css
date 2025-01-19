@@ -18,7 +18,7 @@
 .TKS-BigLeftArrow > path:nth-child(2) {
     stroke: var(--stroke);
     stroke-width: var(--stroke-width);
-    fill: gray;
+    fill: rgb(189, 189, 189);;
 }
 
 .TKS-BigLeftArrow > path:nth-child(3) {

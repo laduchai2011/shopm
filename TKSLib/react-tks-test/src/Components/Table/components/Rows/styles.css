@@ -1,4 +1,8 @@
 .TKS-Rows {
+    --background-color: white;
+}
+
+.TKS-Rows {
     display: flex;
     align-items: center;
     position: relative;
@@ -16,7 +20,11 @@
     left: 0;
 }
 .TKS-Rows-right {
+    width: 350px;
     right: 0;
+    overflow: hidden;
+
+    transition: width 1s linear;  
 }
 
 .TKS-Rows-left > div,
@@ -27,21 +35,57 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* padding: 5px 10px; */
 }
 
 .TKS-Rows-left > div {
     width: 50px;
 }
 .TKS-Rows-right > div {
+    width: 350px;
+}
+
+.TKS-Rows-left-row:not(:nth-child(1)),
+.TKS-Rows-right-row:not(:nth-child(1)) {
+    cursor: pointer;
+}
+
+.TKS-Rows-left-row.hover,
+.TKS-Rows-right-row.hover,
+.TKS-Rows-left-row.selected,
+.TKS-Rows-right-row.selected {
+    background-color: var(--background-color);
+}
+
+/* .TKS-Rows-right > div.selected {
+    background-color: rgb(233, 233, 233);
+} */
+
+.TKS-Rows-right-header {
     width: 100%;
+    position: relative;
+}
+
+.TKS-Rows-right-header > svg {
+    height: 100%;
+    width: 20px;
+    cursor: pointer;
+    background-color: rgb(235, 235, 235);
+    position: absolute;
+    left: 0;
+}
+
+.TKS-Rows-right-header > svg:hover {
+    background-color: white;
+    scale: 1.1;
 }
 
 .TKS-Rows-center {
     width: 100%;
     /* padding: 0 500px; */
     padding-left: 50px;
-    padding-right: 500px;
+    padding-right: 350px;
     overflow-x: scroll;
     z-index: 4;
+
+    transition: padding-right 1s linear;
 }

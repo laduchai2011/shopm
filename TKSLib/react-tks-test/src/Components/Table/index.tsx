@@ -11,6 +11,7 @@ import {
     TableProps, 
     Table_Config_Props,
     ContextTableProps,
+    Table_Element_Props
     // CellProps,
 } from 'src/define';
 
@@ -34,6 +35,8 @@ const Table: FC<MyTableProps> = ({
         ...props
     }) => {
 
+    const row_hoverColor: string = 'rgb(233, 233, 233)';
+
     const config: Table_Config_Props = {...table?.config};
 
     const isRender = table?.config?.columnsInfor ? true : false;
@@ -52,6 +55,18 @@ const Table: FC<MyTableProps> = ({
 
     let isControl_pageIndex_defaultFunction = useRef<boolean>(true);
     let isControl_loadDataState_defaultFunction = useRef<boolean>(true);
+
+    // const [hoverRows, setHoverRows] = useState<number[]>([]);
+    const [selectedRows, setSelectedRows] = useState<number[]>([]);
+
+    const element_rowsOfIndex = useRef<(HTMLDivElement | null)[]>([]);
+    const element_rows = useRef<(HTMLDivElement | null)[]>([]);
+    const element_rowsOfCalculate = useRef<(HTMLDivElement | null)[]>([]);
+    const elements = useRef<Table_Element_Props>({
+        rowsOfIndex: element_rowsOfIndex,
+        rows: element_rows,
+        rowsOfCalculate: element_rowsOfCalculate
+    })
 
     const default_pageSize: number = 10;
     const default_maxRow: number = 50;
@@ -225,8 +240,12 @@ const Table: FC<MyTableProps> = ({
         setLoadDataState,
         isControl_pageIndex_defaultFunction,
         isControl_loadDataState_defaultFunction,
-        follow_loadingState
-    }), [table, pageIndex, setPageIndex, loadDataState, follow_loadingState]);
+        follow_loadingState,
+        selectedRows,
+        setSelectedRows,
+        elements,
+        row_hoverColor
+    }), [table, pageIndex, loadDataState, follow_loadingState, selectedRows, elements]);
 
     return <ContextTable.Provider value={contextValue}>
         {isRender && <div className="TKS-Table" {...props}>

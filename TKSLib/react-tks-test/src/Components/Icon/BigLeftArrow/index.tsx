@@ -9,7 +9,7 @@ interface MyBigLeftArrowProps extends React.HTMLProps<SVGSVGElement> {
     [key: string]: any
 }
 
-const BigLeftArrow: FC<MyBigLeftArrowProps> = ({bigLeftArrow, ...props}) => {
+const BigLeftArrow: FC<MyBigLeftArrowProps> = ({bigLeftArrow, className, ...props}) => {
 
     const bigLeftArrowElement = useRef<SVGSVGElement | null>(null);
 
@@ -22,7 +22,7 @@ const BigLeftArrow: FC<MyBigLeftArrowProps> = ({bigLeftArrow, ...props}) => {
     }, [bigLeftArrow])
 
     return <svg 
-        className="TKS-BigLeftArrow"
+        className={`TKS-BigLeftArrow ${className  || ''}`}
         ref={bigLeftArrowElement}
         viewBox="0 0 24 24" 
         xmlns="http://www.w3.org/2000/svg"  
