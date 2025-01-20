@@ -9,7 +9,7 @@ interface MySubCircleProps extends React.HTMLProps<SVGSVGElement> {
     [key: string]: any
 }
 
-const SubCircle: FC<MySubCircleProps> = ({subCircle, ...props}) => {
+const SubCircle: FC<MySubCircleProps> = ({subCircle, className, ...props}) => {
 
     const subCircleElement = useRef<SVGSVGElement | null>(null);
 
@@ -25,7 +25,7 @@ const SubCircle: FC<MySubCircleProps> = ({subCircle, ...props}) => {
     }, [subCircle])
 
     return <svg 
-        className="TKS-AddCircle"
+        className={`TKS-AddCircle ${className  || ''}`}
         ref={subCircleElement}
         viewBox="0 0 24 24" 
         xmlns="http://www.w3.org/2000/svg"

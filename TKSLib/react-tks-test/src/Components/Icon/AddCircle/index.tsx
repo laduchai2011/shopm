@@ -9,7 +9,7 @@ interface MyAddCircleProps extends React.HTMLProps<SVGSVGElement> {
     [key: string]: any
 }
 
-const AddCircle: FC<MyAddCircleProps> = ({addCircle, ...props}) => {
+const AddCircle: FC<MyAddCircleProps> = ({addCircle, className, ...props}) => {
 
     const addCircleElement = useRef<SVGSVGElement | null>(null);
 
@@ -25,7 +25,7 @@ const AddCircle: FC<MyAddCircleProps> = ({addCircle, ...props}) => {
     }, [addCircle])
 
     return <svg 
-        className="TKS-AddCircle"
+        className={`TKS-AddCircle ${className  || ''}`}
         ref={addCircleElement}
         viewBox="0 0 24 24" 
         xmlns="http://www.w3.org/2000/svg"

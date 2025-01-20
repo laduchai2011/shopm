@@ -30,10 +30,7 @@ interface MyTableProps extends React.HTMLProps<HTMLDivElement> {
     [key: string]: any
 }
 
-const Table: FC<MyTableProps> = ({ 
-        table,
-        ...props
-    }) => {
+const Table: FC<MyTableProps> = ({table, className, ...props}) => {
 
     const row_hoverColor: string = 'rgb(233, 233, 233)';
 
@@ -248,7 +245,10 @@ const Table: FC<MyTableProps> = ({
     }), [table, pageIndex, loadDataState, follow_loadingState, selectedRows, elements]);
 
     return <ContextTable.Provider value={contextValue}>
-        {isRender && <div className="TKS-Table" {...props}>
+        {isRender && <div 
+            className={`TKS-Table ${className  || ''}`}
+            {...props}
+        >
             { handleControlPos()!=='bottom' && <div className='TKS-Table--Control'><Control /></div>}
             {/* <div className='TKS-Table--Row'>{ list_row }</div> */}
             <div className='TKS-Table--Row'><Rows /></div>

@@ -17,7 +17,7 @@ interface MyToastMessageProps extends React.HTMLProps<HTMLDivElement> {
     [key: string]: any
 }
 
-const ToastMessage: FC<MyToastMessageProps> = ({ toastMessage, ...props }) => {
+const ToastMessage: FC<MyToastMessageProps> = ({toastMessage, className, ...props }) => {
 
     const id = useRef<string>(`ToastMessage__T: ${useId()}`);
 
@@ -98,7 +98,12 @@ const ToastMessage: FC<MyToastMessageProps> = ({ toastMessage, ...props }) => {
         toastMessageContainerElement.current?.insertBefore(newNode, toastMessageContainerElement.current.firstChild)
     }
 
-    return <div className="TKS-ToastMessage" ref={toastMessageElement} {...props} id={id.current}>
+    return <div 
+        className={`TKS-ToastMessage ${className  || ''}`}
+        ref={toastMessageElement} 
+        id={id.current}
+        {...props} 
+    >
         <div className='TKS-ToastMessage-Container' ref={toastMessageContainerElement}>
         </div>
     </div>;

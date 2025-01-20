@@ -10,7 +10,7 @@ interface MyOverlayProps extends React.HTMLProps<HTMLDivElement> {
     [key: string]: any
 }
 
-const Overlay: FC<MyOverlayProps> = ({overlay, ...props}) => {
+const Overlay: FC<MyOverlayProps> = ({overlay, className, ...props}) => {
 
     const overlayElement = useRef<HTMLDivElement | null>(null);
     const showCommand = useRef<string>('showTop'); 
@@ -133,7 +133,7 @@ const Overlay: FC<MyOverlayProps> = ({overlay, ...props}) => {
     }
 
     return <div 
-        className="TKS-Overlay"
+        className={`TKS-Overlay ${className  || ''}`}
         ref={overlayElement}
         onClick={(e) => handleClose(e)}
         {...props}

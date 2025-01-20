@@ -8,7 +8,7 @@ interface MyErrorCircleProps extends React.HTMLProps<SVGSVGElement> {
     [key: string]: any
 }
 
-const ErrorCircle: FC<MyErrorCircleProps> = ({errorCircle, ...props}) => {
+const ErrorCircle: FC<MyErrorCircleProps> = ({errorCircle, className, ...props}) => {
 
     const errorCircleElement = useRef<SVGSVGElement | null>(null);
 
@@ -24,7 +24,7 @@ const ErrorCircle: FC<MyErrorCircleProps> = ({errorCircle, ...props}) => {
     }, [errorCircle])
 
     return <svg 
-        className="TKS-ErrorCircle"
+        className={`TKS-ErrorCircle ${className  || ''}`}
         ref={errorCircleElement}
         viewBox="0 0 24 24" 
         xmlns="http://www.w3.org/2000/svg"
