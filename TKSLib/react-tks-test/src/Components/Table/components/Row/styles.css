@@ -13,52 +13,9 @@
 .TKS-Row:not(:nth-child(1)) {
     cursor: pointer;
 }
-/* 
-.TKS-Row-indexColumn {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    z-index: 5;
-    background-color: var(--background-color);
-    left: 0;
-    top: 0;
-}
-
-.TKS-Row-indexColumn > div {
-    border: 1px solid gray;
-    box-sizing: border-box;
-    width: 50px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
 
 .TKS-Row-column {
     display: flex;
     justify-content: center;
-    /* margin-left: 100px;
-    margin-right: 100px; */
     z-index: 4;
 }
-
-/* 
-.TKS-Row-buttonColumn {
-    position: absolute;
-    right: 0;
-    top: 0;
-    display: flex;
-    align-items: center;
-    z-index: 5;
-    background-color: var(--background-color);
-}
-
-.TKS-Row-buttonColumn > div {
-    border: 1px solid gray;
-    box-sizing: border-box;
-    width: 100px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */

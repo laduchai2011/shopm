@@ -39,15 +39,12 @@ const Rows: FC<{}> = () => {
 
     const { 
         table,
-        // selectedRows, 
-        // setSelectedRows
         elements,
         row_hoverColor
     } = context;
 
     const config: Table_Config_Props = {...table?.config};
     const data: {[key: string]: any}[] | undefined = table?.data?.values;
-    // const pageSize = useRef<number>(default_pageSize);
 
     const element_rowsOfIndex: React.MutableRefObject<(HTMLDivElement | null)[]> = elements.current.rowsOfIndex;
     const element_rows: React.MutableRefObject<(HTMLDivElement | null)[]> = elements.current.rows;
@@ -88,13 +85,6 @@ const Rows: FC<{}> = () => {
     }
     if (config?.columnsInfor && rowHeader?.cells && rowForm?.cells) {
         for (let i: number = 0; i < config.columnsInfor.length; i++) {
-            // if (config.columnsInfor[i]!==undefined) {
-            //     rowHeader.cells.push(cellHeader(config.columnsInfor[i].fieldName, config.columnsInfor[i].columnName, 'black', '700'));
-            //     rowForm.cells.push(cellHeader(config.columnsInfor[i].fieldName, '', 'black', '300'));
-            // } else {
-            //     rowHeader.cells.push(cellHeader('', `column ${i}`, 'black', '700'));
-            //     rowForm.cells.push(cellHeader('', '', WARNING_COLOR, '300'));
-            // }
             rowHeader.cells.push(cellHeader(config.columnsInfor[i].fieldName, config.columnsInfor[i].columnName, 'black', '700'));
             rowForm.cells.push(cellHeader(config.columnsInfor[i].fieldName, '', 'black', '300'));
         }
@@ -231,8 +221,6 @@ const Rows: FC<{}> = () => {
                 </div>
             )
         }
-        // const index_rowIndex = selectedRows.indexOf(index);
-        // const selected_className: string = index_rowIndex!==-1 ? 'selected' : '';
         return (
             <div 
                 key={index} className='TKS-Rows-right-row' 

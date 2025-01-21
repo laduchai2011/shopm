@@ -17,7 +17,10 @@ import {
 } from '../utils';
 
 import { clickStatus_of_row_Types } from '../utils/type';
-import { CLICK_STATUS_TYPE } from '../utils/const';
+import { 
+    CLICK_STATUS_TYPE
+} from '../utils/const';
+
 
 const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }) => {
 
@@ -33,22 +36,27 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
         table, 
         default_pageSize, 
         default_maxRow, 
-        cellElements, 
-        resizableStatus, 
-        cellWidth, 
-        cellX, 
-        selectedColumn, 
         columnAmount, 
         rowAmount, 
         elements,
-        row_hoverColor
+        row_hoverColor,
+        resizable
     } = context;
 
-    // const rowElement = useRef<HTMLDivElement | null>(null);
     const element_rowsOfIndex: React.MutableRefObject<(HTMLDivElement | null)[]> = elements.current.rowsOfIndex;
     const element_rows: React.MutableRefObject<(HTMLDivElement | null)[]> = elements.current.rows;
     const element_rowsOfCalculate: React.MutableRefObject<(HTMLDivElement | null)[]> = elements.current.rowsOfCalculate;
-    // const isSelectedRow = useRef<boolean>(false);
+    const element_cells: React.MutableRefObject<(HTMLDivElement | null)[]> = elements.current.cells;
+
+    // resizable
+    const cell_X: React.MutableRefObject<number> = resizable.current.cell_X;
+    const cell_Y: React.MutableRefObject<number> = resizable.current.cell_Y;
+    const cellWidth: React.MutableRefObject<number> = resizable.current.cellWidth;
+    const cellHeight: React.MutableRefObject<number> = resizable.current.cellHeight;
+    const isResizable_X: React.MutableRefObject<boolean> = resizable.current.isResizable_X;
+    const isResizable_Y: React.MutableRefObject<boolean> = resizable.current.isResizable_Y;
+    const selectedColumn: React.MutableRefObject<number | undefined> = resizable.current.selectedColumn;
+    const selectedRow: React.MutableRefObject<number | undefined> = resizable.current.selectedRow;
 
     const clickStatus_of_row = useRef<clickStatus_of_row_Types>(CLICK_STATUS_TYPE.READY);
 
@@ -75,30 +83,49 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
     // handle resizable
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
-            // const q_cells = $$('.TKS-Cell');
-            const q_cells = cellElements.current;
-            const dx = e.clientX - cellX.current;
+            const q_cells = element_cells.current;
+
+            const dx = e.clientX - cell_X.current;
             const cw = cellWidth.current + dx;
-            if (resizableStatus.current && selectedColumn.current!==undefined) {
-                for (let i = 0; i < rowAmount.current; i++) {
+            if (isResizable_X.current && selectedColumn.current!==undefined) {
+                for (let i: number = 0; i < rowAmount.current; i++) {
                     const qq_cells = q_cells[(columnAmount.current*i + selectedColumn.current)] as HTMLElement;
                     qq_cells.style.width = `${ cw }px`;
                 }
-            }
+            } 
+
+            const dy = e.clientY - cell_Y.current;
+            const ch = cellHeight.current + dy;
+            if (isResizable_Y.current && selectedRow.current!==undefined) {
+                for (let i: number = 0; i < columnAmount.current; i++) {
+                    const qq_cells = q_cells[(columnAmount.current*selectedRow.current + i)] as HTMLElement;
+                    qq_cells.style.height = `${ ch }px`;
+                }
+            } 
         }
+
         const handleMouseUp = (e: MouseEvent) => {
-            resizableStatus.current = false;
-            // const q_cells = $$('.TKS-Cell');
-            const q_cells = cellElements.current;
+            const q_cells = element_cells.current;
+
+            isResizable_X.current = false;
             if (selectedColumn.current!==undefined) {
-                for (let i = 0; i < rowAmount.current; i++) {
+                for (let i: number = 0; i < rowAmount.current; i++) {
                     const qq_cells = q_cells[(columnAmount.current*i + selectedColumn.current)] as HTMLElement;
-                    qq_cells.children[1].classList.remove('selected');
+                    qq_cells.children[2].classList.remove('selected');
+                }
+            }
+
+            isResizable_Y.current = false;
+            if (selectedRow.current!==undefined) {
+                for (let i: number = 0; i < columnAmount.current; i++) {
+                    const qq_cells = q_cells[(columnAmount.current*selectedRow.current + i)] as HTMLElement;
+                    qq_cells.children[3].classList.remove('selected');
                 }
             }
         }
         const handleMouseLeave = (e: MouseEvent) => {
-            resizableStatus.current  = false;
+            isResizable_X.current  = false;
+            isResizable_Y.current  = false;
         }
 
         document.addEventListener('mousemove', (e) => handleMouseMove(e));
@@ -110,7 +137,7 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
             document.removeEventListener('mouseup', (e) => handleMouseUp(e));
             document.removeEventListener('mouseleave', (e) => handleMouseLeave(e));
         }
-    }, [cellElements, cellWidth, cellX, columnAmount, resizableStatus, rowAmount, selectedColumn])
+    }, [element_cells, cellWidth, cellHeight, cell_X, cell_Y, isResizable_X, isResizable_Y, columnAmount, rowAmount, selectedColumn, selectedRow])
 
     const handleHoverIn = (e: React.MouseEvent) => {
         if (rowIndex > 0) {
@@ -140,11 +167,9 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
 
     const list_cell: React.ReactNode = rowData?.cells && rowData.cells.map((data: CellProps, index: number) => {
         return rowData?.cells && (
-            <Cell data={data} cellIndex={handleTableIndex(rowData.cells.length, rowIndex, index)} rowIndex={rowIndex} column={index} key={index} />
+            <Cell data={data} cellIndex={handleTableIndex(rowData.cells.length, rowIndex, index)} rowIndex={rowIndex} columnIndex={index} key={index} />
         )
     })
-
-    // const dataIndex: number = pageSize.current ? pageSize.current*(pageIndex - 1) + rowIndex : 0; 
 
     return <div className="TKS-Row" 
                 // ref={rowElement}
@@ -155,16 +180,9 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
                 onClick={e => handleClick(e)}
                 onMouseDown={(e)=> handleMouseDown(e)}
             >
-            {/* <div className='TKS-Row-indexColumn'>
-                { rowIndex > 0 ? <div>{ rowIndex }</div> : <div>{ pageSize.current }</div> }
-                { rowIndex > 0 ? <div>{ dataIndex }</div> : <div>{ maxRow.current }</div> }
-            </div> */}
             <div className='TKS-Row-column'>
                 { list_cell }
             </div>
-            {/* <div className='TKS-Row-buttonColumn'>
-                <div><button>dsfsdf</button></div>
-            </div> */}
     </div>;
 };
 

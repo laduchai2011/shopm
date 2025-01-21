@@ -49,3 +49,15 @@ export const DIALOG_CONST = {
         ERROR: 'ERROR'
     }
 }
+
+// table
+export const TABLE_CONST = {
+    RESIZABLE: {
+        CELL: {
+            TYPE: {
+                WIDTH: 'CELL_RESIZABLE_WIDTH',
+                HEIGHT: 'CELL_RESIZABLE_HEIGHT'
+            }
+        }
+    }
+}

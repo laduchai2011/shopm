@@ -11,7 +11,8 @@ import {
     TableProps, 
     Table_Config_Props,
     ContextTableProps,
-    Table_Element_Props
+    Table_Element_Props,
+    Table_Resizable_Props
     // CellProps,
 } from 'src/define';
 
@@ -40,29 +41,43 @@ const Table: FC<MyTableProps> = ({table, className, ...props}) => {
   
     const data: {[key: string]: any}[] | undefined = table?.data?.values;
 
-    const resizableStatus: React.MutableRefObject<boolean> = useRef(false);
-    const cellWidth: React.MutableRefObject<number> = useRef(0);
-    const cellX: React.MutableRefObject<number> = useRef(0);
-    const selectedColumn: React.MutableRefObject<number | undefined> = useRef(undefined);
     const columnAmount: React.MutableRefObject<number> = useRef(0);
     const rowAmount: React.MutableRefObject<number> = useRef(0);
     const [pageIndex, setPageIndex] = useState<number>(1);
     const [loadDataState, setLoadDataState] = useState<string | undefined>(undefined);
-    // const totalRow: React.MutableRefObject<RowProps[]> = useRef([]);
 
     let isControl_pageIndex_defaultFunction = useRef<boolean>(true);
     let isControl_loadDataState_defaultFunction = useRef<boolean>(true);
 
-    // const [hoverRows, setHoverRows] = useState<number[]>([]);
-    const [selectedRows, setSelectedRows] = useState<number[]>([]);
-
     const element_rowsOfIndex = useRef<(HTMLDivElement | null)[]>([]);
     const element_rows = useRef<(HTMLDivElement | null)[]>([]);
     const element_rowsOfCalculate = useRef<(HTMLDivElement | null)[]>([]);
+    const element_cells = useRef<(HTMLDivElement | null)[]>([]);
     const elements = useRef<Table_Element_Props>({
         rowsOfIndex: element_rowsOfIndex,
         rows: element_rows,
-        rowsOfCalculate: element_rowsOfCalculate
+        rowsOfCalculate: element_rowsOfCalculate,
+        cells: element_cells
+    })
+
+    // resizable
+    const cell_X: React.MutableRefObject<number> = useRef(0);
+    const cell_Y: React.MutableRefObject<number> = useRef(0);
+    const cellWidth: React.MutableRefObject<number> = useRef(0);
+    const cellHeight: React.MutableRefObject<number> = useRef(0);
+    const isResizable_X: React.MutableRefObject<boolean> = useRef(false);
+    const isResizable_Y: React.MutableRefObject<boolean> = useRef(false);
+    const selectedColumn: React.MutableRefObject<number | undefined> = useRef(undefined);
+    const selectedRow: React.MutableRefObject<number | undefined> = useRef(undefined);
+    const resizable = useRef<Table_Resizable_Props>({
+        cell_X: cell_X,
+        cell_Y: cell_Y,
+        isResizable_X: isResizable_X,
+        isResizable_Y: isResizable_Y,
+        cellWidth: cellWidth,
+        cellHeight: cellHeight,
+        selectedColumn: selectedColumn,
+        selectedRow: selectedRow
     })
 
     const default_pageSize: number = 10;
@@ -119,9 +134,6 @@ const Table: FC<MyTableProps> = ({table, className, ...props}) => {
         }
     }, [loadDataState, follow_loadingState.setData])
 
-    // cell
-    const cellElements = useRef<(HTMLDivElement | null)[]>([]);
-
     if (data) {
         rowAmount.current = data.length + 1;
 
@@ -147,64 +159,6 @@ const Table: FC<MyTableProps> = ({table, className, ...props}) => {
             });
         }
     }
-    
-    // const rowForm: RowProps = {
-    //     cells: []
-    // };
-
-    // // set-up header oncly one time
-    // const cellHeader = (fieldName?: string, content?: string, textColor?: string, textWeight?: string): CellProps => {
-    //     return {
-    //         fieldName: fieldName,
-    //         content: content,
-    //         textColor: textColor,
-    //         textWeight: textWeight
-    //     }
-    // }
-    // const rowHeader: RowProps = {
-    //     cells: []
-    // }
-    // if (config?.columnsInfor && rowHeader?.cells && rowForm?.cells) {
-    //     for (let i: number = 0; i < config.columnsInfor.length; i++) {
-    //         // if (config.columnsInfor[i]!==undefined) {
-    //         //     rowHeader.cells.push(cellHeader(config.columnsInfor[i].fieldName, config.columnsInfor[i].columnName, 'black', '700'));
-    //         //     rowForm.cells.push(cellHeader(config.columnsInfor[i].fieldName, '', 'black', '300'));
-    //         // } else {
-    //         //     rowHeader.cells.push(cellHeader('', `column ${i}`, 'black', '700'));
-    //         //     rowForm.cells.push(cellHeader('', '', WARNING_COLOR, '300'));
-    //         // }
-    //         rowHeader.cells.push(cellHeader(config.columnsInfor[i].fieldName, config.columnsInfor[i].columnName, 'black', '700'));
-    //         rowForm.cells.push(cellHeader(config.columnsInfor[i].fieldName, '', 'black', '300'));
-    //     }
-    // }
-    
-    // const totalRow_m: RowProps[] = []
-    // if (data) {
-    //     for (let key: number = 0; key < data.length; key++) {
-    //         // if (data.hasOwnProperty(key)) { 
-    //         //     console.log(`log: ${key}: ${Object.keys(data[key])}`, data[key]);
-    //         // }   
-    //         // const rowData = { ...rowForm.current };
-    //         const rowData: RowProps = JSON.parse(JSON.stringify(rowForm));
-    //         if (rowData?.cells?.length) {
-    //             for (let i: number = 0; i < rowData.cells.length; i++) {
-    //                 const keyIndexInRow = Object.keys(data[key]).indexOf(rowData.cells[i]?.fieldName!);
-    //                 if (keyIndexInRow!==-1) {
-    //                     const selectedKey: string = rowData.cells[i]?.fieldName!;
-    //                     rowData.cells[i].content = data[key][selectedKey];
-    //                 } else {
-    //                     rowData.cells[i].content = 'Empty';
-    //                     rowData.cells[i].textColor = WARNING_COLOR;
-    //                 }
-    //             }
-    //             totalRow_m.push(rowData)
-    //         }
-    //     }
-    // }
-
-    // totalRow_m.unshift(rowHeader);
-
-    // totalRow.current = totalRow_m;
 
     const handleControlPos = (): string => {
         if (config.controlPos==="bottom") {
@@ -213,20 +167,9 @@ const Table: FC<MyTableProps> = ({table, className, ...props}) => {
             return 'top';
         }
     };
-      
-    // const list_row: React.ReactNode = totalRow.current.map((data: RowProps, index: number) => {
-    //     return (
-    //         <Row data={data} rowIndex={ index } key={index} />
-    //     )
-    // })
 
     const contextValue: ContextTableProps = useMemo(() => ({
         table,
-        cellElements,
-        resizableStatus, 
-        cellWidth, 
-        cellX, 
-        selectedColumn, 
         columnAmount, 
         rowAmount,
         pageIndex,
@@ -238,11 +181,10 @@ const Table: FC<MyTableProps> = ({table, className, ...props}) => {
         isControl_pageIndex_defaultFunction,
         isControl_loadDataState_defaultFunction,
         follow_loadingState,
-        selectedRows,
-        setSelectedRows,
         elements,
-        row_hoverColor
-    }), [table, pageIndex, loadDataState, follow_loadingState, selectedRows, elements]);
+        row_hoverColor,
+        resizable
+    }), [table, pageIndex, loadDataState, follow_loadingState, elements]);
 
     return <ContextTable.Provider value={contextValue}>
         {isRender && <div 

@@ -50,15 +50,26 @@ export interface Table_Event_Props {
 export interface Table_Element_Props {
     rowsOfIndex: React.MutableRefObject<(HTMLDivElement | null)[]>,
     rows: React.MutableRefObject<(HTMLDivElement | null)[]>,
-    rowsOfCalculate: React.MutableRefObject<(HTMLDivElement | null)[]>
+    rowsOfCalculate: React.MutableRefObject<(HTMLDivElement | null)[]>,
+    cells: React.MutableRefObject<(HTMLDivElement | null)[]>
+}
+export interface Table_Resizable_Props {
+    cell_X: React.MutableRefObject<number>,
+    cell_Y: React.MutableRefObject<number>,
+    isResizable_X: React.MutableRefObject<boolean>,
+    isResizable_Y: React.MutableRefObject<boolean>,
+    cellWidth: React.MutableRefObject<number>,
+    cellHeight: React.MutableRefObject<number>,
+    selectedColumn: React.MutableRefObject<number | undefined>,
+    selectedRow: React.MutableRefObject<number | undefined>
 }
 export interface ContextTableProps {
     table?: TableProps,
-    cellElements: React.MutableRefObject<(HTMLDivElement | null)[]>,
-    resizableStatus: React.MutableRefObject<boolean>,
-    cellWidth: React.MutableRefObject<number>,
-    cellX: React.MutableRefObject<number>,
-    selectedColumn: React.MutableRefObject<number | undefined>,
+    // cellElements: React.MutableRefObject<(HTMLDivElement | null)[]>,
+    // resizableStatus: React.MutableRefObject<boolean>,
+    // cellWidth: React.MutableRefObject<number>,
+    // cellX: React.MutableRefObject<number>,
+    // selectedColumn: React.MutableRefObject<number | undefined>,
     columnAmount: React.MutableRefObject<number>,
     rowAmount: React.MutableRefObject<number>,
     pageIndex: number,
@@ -71,7 +82,8 @@ export interface ContextTableProps {
     isControl_loadDataState_defaultFunction: React.MutableRefObject<boolean>,
     follow_loadingState?: FollowStateProps,
     elements: React.MutableRefObject<Table_Element_Props>,
-    row_hoverColor: string
+    row_hoverColor: string,
+    resizable: React.MutableRefObject<Table_Resizable_Props>
 }
 export interface CellProps {
     fieldName?: string,
