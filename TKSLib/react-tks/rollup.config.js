@@ -198,5 +198,48 @@ export default [
       }),
     ],
     external: [/\.css$/],
+  },
+
+  // utils
+  {
+    input: "src/utils.ts",
+    output: [
+      {
+        file: packageJson.exports["./utils"].require, // Output CommonJS
+        format: "cjs",
+        sourcemap: true,
+      },
+      {
+        file: packageJson.exports["./utils"].import, // Output ES Module
+        format: "esm",
+        sourcemap: true,
+      },
+    ],
+    plugins: [
+      peerDepsExternal(),
+      resolve(),
+      commonjs(),
+      typescript({ tsconfig: "./tsconfig.json" }),
+      terser(),
+      postcss(),
+      alias({
+        entries: entries,
+        customResolver
+      }),
+    ],
+    external: ["react", "react-dom"],
+  },
+  {
+    input: "src/utils.ts",
+    output: [{ file: packageJson.exports["./utils"].types }],
+    plugins: [
+      dts.default(),
+      typescript({ tsconfig: "./tsconfig.json" }),
+      alias({
+        entries: entries,
+        customResolver
+      }),
+    ],
+    external: [/\.css$/],
   }
 ];

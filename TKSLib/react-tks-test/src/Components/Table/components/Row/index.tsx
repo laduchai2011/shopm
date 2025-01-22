@@ -103,7 +103,9 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
                     const qq_cells = q_cells[(columnAmount.current*selectedRow.current + i)] as HTMLElement;
                     qq_cells.style.height = `${ ch }px`;
                     (element_rowsOfIndex.current[selectedRow.current]!).style.height = `${ ch }px`;
-                    (element_rowsOfCalculate.current[selectedRow.current]!).style.height = `${ ch }px`;
+                    if (element_rowsOfCalculate.current[selectedRow.current]) {
+                        (element_rowsOfCalculate.current[selectedRow.current]!).style.height = `${ ch }px`;
+                    }
 
                     // set line-clamp
                     const fontSize: string = window.getComputedStyle(qq_cells).fontSize;

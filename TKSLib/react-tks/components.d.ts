@@ -23,6 +23,11 @@ interface Table_Config_Props {
     pageSize?: number;
     maxRow?: number;
     controlPos?: string;
+    customColumn?: Table_Config_CustomColumn_Props;
+    cell?: CellProps;
+}
+interface Table_Config_CustomColumn_Props {
+    type?: 'add-sub' | 'get-data' | 'calculateMoney';
 }
 interface Table_Data_Props {
     values?: {
@@ -38,6 +43,14 @@ interface Table_Control_Props {
 }
 interface Table_Event_Props {
     onSelectedPage: (TKS: TKSProps) => void;
+}
+interface CellProps {
+    fieldName?: string;
+    content?: string;
+    width?: string;
+    height?: string;
+    textColor?: string;
+    textWeight?: string;
 }
 interface ColumnsInforProps {
     columnName: string;
@@ -94,6 +107,32 @@ interface DeleteCircleProps {
     fill?: string;
     stroke?: string;
     animation_time?: number;
+    stroke_width?: number;
+}
+interface AddCircleProps {
+    size?: number;
+    background?: string;
+    fill?: string;
+    stroke?: string;
+    animation_time?: number;
+    stroke_width?: number;
+}
+interface SubCircleProps {
+    size?: number;
+    background?: string;
+    fill?: string;
+    stroke?: string;
+    animation_time?: number;
+    stroke_width?: number;
+}
+interface BigLeftArrowProps {
+    fill?: string;
+    stroke?: string;
+    stroke_width?: number;
+}
+interface BigRightArrowProps {
+    fill?: string;
+    stroke?: string;
     stroke_width?: number;
 }
 interface ToastMessageProps {
@@ -179,54 +218,78 @@ interface MyTableProps extends React.HTMLProps<HTMLDivElement> {
     table?: TableProps;
     [key: string]: any;
 }
-declare const _default$8: React.NamedExoticComponent<MyTableProps>;
+declare const _default$c: React.NamedExoticComponent<MyTableProps>;
 
 interface MyDialogProps extends React.HTMLProps<HTMLDivElement> {
     dialog?: DialogProps;
     [key: string]: any;
 }
-declare const _default$7: React.NamedExoticComponent<MyDialogProps>;
+declare const _default$b: React.NamedExoticComponent<MyDialogProps>;
 
 interface MyLoadProps extends React.HTMLProps<HTMLDivElement> {
     load: LoadProps;
     [key: string]: any;
 }
-declare const _default$6: React.NamedExoticComponent<MyLoadProps>;
+declare const _default$a: React.NamedExoticComponent<MyLoadProps>;
 
 interface MyOverlayProps extends React.HTMLProps<HTMLDivElement> {
     overlay?: OverlayProps;
     [key: string]: any;
 }
-declare const _default$5: React.NamedExoticComponent<MyOverlayProps>;
+declare const _default$9: React.NamedExoticComponent<MyOverlayProps>;
 
 interface MyToastMessageProps extends React.HTMLProps<HTMLDivElement> {
     toastMessage?: ToastMessageProps;
     [key: string]: any;
 }
-declare const _default$4: React.NamedExoticComponent<MyToastMessageProps>;
+declare const _default$8: React.NamedExoticComponent<MyToastMessageProps>;
 
 interface MyTickSymbolProps extends React.HTMLProps<SVGSVGElement> {
     tickSymbol?: TickSymbolProps;
     [key: string]: any;
 }
-declare const _default$3: React.NamedExoticComponent<MyTickSymbolProps>;
+declare const _default$7: React.NamedExoticComponent<MyTickSymbolProps>;
 
 interface MyWarnTriangleProps extends React.HTMLProps<SVGSVGElement> {
     warnTriangle?: WarnTriangleProps;
     [key: string]: any;
 }
-declare const _default$2: React.NamedExoticComponent<MyWarnTriangleProps>;
+declare const _default$6: React.NamedExoticComponent<MyWarnTriangleProps>;
 
 interface MyErrorCircleProps extends React.HTMLProps<SVGSVGElement> {
     errorCircle?: ErrorCircleProps;
     [key: string]: any;
 }
-declare const _default$1: React.NamedExoticComponent<MyErrorCircleProps>;
+declare const _default$5: React.NamedExoticComponent<MyErrorCircleProps>;
 
 interface MyDeleteCircleProps extends React.HTMLProps<SVGSVGElement> {
     deleteCircle?: DeleteCircleProps;
     [key: string]: any;
 }
-declare const _default: React.NamedExoticComponent<MyDeleteCircleProps>;
+declare const _default$4: React.NamedExoticComponent<MyDeleteCircleProps>;
 
-export { _default as DeleteCircle, _default$7 as Dialog, _default$1 as ErrorCircle, _default$6 as Loading, _default$5 as OverLay, _default$8 as Table, _default$3 as TickSymbol, _default$4 as ToastMessage, _default$2 as WarnTriangle };
+interface MyBigLeftArrowProps extends React.HTMLProps<SVGSVGElement> {
+    bigLeftArrow?: BigLeftArrowProps;
+    [key: string]: any;
+}
+declare const _default$3: React.NamedExoticComponent<MyBigLeftArrowProps>;
+
+interface MyBigRightArrowProps extends React.HTMLProps<SVGSVGElement> {
+    bigRightArrow?: BigRightArrowProps;
+    [key: string]: any;
+}
+declare const _default$2: React.NamedExoticComponent<MyBigRightArrowProps>;
+
+interface MyAddCircleProps extends React.HTMLProps<SVGSVGElement> {
+    addCircle?: AddCircleProps;
+    [key: string]: any;
+}
+declare const _default$1: React.NamedExoticComponent<MyAddCircleProps>;
+
+interface MySubCircleProps extends React.HTMLProps<SVGSVGElement> {
+    subCircle?: SubCircleProps;
+    [key: string]: any;
+}
+declare const _default: React.NamedExoticComponent<MySubCircleProps>;
+
+export { _default$1 as AddCircle, _default$3 as BigLeftArrow, _default$2 as BigRightArrow, _default$4 as DeleteCircle, _default$b as Dialog, _default$5 as ErrorCircle, _default$a as Loading, _default$9 as OverLay, _default as SubCircle, _default$c as Table, _default$7 as TickSymbol, _default$8 as ToastMessage, _default$6 as WarnTriangle };

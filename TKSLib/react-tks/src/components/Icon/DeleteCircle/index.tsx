@@ -5,11 +5,11 @@ import { DeleteCircleProps } from 'src/define';
 
 
 interface MyDeleteCircleProps extends React.HTMLProps<SVGSVGElement> {
-    deleteCircle?: DeleteCircleProps;
-    [key: string]: any;
+    deleteCircle?: DeleteCircleProps,
+    [key: string]: any
 }
 
-const DeleteCircle: FC<MyDeleteCircleProps> = ({deleteCircle, ...props}) => {
+const DeleteCircle: FC<MyDeleteCircleProps> = ({deleteCircle, className, ...props}) => {
 
     const deleteCircleElement = useRef<SVGSVGElement | null>(null);
 
@@ -25,7 +25,7 @@ const DeleteCircle: FC<MyDeleteCircleProps> = ({deleteCircle, ...props}) => {
     }, [deleteCircle])
 
     return <svg 
-        className="TKS-DeleteCircle"
+        className={`TKS-DeleteCircle ${className  || ''}`}
         ref={deleteCircleElement}
         viewBox="0 0 24 24" 
         xmlns="http://www.w3.org/2000/svg"

@@ -8,7 +8,7 @@ interface MyWarnTriangleProps extends React.HTMLProps<SVGSVGElement> {
     [key: string]: any;
 }
 
-const WarnTriangle: FC<MyWarnTriangleProps> = ({warnTriangle, ...props}) => {
+const WarnTriangle: FC<MyWarnTriangleProps> = ({warnTriangle, className, ...props}) => {
 
     const warnTriangleElement = useRef<SVGSVGElement | null>(null);
 
@@ -24,7 +24,7 @@ const WarnTriangle: FC<MyWarnTriangleProps> = ({warnTriangle, ...props}) => {
     }, [warnTriangle])
 
     return <svg 
-        className="TKS-WarnTriangle"
+        className={`TKS-WarnTriangle ${className  || ''}`}
         ref={warnTriangleElement}
         viewBox="0 0 24 24" 
         xmlns="http://www.w3.org/2000/svg"

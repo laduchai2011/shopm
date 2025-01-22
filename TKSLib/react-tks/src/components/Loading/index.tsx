@@ -17,11 +17,11 @@ import LineCircle from './components/LineCircle';
 import Skeleton from './components/Skeleton';
 
 interface MyLoadProps extends React.HTMLProps<HTMLDivElement> {
-    load: LoadProps ;
-    [key: string]: any;
+    load: LoadProps,
+    [key: string]: any
 }
 
-const Loading: FC<MyLoadProps> = ({ load, ...props }) => {
+const Loading: FC<MyLoadProps> = ({load, className, ...props}) => {
 
     const infor: any = load.infor;
 
@@ -73,7 +73,10 @@ const Loading: FC<MyLoadProps> = ({ load, ...props }) => {
         } 
     } 
 
-    return <div className="TKS-Loading" {...props}>
+    return <div 
+        className={`TKS-Loading ${className  || ''}`}
+        {...props}
+    >
         { load.type===LOAD_COMPONENTS_CONST.LOADING_TYPE.DOT_CIRCLE && <DotCircle dotCircleLoad={ load.infor as DotCircleLoadProps } />}
         { load.type===LOAD_COMPONENTS_CONST.LOADING_TYPE.LINE_CIRCLE && <LineCircle lineCircleLoad={ load.infor as LineCircleLoadProps } />}
         { load.type===LOAD_COMPONENTS_CONST.LOADING_TYPE.SKELETON && <Skeleton skeletonLoad={ load.infor as SkeletonLoadProps } />}

@@ -30,7 +30,12 @@ export interface Table_Config_Props {
     columnsInfor?: ColumnsInforProps[],
     pageSize?: number,
     maxRow?: number,
-    controlPos?: string
+    controlPos?: string,
+    customColumn?: Table_Config_CustomColumn_Props,
+    cell?: CellProps
+}
+export interface Table_Config_CustomColumn_Props {
+    type?: 'add-sub' | 'get-data' | 'calculateMoney';
 }
 export interface Table_Data_Props {
     values?: {[key: string]: any}[],
@@ -43,13 +48,24 @@ export interface Table_Control_Props {
 export interface Table_Event_Props {
     onSelectedPage: (TKS: TKSProps) => void
 }
+export interface Table_Element_Props {
+    rowsOfIndex: React.MutableRefObject<(HTMLDivElement | null)[]>,
+    rows: React.MutableRefObject<(HTMLDivElement | null)[]>,
+    rowsOfCalculate: React.MutableRefObject<(HTMLDivElement | null)[]>,
+    cells: React.MutableRefObject<(HTMLDivElement | null)[]>
+}
+export interface Table_Resizable_Props {
+    cell_X: React.MutableRefObject<number>,
+    cell_Y: React.MutableRefObject<number>,
+    isResizable_X: React.MutableRefObject<boolean>,
+    isResizable_Y: React.MutableRefObject<boolean>,
+    cellWidth: React.MutableRefObject<number>,
+    cellHeight: React.MutableRefObject<number>,
+    selectedColumn: React.MutableRefObject<number | undefined>,
+    selectedRow: React.MutableRefObject<number | undefined>
+}
 export interface ContextTableProps {
     table?: TableProps,
-    cellElements: React.MutableRefObject<(HTMLDivElement | null)[]>,
-    resizableStatus: React.MutableRefObject<boolean>,
-    cellWidth: React.MutableRefObject<number>,
-    cellX: React.MutableRefObject<number>,
-    selectedColumn: React.MutableRefObject<number | undefined>,
     columnAmount: React.MutableRefObject<number>,
     rowAmount: React.MutableRefObject<number>,
     pageIndex: number,
@@ -60,7 +76,10 @@ export interface ContextTableProps {
     setLoadDataState: React.Dispatch<React.SetStateAction<string | undefined>>,
     isControl_pageIndex_defaultFunction: React.MutableRefObject<boolean>,
     isControl_loadDataState_defaultFunction: React.MutableRefObject<boolean>,
-    follow_loadingState?: FollowStateProps
+    follow_loadingState?: FollowStateProps,
+    elements: React.MutableRefObject<Table_Element_Props>,
+    row_hoverColor: string,
+    resizable: React.MutableRefObject<Table_Resizable_Props>
 }
 export interface CellProps {
     fieldName?: string,
@@ -151,6 +170,36 @@ export interface DeleteCircleProps {
     fill?: string,
     stroke?: string,
     animation_time?: number,
+    stroke_width?: number
+}
+
+export interface AddCircleProps {
+    size?: number,
+    background?: string,
+    fill?: string,
+    stroke?: string,
+    animation_time?: number,
+    stroke_width?: number
+}
+
+export interface SubCircleProps {
+    size?: number,
+    background?: string,
+    fill?: string,
+    stroke?: string,
+    animation_time?: number,
+    stroke_width?: number
+}
+
+export interface BigLeftArrowProps {
+    fill?: string,
+    stroke?: string,
+    stroke_width?: number
+}
+
+export interface BigRightArrowProps {
+    fill?: string,
+    stroke?: string,
     stroke_width?: number
 }
 

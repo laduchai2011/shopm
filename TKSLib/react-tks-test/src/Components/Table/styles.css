@@ -11,4 +11,8 @@
 
 .TKS-Table--Row {
     width: 100%;
+    box-sizing: border-box;
+    border: 1px solid gray;
+    border-radius: 10px;
+    overflow: hidden;
 }

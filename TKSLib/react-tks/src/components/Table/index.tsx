@@ -7,28 +7,33 @@ import { useFollowState } from 'src/myHooks';
 import { FollowState_Config_RegisterState_Props } from 'src/myHooks/interface';
 
 import { 
-    RowProps,
+    // RowProps,
     TableProps, 
     Table_Config_Props,
     ContextTableProps,
-    CellProps,
+    Table_Element_Props,
+    Table_Resizable_Props
+    // CellProps,
 } from 'src/define';
 
-import { WARNING_COLOR, LOAD_STATE } from 'src/const';
+import { 
+    // WARNING_COLOR, 
+    LOAD_STATE 
+} from 'src/const';
 
-import Row from './components/Row';
+// import Row from './components/Row';
+import Rows from './components/Rows';
 import Control from './components/Control';
 
 
 interface MyTableProps extends React.HTMLProps<HTMLDivElement> {
-    table?: TableProps
-    [key: string]: any;
+    table?: TableProps,
+    [key: string]: any
 }
 
-const Table: FC<MyTableProps> = ({ 
-        table,
-        ...props
-    }) => {
+const Table: FC<MyTableProps> = ({table, className, ...props}) => {
+
+    const row_hoverColor: string = 'rgb(233, 233, 233)';
 
     const config: Table_Config_Props = {...table?.config};
 
@@ -36,18 +41,44 @@ const Table: FC<MyTableProps> = ({
   
     const data: {[key: string]: any}[] | undefined = table?.data?.values;
 
-    const resizableStatus: React.MutableRefObject<boolean> = useRef(false);
-    const cellWidth: React.MutableRefObject<number> = useRef(0);
-    const cellX: React.MutableRefObject<number> = useRef(0);
-    const selectedColumn: React.MutableRefObject<number | undefined> = useRef(undefined);
     const columnAmount: React.MutableRefObject<number> = useRef(0);
     const rowAmount: React.MutableRefObject<number> = useRef(0);
     const [pageIndex, setPageIndex] = useState<number>(1);
     const [loadDataState, setLoadDataState] = useState<string | undefined>(undefined);
-    const totalRow: React.MutableRefObject<RowProps[]> = useRef([]);
 
     let isControl_pageIndex_defaultFunction = useRef<boolean>(true);
     let isControl_loadDataState_defaultFunction = useRef<boolean>(true);
+
+    const element_rowsOfIndex = useRef<(HTMLDivElement | null)[]>([]);
+    const element_rows = useRef<(HTMLDivElement | null)[]>([]);
+    const element_rowsOfCalculate = useRef<(HTMLDivElement | null)[]>([]);
+    const element_cells = useRef<(HTMLDivElement | null)[]>([]);
+    const elements = useRef<Table_Element_Props>({
+        rowsOfIndex: element_rowsOfIndex,
+        rows: element_rows,
+        rowsOfCalculate: element_rowsOfCalculate,
+        cells: element_cells
+    })
+
+    // resizable
+    const cell_X: React.MutableRefObject<number> = useRef(0);
+    const cell_Y: React.MutableRefObject<number> = useRef(0);
+    const cellWidth: React.MutableRefObject<number> = useRef(0);
+    const cellHeight: React.MutableRefObject<number> = useRef(0);
+    const isResizable_X: React.MutableRefObject<boolean> = useRef(false);
+    const isResizable_Y: React.MutableRefObject<boolean> = useRef(false);
+    const selectedColumn: React.MutableRefObject<number | undefined> = useRef(undefined);
+    const selectedRow: React.MutableRefObject<number | undefined> = useRef(undefined);
+    const resizable = useRef<Table_Resizable_Props>({
+        cell_X: cell_X,
+        cell_Y: cell_Y,
+        isResizable_X: isResizable_X,
+        isResizable_Y: isResizable_Y,
+        cellWidth: cellWidth,
+        cellHeight: cellHeight,
+        selectedColumn: selectedColumn,
+        selectedRow: selectedRow
+    })
 
     const default_pageSize: number = 10;
     const default_maxRow: number = 50;
@@ -103,9 +134,6 @@ const Table: FC<MyTableProps> = ({
         }
     }, [loadDataState, follow_loadingState.setData])
 
-    // cell
-    const cellElements = useRef<(HTMLDivElement | null)[]>([]);
-
     if (data) {
         rowAmount.current = data.length + 1;
 
@@ -131,64 +159,6 @@ const Table: FC<MyTableProps> = ({
             });
         }
     }
-    
-    const rowForm: RowProps = {
-        cells: []
-    };
-
-    // set-up header oncly one time
-    const cellHeader = (fieldName?: string, content?: string, textColor?: string, textWeight?: string): CellProps => {
-        return {
-            fieldName: fieldName,
-            content: content,
-            textColor: textColor,
-            textWeight: textWeight
-        }
-    }
-    const rowHeader: RowProps = {
-        cells: []
-    }
-    if (config?.columnsInfor && rowHeader?.cells && rowForm?.cells) {
-        for (let i: number = 0; i < config.columnsInfor.length; i++) {
-            // if (config.columnsInfor[i]!==undefined) {
-            //     rowHeader.cells.push(cellHeader(config.columnsInfor[i].fieldName, config.columnsInfor[i].columnName, 'black', '700'));
-            //     rowForm.cells.push(cellHeader(config.columnsInfor[i].fieldName, '', 'black', '300'));
-            // } else {
-            //     rowHeader.cells.push(cellHeader('', `column ${i}`, 'black', '700'));
-            //     rowForm.cells.push(cellHeader('', '', WARNING_COLOR, '300'));
-            // }
-            rowHeader.cells.push(cellHeader(config.columnsInfor[i].fieldName, config.columnsInfor[i].columnName, 'black', '700'));
-            rowForm.cells.push(cellHeader(config.columnsInfor[i].fieldName, '', 'black', '300'));
-        }
-    }
-    
-    const totalRow_m: RowProps[] = []
-    if (data) {
-        for (let key: number = 0; key < data.length; key++) {
-            // if (data.hasOwnProperty(key)) { 
-            //     console.log(`log: ${key}: ${Object.keys(data[key])}`, data[key]);
-            // }   
-            // const rowData = { ...rowForm.current };
-            const rowData: RowProps = JSON.parse(JSON.stringify(rowForm));
-            if (rowData?.cells?.length) {
-                for (let i: number = 0; i < rowData.cells.length; i++) {
-                    const keyIndexInRow = Object.keys(data[key]).indexOf(rowData.cells[i]?.fieldName!);
-                    if (keyIndexInRow!==-1) {
-                        const selectedKey: string = rowData.cells[i]?.fieldName!;
-                        rowData.cells[i].content = data[key][selectedKey];
-                    } else {
-                        rowData.cells[i].content = 'Empty';
-                        rowData.cells[i].textColor = WARNING_COLOR;
-                    }
-                }
-                totalRow_m.push(rowData)
-            }
-        }
-    }
-
-    totalRow_m.unshift(rowHeader);
-
-    totalRow.current = totalRow_m;
 
     const handleControlPos = (): string => {
         if (config.controlPos==="bottom") {
@@ -197,20 +167,9 @@ const Table: FC<MyTableProps> = ({
             return 'top';
         }
     };
-      
-    const list_row: React.ReactNode = totalRow.current.map((data: RowProps, index: number) => {
-        return (
-            <Row data={data} rowIndex={ index } key={index} />
-        )
-    })
 
     const contextValue: ContextTableProps = useMemo(() => ({
         table,
-        cellElements,
-        resizableStatus, 
-        cellWidth, 
-        cellX, 
-        selectedColumn, 
         columnAmount, 
         rowAmount,
         pageIndex,
@@ -221,13 +180,20 @@ const Table: FC<MyTableProps> = ({
         setLoadDataState,
         isControl_pageIndex_defaultFunction,
         isControl_loadDataState_defaultFunction,
-        follow_loadingState
-    }), [table, pageIndex, setPageIndex, loadDataState, follow_loadingState]);
+        follow_loadingState,
+        elements,
+        row_hoverColor,
+        resizable
+    }), [table, pageIndex, loadDataState, follow_loadingState, elements]);
 
     return <ContextTable.Provider value={contextValue}>
-        {isRender && <div className="TKS-Table" {...props}>
+        {isRender && <div 
+            className={`TKS-Table ${className  || ''}`}
+            {...props}
+        >
             { handleControlPos()!=='bottom' && <div className='TKS-Table--Control'><Control /></div>}
-            <div className='TKS-Table--Row'>{ list_row }</div>
+            {/* <div className='TKS-Table--Row'>{ list_row }</div> */}
+            <div className='TKS-Table--Row'><Rows /></div>
             { handleControlPos()==='bottom' && <div className='TKS-Table--Control'><Control /></div>}
             {/* <button onClick={() => follow_loadingState.getData?.getAllState && console.log(follow_loadingState.getData?.getAllState())}>Click</button> */}
         </div>}

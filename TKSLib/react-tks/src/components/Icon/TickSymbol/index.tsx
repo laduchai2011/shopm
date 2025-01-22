@@ -8,7 +8,7 @@ interface MyTickSymbolProps extends React.HTMLProps<SVGSVGElement> {
     [key: string]: any;
 }
 
-const TickSymbol: FC<MyTickSymbolProps> = ({tickSymbol, ...props}) => {
+const TickSymbol: FC<MyTickSymbolProps> = ({tickSymbol, className, ...props}) => {
 
     const tickSymbolElement = useRef<SVGSVGElement | null>(null);
 
@@ -24,7 +24,7 @@ const TickSymbol: FC<MyTickSymbolProps> = ({tickSymbol, ...props}) => {
     }, [tickSymbol])
 
     return <svg 
-        className="TKS-TickSymbol"
+        className={`TKS-TickSymbol ${className  || ''}`}
         ref={tickSymbolElement}
         viewBox="0 0 24 24" 
         xmlns="http://www.w3.org/2000/svg"

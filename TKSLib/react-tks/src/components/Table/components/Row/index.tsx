@@ -10,6 +10,19 @@ import {
 
 import Cell from './components/Cell';
 
+import { 
+    rowHoverIn,
+    rowHoverOut,
+    rowToggle 
+} from '../utils';
+
+import { clickStatus_of_row_Types } from '../utils/type';
+import { 
+    CLICK_STATUS_TYPE
+} from '../utils/const';
+
+import { handleCutPXInString } from 'src/utils/string';
+
 
 const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }) => {
 
@@ -25,18 +38,35 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
         table, 
         default_pageSize, 
         default_maxRow, 
-        cellElements, 
-        resizableStatus, 
-        cellWidth, 
-        cellX, 
-        selectedColumn, 
         columnAmount, 
         rowAmount, 
-        pageIndex 
+        elements,
+        row_hoverColor,
+        resizable
     } = context;
 
-    const rowElement = useRef<HTMLDivElement | null>(null);
-    const isSelectedRow = useRef<boolean>(false);
+    const element_rowsOfIndex: React.MutableRefObject<(HTMLDivElement | null)[]> = elements.current.rowsOfIndex;
+    const element_rows: React.MutableRefObject<(HTMLDivElement | null)[]> = elements.current.rows;
+    const element_rowsOfCalculate: React.MutableRefObject<(HTMLDivElement | null)[]> = elements.current.rowsOfCalculate;
+    const element_cells: React.MutableRefObject<(HTMLDivElement | null)[]> = elements.current.cells;
+
+    // resizable
+    const cell_X: React.MutableRefObject<number> = resizable.current.cell_X;
+    const cell_Y: React.MutableRefObject<number> = resizable.current.cell_Y;
+    const cellWidth: React.MutableRefObject<number> = resizable.current.cellWidth;
+    const cellHeight: React.MutableRefObject<number> = resizable.current.cellHeight;
+    const isResizable_X: React.MutableRefObject<boolean> = resizable.current.isResizable_X;
+    const isResizable_Y: React.MutableRefObject<boolean> = resizable.current.isResizable_Y;
+    const selectedColumn: React.MutableRefObject<number | undefined> = resizable.current.selectedColumn;
+    const selectedRow: React.MutableRefObject<number | undefined> = resizable.current.selectedRow;
+
+    const clickStatus_of_row = useRef<clickStatus_of_row_Types>(CLICK_STATUS_TYPE.READY);
+
+    useEffect(() => {
+        if (element_rows.current[rowIndex] && rowIndex > 0) {
+            (element_rows.current[rowIndex]!).style.setProperty('--background-color', row_hoverColor);
+        }
+    }, [element_rows, rowIndex, row_hoverColor])
 
     if (rowData?.cells) {
         columnAmount.current = rowData.cells.length;
@@ -52,32 +82,64 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
         maxRow.current = table.config.maxRow;
     }
 
+    // handle resizable
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
-            // const q_cells = $$('.TKS-Cell');
-            const q_cells = cellElements.current;
-            const dx = e.clientX - cellX.current;
+            const q_cells = element_cells.current;
+
+            const dx = e.clientX - cell_X.current;
             const cw = cellWidth.current + dx;
-            if (resizableStatus.current && selectedColumn.current!==undefined) {
-                for (let i = 0; i < rowAmount.current; i++) {
+            if (isResizable_X.current && selectedColumn.current!==undefined) {
+                for (let i: number = 0; i < rowAmount.current; i++) {
                     const qq_cells = q_cells[(columnAmount.current*i + selectedColumn.current)] as HTMLElement;
                     qq_cells.style.width = `${ cw }px`;
                 }
-            }
+            } 
+
+            const dy = e.clientY - cell_Y.current;
+            const ch = cellHeight.current + dy;
+            if (isResizable_Y.current && selectedRow.current!==undefined) {
+                for (let i: number = 0; i < columnAmount.current; i++) {
+                    const qq_cells = q_cells[(columnAmount.current*selectedRow.current + i)] as HTMLElement;
+                    qq_cells.style.height = `${ ch }px`;
+                    (element_rowsOfIndex.current[selectedRow.current]!).style.height = `${ ch }px`;
+                    if (element_rowsOfCalculate.current[selectedRow.current]) {
+                        (element_rowsOfCalculate.current[selectedRow.current]!).style.height = `${ ch }px`;
+                    }
+
+                    // set line-clamp
+                    const fontSize: string = window.getComputedStyle(qq_cells).fontSize;
+                    const fontSize_number = handleCutPXInString(fontSize)
+                    const line_clamp: number = Math.floor(ch / Number(fontSize_number)) - 1;
+                    if (qq_cells) {
+                        qq_cells.style.setProperty('--Cell-line-clamp', line_clamp.toString());
+                    }
+                    // console.log(line_clamp, fontSize, fontSize_number, Number(fontSize_number))
+                }
+            } 
         }
         const handleMouseUp = (e: MouseEvent) => {
-            resizableStatus.current = false;
-            // const q_cells = $$('.TKS-Cell');
-            const q_cells = cellElements.current;
+            const q_cells = element_cells.current;
+
+            isResizable_X.current = false;
             if (selectedColumn.current!==undefined) {
-                for (let i = 0; i < rowAmount.current; i++) {
+                for (let i: number = 0; i < rowAmount.current; i++) {
                     const qq_cells = q_cells[(columnAmount.current*i + selectedColumn.current)] as HTMLElement;
-                    qq_cells.children[1].classList.remove('selected');
+                    qq_cells.children[2].classList.remove('selected');
+                }
+            }
+
+            isResizable_Y.current = false;
+            if (selectedRow.current!==undefined) {
+                for (let i: number = 0; i < columnAmount.current; i++) {
+                    const qq_cells = q_cells[(columnAmount.current*selectedRow.current + i)] as HTMLElement;
+                    qq_cells.children[3].classList.remove('selected');
                 }
             }
         }
         const handleMouseLeave = (e: MouseEvent) => {
-            resizableStatus.current  = false;
+            isResizable_X.current  = false;
+            isResizable_Y.current  = false;
         }
 
         document.addEventListener('mousemove', (e) => handleMouseMove(e));
@@ -89,22 +151,42 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
             document.removeEventListener('mouseup', (e) => handleMouseUp(e));
             document.removeEventListener('mouseleave', (e) => handleMouseLeave(e));
         }
-    }, [cellElements, cellWidth, cellX, columnAmount, resizableStatus, rowAmount, selectedColumn])
+    }, [
+        element_rowsOfIndex,
+        element_rowsOfCalculate,
+        element_cells, 
+        cellWidth, 
+        cellHeight, 
+        cell_X, 
+        cell_Y, 
+        isResizable_X, 
+        isResizable_Y, 
+        columnAmount, 
+        rowAmount, 
+        selectedColumn, 
+        selectedRow
+    ])
 
     const handleHoverIn = (e: React.MouseEvent) => {
-        const hoverColor: string = 'rgb(233, 233, 233)';
-        if (rowElement.current && rowIndex > 0) {
-           rowElement.current.style.setProperty('--background-color', hoverColor);
+        if (rowIndex > 0) {
+            rowHoverIn(rowIndex, element_rowsOfIndex, element_rows, element_rowsOfCalculate)
         }
     }
     const handleHoverOut = (e: React.MouseEvent) => {
-        const hoverColor: string = 'white';
-        if (rowElement.current && !isSelectedRow.current) {
-           rowElement.current.style.setProperty('--background-color', hoverColor);
+        if (rowIndex > 0) {
+            rowHoverOut(rowIndex, element_rowsOfIndex, element_rows, element_rowsOfCalculate)
         }
     }
     const handleClick = (e: React.MouseEvent) => {
-        isSelectedRow.current = !isSelectedRow.current;
+        if ((rowIndex > 0) && (clickStatus_of_row.current===CLICK_STATUS_TYPE.READY)) {
+            rowToggle(rowIndex, element_rowsOfIndex, element_rows, element_rowsOfCalculate);
+        }
+    }
+    const handleMouseDown = (e: React.MouseEvent) => {
+        clickStatus_of_row.current = CLICK_STATUS_TYPE.READY;
+        setTimeout(() => {
+            clickStatus_of_row.current = CLICK_STATUS_TYPE.LOCKED;
+        }, 200)
     }
 
     const handleTableIndex = (columnAmount: number, rowIndex: number, cellIndex: number): number => {
@@ -113,32 +195,21 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
 
     const list_cell: React.ReactNode = rowData?.cells && rowData.cells.map((data: CellProps, index: number) => {
         return rowData?.cells && (
-            <Cell data={data} cellIndex={handleTableIndex(rowData.cells.length, rowIndex, index)} rowIndex={rowIndex} column={index} key={index} />
+            <Cell data={data} cellIndex={handleTableIndex(rowData.cells.length, rowIndex, index)} rowIndex={rowIndex} columnIndex={index} key={index} />
         )
     })
 
-    const dataIndex: number = pageSize.current ? pageSize.current*(pageIndex - 1) + rowIndex : 0; 
-
     return <div className="TKS-Row" 
-                ref={rowElement}
-                // handle hover
-                onMouseOver={e => handleHoverIn(e)}
-                onMouseOut={e => handleHoverOut(e)}
-                onClick={e => handleClick(e)}
-            >
-            <div className='TKS-Row-indexColumn'>
-                {/* {rowIndex > 0 ? <div>{ rowIndex }</div> : <div>
-                    { table?.config?.pageSize ? <div>{table?.config?.pageSize}</div> : <div>1</div> }
-                </div> } */}
-                {/* {rowIndex > 0 ? <div>{ dataIndex }</div> : <div>
-                    { table?.config?.maxRow ? <div>{table?.config?.maxRow}</div> : <div>1</div> }
-                </div> } */}
-                { rowIndex > 0 ? <div>{ rowIndex }</div> : <div>{ pageSize.current }</div> }
-                { rowIndex > 0 ? <div>{ dataIndex }</div> : <div>{ maxRow.current }</div> }
-            </div>
-            <div className='TKS-Row-column'>
-                { list_cell }
-            </div>
+        ref={(el) => (element_rows.current[rowIndex] = el)}
+        // handle hover
+        onMouseOver={e => handleHoverIn(e)}
+        onMouseOut={e => handleHoverOut(e)}
+        onClick={e => handleClick(e)}
+        onMouseDown={(e)=> handleMouseDown(e)}
+    >
+        <div className='TKS-Row-column'>
+            { list_cell }
+        </div>
     </div>;
 };
 

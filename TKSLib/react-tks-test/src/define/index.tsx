@@ -31,11 +31,11 @@ export interface Table_Config_Props {
     pageSize?: number,
     maxRow?: number,
     controlPos?: string,
-    customColumn?: string,
+    customColumn?: Table_Config_CustomColumn_Props,
     cell?: CellProps
 }
 export interface Table_Config_CustomColumn_Props {
-    type?: 'add-sub' | 'get-data';
+    type?: 'add-sub' | 'get-data' | 'calculateMoney';
 }
 export interface Table_Data_Props {
     values?: {[key: string]: any}[],

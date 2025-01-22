@@ -8,3 +8,7 @@ export { default as TickSymbol } from './components/Icon/TickSymbol';
 export { default as WarnTriangle } from './components/Icon/WarnTriangle';
 export { default as ErrorCircle } from './components/Icon/ErrorCircle';
 export { default as DeleteCircle } from './components/Icon/DeleteCircle';
+export { default as BigLeftArrow } from './components/Icon/BigLeftArrow';
+export { default as BigRightArrow } from './components/Icon/BigRightArrow';
+export { default as AddCircle } from './components/Icon/AddCircle';
+export { default as SubCircle } from './components/Icon/SubCircle';

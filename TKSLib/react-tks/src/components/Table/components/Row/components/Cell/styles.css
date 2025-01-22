@@ -3,6 +3,8 @@
     --Cell-height: 30px;
     --Cell-textColor: black;
     --Cell-textWeight: 300;
+    --Cell-line-clamp: 1;
+    --Cell-line-height: 1.2
 }
 
 .TKS-Cell {
@@ -23,12 +25,21 @@
 }
 
 .TKS-Cell > div:nth-child(2) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
     width: 100%;
     height: 100%;
     position: absolute;
+    box-sizing: border-box;
+    padding: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+
+    display: -webkit-box; 
+    -webkit-box-orient: vertical; 
+    line-clamp: var(--Cell-line-clamp); 
+    -webkit-line-clamp: var(--Cell-line-clamp); 
+    line-height: var(--Cell-line-height);
+    /* max-height: calc(1.5em * 1); */
 }
 
 .TKS-Cell > div:nth-child(3) {
@@ -36,13 +47,28 @@
     height: 100%;
     position: absolute;
     right: 0;
+    cursor: col-resize;
 }
 
 .TKS-Cell > div:nth-child(3).selected {
     background-color: blue;
-    width: 2px;
+    width: 1px;
+}
+.TKS-Cell > div:nth-child(3):hover {
+    background-color: blue;
 }
 
-.TKS-Cell > div:nth-child(3):hover {
+.TKS-Cell > div:nth-child(4) {
+    width: 100%;
+    height: 3px;
+    position: absolute;
+    bottom: 0;
+    cursor: row-resize;
+}
+.TKS-Cell > div:nth-child(4).selected {
+    background-color: blue;
+    height: 1px;
+}
+.TKS-Cell > div:nth-child(4):hover {
     background-color: blue;
 }
