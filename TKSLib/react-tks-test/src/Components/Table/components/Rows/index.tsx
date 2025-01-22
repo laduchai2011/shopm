@@ -53,6 +53,17 @@ const Rows: FC<{}> = () => {
     const clickStatus_of_row = useRef<clickStatus_of_row_Types>(CLICK_STATUS_TYPE.READY);
 
     const totalRow: React.MutableRefObject<RowProps[]> = useRef([]);
+    
+    const cellWidth: string | undefined = config.cell?.width;
+    const cellHeight: string | undefined = config.cell?.height;
+
+    const elementRows = useRef<HTMLDivElement | null>(null);
+    useEffect(() => {
+        if (elementRows.current) {
+            cellWidth && elementRows.current.style.setProperty('--Cell-width', cellWidth);
+            cellHeight && elementRows.current.style.setProperty('--Cell-height', cellHeight);
+        }
+    }, [cellWidth, cellHeight])
 
     useEffect(() => {
         const total_row = totalRow.current.length
@@ -77,7 +88,9 @@ const Rows: FC<{}> = () => {
             fieldName: fieldName,
             content: content,
             textColor: textColor,
-            textWeight: textWeight
+            textWeight: textWeight,
+            width: cellWidth,
+            height: cellHeight
         }
     }
     const rowHeader: RowProps = {
@@ -108,6 +121,8 @@ const Rows: FC<{}> = () => {
                         rowData.cells[i].content = 'Empty';
                         rowData.cells[i].textColor = WARNING_COLOR;
                     }
+                    rowData.cells[i].width = cellWidth;
+                    rowData.cells[i].height = cellHeight;
                 }
                 totalRow_m.push(rowData)
             }
@@ -236,7 +251,7 @@ const Rows: FC<{}> = () => {
     })
     
 
-    return <div className="TKS-Rows">
+    return <div className="TKS-Rows" ref={elementRows}>
         <div className='TKS-Rows-left'>
             { list_index }
         </div>

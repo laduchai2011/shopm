@@ -3,6 +3,8 @@
     --Cell-height: 30px;
     --Cell-textColor: black;
     --Cell-textWeight: 300;
+    --Cell-line-clamp: 1;
+    --Cell-line-height: 1.2
 }
 
 .TKS-Cell {
@@ -23,25 +25,21 @@
 }
 
 .TKS-Cell > div:nth-child(2) {
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
     text-align: center;
     width: 100%;
     height: 100%;
     position: absolute;
     box-sizing: border-box;
     padding: 5px;
-    /* white-space: nowrap;  */
     overflow: hidden;
     text-overflow: ellipsis; 
 
     display: -webkit-box; 
     -webkit-box-orient: vertical; 
-    line-clamp: 3; 
-    -webkit-line-clamp: 3; 
-    line-height: 1.5;
-    max-height: calc(1.5em * 3);
+    line-clamp: var(--Cell-line-clamp); 
+    -webkit-line-clamp: var(--Cell-line-clamp); 
+    line-height: var(--Cell-line-height);
+    /* max-height: calc(1.5em * 1); */
 }
 
 .TKS-Cell > div:nth-child(3) {

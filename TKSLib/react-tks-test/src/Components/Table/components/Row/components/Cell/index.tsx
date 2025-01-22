@@ -27,11 +27,6 @@ const Cell: FC<{data: CellProps, cellIndex: number, rowIndex: number, columnInde
 
     const { 
         table, 
-        // cellElements, 
-        // resizableStatus, 
-        // cellWidth, 
-        // cellX, 
-        // selectedColumn, 
         columnAmount, 
         rowAmount,
         elements,
@@ -105,12 +100,6 @@ const Cell: FC<{data: CellProps, cellIndex: number, rowIndex: number, columnInde
         type: LOAD_COMPONENTS_CONST.LOADING_TYPE.SKELETON,
         infor: skeletonLoad
     }
-
-    // useEffect(() => {
-    //     const q_cells = element_cells.current[cellIndex];
-    //     const height = q_cells?.children[1].getBoundingClientRect().height;
-    //     console.log("Chiều cao của chữ là:", height);
-    // }, [])
 
     return <div className="TKS-Cell" ref={(el) => (element_cells.current[cellIndex] = el)}>
         <div>

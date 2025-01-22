@@ -1,5 +1,7 @@
 .TKS-Rows {
     --background-color: white;
+    --Cell-width: 150px;
+    --Cell-height: 30px;
 }
 
 .TKS-Rows {
@@ -29,7 +31,7 @@
 
 .TKS-Rows-left > div,
 .TKS-Rows-right > div {
-    height: 30px;
+    height: var(--Cell-height);
     box-sizing: border-box;
     border: 1px solid gray;
     display: flex;
@@ -76,12 +78,11 @@
 
 .TKS-Rows-right-header > svg:hover {
     background-color: white;
-    scale: 1.1;
+    scale: 0.9;
 }
 
 .TKS-Rows-center {
     width: 100%;
-    /* padding: 0 500px; */
     padding-left: 50px;
     padding-right: 350px;
     overflow-x: scroll;

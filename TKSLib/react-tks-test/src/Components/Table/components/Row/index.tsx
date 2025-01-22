@@ -21,6 +21,8 @@ import {
     CLICK_STATUS_TYPE
 } from '../utils/const';
 
+import { handleCutPXInString } from 'src/utils/string';
+
 
 const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }) => {
 
@@ -100,10 +102,20 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
                 for (let i: number = 0; i < columnAmount.current; i++) {
                     const qq_cells = q_cells[(columnAmount.current*selectedRow.current + i)] as HTMLElement;
                     qq_cells.style.height = `${ ch }px`;
+                    (element_rowsOfIndex.current[selectedRow.current]!).style.height = `${ ch }px`;
+                    (element_rowsOfCalculate.current[selectedRow.current]!).style.height = `${ ch }px`;
+
+                    // set line-clamp
+                    const fontSize: string = window.getComputedStyle(qq_cells).fontSize;
+                    const fontSize_number = handleCutPXInString(fontSize)
+                    const line_clamp: number = Math.floor(ch / Number(fontSize_number)) - 1;
+                    if (qq_cells) {
+                        qq_cells.style.setProperty('--Cell-line-clamp', line_clamp.toString());
+                    }
+                    // console.log(line_clamp, fontSize, fontSize_number, Number(fontSize_number))
                 }
             } 
         }
-
         const handleMouseUp = (e: MouseEvent) => {
             const q_cells = element_cells.current;
 
@@ -137,7 +149,21 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
             document.removeEventListener('mouseup', (e) => handleMouseUp(e));
             document.removeEventListener('mouseleave', (e) => handleMouseLeave(e));
         }
-    }, [element_cells, cellWidth, cellHeight, cell_X, cell_Y, isResizable_X, isResizable_Y, columnAmount, rowAmount, selectedColumn, selectedRow])
+    }, [
+        element_rowsOfIndex,
+        element_rowsOfCalculate,
+        element_cells, 
+        cellWidth, 
+        cellHeight, 
+        cell_X, 
+        cell_Y, 
+        isResizable_X, 
+        isResizable_Y, 
+        columnAmount, 
+        rowAmount, 
+        selectedColumn, 
+        selectedRow
+    ])
 
     const handleHoverIn = (e: React.MouseEvent) => {
         if (rowIndex > 0) {
@@ -172,17 +198,16 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
     })
 
     return <div className="TKS-Row" 
-                // ref={rowElement}
-                ref={(el) => (element_rows.current[rowIndex] = el)}
-                // handle hover
-                onMouseOver={e => handleHoverIn(e)}
-                onMouseOut={e => handleHoverOut(e)}
-                onClick={e => handleClick(e)}
-                onMouseDown={(e)=> handleMouseDown(e)}
-            >
-            <div className='TKS-Row-column'>
-                { list_cell }
-            </div>
+        ref={(el) => (element_rows.current[rowIndex] = el)}
+        // handle hover
+        onMouseOver={e => handleHoverIn(e)}
+        onMouseOut={e => handleHoverOut(e)}
+        onClick={e => handleClick(e)}
+        onMouseDown={(e)=> handleMouseDown(e)}
+    >
+        <div className='TKS-Row-column'>
+            { list_cell }
+        </div>
     </div>;
 };
 

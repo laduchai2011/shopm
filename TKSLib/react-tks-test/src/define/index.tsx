@@ -31,7 +31,8 @@ export interface Table_Config_Props {
     pageSize?: number,
     maxRow?: number,
     controlPos?: string,
-    customColumn?: string
+    customColumn?: string,
+    cell?: CellProps
 }
 export interface Table_Config_CustomColumn_Props {
     type?: 'add-sub' | 'get-data';
@@ -65,11 +66,6 @@ export interface Table_Resizable_Props {
 }
 export interface ContextTableProps {
     table?: TableProps,
-    // cellElements: React.MutableRefObject<(HTMLDivElement | null)[]>,
-    // resizableStatus: React.MutableRefObject<boolean>,
-    // cellWidth: React.MutableRefObject<number>,
-    // cellX: React.MutableRefObject<number>,
-    // selectedColumn: React.MutableRefObject<number | undefined>,
     columnAmount: React.MutableRefObject<number>,
     rowAmount: React.MutableRefObject<number>,
     pageIndex: number,

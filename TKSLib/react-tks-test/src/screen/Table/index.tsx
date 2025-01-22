@@ -55,7 +55,7 @@ const TableScreen: FC<{}> = () => {
         <div style={{marginLeft: '20px', width: '800px'}}>
             <Table table={{
                 data: {values: data(page)},
-                config: {columnsInfor: columnsInfor, pageSize: 4, maxRow: 4*20},
+                config: {columnsInfor: columnsInfor, pageSize: 4, maxRow: 4*20, cell: {width: '200px', height: '30px'}},
                 control: {loadDataState: loadDataState, pageIndex: page},
                 event: {onSelectedPage(TKS) {
                     setLoadDataState(LOAD_STATE.LOADING);
