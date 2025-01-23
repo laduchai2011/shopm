@@ -23,11 +23,12 @@ interface MyLoadProps extends React.HTMLProps<HTMLDivElement> {
 
 const Loading: FC<MyLoadProps> = ({load, className, ...props}) => {
 
-    const infor: any = load.infor;
+    const infor_m: DotCircleLoadProps | LineCircleLoadProps | SkeletonLoadProps = load.infor;
 
     switch(load.type) { 
         
         case LOAD_COMPONENTS_CONST.LOADING_TYPE.DOT_CIRCLE: { 
+            const infor = infor_m as DotCircleLoadProps;
             if (!(
                 (typeof(infor.dotSize)==='string') &&
                 (typeof(infor.dotBackgroundColor)==='string') &&
@@ -42,6 +43,7 @@ const Loading: FC<MyLoadProps> = ({load, className, ...props}) => {
             break; 
         } 
         case LOAD_COMPONENTS_CONST.LOADING_TYPE.LINE_CIRCLE: { 
+            const infor = infor_m as LineCircleLoadProps;
             if (!(
                 (typeof(infor.lineSize)==='number') &&
                 (typeof(infor.lineBackgroundColor)==='string') &&
@@ -55,10 +57,11 @@ const Loading: FC<MyLoadProps> = ({load, className, ...props}) => {
             break; 
         } 
         case LOAD_COMPONENTS_CONST.LOADING_TYPE.SKELETON: { 
+            const infor = infor_m as SkeletonLoadProps;
             if (!(
-                (typeof(infor.width)==='number') &&
+                ((typeof(infor.width)==='number')||(infor.width===undefined)) &&
                 ((infor.maxminWidth==='max')||(infor.maxminWidth==='min')||(infor.maxminWidth===undefined)) &&
-                (typeof(infor.height)==='number') &&
+                ((typeof(infor.height)==='number')||(infor.height===undefined)) &&
                 ((infor.maxminHeight==='max')||(infor.maxminHeight==='min')||(infor.maxminHeight===undefined))
             )) {
                 console.warn({
@@ -74,7 +77,7 @@ const Loading: FC<MyLoadProps> = ({load, className, ...props}) => {
     } 
 
     return <div 
-        className={`TKS-Loading ${className  || ''}`}
+        className={`TKS-Loading ${className || ''}`}
         {...props}
     >
         { load.type===LOAD_COMPONENTS_CONST.LOADING_TYPE.DOT_CIRCLE && <DotCircle dotCircleLoad={ load.infor as DotCircleLoadProps } />}

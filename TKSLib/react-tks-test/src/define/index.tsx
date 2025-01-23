@@ -36,17 +36,35 @@ export interface Table_Config_Props {
 }
 export interface Table_Config_CustomColumn_Props {
     type?: 'add-sub' | 'get-data' | 'calculateMoney';
+    fields?: string[]
 }
 export interface Table_Data_Props {
     values?: {[key: string]: any}[],
-    all_values?: {[key: string]: any}[]
+    all_values?: {[key: string]: any}[],
+    customColumn?: Table_Data_CustomColumn_Props
+}
+type Table_Data_CustomColumn_DataIn_Type = {
+    field: string,
+    data: string
+}
+export interface Table_Data_CustomColumn_Props { 
+    setData?: (Table_Data_CustomColumn_DataIn: Table_Data_CustomColumn_DataIn_Type) => void
 }
 export interface Table_Control_Props {
     pageIndex?: number,
     loadDataState?: string
 }
 export interface Table_Event_Props {
-    onSelectedPage: (TKS: TKSProps) => void
+    onSelectedPage: (TKS: TKSProps) => void,
+    customColumn?: Table_Event_CustomColumn_Props
+}
+type Table_Event_CustomColumn_DataOut_Type = {
+    field: string,
+    data: string
+}
+export interface Table_Event_CustomColumn_Props {
+    onData?: (Table_Data_CustomColumn_DataOut: Table_Event_CustomColumn_DataOut_Type) => void,
+    onInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 export interface Table_Element_Props {
     rowsOfIndex: React.MutableRefObject<(HTMLDivElement | null)[]>,
@@ -130,9 +148,9 @@ export interface LineCircleLoadProps {
 }
 
 export interface SkeletonLoadProps {
-    width: number,
+    width?: number,
     maxminWidth?: 'max' | 'min',
-    height: number,
+    height?: number,
     maxminHeight?: 'max' | 'min'
 }
 

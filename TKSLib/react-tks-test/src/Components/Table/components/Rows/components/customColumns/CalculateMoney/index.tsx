@@ -35,10 +35,21 @@ const CalculateMoney: FC<{}> = () => {
 
     }
 
+    const input_click = (e:  React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+        e.stopPropagation();
+    }
+
     const handleSub = (e: React.MouseEvent) => {
         e.stopPropagation();
-        console.log(222222222222)
     }
+
+    const list_string = [1,2,3].map((data: any, index: number) => {
+        return (
+            <div key={index}>
+                
+            </div>
+        )
+    })
     
     return <div className="TKS-CalculateMoney" ref={addSubElement}>
         <div>
@@ -47,11 +58,14 @@ const CalculateMoney: FC<{}> = () => {
                 value={moneyString_.clusted_rounded_numberString} 
                 title={moneyString_.clusted_string} 
                 onChange={(e) => input_change(e)}
+                onClick={(e) => input_click(e)}
             />
-            <div className='TKS-CalculateMoney--'><strong>-</strong></div>
-            <div className='TKS-CalculateMoney-text'>{`${moneyString_.clusted_rounded_numberString} ${moneyString_.alias_string.alias}`}</div>
-            <div className='TKS-CalculateMoney--'><strong>-</strong></div>
-            <div className='TKS-CalculateMoney-text'>{`${moneyString_.clusted_rounded_numberString} ${moneyString_.alias_string.alias}`}</div>
+            <div className='TKS-CalculateMoney-fieldContainer'>
+                <div className='TKS-CalculateMoney--'><strong>-</strong></div>
+                <div className='TKS-CalculateMoney-text'>{`${moneyString_.clusted_rounded_numberString} ${moneyString_.alias_string.alias}`}</div>
+                <div className='TKS-CalculateMoney--'><strong>-</strong></div>
+                <div className='TKS-CalculateMoney-text'>{`${moneyString_.clusted_rounded_numberString} ${moneyString_.alias_string.alias}`}</div>
+            </div>
             <AddCircle addCircle={{size: 23, background: ADD_COLOR}}/>
         </div>
     </div>

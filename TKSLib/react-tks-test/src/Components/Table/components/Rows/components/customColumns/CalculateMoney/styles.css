@@ -52,11 +52,7 @@
     align-items: center;
     height: 100%;
     width: 90px;
-    /* background-color: antiquewhite; */
-    /* border: 1px dashed gray; */
     overflow: hidden;
-    /* box-sizing: border-box;
-    padding: 5px; */
     border-radius: 5px;
     text-align: center;
     margin: 0 3px;
@@ -81,11 +77,15 @@
     background-color: var(--sub-color);
 }
 
-.TKS-CalculateMoney > div > svg:nth-child(7):hover {
+.TKS-CalculateMoney > div > svg:nth-child(4):hover {
     background-color: white;
     border: 1px solid var(--add-color);
     scale: 1.2;
 }
-.TKS-CalculateMoney > div > svg:nth-child(7):active {
+.TKS-CalculateMoney > div > svg:nth-child(4):active {
     background-color: var(--add-color);
+}
+
+.TKS-CalculateMoney-fieldContainer {
+    display: flex;
 }

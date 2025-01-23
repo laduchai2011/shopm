@@ -7,12 +7,15 @@ import {
     Table_Config_Props,
     RowProps,
     CellProps,
-    Table_Config_CustomColumn_Props 
+    Table_Config_CustomColumn_Props,
+    SkeletonLoadProps,
+    LoadProps 
 } from 'src/define';
 
 import { 
     WARNING_COLOR, 
-    // LOAD_STATE 
+    LOAD_STATE,
+    LOAD_COMPONENTS_CONST 
 } from 'src/const';
 
 import { 
@@ -27,6 +30,7 @@ import { CLICK_STATUS_TYPE } from '../utils/const';
 import Row from '../Row';
 import BigLeftArrow from 'src/components/Icon/BigLeftArrow';
 import BigRightArrow from 'src/components/Icon/BigRightArrow';
+import Loading from 'src/components/Loading';
 
 import CalculateMoney from './components/customColumns/CalculateMoney';
 
@@ -45,6 +49,7 @@ const Rows: FC<{}> = () => {
     } = context;
 
     const config: Table_Config_Props = {...table?.config};
+    const loadDataState: string | undefined = table?.control?.loadDataState;
     const customColumn: Table_Config_CustomColumn_Props | undefined = config.customColumn;
     const data: {[key: string]: any}[] | undefined = table?.data?.values;
 
@@ -176,13 +181,22 @@ const Rows: FC<{}> = () => {
         )
     })
 
+    // custom width of custom-column
+    const rightElementWidth = useRef<string>('');
+    if (rightElement.current && rightElementWidth.current==='') {
+        rightElementWidth.current = window.getComputedStyle(rightElement.current).width;
+        if (element_rowsOfCalculate.current[0]) {
+            element_rowsOfCalculate.current[0].style.width = rightElementWidth.current;
+        }
+    }
+
     const handleClickRight = () => {
         if (centerElement.current && rightElement.current) {
             rightElement.current.style.width = '20px';
             centerElement.current.style.paddingRight = '20px';
             setTimeout(() => {
                 if (rightElement.current) {
-                    rightElement.current.style.backgroundColor = 'gray';
+                    rightElement.current.style.backgroundColor = 'rgb(235, 235, 235)';
                     setIsCustomColumn(false);
                 }
             }, 1000)
@@ -191,8 +205,10 @@ const Rows: FC<{}> = () => {
 
     const handleClickLeft = () => {
         if (centerElement.current && rightElement.current) {
-            rightElement.current.style.width = '350px';
-            centerElement.current.style.paddingRight = '350px';
+            // const rightElementWidth = window.getComputedStyle(rightElement.current).width;
+            // console.log(rightElementWidth)
+            rightElement.current.style.width = rightElementWidth.current;
+            centerElement.current.style.paddingRight = rightElementWidth.current;
             setTimeout(() => {
                 if (rightElement.current) {
                     rightElement.current.style.backgroundColor = '';
@@ -224,6 +240,16 @@ const Rows: FC<{}> = () => {
         }, 200)
     }
 
+    const skeletonLoad: SkeletonLoadProps = {
+        maxminHeight: 'max',
+        maxminWidth: 'max'
+    }
+
+    const load: LoadProps = {
+        type: LOAD_COMPONENTS_CONST.LOADING_TYPE.SKELETON,
+        infor: skeletonLoad
+    }
+
     const list_customRow: React.ReactNode = customColumn?.type && totalRow.current.map((data: RowProps, index: number) => {
         if (index === 0) {
             return (
@@ -247,7 +273,10 @@ const Rows: FC<{}> = () => {
                 onClick={e => handleClick_row(e, index)}
                 onMouseDown={(e)=> handleMouseDown_row(e)}
             >
-                <CalculateMoney />
+                <div>
+                    { loadDataState===LOAD_STATE.LOADING && <Loading load={ load } /> }
+                </div>
+                <div>{isCustomColumn && <CalculateMoney />}</div>
             </div>
         )
     })
