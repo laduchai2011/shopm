@@ -28,6 +28,10 @@ interface Table_Config_Props {
 }
 interface Table_Config_CustomColumn_Props {
     type?: 'add-sub' | 'get-data' | 'calculateMoney';
+    fields?: string[];
+    max_width?: string;
+    is_amount_input_negative?: boolean;
+    amount_input_max?: number;
 }
 interface Table_Data_Props {
     values?: {
@@ -36,13 +40,27 @@ interface Table_Data_Props {
     all_values?: {
         [key: string]: any;
     }[];
+    customColumn?: Table_Data_CustomColumn_Props;
+}
+type Table_Data_CustomColumn_DataIn_Type = {
+    field: string;
+    data: string;
+};
+interface Table_Data_CustomColumn_Props {
+    values?: Table_Data_CustomColumn_DataIn_Type[];
 }
 interface Table_Control_Props {
     pageIndex?: number;
     loadDataState?: string;
 }
 interface Table_Event_Props {
-    onSelectedPage: (TKS: TKSProps) => void;
+    onSelectedPage?: (TKS: TKSProps) => void;
+    customColumn?: Table_Event_CustomColumn_Props;
+}
+interface Table_Event_CustomColumn_Props {
+    onInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onAddButton?: (TKS: TKSProps) => void;
+    onSubButton?: (TKS: TKSProps) => void;
 }
 interface CellProps {
     fieldName?: string;
@@ -72,9 +90,9 @@ interface LineCircleLoadProps {
     circleSize: number;
 }
 interface SkeletonLoadProps {
-    width: number;
+    width?: number;
     maxminWidth?: 'max' | 'min';
-    height: number;
+    height?: number;
     maxminHeight?: 'max' | 'min';
 }
 interface WarnTriangleProps {

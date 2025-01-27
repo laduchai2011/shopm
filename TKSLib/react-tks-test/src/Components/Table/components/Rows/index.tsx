@@ -39,7 +39,7 @@ const Rows: FC<{}> = () => {
     const context = useContext(ContextTable);
     
     if (!context) {
-        throw new Error('Context in row is undefined');
+        throw new Error('Context in Rows component cant undefined !');
     }
 
     const { 
@@ -63,14 +63,16 @@ const Rows: FC<{}> = () => {
     
     const cellWidth: string | undefined = config.cell?.width;
     const cellHeight: string | undefined = config.cell?.height;
+    const customColumn_maxWidth: string | undefined = config.customColumn?.max_width;
 
     const elementRows = useRef<HTMLDivElement | null>(null);
     useEffect(() => {
         if (elementRows.current) {
             cellWidth && elementRows.current.style.setProperty('--Cell-width', cellWidth);
             cellHeight && elementRows.current.style.setProperty('--Cell-height', cellHeight);
+            customColumn_maxWidth && elementRows.current.style.setProperty('--customColumn-maxWidth', customColumn_maxWidth);
         }
-    }, [cellWidth, cellHeight])
+    }, [cellWidth, cellHeight, customColumn_maxWidth])
 
     useEffect(() => {
         const total_row = totalRow.current.length
@@ -250,7 +252,21 @@ const Rows: FC<{}> = () => {
         infor: skeletonLoad
     }
 
-    const list_customRow: React.ReactNode = customColumn?.type && totalRow.current.map((data: RowProps, index: number) => {
+    const fields: string[] | undefined = config.customColumn?.fields;
+    let title_calculationMoney: string = '';
+    if (fields) {
+        title_calculationMoney = title_calculationMoney + '( ';
+        for (let i: number = 0; i < fields?.length; i++) {
+            if (i===fields.length-1) {
+                title_calculationMoney = title_calculationMoney + `${fields[i]} `;
+            } else {
+                title_calculationMoney = title_calculationMoney + `${fields[i]} + `;
+            }
+        }
+        title_calculationMoney = title_calculationMoney + ')';
+    }
+
+    const list_customRow: React.ReactNode = customColumn?.type==="calculateMoney" && totalRow.current.map((data: RowProps, index: number) => {
         if (index === 0) {
             return (
                 <div 
@@ -260,7 +276,7 @@ const Rows: FC<{}> = () => {
                 >
                     { isCustomColumn && <BigRightArrow className='TKS-Rows-right-header-svg1' onClick={() => handleClickRight()} /> }
                     { !isCustomColumn && <BigLeftArrow className='TKS-Rows-right-header-svg2' onClick={() => handleClickLeft()} /> }
-                    <strong>Calculation</strong>
+                    <strong>{`Calculation ${title_calculationMoney}`}</strong>
                 </div>
             )
         }
@@ -289,9 +305,9 @@ const Rows: FC<{}> = () => {
         <div className='TKS-Rows-center' ref={centerElement}>
             { list_row }
         </div>
-        <div className='TKS-Rows-right' ref={rightElement}>
+        { customColumn?.type!==undefined && <div className='TKS-Rows-right' ref={rightElement}>
             { list_customRow }
-        </div>
+        </div> }
     </div>
 };
 

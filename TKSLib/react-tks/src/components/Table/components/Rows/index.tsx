@@ -7,12 +7,15 @@ import {
     Table_Config_Props,
     RowProps,
     CellProps,
-    Table_Config_CustomColumn_Props 
+    Table_Config_CustomColumn_Props,
+    SkeletonLoadProps,
+    LoadProps 
 } from 'src/define';
 
 import { 
     WARNING_COLOR, 
-    // LOAD_STATE 
+    LOAD_STATE,
+    LOAD_COMPONENTS_CONST 
 } from 'src/const';
 
 import { 
@@ -27,6 +30,7 @@ import { CLICK_STATUS_TYPE } from '../utils/const';
 import Row from '../Row';
 import BigLeftArrow from 'src/components/Icon/BigLeftArrow';
 import BigRightArrow from 'src/components/Icon/BigRightArrow';
+import Loading from 'src/components/Loading';
 
 import CalculateMoney from './components/customColumns/CalculateMoney';
 
@@ -35,7 +39,7 @@ const Rows: FC<{}> = () => {
     const context = useContext(ContextTable);
     
     if (!context) {
-        throw new Error('Context in row is undefined');
+        throw new Error('Context in Rows component cant undefined !');
     }
 
     const { 
@@ -45,6 +49,7 @@ const Rows: FC<{}> = () => {
     } = context;
 
     const config: Table_Config_Props = {...table?.config};
+    const loadDataState: string | undefined = table?.control?.loadDataState;
     const customColumn: Table_Config_CustomColumn_Props | undefined = config.customColumn;
     const data: {[key: string]: any}[] | undefined = table?.data?.values;
 
@@ -58,14 +63,16 @@ const Rows: FC<{}> = () => {
     
     const cellWidth: string | undefined = config.cell?.width;
     const cellHeight: string | undefined = config.cell?.height;
+    const customColumn_maxWidth: string | undefined = config.customColumn?.max_width;
 
     const elementRows = useRef<HTMLDivElement | null>(null);
     useEffect(() => {
         if (elementRows.current) {
             cellWidth && elementRows.current.style.setProperty('--Cell-width', cellWidth);
             cellHeight && elementRows.current.style.setProperty('--Cell-height', cellHeight);
+            customColumn_maxWidth && elementRows.current.style.setProperty('--customColumn-maxWidth', customColumn_maxWidth);
         }
-    }, [cellWidth, cellHeight])
+    }, [cellWidth, cellHeight, customColumn_maxWidth])
 
     useEffect(() => {
         const total_row = totalRow.current.length
@@ -176,13 +183,22 @@ const Rows: FC<{}> = () => {
         )
     })
 
+    // custom width of custom-column
+    const rightElementWidth = useRef<string>('');
+    if (rightElement.current && rightElementWidth.current==='') {
+        rightElementWidth.current = window.getComputedStyle(rightElement.current).width;
+        if (element_rowsOfCalculate.current[0]) {
+            element_rowsOfCalculate.current[0].style.width = rightElementWidth.current;
+        }
+    }
+
     const handleClickRight = () => {
         if (centerElement.current && rightElement.current) {
             rightElement.current.style.width = '20px';
             centerElement.current.style.paddingRight = '20px';
             setTimeout(() => {
                 if (rightElement.current) {
-                    rightElement.current.style.backgroundColor = 'gray';
+                    rightElement.current.style.backgroundColor = 'rgb(235, 235, 235)';
                     setIsCustomColumn(false);
                 }
             }, 1000)
@@ -191,8 +207,10 @@ const Rows: FC<{}> = () => {
 
     const handleClickLeft = () => {
         if (centerElement.current && rightElement.current) {
-            rightElement.current.style.width = '350px';
-            centerElement.current.style.paddingRight = '350px';
+            // const rightElementWidth = window.getComputedStyle(rightElement.current).width;
+            // console.log(rightElementWidth)
+            rightElement.current.style.width = rightElementWidth.current;
+            centerElement.current.style.paddingRight = rightElementWidth.current;
             setTimeout(() => {
                 if (rightElement.current) {
                     rightElement.current.style.backgroundColor = '';
@@ -224,7 +242,31 @@ const Rows: FC<{}> = () => {
         }, 200)
     }
 
-    const list_customRow: React.ReactNode = customColumn?.type && totalRow.current.map((data: RowProps, index: number) => {
+    const skeletonLoad: SkeletonLoadProps = {
+        maxminHeight: 'max',
+        maxminWidth: 'max'
+    }
+
+    const load: LoadProps = {
+        type: LOAD_COMPONENTS_CONST.LOADING_TYPE.SKELETON,
+        infor: skeletonLoad
+    }
+
+    const fields: string[] | undefined = config.customColumn?.fields;
+    let title_calculationMoney: string = '';
+    if (fields) {
+        title_calculationMoney = title_calculationMoney + '( ';
+        for (let i: number = 0; i < fields?.length; i++) {
+            if (i===fields.length-1) {
+                title_calculationMoney = title_calculationMoney + `${fields[i]} `;
+            } else {
+                title_calculationMoney = title_calculationMoney + `${fields[i]} + `;
+            }
+        }
+        title_calculationMoney = title_calculationMoney + ')';
+    }
+
+    const list_customRow: React.ReactNode = customColumn?.type==="calculateMoney" && totalRow.current.map((data: RowProps, index: number) => {
         if (index === 0) {
             return (
                 <div 
@@ -234,7 +276,7 @@ const Rows: FC<{}> = () => {
                 >
                     { isCustomColumn && <BigRightArrow className='TKS-Rows-right-header-svg1' onClick={() => handleClickRight()} /> }
                     { !isCustomColumn && <BigLeftArrow className='TKS-Rows-right-header-svg2' onClick={() => handleClickLeft()} /> }
-                    <strong>Calculation</strong>
+                    <strong>{`Calculation ${title_calculationMoney}`}</strong>
                 </div>
             )
         }
@@ -247,7 +289,10 @@ const Rows: FC<{}> = () => {
                 onClick={e => handleClick_row(e, index)}
                 onMouseDown={(e)=> handleMouseDown_row(e)}
             >
-                <CalculateMoney />
+                <div>
+                    { loadDataState===LOAD_STATE.LOADING && <Loading load={ load } /> }
+                </div>
+                <div>{isCustomColumn && <CalculateMoney />}</div>
             </div>
         )
     })
@@ -260,9 +305,9 @@ const Rows: FC<{}> = () => {
         <div className='TKS-Rows-center' ref={centerElement}>
             { list_row }
         </div>
-        <div className='TKS-Rows-right' ref={rightElement}>
+        { customColumn?.type!==undefined && <div className='TKS-Rows-right' ref={rightElement}>
             { list_customRow }
-        </div>
+        </div> }
     </div>
 };
 

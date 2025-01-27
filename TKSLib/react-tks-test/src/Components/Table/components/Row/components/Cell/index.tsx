@@ -22,7 +22,7 @@ const Cell: FC<{data: CellProps, cellIndex: number, rowIndex: number, columnInde
     const context = useContext(ContextTable);
 
     if (!context) {
-        throw new Error('MyComponent must be used within a MyProvider');
+        throw new Error('Context in Cell component cant undefined !');
     }
 
     const { 

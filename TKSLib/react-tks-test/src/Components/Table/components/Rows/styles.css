@@ -2,6 +2,7 @@
     --background-color: white;
     --Cell-width: 150px;
     --Cell-height: 30px;
+    --customColumn-maxWidth: 350px
 }
 
 .TKS-Rows {
@@ -22,12 +23,14 @@
     left: 0;
 }
 .TKS-Rows-right {
-    /* width: 350px; */
     right: 0;
     overflow: hidden;
-    max-width: 350px;
+    width: max-content;
+    max-width: var(--customColumn-maxWidth);
+    border: 1px solid gray;
 
     transition: width 1s linear;  
+    overflow-x: scroll;
 }
 
 .TKS-Rows-left > div,

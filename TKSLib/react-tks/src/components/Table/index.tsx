@@ -192,10 +192,8 @@ const Table: FC<MyTableProps> = ({table, className, ...props}) => {
             {...props}
         >
             { handleControlPos()!=='bottom' && <div className='TKS-Table--Control'><Control /></div>}
-            {/* <div className='TKS-Table--Row'>{ list_row }</div> */}
             <div className='TKS-Table--Row'><Rows /></div>
             { handleControlPos()==='bottom' && <div className='TKS-Table--Control'><Control /></div>}
-            {/* <button onClick={() => follow_loadingState.getData?.getAllState && console.log(follow_loadingState.getData?.getAllState())}>Click</button> */}
         </div>}
     </ContextTable.Provider>
 };

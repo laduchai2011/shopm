@@ -23,7 +23,7 @@ const Control: FC<{}> = () => {
     const context = useContext(ContextTable);
 
     if (!context) {
-        throw new Error('MyComponent must be used within a MyProvider');
+        throw new Error('Context in Control component cant undefined !');
     }
 
     const { 
@@ -176,7 +176,7 @@ const Control: FC<{}> = () => {
                                 selectedPage: nextPageIndex_m
                             }
                         }
-                        table?.event?.onSelectedPage(TKS);
+                        table?.event?.onSelectedPage && table?.event?.onSelectedPage(TKS);
                     }
                 }
             }

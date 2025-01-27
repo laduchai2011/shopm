@@ -49,7 +49,7 @@ const moneyString = (money_string_parameter: money_string_Props): return_money_s
     const amount_after_dot: number = 2;
     let fromIndex: number = 0;  // determine at first dot in clusred_string
     let toIndex: number = 0;
-    const dot: string = '.'
+    const dot: string = '.';
     const clusted_string_len = clusted_string.length;
     for (let i: number = 0; i < clusted_string_len; i++) {
         if ((fromIndex===0) && (clusted_string[i]===dot)) {
@@ -69,7 +69,7 @@ const moneyString = (money_string_parameter: money_string_Props): return_money_s
     let clusted_rounded_numberString: string = '';
     const rounded_numberString_len = rounded_numberString.length;
     for (let i: number = 0; i < rounded_numberString_len; i++) {
-        if (fromIndex===i) {
+        if (fromIndex===i && alias_string.alias.length>0) {
             clusted_rounded_numberString = clusted_rounded_numberString + dot + rounded_numberString[i];
         } else {
             clusted_rounded_numberString = clusted_rounded_numberString + rounded_numberString[i];

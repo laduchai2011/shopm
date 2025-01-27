@@ -2,6 +2,7 @@
     --background-color: white;
     --Cell-width: 150px;
     --Cell-height: 30px;
+    --customColumn-maxWidth: 350px
 }
 
 .TKS-Rows {
@@ -22,11 +23,14 @@
     left: 0;
 }
 .TKS-Rows-right {
-    /* width: 350px; */
     right: 0;
     overflow: hidden;
+    width: max-content;
+    max-width: var(--customColumn-maxWidth);
+    border: 1px solid gray;
 
     transition: width 1s linear;  
+    overflow-x: scroll;
 }
 
 .TKS-Rows-left > div,
@@ -43,12 +47,24 @@
     width: 50px;
 }
 .TKS-Rows-right > div {
-    width: 350px;
+    width: max-content;
 }
 
 .TKS-Rows-left-row:not(:nth-child(1)),
 .TKS-Rows-right-row:not(:nth-child(1)) {
     cursor: pointer;
+    position: relative;
+}
+
+.TKS-Rows-right-row:not(:nth-child(1)) > div:nth-child(1) {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.TKS-Rows-right-row:not(:nth-child(1)) > div:nth-child(2) {
+    width: 100%;
+    height: 100%;
+    position: relative;
 }
 
 .TKS-Rows-left-row.hover,
@@ -84,7 +100,6 @@
 .TKS-Rows-center {
     width: 100%;
     padding-left: 50px;
-    /* padding-right: 350px; */
     overflow-x: scroll;
     z-index: 4;
 

@@ -31,7 +31,7 @@ const Row: FC<{data: RowProps, rowIndex: number}> = ({ data: rowData, rowIndex }
     const context = useContext(ContextTable);
 
     if (!context) {
-        throw new Error('Context in row is undefined');
+        throw new Error('Context in Row component cant undefined !');
     }
 
     const { 

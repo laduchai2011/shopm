@@ -60,6 +60,11 @@ export const cluster_for_string = (cluster_for_string_parameter: cluster_for_str
 //     string: string, 
 //     isLog?: boolean | false
 // }
+
+export function isFloat(value: number): boolean {
+    return typeof value === 'number' && Number.isFinite(value) && !Number.isInteger(value);
+}
+
 export const isNumberString = (isNumberStringProps: isNumberString_Props): boolean => {
     const string = isNumberStringProps.string.trim();
     const len: number = string.length;
@@ -83,47 +88,54 @@ export const isNumberString = (isNumberStringProps: isNumberString_Props): boole
 
     let isNumberString_: boolean = false;
 
-    for (let i: number = 0; i < len; i++) {
-        if (string[i]===space) {
-            isNumberString_ = false;
-            if (isLog) {
-                console.warn({
-                    message: `Your string have a space at position ${i}, begin from first position !`, 
-                    isNumberString: isNumberString_, 
-                    string: string
-                })
+    if (len > 0) {
+        for (let i: number = 0; i < len; i++) {
+            if (string[i]===space) {
+                isNumberString_ = false;
+                if (isLog) {
+                    console.warn({
+                        message: `Your string have a space at position ${i}, begin from first position !`, 
+                        isNumberString: isNumberString_, 
+                        string: string
+                    })
+                }
+                break;
+            } else if (fullAlphabet.includes(string[i])) {
+                isNumberString_ = false;
+                if (isLog) {
+                    console.warn({
+                        message: `Your string have a character at position ${i}, begin from first position !`, 
+                        isNumberString: isNumberString_
+                    })
+                }
+                break;
+            } else if (specialChars.includes(string[i])) {
+                isNumberString_ = false;
+                if (isLog) {
+                    console.warn({
+                        message: `Your string have a special character at position ${i}, begin from first position !`, 
+                        isNumberString: isNumberString_
+                    })
+                }
+                break;
+            } else if (numberArray.includes(string[i])===false) {
+                isNumberString_ = false;
+                if (isLog) {
+                    console.warn({
+                        message: `Your string have a character ( NOT is number ) at position ${i}, begin from first position. We will update in next time. Thank you !`, 
+                        isNumberString: isNumberString_
+                    })
+                }
+                break;
+            } else {
+                isNumberString_ = true;
             }
-            break;
-        } else if (fullAlphabet.includes(string[i])) {
-            isNumberString_ = false;
-            if (isLog) {
-                console.warn({
-                    message: `Your string have a character at position ${i}, begin from first position !`, 
-                    isNumberString: isNumberString_
-                })
-            }
-            break;
-        } else if (specialChars.includes(string[i])) {
-            isNumberString_ = false;
-            if (isLog) {
-                console.warn({
-                    message: `Your string have a special character at position ${i}, begin from first position !`, 
-                    isNumberString: isNumberString_
-                })
-            }
-            break;
-        } else if (numberArray.includes(string[i])===false) {
-            isNumberString_ = false;
-            if (isLog) {
-                console.warn({
-                    message: `Your string have a character ( NOT is number ) at position ${i}, begin from first position. We will update in next time. Thank you !`, 
-                    isNumberString: isNumberString_
-                })
-            }
-            break;
-        } else {
-            isNumberString_ = true;
         }
+    } else {
+        console.warn({
+            message: `Your string must more a character`, 
+            isNumberString: isNumberString_
+        })
     }
 
     return isNumberString_;
