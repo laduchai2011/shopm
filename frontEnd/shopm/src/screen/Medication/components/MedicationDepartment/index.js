@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import './styles.css';
 
 import { useParams } from "react-router-dom";
 
 import { Table } from 'react-tks/components';
+import { moneyString } from 'react-tks/utils';
 
 import { useMedicationScreen_getList_departmentsQuery } from "reduxStore/RTKQuery/departmentRTKQuery";
 
@@ -18,6 +19,7 @@ const LOAD_STATE = {
 const MedicationDepartment = () => { 
 
     const {id: uuid_medication} = useParams();
+    const thisElement = useRef(null);
    
     const [loadDataState, setLoadDataState] = useState(undefined);
     const pageSize = 10;
@@ -32,6 +34,7 @@ const MedicationDepartment = () => {
         { columnName: 'Recover', fieldName: 'recover'},
         { columnName: 'Return', fieldName: 'return'},
         { columnName: 'Consultant Cost', fieldName: 'consultantCost'},
+        { columnName: 'Price', fieldName: 'price'},
         { columnName: 'Discount', fieldName: 'discount'},
         { columnName: 'Note', fieldName: 'note'}
     ]
@@ -55,25 +58,93 @@ const MedicationDepartment = () => {
         }
     }, [data_departmentList])
 
+
+    // responsive
+    const customColumn_max_width = useRef('');
+    useEffect(() => {
+        if (thisElement.current) {
+            customColumn_max_width.current = getComputedStyle(thisElement.current).getPropertyValue('--customColumn-maxWidth');
+        }
+    }, [])
+
+    const [orderMoney, setOrderMoney] = useState({
+        price: 0,
+        cost: 0,
+        sale: 0,
+        vat: 0
+    });
+    const [shipCost, setShipCost] = useState(0);
+    const [total, setTotal] = useState(0);
+
+    const moneyString_ = (numberString) => {
+        return moneyString({
+            numberString: numberString,
+            money_type: 'VND',
+            alias_list: ['K', 'TR', 'T', 'KT'],
+            isLog: true
+        })
+    } 
+    const [selectedDepartment_List, setSelectedDepartment_List] = useState();
+    useEffect(() => {
+        
+    }, [departmentList])
+
     return (
-        <div className="MedicationDepartment">
-             <div className="MedicationDepartment-header">Department List</div>
+        <div className="MedicationDepartment" ref={thisElement}>
+            <div className="MedicationDepartment-header">Department List</div>
             <div className="MedicationDepartment-body">
                 <div>
                     { departmentList && <Table className="MedicationDepartment-table" table={{
                         data: {values: departmentList.rows},
-                        config: {columnsInfor: columnsInfor, pageSize: pageSize, maxRow: departmentList.count},
-                        control: {loadDataState: loadDataState, pageIndex: pageIndex},
-                        event: {onSelectedPage(TKS) {
-                            setLoadDataState(LOAD_STATE.LOADING);
-                            const interval = setInterval(() => {
-                                const pageIndex_m = TKS.data.selectedPage;
-                                setPageIndex(pageIndex_m)
-                                setLoadDataState(LOAD_STATE.SUCCESS);
-                                clearInterval(interval)
-                            }, 2000)
-                        },}
+                        config: {
+                            columnsInfor: columnsInfor, 
+                            pageSize: pageSize, maxRow: 
+                            departmentList.count,
+                            customColumn: {
+                                type: 'calculateMoney',
+                                fields: ['PRICE', 'COST', 'SALE', 'VAT'],
+                                max_width: customColumn_max_width.current
+                            }
+                        },
+                        control: {
+                            loadDataState: loadDataState, 
+                            pageIndex: pageIndex
+                        },
+                        event: {
+                            onSelectedPage(TKS) {
+                                setLoadDataState(LOAD_STATE.LOADING);
+                                const interval = setInterval(() => {
+                                    const pageIndex_m = TKS.data.selectedPage;
+                                    setPageIndex(pageIndex_m)
+                                    setLoadDataState(LOAD_STATE.SUCCESS);
+                                    clearInterval(interval)
+                                }, 2000)
+                            },
+                            customColumn: {
+                                
+                            }
+                        }
                     }} /> }
+                </div>
+                <div className="MedicationDepartment-total">
+                    <div>
+                        <div><strong>Order:</strong></div>
+                        <div>{`${moneyString_(orderMoney.price.toString()).full_with_round} - ${moneyString_(orderMoney.cost.toString()).full_with_round} - ${moneyString_(orderMoney.sale.toString()).full_with_round} - ${moneyString_(orderMoney.vat.toString()).full_with_round}`}</div>
+                    </div>
+                    <div>
+                        <div><strong>Ship:</strong></div>
+                        <div>{moneyString_(shipCost.toString()).full_with_round}</div>
+                    </div>
+                    <div>
+                        <div><strong>Total:</strong></div>
+                        <div>{moneyString_(total.toString()).full_with_round}</div>
+                    </div>
+                </div>
+                <div className="MedicationDepartment-buttom">
+                   <div>
+                        <button>Buy Now</button>
+                        <button> Add Cart</button>
+                    </div>
                 </div>
             </div>
         </div>

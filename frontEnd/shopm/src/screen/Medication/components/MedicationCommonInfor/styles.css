@@ -34,7 +34,7 @@
     background-color: gray;
 }
 
-.MedicationCommonInfor-listImg img {
+.MedicationCommonInfor-listImg > img {
     height: 60px;
     aspect-ratio: 1/1;
     object-fit: cover;
@@ -52,7 +52,7 @@
     justify-content: space-between;
 }
 
-.MedicationCommonInfor-text-top h2 {
+.MedicationCommonInfor-text-top > h2 {
     margin: 0 0;
     font-size: 2em;
 }
@@ -62,7 +62,7 @@
     align-items: center;
 }
 
-.MedicationCommonInfor-text-top h5 {
+.MedicationCommonInfor-text-top > h5 {
     margin: 5px 0;
 }
 
@@ -109,7 +109,7 @@
     gap: 10px 0;
 }
 
-.MedicationCommonInfor-text1 div {
+.MedicationCommonInfor-text1 > div {
     font-size: 1.1em;
 }
 
@@ -125,7 +125,7 @@
     border-radius: 5px;
 }
 
-.MedicationCommonInfor-text-bottom-1 div {
+.MedicationCommonInfor-text-bottom-1 > div {
     padding: 10px;
     text-align: center;
 }
@@ -138,26 +138,26 @@
     font-size: 1em;
 }
 
-.MedicationCommonInfor-text-bottom-2 div {
+.MedicationCommonInfor-text-bottom-2 > div {
     padding: 10px;
     text-align: center;
 }
 
-.MedicationCommonInfor-text-bottom-2 div:nth-child(1) {
+.MedicationCommonInfor-text-bottom-2 > div:nth-child(1) {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.MedicationCommonInfor-text-bottom-2 div:nth-child(1) svg {
+.MedicationCommonInfor-text-bottom-2 > div:nth-child(1) > svg {
     cursor: pointer;
 }
 
-.MedicationCommonInfor-text-bottom-2 div:nth-child(1) svg:hover {
+.MedicationCommonInfor-text-bottom-2 > div:nth-child(1) > svg:hover {
     transform: scale(1.5);
 }
 
-.MedicationCommonInfor-text-bottom-2 div:nth-child(1) input {
+.MedicationCommonInfor-text-bottom-2 > div:nth-child(1) > input {
     margin: 0 5px;
     outline: none;
     border: none;
@@ -165,13 +165,13 @@
     width: 30px;
 }
 
-.MedicationCommonInfor-text-bottom-2 div:nth-child(2) {
+.MedicationCommonInfor-text-bottom-2 > div:nth-child(2) {
     display: flex;
     align-items: center;
     justify-content: center;
 } 
 
-.MedicationCommonInfor-text-bottom-2 div:nth-child(3) button {
+.MedicationCommonInfor-text-bottom-2 > div:nth-child(3) > button {
     border: none;
     padding: 5px;
     font-size: 1.1em !important;
@@ -182,11 +182,11 @@
     box-shadow: 5px 5px 5px rgb(255, 0, 79, 0.8);
 }
 
-.MedicationCommonInfor-text-bottom-2 div:nth-child(3) button:hover {
+.MedicationCommonInfor-text-bottom-2 > div:nth-child(3) > button:hover {
     background-color: rgb(255, 0, 79, 0.6);
 }
 
-.MedicationCommonInfor-text-bottom-2 div:nth-child(3) button:active {
+.MedicationCommonInfor-text-bottom-2 > div:nth-child(3) > button:active {
     background-color: rgb(255, 0, 79);
 }
 

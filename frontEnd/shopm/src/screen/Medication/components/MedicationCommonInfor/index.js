@@ -1,8 +1,8 @@
 import React, { useContext, useState, memo, useEffect } from "react";
 import './styles.css';
 
-import { GrAdd, GrSubtract } from 'react-icons/gr';
-import { AiOutlineShoppingCart} from 'react-icons/ai';
+// import { GrAdd, GrSubtract } from 'react-icons/gr';
+// import { AiOutlineShoppingCart} from 'react-icons/ai';
 import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/bs'; 
 
 import { MedicationContext } from "screen/Medication/MedicationContext";
@@ -10,10 +10,10 @@ import { MedicationContext } from "screen/Medication/MedicationContext";
 import { Timestamp } from "utilize/Timestamp";
 
 import { useGetCurrentCartQuery } from 'reduxStore/RTKQuery/currentCartRTKQuery';
-import { 
-    useLazyGetCaseRecordQuery,
-    useAddCaseRecordMedicationsMutation
-} from "reduxStore/RTKQuery/caseRecordRTKQuery";
+// import { 
+//     useLazyGetCaseRecordQuery,
+//     useAddCaseRecordMedicationsMutation
+// } from "reduxStore/RTKQuery/caseRecordRTKQuery";
 import { 
     useGetMedicationImageListQuery 
 } from "reduxStore/RTKQuery/medicationRTKQuery";
@@ -33,15 +33,15 @@ const MedicationCommonInfor = () => {
         list: []
     });
 
-    const [caclPrice, setCaclPrice] = useState({
-        orderAmount: 1,
-        allPrice: medicationSate.price,
-        discount: medicationSate.price * medicationSate.discount/100, 
-        finalyPrice: medicationSate.price - medicationSate.price * medicationSate.discount/100
-    });
+    // const [caclPrice, setCaclPrice] = useState({
+    //     orderAmount: 1,
+    //     allPrice: medicationSate.price,
+    //     discount: medicationSate.price * medicationSate.discount/100, 
+    //     finalyPrice: medicationSate.price - medicationSate.price * medicationSate.discount/100
+    // });
 
-    const [getCaseRecord] = useLazyGetCaseRecordQuery();
-    const [addCaseRecordMedications] = useAddCaseRecordMedicationsMutation();
+    // const [getCaseRecord] = useLazyGetCaseRecordQuery();
+    // const [addCaseRecordMedications] = useAddCaseRecordMedicationsMutation();
 
     const { 
         data: data_currentCart,
@@ -86,96 +86,96 @@ const MedicationCommonInfor = () => {
         })
     }
 
-    const handleOrderAmount = (e) => {
-        const value = e.target.value;
-        if (isNaN(value)) {
-            alert('Amount must is a number > 0 !');
-        } else {
-            const new_caclPrice = {...caclPrice}
-            if (Number(value) > medicationSate.amount) {
-                new_caclPrice.orderAmount = medicationSate.amount;
-            } else {
-                new_caclPrice.orderAmount = Number(value);
-            }
-            new_caclPrice.allPrice = new_caclPrice.orderAmount * medicationSate.price;
-            new_caclPrice.discount = new_caclPrice.allPrice * (medicationSate.discount/100);
-            new_caclPrice.finalyPrice = new_caclPrice.allPrice - new_caclPrice.discount;
-            setCaclPrice(new_caclPrice);
-        }
-    }
+    // const handleOrderAmount = (e) => {
+    //     const value = e.target.value;
+    //     if (isNaN(value)) {
+    //         alert('Amount must is a number > 0 !');
+    //     } else {
+    //         const new_caclPrice = {...caclPrice}
+    //         if (Number(value) > medicationSate.amount) {
+    //             new_caclPrice.orderAmount = medicationSate.amount;
+    //         } else {
+    //             new_caclPrice.orderAmount = Number(value);
+    //         }
+    //         new_caclPrice.allPrice = new_caclPrice.orderAmount * medicationSate.price;
+    //         new_caclPrice.discount = new_caclPrice.allPrice * (medicationSate.discount/100);
+    //         new_caclPrice.finalyPrice = new_caclPrice.allPrice - new_caclPrice.discount;
+    //         setCaclPrice(new_caclPrice);
+    //     }
+    // }
 
-    const handleOrderAmountIcon = (type) => {
-        const new_caclPrice = {...caclPrice}
-        switch (type) {
-            case 'add':
-                if (new_caclPrice.orderAmount < medicationSate.amount) {
-                    new_caclPrice.orderAmount = new_caclPrice.orderAmount + 1;
-                }
-                break;
-            case 'sub':
-                if (new_caclPrice.orderAmount > 1) {
-                    new_caclPrice.orderAmount = new_caclPrice.orderAmount - 1;
-                }
-                break;
+    // const handleOrderAmountIcon = (type) => {
+    //     const new_caclPrice = {...caclPrice}
+    //     switch (type) {
+    //         case 'add':
+    //             if (new_caclPrice.orderAmount < medicationSate.amount) {
+    //                 new_caclPrice.orderAmount = new_caclPrice.orderAmount + 1;
+    //             }
+    //             break;
+    //         case 'sub':
+    //             if (new_caclPrice.orderAmount > 1) {
+    //                 new_caclPrice.orderAmount = new_caclPrice.orderAmount - 1;
+    //             }
+    //             break;
         
-            default:
-                throw new Error('Invalid action.')
-        }
+    //         default:
+    //             throw new Error('Invalid action.')
+    //     }
 
-        new_caclPrice.allPrice = new_caclPrice.orderAmount * medicationSate.price;
-        new_caclPrice.discount = new_caclPrice.allPrice * (medicationSate.discount/100);
-        new_caclPrice.finalyPrice = new_caclPrice.allPrice - new_caclPrice.discount;
+    //     new_caclPrice.allPrice = new_caclPrice.orderAmount * medicationSate.price;
+    //     new_caclPrice.discount = new_caclPrice.allPrice * (medicationSate.discount/100);
+    //     new_caclPrice.finalyPrice = new_caclPrice.allPrice - new_caclPrice.discount;
     
-        setCaclPrice(new_caclPrice);
-    }
+    //     setCaclPrice(new_caclPrice);
+    // }
 
-    const handleBuyNow = () => {
-        setBuyNow({
-            orderAmount: caclPrice.orderAmount,
-            priceTotal: caclPrice.finalyPrice,
-            status: true
-        });
-    }
+    // const handleBuyNow = () => {
+    //     setBuyNow({
+    //         orderAmount: caclPrice.orderAmount,
+    //         priceTotal: caclPrice.finalyPrice,
+    //         status: true
+    //     });
+    // }
 
-    const handleAddCart = () => {
-        // check carrent cart
-        if (data_currentCart?.success) {
-            const currentCart = data_currentCart.currentCart;
-            getCaseRecord({
-                uuid_caseRecord: currentCart.uuid_caseRecord
-            }).then(res => {
-                const resData = res.data;
-                if (resData?.success) {
-                    // const caseRecord = resData.caseRecord;
-                    /** @type {caseRecordMedicationOptions} */
-                    const caseRecordMedicationOptions = {
-                        pageNumber: currentCart.pageNumber,
-                        name: medicationSate.name,
-                        amount: caclPrice.orderAmount,
-                        note: 'chua sot',
-                        price: medicationSate.price,
-                        discount: medicationSate.discount,
-                        cost: caclPrice.finalyPrice,
-                        status: 'notComplete',
-                        uuid_caseRecord: currentCart.uuid_caseRecord,
-                        uuid_medication: medicationSate.uuid_medication
-                    }
-                    addCaseRecordMedications({
-                        uuid_caseRecord: currentCart.uuid_caseRecord, 
-                        pageNumber: currentCart.pageNumber.toString(),
-                        caseRecordMedicationOptions: caseRecordMedicationOptions
-                    }).then(res1 => {
-                        const resData1 = res1.data;
-                        if (resData1?.success) {} else { alert(resData1?.message) }
-                    }).catch(err => console.error(err));
-                } else {
-                    console.log(resData.message);
-                }
-            }).catch(err => console.error(err));
-        } else {
-            alert('You have NOT current cart !');
-        }
-    }
+    // const handleAddCart = () => {
+    //     // check carrent cart
+    //     if (data_currentCart?.success) {
+    //         const currentCart = data_currentCart.currentCart;
+    //         getCaseRecord({
+    //             uuid_caseRecord: currentCart.uuid_caseRecord
+    //         }).then(res => {
+    //             const resData = res.data;
+    //             if (resData?.success) {
+    //                 // const caseRecord = resData.caseRecord;
+    //                 /** @type {caseRecordMedicationOptions} */
+    //                 const caseRecordMedicationOptions = {
+    //                     pageNumber: currentCart.pageNumber,
+    //                     name: medicationSate.name,
+    //                     amount: caclPrice.orderAmount,
+    //                     note: 'chua sot',
+    //                     price: medicationSate.price,
+    //                     discount: medicationSate.discount,
+    //                     cost: caclPrice.finalyPrice,
+    //                     status: 'notComplete',
+    //                     uuid_caseRecord: currentCart.uuid_caseRecord,
+    //                     uuid_medication: medicationSate.uuid_medication
+    //                 }
+    //                 addCaseRecordMedications({
+    //                     uuid_caseRecord: currentCart.uuid_caseRecord, 
+    //                     pageNumber: currentCart.pageNumber.toString(),
+    //                     caseRecordMedicationOptions: caseRecordMedicationOptions
+    //                 }).then(res1 => {
+    //                     const resData1 = res1.data;
+    //                     if (resData1?.success) {} else { alert(resData1?.message) }
+    //                 }).catch(err => console.error(err));
+    //             } else {
+    //                 console.log(resData.message);
+    //             }
+    //         }).catch(err => console.error(err));
+    //     } else {
+    //         alert('You have NOT current cart !');
+    //     }
+    // }
 
     const listImg = imgs.list.map((data, index) => {
         return (
@@ -245,7 +245,7 @@ const MedicationCommonInfor = () => {
                         <div>{ medicationSate.note }</div>
                     </div>
                 </div>
-                <div className="MedicationCommonInfor-text-bottom">
+                {/* <div className="MedicationCommonInfor-text-bottom">
                     <div className="MedicationCommonInfor-text-bottom-1">
                         <div>{ medicationSate.sold } / { medicationSate.amount }</div>
                         <div>{ medicationSate.price } $</div>
@@ -265,7 +265,7 @@ const MedicationCommonInfor = () => {
                             <button onClick={() => handleAddCart()}><AiOutlineShoppingCart /> Add Cart</button>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )

@@ -29,3 +29,39 @@
     width: 100%;
     z-index: 800;
 }
+
+.MedicationDepartment-total > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.MedicationDepartment-buttom {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.MedicationDepartment-buttom > div > button {
+    border: none;
+    padding: 5px;
+    font-size: 1.1em !important;
+    background-color: rgb(255, 0, 79);
+    color: #fff;
+    margin: 5px;
+    cursor: pointer;
+    box-shadow: 5px 5px 5px rgb(255, 0, 79, 0.8);
+}
+
+.MedicationDepartment-buttom > div > button:hover {
+    background-color: rgb(255, 0, 79, 0.6);
+}
+
+.MedicationDepartment-buttom > div > button:active {
+    background-color: rgb(255, 0, 79);
+}
+
+@media screen and (max-width: 500px) {
+    .MedicationDepartment {
+        --customColumn-maxWidth: 300px
+    }
+}
