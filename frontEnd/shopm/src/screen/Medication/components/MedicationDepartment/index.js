@@ -89,6 +89,12 @@ const MedicationDepartment = () => {
         
     }, [departmentList])
 
+    const onAmountInput = (TKS) => {
+        const inputValue = TKS.data.inputValue;
+        console.log(inputValue, 111111111111)
+    }
+
+
     return (
         <div className="MedicationDepartment" ref={thisElement}>
             <div className="MedicationDepartment-header">Department List</div>
@@ -121,7 +127,7 @@ const MedicationDepartment = () => {
                                 }, 2000)
                             },
                             customColumn: {
-                                
+                                onInput: (TKS) => onAmountInput(TKS)
                             }
                         }
                     }} /> }

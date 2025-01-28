@@ -102,14 +102,18 @@ const TableScreen: FC<{}> = () => {
                             clearInterval(interval)
                         }, 2000)
                     },
-                    customColumn: {onInputChange(e) {
-                        // console.log('tableScreen', e.target.value)
-                        setCustomColumnDatas([
-                            {field: 'COST', data: e.target.value},
-                            {field: 'VAT', data: e.target.value},
-                            {field: 'SALE', data: e.target.value}
-                        ])
-                    },}
+                    customColumn: {
+                        onInputChange(e) {
+                            setCustomColumnDatas([
+                                {field: 'COST', data: e.target.value},
+                                {field: 'VAT', data: e.target.value},
+                                {field: 'SALE', data: e.target.value}
+                            ])
+                        },
+                        onInput(TKS) {
+                            console.log(111, TKS.data)
+                        },
+                    }
                 }
             }} />
         </div>

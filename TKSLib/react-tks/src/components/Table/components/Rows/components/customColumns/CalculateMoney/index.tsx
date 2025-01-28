@@ -27,7 +27,7 @@ const SUB_COLOR = 'rgb(255, 240, 0)';
 
 
 
-const CalculateMoney: FC<{}> = () => {
+const CalculateMoney: FC<{rowIndex: number}> = ({rowIndex}) => {
 
     const id = useRef<string>(`CalculateMoney__T: ${useId()}`);
 
@@ -44,6 +44,8 @@ const CalculateMoney: FC<{}> = () => {
     const config: Table_Config_Props = {...table?.config};
     const event: Table_Event_Props = {...table?.event};
     const data: Table_Data_Props = {...table?.data};
+
+    const dataTable: {[key: string]: any}[] | undefined = table?.data?.values;
 
     const is_amount_input_negative_default: boolean = false;
     const is_amount_input_negative: boolean = config.customColumn?.is_amount_input_negative ? config.customColumn?.is_amount_input_negative : is_amount_input_negative_default;
@@ -78,10 +80,11 @@ const CalculateMoney: FC<{}> = () => {
             id: id.current,
             data: {
                 inputValue: input,
+                rowData: dataTable ? dataTable[rowIndex] : undefined
             }
         }
         event.customColumn?.onInput && event.customColumn.onInput(TKS);
-    }, [input,  event.customColumn])
+    }, [input,  event.customColumn, rowIndex, dataTable])
 
     const input_change = (e: React.ChangeEvent<HTMLInputElement>) => {
         event.customColumn?.onInputChange && event.customColumn?.onInputChange(e)

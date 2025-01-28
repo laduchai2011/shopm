@@ -292,7 +292,7 @@ const Rows: FC<{}> = () => {
                 <div>
                     { loadDataState===LOAD_STATE.LOADING && <Loading load={ load } /> }
                 </div>
-                <div>{isCustomColumn && <CalculateMoney />}</div>
+                <div>{isCustomColumn && <CalculateMoney rowIndex={index} />}</div>
             </div>
         )
     })
