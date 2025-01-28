@@ -14,7 +14,6 @@ import {
     Table_Data_CustomColumn_DataIn_Type
 } from 'src/define';
 
-
 import { 
     isNumberString,
     cluster_for_string,
@@ -73,22 +72,16 @@ const CalculateMoney: FC<{}> = () => {
     const values: Table_Data_CustomColumn_DataIn_Type[] | undefined = data.customColumn?.values;
 
     useEffect(() => {
-        // const values: Table_Data_CustomColumn_DataIn_Type[] | undefined = data.customColumn?.values;
-        // if (values) {
-        //     for (let i: number = 0; i < values?.length; i++) {
-        //         const field: string = values[i].field;
-        //         switch(field) { 
-                   
-        //             default: { 
-                      
-        //                 break; 
-        //             } 
-        //         } 
-        //     }
-        // }
-        
-        
-    }, [data.customColumn?.values])
+        const TKS: TKSProps = {
+            ...TKS_Init,
+            name: undefined,
+            id: id.current,
+            data: {
+                inputValue: input,
+            }
+        }
+        event.customColumn?.onInput && event.customColumn.onInput(TKS);
+    }, [input,  event.customColumn])
 
     const input_change = (e: React.ChangeEvent<HTMLInputElement>) => {
         event.customColumn?.onInputChange && event.customColumn?.onInputChange(e)

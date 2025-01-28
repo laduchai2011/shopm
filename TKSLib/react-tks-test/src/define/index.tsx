@@ -69,7 +69,8 @@ export interface Table_Event_CustomColumn_Props {
     // onData?: (Table_Data_CustomColumn_DataOut: Table_Event_CustomColumn_DataOut_Type) => void,
     onInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
     onAddButton?: (TKS: TKSProps) => void,
-    onSubButton?: (TKS: TKSProps) => void
+    onSubButton?: (TKS: TKSProps) => void,
+    onInput?: (TKS: TKSProps) => void
 }
 export interface Table_Element_Props {
     rowsOfIndex: React.MutableRefObject<(HTMLDivElement | null)[]>,

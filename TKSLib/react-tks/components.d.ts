@@ -61,6 +61,7 @@ interface Table_Event_CustomColumn_Props {
     onInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onAddButton?: (TKS: TKSProps) => void;
     onSubButton?: (TKS: TKSProps) => void;
+    onInput?: (TKS: TKSProps) => void;
 }
 interface CellProps {
     fieldName?: string;
