@@ -16,6 +16,10 @@ const LOAD_STATE = {
     READY: 'READY'
 }
 
+/**
+ * @typedef {import('define/medication').selected_medication_toBuy} medselected_medication_toBuyicateOptions
+*/
+
 const MedicationDepartment = () => { 
 
     const {id: uuid_medication} = useParams();
@@ -84,14 +88,14 @@ const MedicationDepartment = () => {
             isLog: true
         })
     } 
+    /** @type {[medselected_medication_toBuyicateOptions | undefined, React.Dispatch<React.SetStateAction<medselected_medication_toBuyicateOptions | undefined>>]} */
     const [selectedDepartment_List, setSelectedDepartment_List] = useState();
     useEffect(() => {
         
     }, [departmentList])
 
     const onAmountInput = (TKS) => {
-        const inputValue = TKS.data.inputValue;
-        console.log(inputValue, 111111111111)
+        const inputValue = TKS.data;
     }
 
 
@@ -131,6 +135,9 @@ const MedicationDepartment = () => {
                             }
                         }
                     }} /> }
+                </div>
+                <div>
+                    {selectedDepartment_List && <Table />}
                 </div>
                 <div className="MedicationDepartment-total">
                     <div>

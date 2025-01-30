@@ -23,3 +23,7 @@ export type medicationContextOptions = {
     buyNow: any, 
     setBuyNow: React.Dispatch<React.SetStateAction<any>>
 }
+
+export type selected_medication_toBuy = medicateOptions & {
+    amountToBuy: number
+} 

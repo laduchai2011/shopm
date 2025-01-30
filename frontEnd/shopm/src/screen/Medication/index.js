@@ -16,7 +16,7 @@ import { useGetMedicationQuery } from "reduxStore/RTKQuery/medicationRTKQuery";
 
 
 /**
- * @typedef {import('define/madication').medicateOptions} medicateOptions
+ * @typedef {import('define/medication').medicateOptions} medicateOptions
 */
 
 const Medication = () => { 

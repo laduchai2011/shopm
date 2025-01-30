@@ -1,0 +1,29 @@
+.TKS-Table1-Row-Cell {
+    --width: 300px;
+    --maxWidth: 300px;
+}
+
+.TKS-Table1-Row-Cell {
+    box-sizing: border-box;
+    padding: 10px 5px; 
+    position: relative;
+    width: var(--width); 
+    max-width: var(--maxWidth);
+    text-align: center;
+    background: 
+        linear-gradient(to bottom right, white, rgb(243, 243, 243), rgb(219, 219, 219))
+    ;
+    -webkit-background: 
+        linear-gradient(to bottom right, white, rgb(243, 243, 243), rgb(219, 219, 219))
+    ;
+}
+
+.TKS-Table1-Row-Cell-borderBottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 0), black, rgba(0, 0, 0, 0));
+    -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 0), black, rgba(0, 0, 0, 0));
+    background-color: gray;
+}

@@ -2,6 +2,7 @@ import React, { FC, useState, useEffect } from 'react';
 import './styles.css';
 
 import Table from 'src/components/Table';
+import Table1 from 'src/components/Table1';
 
 import { 
     ColumnsInforProps,
@@ -73,7 +74,7 @@ const TableScreen: FC<{}> = () => {
     return <div className="TKS-screen-Table">
         <button onClick={() => setPage(x => x + 1)}>Plus page</button>
         <button onClick={() => setPage(0)}>click</button>
-        <div style={{marginLeft: '20px', width: '800px'}}>
+        <div style={{marginLeft: '20px', width: '800px', marginBottom: '50px'}}>
             <Table table={{
                 data: {
                     values: data(page),
@@ -111,11 +112,20 @@ const TableScreen: FC<{}> = () => {
                             ])
                         },
                         onInput(TKS) {
-                            console.log(111, TKS.data)
+                            // console.log(111, TKS.data)
                         },
                     }
                 }
             }} />
+        </div>
+        <div style={{marginLeft: '50px'}}>
+            <Table1
+                table1={{
+                    config: {
+                        
+                    }
+                }}
+            />
         </div>
     </div>;
 };

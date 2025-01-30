@@ -75,7 +75,7 @@ const Rows: FC<{}> = () => {
     }, [cellWidth, cellHeight, customColumn_maxWidth])
 
     useEffect(() => {
-        const total_row = totalRow.current.length
+        const total_row = totalRow.current.length;
         for (let i: number = 0; i < total_row; i++) {
             if (element_rowsOfCalculate.current[i] && i > 0) {
                 (element_rowsOfCalculate.current[i]!).style.setProperty('--background-color', row_hoverColor);

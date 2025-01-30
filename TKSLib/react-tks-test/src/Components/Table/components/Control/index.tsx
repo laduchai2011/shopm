@@ -395,4 +395,4 @@ const Control: FC<{}> = () => {
     </div>;
 };
 
-export default Control;
+export default React.memo(Control);

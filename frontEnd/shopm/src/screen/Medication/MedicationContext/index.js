@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 /**
- * @typedef {import('define/madication').medicationContextOptions} medicationContextOptions
+ * @typedef {import('define/medication').medicationContextOptions} medicationContextOptions
 */
 
 /** @type {React.Context<medicationContextOptions | null>} */
