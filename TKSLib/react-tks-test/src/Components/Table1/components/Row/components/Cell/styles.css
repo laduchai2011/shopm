@@ -1,6 +1,8 @@
 .TKS-Table1-Row-Cell {
     --width: 300px;
     --maxWidth: 300px;
+    --text-color: ;
+    --text-weight: ;
 }
 
 .TKS-Table1-Row-Cell {
@@ -9,6 +11,8 @@
     position: relative;
     width: var(--width); 
     max-width: var(--maxWidth);
+    color: var(--text-color);
+    font-weight: var(--text-weight);
     text-align: center;
     background: 
         linear-gradient(to bottom right, white, rgb(243, 243, 243), rgb(219, 219, 219))

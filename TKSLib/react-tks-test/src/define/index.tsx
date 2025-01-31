@@ -347,25 +347,26 @@ export interface Table1_Event_Props {
     
 }
 
-// export interface Table1_CCRow_Props {
-//     config?: Table1_CCRow_Config_Props,
-//     data?: Table1_CCRow_Data_Props,
-//     control?: Table1_CCRow_Control_Props,
-//     event?: Table1_CCRow_Event_Props
-// }
-// export interface Table1_CCRow_Config_Props {
-//     // height?: string,
-//     // maxHeight?: string
-// }
-// export interface Table1_CCRow_Data_Props {
+export interface Table1_CCRow_Props {
+    config?: Table1_CCRow_Config_Props,
+    data?: Table1_CCRow_Data_Props,
+    control?: Table1_CCRow_Control_Props,
+    event?: Table1_CCRow_Event_Props
+}
+export interface Table1_CCRow_Config_Props {
+    // height?: string,
+    // maxHeight?: string
+    index_in_table?: number
+}
+export interface Table1_CCRow_Data_Props {
+    cells: Table1_CCCell_Props[]
+}
+export interface Table1_CCRow_Control_Props {
     
-// }
-// export interface Table1_CCRow_Control_Props {
+}
+export interface Table1_CCRow_Event_Props {
     
-// }
-// export interface Table1_CCRow_Event_Props {
-    
-// }
+}
 
 export interface Table1_CCCell_Props {
     config?: Table1_CCCell_Config_Props,
@@ -374,8 +375,10 @@ export interface Table1_CCCell_Props {
     event?: Table1_CCCell_Event_Props
 }
 export interface Table1_CCCell_Config_Props {
-    width?: string, 
-    height?: string
+    index_in_table?: number,
+    index_in_row?: number,
+    text_color?: string,
+    text_weight?: string
 }
 export interface Table1_CCCell_Data_Props {
     fieldName?: string,
@@ -390,7 +393,7 @@ export interface Table1_CCCell_Event_Props {
 
 export interface Table1_Context_Props {
     table1?: Table1_Props,
-    elements: React.MutableRefObject<Table1_Element_Props>,
+    elements: React.MutableRefObject<Table1_Element_Props>
 }
 
 export interface Table1_Element_Props {

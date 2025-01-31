@@ -4,13 +4,14 @@ import './styles.css';
 import { Table1Context } from 'src/components/Table1/Table1Context';
 
 import { 
-    Table1_Config_Props 
+    Table1_Config_Props,
+    Table1_CCCell_Props,
+    Table1_CCCell_Data_Props,
+    Table1_CCCell_Config_Props 
 } from 'src/define';
 
 
-const Cell: FC<{cellIndex: number}> = ({cellIndex}) => {
-
-    const text: string = 'text text text text text text text text text text text text text text text text text texttext text text text texttext text text text text text text text text text';
+const Cell: FC<{table1_CCCell?: Table1_CCCell_Props}> = ({table1_CCCell}) => {
     
     const context = useContext(Table1Context);
     
@@ -24,21 +25,33 @@ const Cell: FC<{cellIndex: number}> = ({cellIndex}) => {
     } = context;
  
     const config: Table1_Config_Props | undefined = table1?.config;
+    const config_cell: Table1_CCCell_Config_Props | undefined = table1_CCCell?.config;
     const cell_element: React.MutableRefObject<(HTMLDivElement | null)[]> = elements.current.cell_element;
 
-    useEffect(() => {
-        if (cell_element.current[cellIndex]) {
-            config?.cell_maxWidth && (cell_element.current[cellIndex]!).style.setProperty('--maxWidth', config.cell_maxWidth);
-        }
-    }, [cell_element, cellIndex, config?.cell_maxWidth])
+    const index_in_table: number | undefined = table1_CCCell?.config?.index_in_table;
+    if (index_in_table===undefined) {
+        console.warn('This cell have NOT index_in_table');
+    }
 
-    return <div
+    useEffect(() => {
+        if (index_in_table!==undefined && cell_element.current[index_in_table]) {
+            config?.cell_maxWidth && (cell_element.current[index_in_table]!).style.setProperty('--maxWidth', config.cell_maxWidth);
+
+            config_cell?.text_color && (cell_element.current[index_in_table]!).style.setProperty('--text-color', config_cell.text_color);
+            config_cell?.text_weight && (cell_element.current[index_in_table]!).style.setProperty('--text-weight', config_cell.text_weight);
+        }
+    }, [cell_element, index_in_table, config?.cell_maxWidth, config_cell])
+
+    const data_cell: Table1_CCCell_Data_Props | undefined = table1_CCCell?.data;
+    const content: string |undefined = data_cell?.content;
+
+    return index_in_table!==undefined ? <div
         className="TKS-Table1-Row-Cell"
-        ref={(el) => (cell_element.current[cellIndex] = el)}
+        ref={(el) => (cell_element.current[index_in_table] = el)}
     >
-        <div>{ text }</div> 
+        <div>{ content }</div> 
        <div className='TKS-Table1-Row-Cell-borderBottom' />
-    </div>
+    </div> : null
 };
 
 export default Cell;
