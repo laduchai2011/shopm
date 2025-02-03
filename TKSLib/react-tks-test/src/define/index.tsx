@@ -379,6 +379,8 @@ export interface Table1_CCCell_Config_Props {
     index_in_row?: number,
     text_color?: string,
     text_weight?: string
+    width?: string,
+    height?: string
 }
 export interface Table1_CCCell_Data_Props {
     fieldName?: string,

@@ -312,3 +312,92 @@ export interface Dialog_Event_Props {
     onClickButton2?: (TKS: TKSProps) => void,
     onClickButton3?: (TKS: TKSProps) => void,
 }
+
+
+
+
+
+
+
+
+
+/////////////////// table1 ///////////////////////////
+export interface Table1_Props {
+    config?: Table1_Config_Props,
+    data?: Table1_Data_Props,
+    control?: Table1_Control_Props,
+    event?: Table1_Event_Props
+}
+export interface Table1_Config_Props {
+    cell_width?: string,
+    cell_maxWidth?: string,
+    columnInfor?: Table1_Config_ColumnInfor_Props[]
+}
+export interface Table1_Config_ColumnInfor_Props {
+    columnName: string,
+    fieldName: string  // fieldName of data
+}
+export interface Table1_Data_Props {
+    values?: {[key: string]: any}[]
+}
+export interface Table1_Control_Props {
+    
+}
+export interface Table1_Event_Props {
+    
+}
+
+export interface Table1_CCRow_Props {
+    config?: Table1_CCRow_Config_Props,
+    data?: Table1_CCRow_Data_Props,
+    control?: Table1_CCRow_Control_Props,
+    event?: Table1_CCRow_Event_Props
+}
+export interface Table1_CCRow_Config_Props {
+    // height?: string,
+    // maxHeight?: string
+    index_in_table?: number
+}
+export interface Table1_CCRow_Data_Props {
+    cells: Table1_CCCell_Props[]
+}
+export interface Table1_CCRow_Control_Props {
+    
+}
+export interface Table1_CCRow_Event_Props {
+    
+}
+
+export interface Table1_CCCell_Props {
+    config?: Table1_CCCell_Config_Props,
+    data?: Table1_CCCell_Data_Props,
+    control?: Table1_CCCell_Control_Props,
+    event?: Table1_CCCell_Event_Props
+}
+export interface Table1_CCCell_Config_Props {
+    index_in_table?: number,
+    index_in_row?: number,
+    text_color?: string,
+    text_weight?: string
+    width?: string,
+    height?: string
+}
+export interface Table1_CCCell_Data_Props {
+    fieldName?: string,
+    content?: string,
+}
+export interface Table1_CCCell_Control_Props {
+    
+}
+export interface Table1_CCCell_Event_Props {
+    
+}
+
+export interface Table1_Context_Props {
+    table1?: Table1_Props,
+    elements: React.MutableRefObject<Table1_Element_Props>
+}
+
+export interface Table1_Element_Props {
+    cell_element: React.MutableRefObject<(HTMLDivElement | null)[]>
+}
