@@ -3,7 +3,7 @@ import {
     cluster_for_string,
     alias_for_string,
     round_numberString
-} from "../string";
+} from '../string';
 
 import { 
     money_string_Props,

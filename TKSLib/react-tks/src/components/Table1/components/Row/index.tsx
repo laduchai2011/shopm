@@ -99,7 +99,6 @@ const Row: FC<{table1_CCRow?: Table1_CCRow_Props}> = ({table1_CCRow}) => {
                 cell_element.current[i]!.style.width = `${mostWidth_of_indexColumn}px`;
             }
         }
-        console.log(list_index_of_cell_indexColumn)
     }, [cell_element, rowIndex, columnAmount, rowAmount])
 
     const list_cell: React.ReactNode = table1_CCRow?.data?.cells.map((data: Table1_CCCell_Props, index: number) => {

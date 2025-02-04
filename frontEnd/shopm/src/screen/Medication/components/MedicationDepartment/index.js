@@ -3,7 +3,7 @@ import './styles.css';
 
 import { useParams } from "react-router-dom";
 
-import { Table } from 'react-tks/components';
+import { Table, Table1 } from 'react-tks/components';
 import { moneyString } from 'react-tks/utils';
 
 import { useMedicationScreen_getList_departmentsQuery } from "reduxStore/RTKQuery/departmentRTKQuery";
@@ -90,12 +90,25 @@ const MedicationDepartment = () => {
     } 
     /** @type {[medselected_medication_toBuyicateOptions | undefined, React.Dispatch<React.SetStateAction<medselected_medication_toBuyicateOptions | undefined>>]} */
     const [selectedDepartment_List, setSelectedDepartment_List] = useState();
+    const selectedDepartmentInfor = [
+        { columnName: 'Name', fieldName: 'name'},
+        { columnName: 'Amount', fieldName: 'amount'},
+    ]
     useEffect(() => {
         
     }, [departmentList])
 
     const onAmountInput = (TKS) => {
         const inputValue = TKS.data;
+        console.log(11111111, inputValue)
+
+        /** @type {medselected_medication_toBuyicateOptions} */
+        const selectedDepartment_List_ = {
+            // ...inputValue.rowData,
+            // amountToBuy: Number(inputValue)
+        };
+
+        // setSelectedDepartment_List(selectedDepartment_List_);
     }
 
 
@@ -137,7 +150,16 @@ const MedicationDepartment = () => {
                     }} /> }
                 </div>
                 <div>
-                    {selectedDepartment_List && <Table />}
+                    {/* {selectedDepartment_List && <Table1 table1={{
+                        config: {
+                            columnInfor: selectedDepartmentInfor
+                        }
+                    }}/>} */}
+                    <Table1 table1={{
+                        config: {
+                            columnInfor: selectedDepartmentInfor
+                        }
+                    }}/>
                 </div>
                 <div className="MedicationDepartment-total">
                     <div>

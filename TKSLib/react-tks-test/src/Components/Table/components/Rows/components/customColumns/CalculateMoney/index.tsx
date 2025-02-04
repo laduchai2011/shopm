@@ -73,8 +73,9 @@ const CalculateMoney: FC<{rowIndex: number}> = ({rowIndex}) => {
 
     const values: Table_Data_CustomColumn_DataIn_Type[] | undefined = data.customColumn?.values;
 
+    const beforeInput = useRef<string>('0');
     useEffect(() => {
-        if (dataTable) {
+        if ((dataTable!==undefined) && (dataTable[rowIndex]!==undefined) && (beforeInput.current!==input)) {
             const TKS: TKSProps = {
                 ...TKS_Init,
                 name: undefined,
@@ -85,8 +86,9 @@ const CalculateMoney: FC<{rowIndex: number}> = ({rowIndex}) => {
                 }
             }
             event.customColumn?.onInput && event.customColumn.onInput(TKS);
+            beforeInput.current = input;
         }
-    }, [input,  event.customColumn, rowIndex, dataTable])
+    }, [input, event.customColumn, rowIndex, dataTable])
 
     const input_change = (e: React.ChangeEvent<HTMLInputElement>) => {
         event.customColumn?.onInputChange && event.customColumn?.onInputChange(e)

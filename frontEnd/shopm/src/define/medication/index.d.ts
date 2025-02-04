@@ -25,5 +25,5 @@ export type medicationContextOptions = {
 }
 
 export type selected_medication_toBuy = medicateOptions & {
-    amountToBuy: number
+    amountToBuy?: number
 } 

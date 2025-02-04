@@ -121,7 +121,7 @@ const TableScreen: FC<{}> = () => {
                             ])
                         },
                         onInput(TKS) {
-                            // console.log(111, TKS.data)
+                            console.log(111, TKS.data)
                         },
                     }
                 }

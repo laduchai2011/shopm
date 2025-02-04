@@ -232,12 +232,42 @@ interface Dialog_Event_Props {
     onClickButton2?: (TKS: TKSProps) => void;
     onClickButton3?: (TKS: TKSProps) => void;
 }
+interface Table1_Props {
+    config?: Table1_Config_Props;
+    data?: Table1_Data_Props;
+    control?: Table1_Control_Props;
+    event?: Table1_Event_Props;
+}
+interface Table1_Config_Props {
+    cell_width?: string;
+    cell_maxWidth?: string;
+    columnInfor?: Table1_Config_ColumnInfor_Props[];
+}
+interface Table1_Config_ColumnInfor_Props {
+    columnName: string;
+    fieldName: string;
+}
+interface Table1_Data_Props {
+    values?: {
+        [key: string]: any;
+    }[];
+}
+interface Table1_Control_Props {
+}
+interface Table1_Event_Props {
+}
 
 interface MyTableProps extends React.HTMLProps<HTMLDivElement> {
     table?: TableProps;
     [key: string]: any;
 }
-declare const _default$c: React.NamedExoticComponent<MyTableProps>;
+declare const _default$d: React.NamedExoticComponent<MyTableProps>;
+
+interface MyTable1Props extends React.HTMLProps<HTMLDivElement> {
+    table1?: Table1_Props;
+    [key: string]: any;
+}
+declare const _default$c: React.NamedExoticComponent<MyTable1Props>;
 
 interface MyDialogProps extends React.HTMLProps<HTMLDivElement> {
     dialog?: DialogProps;
@@ -311,4 +341,4 @@ interface MySubCircleProps extends React.HTMLProps<SVGSVGElement> {
 }
 declare const _default: React.NamedExoticComponent<MySubCircleProps>;
 
-export { _default$1 as AddCircle, _default$3 as BigLeftArrow, _default$2 as BigRightArrow, _default$4 as DeleteCircle, _default$b as Dialog, _default$5 as ErrorCircle, _default$a as Loading, _default$9 as OverLay, _default as SubCircle, _default$c as Table, _default$7 as TickSymbol, _default$8 as ToastMessage, _default$6 as WarnTriangle };
+export { _default$1 as AddCircle, _default$3 as BigLeftArrow, _default$2 as BigRightArrow, _default$4 as DeleteCircle, _default$b as Dialog, _default$5 as ErrorCircle, _default$a as Loading, _default$9 as OverLay, _default as SubCircle, _default$d as Table, _default$c as Table1, _default$7 as TickSymbol, _default$8 as ToastMessage, _default$6 as WarnTriangle };
