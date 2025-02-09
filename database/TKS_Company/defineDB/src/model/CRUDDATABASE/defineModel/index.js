@@ -118,8 +118,8 @@ class DefineModel {
                 fields: ['uuid_member']
             }]
         });
-        this._Member.hasMany(this._Member_CH, { foreignKey: 'uuid_member' })
-        this._Member_CH.belongsTo(this._Member, { foreignKey: 'uuid_member', targetKey: 'uuid_member', as: 'uuid_Member' })
+        this._Member.hasMany(this._Member_CH, { foreignKey: 'uuid_member', onDelete: "NO ACTION" })
+        this._Member_CH.belongsTo(this._Member, { foreignKey: 'uuid_member', targetKey: 'uuid_member', as: 'uuid_Member', onDelete: "NO ACTION" })
 
         this._Log = sequelize.define('Log', {
             id: {
@@ -238,10 +238,10 @@ class DefineModel {
                 }
             ]
         })
-        this._Member.hasMany(this._Log_CH, { foreignKey: 'uuid_member' })
-        this._Log_CH.belongsTo(this._Member, { foreignKey: 'uuid_member', targetKey: 'uuid_member', as: 'uuid_Member' })
-        this._Log.hasMany(this._Log_CH, { foreignKey: 'uuid_log' })
-        this._Log_CH.belongsTo(this._Log, { foreignKey: 'uuid_log', targetKey: 'uuid_log', as: 'uuid_Log' })
+        this._Member.hasMany(this._Log_CH, { foreignKey: 'uuid_member', onDelete: "NO ACTION" })
+        this._Log_CH.belongsTo(this._Member, { foreignKey: 'uuid_member', targetKey: 'uuid_member', as: 'uuid_Member', onDelete: "NO ACTION" })
+        this._Log.hasMany(this._Log_CH, { foreignKey: 'uuid_log', onDelete: "NO ACTION" })
+        this._Log_CH.belongsTo(this._Log, { foreignKey: 'uuid_log', targetKey: 'uuid_log', as: 'uuid_Log', onDelete: "NO ACTION" })
 
         this._ChestGroup = sequelize.define('ChestGroup', {
             id: {
@@ -324,10 +324,10 @@ class DefineModel {
                 }
             ]
         })
-        this._Member.hasMany(this._ChestGroup_CH, { foreignKey: 'uuid_member' })
-        this._ChestGroup_CH.belongsTo(this._Member, { foreignKey: 'uuid_member', targetKey: 'uuid_member', as: 'uuid_Member' })
-        this._ChestGroup.hasMany(this._ChestGroup_CH, { foreignKey: 'uuid_chestGroup' })
-        this._ChestGroup_CH.belongsTo(this._ChestGroup, { foreignKey: 'uuid_chestGroup', targetKey: 'uuid_chestGroup', as: 'uuid_ChestGroup' })
+        this._Member.hasMany(this._ChestGroup_CH, { foreignKey: 'uuid_member', onDelete: "NO ACTION" })
+        this._ChestGroup_CH.belongsTo(this._Member, { foreignKey: 'uuid_member', targetKey: 'uuid_member', as: 'uuid_Member', onDelete: "NO ACTION" })
+        this._ChestGroup.hasMany(this._ChestGroup_CH, { foreignKey: 'uuid_chestGroup', onDelete: "NO ACTION" })
+        this._ChestGroup_CH.belongsTo(this._ChestGroup, { foreignKey: 'uuid_chestGroup', targetKey: 'uuid_chestGroup', as: 'uuid_ChestGroup', onDelete: "NO ACTION" })
 
         this._Chest = sequelize.define('Chest', {
             id: {
@@ -382,8 +382,8 @@ class DefineModel {
                 }
             ]
         })
-        this._ChestGroup.hasMany(this._Chest, { foreignKey: 'uuid_chestGroup' })
-        this._Chest.belongsTo(this._ChestGroup, { foreignKey: 'uuid_chestGroup', targetKey: 'uuid_chestGroup', as: 'uuid_ChestGroup' })
+        this._ChestGroup.hasMany(this._Chest, { foreignKey: 'uuid_chestGroup', onDelete: "NO ACTION" })
+        this._Chest.belongsTo(this._ChestGroup, { foreignKey: 'uuid_chestGroup', targetKey: 'uuid_chestGroup', as: 'uuid_ChestGroup', onDelete: "NO ACTION" })
 
         this._Chest_CH = sequelize.define('Chest_CH', {
             name: {
@@ -436,10 +436,10 @@ class DefineModel {
                 }
             ]
         })
-        this._Member.hasMany(this._Chest_CH, { foreignKey: 'uuid_member' })
-        this._Chest_CH.belongsTo(this._Member, { foreignKey: 'uuid_member', targetKey: 'uuid_member', as: 'uuid_Member' })
-        this._Chest.hasMany(this._Chest_CH, { foreignKey: 'uuid_chest' })
-        this._Chest_CH.belongsTo(this._Chest, { foreignKey: 'uuid_chest', targetKey: 'uuid_chest', as: 'uuid_Chest' })
+        this._Member.hasMany(this._Chest_CH, { foreignKey: 'uuid_member', onDelete: "NO ACTION" })
+        this._Chest_CH.belongsTo(this._Member, { foreignKey: 'uuid_member', targetKey: 'uuid_member', as: 'uuid_Member', onDelete: "NO ACTION" })
+        this._Chest.hasMany(this._Chest_CH, { foreignKey: 'uuid_chest', onDelete: "NO ACTION" })
+        this._Chest_CH.belongsTo(this._Chest, { foreignKey: 'uuid_chest', targetKey: 'uuid_chest', as: 'uuid_Chest', onDelete: "NO ACTION" })
 
         sequelize.sync();
     }

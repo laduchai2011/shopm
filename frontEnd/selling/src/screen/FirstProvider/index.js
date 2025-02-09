@@ -9,9 +9,10 @@ import {
 
 import { setCookie, getCookie } from 'auth/cookie';
 
+import { baseURL_shopm } from 'config/server';
+
 
 const FirstProvider = () => {
-
     const navigate = useNavigate();
 
     const [providerList, setProviderList] = useState([]);
@@ -51,6 +52,10 @@ const FirstProvider = () => {
         window.location.reload();
     }
 
+    const createProvider = () => {
+        window.location.href = `${baseURL_shopm}/provider/setting/register`;
+    }
+
     const list_provider = providerList.map((data, index) => {
         return (
             <div className='FirstProvider-provider' key={ index } onClick={() => handleSelectProvider(data)}>{ data.name }</div>
@@ -60,7 +65,7 @@ const FirstProvider = () => {
     return (
         <div className='FirstProvider'>
             <div>
-                <span>Select a provider to begin. If you have NOT provider yet, let create now in here <button>Create a provider</button></span>
+                <span>Select a provider to begin. If you have NOT provider yet, let create now in here <button onClick={() => createProvider()}>Create a provider</button></span>
                 <div>
                     <div>Your provider :</div>
                     <div>

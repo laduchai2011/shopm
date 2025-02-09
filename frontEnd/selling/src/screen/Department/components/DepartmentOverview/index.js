@@ -2,13 +2,17 @@ import React, { memo } from 'react';
 import './styles.css';
 
 import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 import { IoAdd } from "react-icons/io5";
 import { CiSettings } from "react-icons/ci";
 
-const DepartmentOverView = () => {
+import { baseURL_shopm } from 'config/server';
 
+const DepartmentOverView = () => {
     const navigate = useNavigate();
+
+    const selectedProvider = useSelector(state => state.providerSlice.selectedProvider);
 
     const handleDepartmentGroupCreate = () => {
         navigate('/departmentGroup/create');
@@ -16,6 +20,12 @@ const DepartmentOverView = () => {
 
     const handleDepartmentSetup = () => {
         navigate('/department/setup');
+    }
+
+    const handleCreateMedication = () => {
+        if (selectedProvider) {
+            window.location.href = `${baseURL_shopm}/provider/${selectedProvider.uuid_provider}/addMedication`;
+        }
     }
 
     return (
@@ -35,6 +45,10 @@ const DepartmentOverView = () => {
             <div>
                 <div>Custom a department</div>
                 <div onClick={() => handleDepartmentSetup()}><CiSettings size={ 50 } color='gray' /></div>
+            </div>
+            <div>
+                <div>Add a medication</div>
+                <div onClick={() => handleCreateMedication()}><IoAdd size={ 50 } color='greenyellow' /></div>
             </div>
         </div>
     )

@@ -85,8 +85,8 @@ class DefineModel {
             }]
         })
 
-        this._User.hasMany(this._SockerSMRoom, { foreignKey: 'uuid_user' })
-        this._SockerSMRoom.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User' })
+        this._User.hasMany(this._SockerSMRoom, { foreignKey: 'uuid_user', onDelete: "NO ACTION" })
+        this._SockerSMRoom.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User', onDelete: "NO ACTION" })
 
         this._Payment = sequelize.define('Payment', {
             id: {
@@ -122,8 +122,8 @@ class DefineModel {
                 fields: ['uuid_user']
             }]
         })
-        this._User.hasMany(this._Payment, { foreignKey: 'uuid_user' })
-        this._Payment.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User' })
+        this._User.hasMany(this._Payment, { foreignKey: 'uuid_user', onDelete: "NO ACTION" })
+        this._Payment.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User', onDelete: "NO ACTION" })
 
         this._DoctorOrPharmacist = sequelize.define('DoctorOrPharmacist', {
             id: {
@@ -205,8 +205,8 @@ class DefineModel {
                 fields: ['uuid_user']
             }]
         })
-        this._User.hasOne(this._DoctorOrPharmacist, { foreignKey: 'uuid_user' })
-        this._DoctorOrPharmacist.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User' })
+        this._User.hasOne(this._DoctorOrPharmacist, { foreignKey: 'uuid_user', onDelete: "NO ACTION" })
+        this._DoctorOrPharmacist.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User', onDelete: "NO ACTION" })
 
         this._SickPerson = sequelize.define('SickPerson', {
             id: {
@@ -256,8 +256,8 @@ class DefineModel {
                 fields: ['uuid_user']
             }]
         })
-        this._User.hasOne(this._DoctorOrPharmacist, { foreignKey: 'uuid_user' })
-        this._SickPerson.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User' })
+        this._User.hasOne(this._DoctorOrPharmacist, { foreignKey: 'uuid_user', onDelete: "NO ACTION" })
+        this._SickPerson.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User', onDelete: "NO ACTION" })
         //--------------------------------------------------------------//
 
         //---------------------Notification-------------------//
@@ -296,8 +296,8 @@ class DefineModel {
                 fields: ['uuid_user']
             }]
         })
-        this._User.hasMany(this._Notification, { foreignKey: 'uuid_user' })
-        this._Notification.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User' })
+        this._User.hasMany(this._Notification, { foreignKey: 'uuid_user', onDelete: "NO ACTION" })
+        this._Notification.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User', onDelete: "NO ACTION" })
 
         //------------------Image------------------------//
         this._Image = sequelize.define('Image', {
@@ -341,8 +341,8 @@ class DefineModel {
             }]
         });
 
-        this._User.hasMany(this._Image, { foreignKey: 'uuid_user' });
-        this._Image.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User' });
+        this._User.hasMany(this._Image, { foreignKey: 'uuid_user', onDelete: "NO ACTION" });
+        this._Image.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User', onDelete: "NO ACTION" });
         //--------------------------------------------//
 
 
@@ -396,8 +396,8 @@ class DefineModel {
                 fields: ['uuid_user']
             }]
         });
-        this._User.hasMany(this._Provider, { foreignKey: 'uuid_user' })
-        this._Provider.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User' })
+        this._User.hasMany(this._Provider, { foreignKey: 'uuid_user', onDelete: "NO ACTION" })
+        this._Provider.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User', onDelete: "NO ACTION" })
 
         this._ProviderAbout = sequelize.define('ProviderAbout', {
             id: {
@@ -433,8 +433,8 @@ class DefineModel {
                 fields: ['uuid_provider']
             }]
         })
-        this._Provider.hasMany(this._ProviderAbout, { foreignKey: 'uuid_provider' })
-        this._ProviderAbout.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider' })
+        this._Provider.hasMany(this._ProviderAbout, { foreignKey: 'uuid_provider', onDelete: "NO ACTION" })
+        this._ProviderAbout.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider', onDelete: "NO ACTION" })
 
         this._Medication = sequelize.define('Medication', {
             id: {
@@ -527,8 +527,8 @@ class DefineModel {
                 fields: ['uuid_provider']
             }]
         })
-        this._Provider.hasMany(this._Medication, { foreignKey: 'uuid_provider' })
-        this._Medication.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider' })
+        this._Provider.hasMany(this._Medication, { foreignKey: 'uuid_provider', onDelete: "NO ACTION" })
+        this._Medication.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider', onDelete: "NO ACTION" })
 
         this._Medication_CH = sequelize.define('Medication_CH', {
             name: {
@@ -610,8 +610,8 @@ class DefineModel {
                 fields: ['uuid_medication']
             }]
         })
-        this._Medication.hasMany(this._Medication_CH, { foreignKey: 'uuid_medication' })
-        this._Medication_CH.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication' })
+        this._Medication.hasMany(this._Medication_CH, { foreignKey: 'uuid_medication', onDelete: "NO ACTION" })
+        this._Medication_CH.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication', onDelete: "NO ACTION" })
 
         this._MedicationImage = sequelize.define('MedicationImage', {
             id: {
@@ -644,8 +644,8 @@ class DefineModel {
                 fields: ['uuid_medication']
             }]
         })
-        this._Medication.hasMany(this._MedicationImage, { foreignKey: 'uuid_medication' })
-        this._MedicationImage.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication' })
+        this._Medication.hasMany(this._MedicationImage, { foreignKey: 'uuid_medication', onDelete: "NO ACTION" })
+        this._MedicationImage.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication', onDelete: "NO ACTION" })
 
         this._MedicationImage_CH = sequelize.define('MedicationImage_CH', {
             url: {
@@ -667,8 +667,8 @@ class DefineModel {
                 fields: ['uuid_medicationImage']
             }]
         })
-        this._MedicationImage.hasMany(this._MedicationImage_CH, { foreignKey: 'uuid_medicationImage' })
-        this._MedicationImage_CH.belongsTo(this._MedicationImage, { foreignKey: 'uuid_medicationImage', targetKey: 'uuid_medicationImage', as: 'uuid_MedicationImage' })
+        this._MedicationImage.hasMany(this._MedicationImage_CH, { foreignKey: 'uuid_medicationImage', onDelete: "NO ACTION" })
+        this._MedicationImage_CH.belongsTo(this._MedicationImage, { foreignKey: 'uuid_medicationImage', targetKey: 'uuid_medicationImage', as: 'uuid_MedicationImage', onDelete: "NO ACTION" })
 
         this._MedicationVideo = sequelize.define('MedicationVideo', {
             id: {
@@ -701,8 +701,8 @@ class DefineModel {
                 fields: ['uuid_medication']
             }]
         })
-        this._Medication.hasMany(this._MedicationVideo, { foreignKey: 'uuid_medication' })
-        this._MedicationVideo.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication' })
+        this._Medication.hasMany(this._MedicationVideo, { foreignKey: 'uuid_medication', onDelete: "NO ACTION" })
+        this._MedicationVideo.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication', onDelete: "NO ACTION" })
 
         this._MedicationVideo_CH = sequelize.define('MedicationVideo_CH', {
             url: {
@@ -724,8 +724,8 @@ class DefineModel {
                 fields: ['uuid_medicationVideo']
             }]
         })
-        this._MedicationVideo.hasMany(this._MedicationVideo_CH, { foreignKey: 'uuid_medicationVideo' })
-        this._MedicationVideo_CH.belongsTo(this._MedicationVideo, { foreignKey: 'uuid_medicationVideo', targetKey: 'uuid_medicationVideo', as: 'uuid_MedicationVideo' })
+        this._MedicationVideo.hasMany(this._MedicationVideo_CH, { foreignKey: 'uuid_medicationVideo', onDelete: "NO ACTION" })
+        this._MedicationVideo_CH.belongsTo(this._MedicationVideo, { foreignKey: 'uuid_medicationVideo', targetKey: 'uuid_medicationVideo', as: 'uuid_MedicationVideo', onDelete: "NO ACTION" })
 
         this._ProviderNews = sequelize.define('ProviderNews', {
             id: {
@@ -770,8 +770,8 @@ class DefineModel {
                 fields: ['uuid_provider']
             }]
         })
-        this._Provider.hasMany(this._ProviderNews, { foreignKey: 'uuid_provider' })
-        this._ProviderNews.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider' })
+        this._Provider.hasMany(this._ProviderNews, { foreignKey: 'uuid_provider', onDelete: "NO ACTION" })
+        this._ProviderNews.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider', onDelete: "NO ACTION" })
         //---------------------------------------------------------//
 
         //-------------------Case-Record-------------------//
@@ -829,8 +829,8 @@ class DefineModel {
         })
         // this._User.hasMany(this._CaseRecord, { foreignKey: 'uuid_user' })
         // this._DoctorOrPharmacist.hasMany(this._CaseRecord, { foreignKey: 'uuid_doctorOrPharmacist' })
-        this._CaseRecord.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User' })
-        this._CaseRecord.belongsTo(this._DoctorOrPharmacist, { foreignKey: 'uuid_doctorOrPharmacist', targetKey: 'uuid_doctorOrPharmacist', as: 'uuid_DoctorOrPharmacist' })
+        this._CaseRecord.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User', onDelete: "NO ACTION" })
+        this._CaseRecord.belongsTo(this._DoctorOrPharmacist, { foreignKey: 'uuid_doctorOrPharmacist', targetKey: 'uuid_doctorOrPharmacist', as: 'uuid_DoctorOrPharmacist', onDelete: "NO ACTION" })
 
         this._CaseRecordDescription = sequelize.define('CaseRecordDescription', {
             id: {
@@ -872,8 +872,8 @@ class DefineModel {
                 }
             ]
         })
-        this._CaseRecord.hasMany(this._CaseRecordDescription, { foreignKey: 'uuid_caseRecord' })
-        this._CaseRecordDescription.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord' })
+        this._CaseRecord.hasMany(this._CaseRecordDescription, { foreignKey: 'uuid_caseRecord', onDelete: "NO ACTION" })
+        this._CaseRecordDescription.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord', onDelete: "NO ACTION" })
 
         this._CaseRecordImage = sequelize.define('CaseRecordImage', {
             id: {
@@ -912,8 +912,8 @@ class DefineModel {
                 fields: ['uuid_caseRecord']
             }]
         })
-        this._CaseRecord.hasMany(this._CaseRecordImage, { foreignKey: 'uuid_caseRecord' })
-        this._CaseRecordImage.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord' })
+        this._CaseRecord.hasMany(this._CaseRecordImage, { foreignKey: 'uuid_caseRecord', onDelete: "NO ACTION" })
+        this._CaseRecordImage.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord', onDelete: "NO ACTION" })
 
         this._CaseRecordVideo = sequelize.define('CaseRecordVideo', {
             id: {
@@ -952,8 +952,8 @@ class DefineModel {
                 fields: ['uuid_caseRecord']
             }]
         })
-        this._CaseRecord.hasMany(this._CaseRecordVideo, { foreignKey: 'uuid_caseRecord' })
-        this._CaseRecordVideo.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord' })
+        this._CaseRecord.hasMany(this._CaseRecordVideo, { foreignKey: 'uuid_caseRecord', onDelete: "NO ACTION" })
+        this._CaseRecordVideo.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord', onDelete: "NO ACTION" })
 
         this._CaseRecordPrescription = sequelize.define('CaseRecordPrescription', {
             id: {
@@ -995,8 +995,8 @@ class DefineModel {
                 }
             ]
         })
-        this._CaseRecord.hasMany(this._CaseRecordPrescription, { foreignKey: 'uuid_caseRecord' })
-        this._CaseRecordPrescription.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord' })
+        this._CaseRecord.hasMany(this._CaseRecordPrescription, { foreignKey: 'uuid_caseRecord', onDelete: "NO ACTION" })
+        this._CaseRecordPrescription.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord', onDelete: "NO ACTION" })
 
         this._CaseRecordMedication = sequelize.define('CaseRecordMedication', {
             id: {
@@ -1061,10 +1061,10 @@ class DefineModel {
                 fields: ['uuid_medication']
             }]
         })
-        this._CaseRecord.hasMany(this._CaseRecordMedication, { foreignKey: 'uuid_caseRecord' })
-        this._CaseRecordMedication.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord' })
-        this._Medication.hasMany(this._CaseRecordMedication, { foreignKey: 'uuid_medication' })
-        this._CaseRecordMedication.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication' })
+        this._CaseRecord.hasMany(this._CaseRecordMedication, { foreignKey: 'uuid_caseRecord', onDelete: "NO ACTION" })
+        this._CaseRecordMedication.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord', onDelete: "NO ACTION" })
+        this._Medication.hasMany(this._CaseRecordMedication, { foreignKey: 'uuid_medication', onDelete: "NO ACTION" })
+        this._CaseRecordMedication.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication', onDelete: "NO ACTION" })
         //----------------------------------------------//
 
         //--------------------------Chest-----------------------------//
@@ -1167,8 +1167,8 @@ class DefineModel {
                 }
             ]
         })
-        this._ChestGroup.hasMany(this._Chest, { foreignKey: 'uuid_chestGroup' })
-        this._Chest.belongsTo(this._ChestGroup, { foreignKey: 'uuid_chestGroup', targetKey: 'uuid_chestGroup', as: 'uuid_ChestGroup' })
+        this._ChestGroup.hasMany(this._Chest, { foreignKey: 'uuid_chestGroup', onDelete: "NO ACTION" })
+        this._Chest.belongsTo(this._ChestGroup, { foreignKey: 'uuid_chestGroup', targetKey: 'uuid_chestGroup', as: 'uuid_ChestGroup', onDelete: "NO ACTION" })
 
         //-----------------Department-----------------------//
         this._DepartmentGroup = sequelize.define('DepartmentGroup', {
@@ -1210,8 +1210,8 @@ class DefineModel {
                 fields: ['uuid_provider']
             }]
         })
-        this._Provider.hasMany(this._DepartmentGroup, { foreignKey: 'uuid_provider' })
-        this._DepartmentGroup.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider' })
+        this._Provider.hasMany(this._DepartmentGroup, { foreignKey: 'uuid_provider', onDelete: "NO ACTION" })
+        this._DepartmentGroup.belongsTo(this._Provider, { foreignKey: 'uuid_provider', targetKey: 'uuid_provider', as: 'uuid_Provider', onDelete: "NO ACTION" })
         
         this._DepartmentGroup_CH = sequelize.define('DepartmentGroup_CH', {
             name: {
@@ -1241,8 +1241,8 @@ class DefineModel {
                 fields: ['uuid_departmentGroup']
             }]
         })
-        this._DepartmentGroup.hasMany(this._DepartmentGroup_CH, { foreignKey: 'uuid_departmentGroup' })
-        this._DepartmentGroup_CH.belongsTo(this._DepartmentGroup, { foreignKey: 'uuid_departmentGroup', targetKey: 'uuid_departmentGroup', as: 'uuid_DepartmentGroup' })
+        this._DepartmentGroup.hasMany(this._DepartmentGroup_CH, { foreignKey: 'uuid_departmentGroup', onDelete: "NO ACTION" })
+        this._DepartmentGroup_CH.belongsTo(this._DepartmentGroup, { foreignKey: 'uuid_departmentGroup', targetKey: 'uuid_departmentGroup', as: 'uuid_DepartmentGroup', onDelete: "NO ACTION" })
 
         this._Department = sequelize.define('Department', {
             id: {
@@ -1350,12 +1350,12 @@ class DefineModel {
                 }
             ]
         })
-        this._Medication.hasMany(this._Department, { foreignKey: 'uuid_medication' })
-        this._Department.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication' })
-        this._Chest.hasOne(this._Department, { foreignKey: 'uuid_chest' })
-        this._Department.belongsTo(this._Chest, { foreignKey: 'uuid_chest', targetKey: 'uuid_chest', as: 'uuid_Chest' })
-        this._DepartmentGroup.hasMany(this._Department, { foreignKey: 'uuid_departmentGroup' })
-        this._Department.belongsTo(this._DepartmentGroup, { foreignKey: 'uuid_departmentGroup', targetKey: 'uuid_departmentGroup', as: 'uuid_DepartmentGroup' })
+        this._Medication.hasMany(this._Department, { foreignKey: 'uuid_medication', onDelete: "NO ACTION" })
+        this._Department.belongsTo(this._Medication, { foreignKey: 'uuid_medication', targetKey: 'uuid_medication', as: 'uuid_Medication', onDelete: "NO ACTION" })
+        this._Chest.hasOne(this._Department, { foreignKey: 'uuid_chest', onDelete: "NO ACTION" })
+        this._Department.belongsTo(this._Chest, { foreignKey: 'uuid_chest', targetKey: 'uuid_chest', as: 'uuid_Chest', onDelete: "NO ACTION" })
+        this._DepartmentGroup.hasMany(this._Department, { foreignKey: 'uuid_departmentGroup', onDelete: "NO ACTION" })
+        this._Department.belongsTo(this._DepartmentGroup, { foreignKey: 'uuid_departmentGroup', targetKey: 'uuid_departmentGroup', as: 'uuid_DepartmentGroup', onDelete: "NO ACTION" })
         
         this._Department_CH = sequelize.define('Department_CH', {
             name: {
@@ -1442,8 +1442,8 @@ class DefineModel {
                 }
             ]
         })
-        this._Department.hasMany(this._Department_CH, { foreignKey: 'uuid_department' })
-        this._Department_CH.belongsTo(this._Department, { foreignKey: 'uuid_department', targetKey: 'uuid_department', as: 'uuid_Department' })
+        this._Department.hasMany(this._Department_CH, { foreignKey: 'uuid_department', onDelete: "NO ACTION" })
+        this._Department_CH.belongsTo(this._Department, { foreignKey: 'uuid_department', targetKey: 'uuid_department', as: 'uuid_Department', onDelete: "NO ACTION" })
 
         //----------------------------------------------------------------//
 
@@ -1500,10 +1500,10 @@ class DefineModel {
                 }
             ]
         })
-        this._User.hasMany(this._OrderMedicationGroup, { foreignKey: 'uuid_user' })
-        this._OrderMedicationGroup.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User' })
-        this._CaseRecord.hasMany(this._OrderMedicationGroup, { foreignKey: 'uuid_caseRecord' })
-        this._OrderMedicationGroup.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord' })
+        this._User.hasMany(this._OrderMedicationGroup, { foreignKey: 'uuid_user', onDelete: "NO ACTION" })
+        this._OrderMedicationGroup.belongsTo(this._User, { foreignKey: 'uuid_user', targetKey: 'uuid', as: 'uuid_User', onDelete: "NO ACTION" })
+        this._CaseRecord.hasMany(this._OrderMedicationGroup, { foreignKey: 'uuid_caseRecord', onDelete: "NO ACTION" })
+        this._OrderMedicationGroup.belongsTo(this._CaseRecord, { foreignKey: 'uuid_caseRecord', targetKey: 'uuid_caseRecord', as: 'uuid_CaseRecord', onDelete: "NO ACTION" })
 
         this._OrderMedication = sequelize.define('OrderMedication', {
             id: {
@@ -1559,10 +1559,10 @@ class DefineModel {
                 }
             ]
         })
-        this._Department.hasMany(this._OrderMedication, { foreignKey: 'uuid_department' })
-        this._OrderMedication.belongsTo(this._Department, { foreignKey: 'uuid_department', targetKey: 'uuid_department', as: 'uuid_Department' })
-        this._OrderMedicationGroup.hasMany(this._OrderMedication, { foreignKey: 'uuid_orderMedicationGroup' })
-        this._OrderMedication.belongsTo(this._OrderMedicationGroup, { foreignKey: 'uuid_orderMedicationGroup', targetKey: 'uuid_orderMedicationGroup', as: 'uuid_OrderMedicationGroup' })
+        this._Department.hasMany(this._OrderMedication, { foreignKey: 'uuid_department', onDelete: "NO ACTION" })
+        this._OrderMedication.belongsTo(this._Department, { foreignKey: 'uuid_department', targetKey: 'uuid_department', as: 'uuid_Department', onDelete: "NO ACTION" })
+        this._OrderMedicationGroup.hasMany(this._OrderMedication, { foreignKey: 'uuid_orderMedicationGroup', onDelete: "NO ACTION" })
+        this._OrderMedication.belongsTo(this._OrderMedicationGroup, { foreignKey: 'uuid_orderMedicationGroup', targetKey: 'uuid_orderMedicationGroup', as: 'uuid_OrderMedicationGroup', onDelete: "NO ACTION" })
 
         this._OrderMedicationMedication = sequelize.define('OrderMedicationMedication', {
             id: {
@@ -1617,8 +1617,8 @@ class DefineModel {
                 }
             ]
         })
-        this._OrderMedication.hasMany(this._OrderMedicationMedication, { foreignKey: 'uuid_orderMedication' })
-        this._OrderMedicationMedication.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication' })
+        this._OrderMedication.hasMany(this._OrderMedicationMedication, { foreignKey: 'uuid_orderMedication', onDelete: "NO ACTION" })
+        this._OrderMedicationMedication.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication', onDelete: "NO ACTION" })
 
         this._OrderMedicationDescription = sequelize.define('OrderMedicationDescription', {
             id: {
@@ -1653,8 +1653,8 @@ class DefineModel {
                 }
             ]
         })
-        this._OrderMedication.hasOne(this._OrderMedicationDescription, { foreignKey: 'uuid_orderMedication' })
-        this._OrderMedicationDescription.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication' })
+        this._OrderMedication.hasOne(this._OrderMedicationDescription, { foreignKey: 'uuid_orderMedication', onDelete: "NO ACTION" })
+        this._OrderMedicationDescription.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication', onDelete: "NO ACTION" })
 
         this._OrderMedicationImage = sequelize.define('OrderMedicationImage', {
             id: {
@@ -1691,8 +1691,8 @@ class DefineModel {
                 }
             ]
         })
-        this._OrderMedication.hasOne(this._OrderMedicationImage, { foreignKey: 'uuid_orderMedication' })
-        this._OrderMedicationImage.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication' })
+        this._OrderMedication.hasOne(this._OrderMedicationImage, { foreignKey: 'uuid_orderMedication', onDelete: "NO ACTION" })
+        this._OrderMedicationImage.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication', onDelete: "NO ACTION" })
 
         this._OrderMedicationVideo = sequelize.define('OrderMedicationVideo', {
             id: {
@@ -1729,8 +1729,8 @@ class DefineModel {
                 }
             ]
         })
-        this._OrderMedication.hasOne(this._OrderMedicationVideo, { foreignKey: 'uuid_orderMedication' })
-        this._OrderMedicationVideo.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication' })
+        this._OrderMedication.hasOne(this._OrderMedicationVideo, { foreignKey: 'uuid_orderMedication', onDelete: "NO ACTION" })
+        this._OrderMedicationVideo.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication', onDelete: "NO ACTION" })
 
         this._OrderMedicationPrescription = sequelize.define('OrderMedicationPrescription', {
             id: {
@@ -1765,8 +1765,8 @@ class DefineModel {
                 }
             ]
         })
-        this._OrderMedication.hasOne(this._OrderMedicationPrescription, { foreignKey: 'uuid_orderMedication' })
-        this._OrderMedicationPrescription.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication' })
+        this._OrderMedication.hasOne(this._OrderMedicationPrescription, { foreignKey: 'uuid_orderMedication', onDelete: "NO ACTION" })
+        this._OrderMedicationPrescription.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication', onDelete: "NO ACTION" })
 
         this._OrderMedicationStepByStep = sequelize.define('OrderMedicationStepByStep', {
             id: {
@@ -1809,8 +1809,8 @@ class DefineModel {
                 }
             ]
         })
-        this._OrderMedication.hasOne(this._OrderMedicationStepByStep, { foreignKey: 'uuid_orderMedication' })
-        this._OrderMedicationStepByStep.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication' })
+        this._OrderMedication.hasOne(this._OrderMedicationStepByStep, { foreignKey: 'uuid_orderMedication', onDelete: "NO ACTION" })
+        this._OrderMedicationStepByStep.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication', onDelete: "NO ACTION" })
 
         this._OrderMedicationTransport = sequelize.define('OrderMedicationTransport', {
             id: {
@@ -1851,8 +1851,8 @@ class DefineModel {
                 fields: ['uuid_orderMedication']
             }]
         })
-        this._OrderMedication.hasOne(this._OrderMedicationTransport, { foreignKey: 'uuid_orderMedication' })
-        this._OrderMedicationTransport.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication' })     
+        this._OrderMedication.hasOne(this._OrderMedicationTransport, { foreignKey: 'uuid_orderMedication', onDelete: "NO ACTION" })
+        this._OrderMedicationTransport.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication', onDelete: "NO ACTION" })     
 
         this._OrderMedicationPayment = sequelize.define('OrderMedicationPayment', {
             id: {
@@ -1893,8 +1893,8 @@ class DefineModel {
                 fields: ['uuid_orderMedication']
             }]
         })
-        this._OrderMedication.hasOne(this._OrderMedicationPayment, { foreignKey: 'uuid_orderMedication' })
-        this._OrderMedicationPayment.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication' })
+        this._OrderMedication.hasOne(this._OrderMedicationPayment, { foreignKey: 'uuid_orderMedication', onDelete: "NO ACTION" })
+        this._OrderMedicationPayment.belongsTo(this._OrderMedication, { foreignKey: 'uuid_orderMedication', targetKey: 'uuid_orderMedication', as: 'uuid_OrderMedication', onDelete: "NO ACTION" })
         //----------------------------------------------------//
 
         sequelize.sync();

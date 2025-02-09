@@ -1,27 +1,27 @@
 var fs = require("fs");
 
 const modelPathArr = [
-    'D:/shopm/backEnd/getCaseRecord/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/getChest/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/getDepartment/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/getImage/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/getMedication/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/getNotification/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/getOrderMedication/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/getProvider/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/getProviderNews/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/getUserinfor/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/uploadCaseRecord/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/uploadChest/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/uploadDepartment/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/uploadImage/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/uploadMedication/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/uploadNotification/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/uploadOrderMedication/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/uploadProvider/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/uploadProviderNews/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/uploadUserinfor/src/model/CRUDDATABASE/defineModel/index.js',
-    'D:/shopm/backEnd/socketSM/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/getCaseRecord/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/getChest/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/getDepartment/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/getImage/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/getMedication/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/getNotification/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/getOrderMedication/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/getProvider/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/getProviderNews/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/getUserinfor/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/uploadCaseRecord/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/uploadChest/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/uploadDepartment/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/uploadImage/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/uploadMedication/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/uploadNotification/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/uploadOrderMedication/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/uploadProvider/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/uploadProviderNews/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/uploadUserinfor/src/model/CRUDDATABASE/defineModel/index.js',
+    'E:/tks/shopm/backEnd/socketSM/src/model/CRUDDATABASE/defineModel/index.js',
 ]
 
 // const typedefPathArr = [
@@ -44,7 +44,7 @@ const modelPathArr = [
 //     'D:/shopm/backEnd/socketSM/src/model/CRUDDATABASE/defineModel/typedef.js'
 // ]
 
-const modelPath = 'D:/shopm/database/shopm/defineDB/src/model/CRUDDATABASE/defineModel/index.js';                                                     
+const modelPath = 'E:/tks/shopm/database/shopm/defineDB/src/model/CRUDDATABASE/defineModel/index.js';                                                     
 
 
 // sync data base shopm

@@ -1,7 +1,7 @@
 .DepartmentOverView {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    column-gap: 10px;
+    gap: 10px;
 }
 
 .DepartmentOverView > div {
