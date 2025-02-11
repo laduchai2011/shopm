@@ -8,7 +8,7 @@
 
 .TKS-Table1-Row-Cell {
     box-sizing: border-box;
-    padding: 10px 5px; 
+    padding: 10px 0px; 
     position: relative;
     width: var(--width); 
     height: var(--height);

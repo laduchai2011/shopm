@@ -16,8 +16,8 @@ router.post('/provider/createMedication',
     const createMedicationOptions = req.body.createMedicationOptions; 
     medicationCRUD.create(createMedicationOptions, (medication, err) => {
         if (err) {
-            logEvents(`${req.url}---${req.method}---${err}`);
-            console.log(err)
+            logEvents(`${req.url}---${req.method}---${err}`);   
+            console.log(err) 
             return res.status(500).send(err);
         } else {
             if (medication && medication!==null) {

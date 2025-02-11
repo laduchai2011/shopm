@@ -1,5 +1,9 @@
 .TKS-Table1 {
-    overflow-x: scroll;
     width: max-content;
     max-width: 100%;
+    overflow-x: auto;
+}
+
+.TKS-Table1 > div {
+    width: 100%;
 }

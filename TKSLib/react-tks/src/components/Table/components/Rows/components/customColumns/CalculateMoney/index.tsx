@@ -75,14 +75,14 @@ const CalculateMoney: FC<{rowIndex: number}> = ({rowIndex}) => {
 
     const beforeInput = useRef<string>('0');
     useEffect(() => {
-        if ((dataTable!==undefined) && (dataTable[rowIndex]!==undefined) && (beforeInput.current!==input)) {
+        if ((dataTable!==undefined) && (dataTable[rowIndex-1]!==undefined) && (beforeInput.current!==input)) {
             const TKS: TKSProps = {
                 ...TKS_Init,
                 name: undefined,
                 id: id.current,
                 data: {
                     inputValue: input,
-                    rowData: dataTable[rowIndex]
+                    rowData: dataTable[rowIndex-1]
                 }
             }
             event.customColumn?.onInput && event.customColumn.onInput(TKS);

@@ -139,7 +139,7 @@ router.get('/medicationImage/list',
                 });
             } else {
                 return res.status(200).json({
-                    medication: medication,
+                    medicationImages: medicationImages,
                     success: false,
                     message: `There are not medicationImages registed yet (${service}) !`
                 });

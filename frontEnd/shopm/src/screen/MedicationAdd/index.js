@@ -24,6 +24,7 @@ import { $, $$ } from "utilize/Tricks";
 
 /**
 *@typedef {
+*name: string,
 *title: string,
 *avatar: string,
 *subject: string,
@@ -60,12 +61,20 @@ import { $, $$ } from "utilize/Tricks";
 *} medicationVideoOptions
 */
 
+/**
+ * @typedef {import('define/medication').medicateOptions} medicateOptions
+*/
+
 const MedicationAdd = () => {
 
     const { id: uuid_provider } = useParams();
 
     const [images, setImages] = useState([]); // [{file: '', blob: ''}]
+     /** @type {[medicateOptions, React.Dispatch<React.SetStateAction<medicateOptions>>]} */
     const [inputs, setInputs] = useState({
+        id: undefined,
+        uuid_medication: undefined,
+        name: '',
         title: '',
         avatar: '',
         subject: '',
@@ -81,7 +90,7 @@ const MedicationAdd = () => {
         discount: 0,
         averageRating: 0,
         rateCount: 0,
-        status: 'stop',
+        status: 'normal',
         uuid_provider: uuid_provider
     });
 
@@ -109,9 +118,14 @@ const MedicationAdd = () => {
         let new_input = {...inputs};
 
         switch(type) {
+            case 'name':
+                new_input.name = value;
+                // q_inputBlock[0].children[1].classList.remove('showEmptyTitle');
+                break;
+
             case 'title':
                 new_input.title = value;
-                q_inputBlock[0].children[1].classList.remove('showEmptyTitle');
+                // q_inputBlock[1].children[1].classList.remove('showEmptyTitle');
                 break;
             
             case 'subject':
@@ -137,30 +151,30 @@ const MedicationAdd = () => {
             case 'price':
                 if (isNaN(value)) {
                     new_input.price = value;
-                    q_inputBlock[6].children[1].classList.add('showErrorPrice');
+                    q_inputBlock[7].children[1].classList.add('showErrorPrice');
                 } else {
                     new_input.price = Number(value);
-                    q_inputBlock[6].children[1].classList.remove('showErrorPrice');
+                    q_inputBlock[7].children[1].classList.remove('showErrorPrice');
                 }
                 break;
 
             case 'amount':
                 if (isNaN(value)) {
                     new_input.amount = value;
-                    q_inputBlock[7].children[1].classList.add('showErrorAmount');
+                    q_inputBlock[8].children[1].classList.add('showErrorAmount');
                 } else {
                     new_input.amount = Number(value);
-                    q_inputBlock[7].children[1].classList.remove('showErrorAmount');
+                    q_inputBlock[8].children[1].classList.remove('showErrorAmount');
                 }
                 break;
 
             case 'discount':
                 if (isNaN(value)) {
                     new_input.discount = value;
-                    q_inputBlock[8].children[1].classList.add('showErrorDiscount');
+                    q_inputBlock[9].children[1].classList.add('showErrorDiscount');
                 } else {
                     new_input.discount = Number(value);
-                    q_inputBlock[8].children[1].classList.remove('showErrorDiscount');
+                    q_inputBlock[9].children[1].classList.remove('showErrorDiscount');
                 }
                 break;
 
@@ -228,7 +242,7 @@ const MedicationAdd = () => {
         const inputsCoppy = {...inputs}
 
         if (inputsCoppy.title.length <= 0) {
-            q_inputBlock[0].children[1].classList.add('showEmptyTitle');
+            q_inputBlock[1].children[1].classList.add('showEmptyTitle');
             window.scrollTo(0, 0);
         } else {
             if (!submit.current) {
@@ -255,7 +269,9 @@ const MedicationAdd = () => {
 
                 setTimeout(() => {
                     uploadImage(imageFiles, (imageUrls) => {
-                        inputsCoppy.avatar = imageUrls[0]
+                        if (imageUrls[0]) {
+                            inputsCoppy.avatar = imageUrls[0]
+                        }
 
                         const medicationImageOptionsArray = [];
 
@@ -383,8 +399,16 @@ const MedicationAdd = () => {
                 <div className="MedicationAdd-inputBlock">
                     <div>
                         <div>Name</div>
-                        <input value={inputs.name} onChange={(e) => handleInput(e, 'title')} maxLength={25} />
+                        <input value={inputs.name} onChange={(e) => handleInput(e, 'name')} maxLength={25} />
                         <span>max 25</span> 
+                    </div>
+                    <div></div>
+                </div>
+                <div className="MedicationAdd-inputBlock">
+                    <div>
+                        <div>Title</div>
+                        <input value={inputs.title} onChange={(e) => handleInput(e, 'title')} maxLength={50} />
+                        <span>max 50</span> 
                     </div>
                     <div></div>
                 </div>

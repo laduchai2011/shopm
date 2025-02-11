@@ -6,6 +6,7 @@ const { defineModel } = require('../defineModel');
 /**
 *@typedef {
 *name: string,
+*title: string,
 *subject: string,
 *object: string,
 *symptom: string,
@@ -41,30 +42,6 @@ class MedicationCRUD {
     create(createMedicationOptions, callback) {
         let medication;
         let err;
-        
-        // const medicatePromise = new Promise((resolve, reject) => {
-        //     try {
-        //         sequelize.transaction(async (t) => {
-        //             try {
-        //                 const isMedication = await this._Medication.create(medicateOptions, { transaction: t });
-        //                 resolve(isMedication); 
-        //             } catch (error) {
-        //                 reject(error);
-        //             }
-        //         });
-        //     } catch (error) {
-        //         reject(error);
-        //     }
-        // });
-
-        // medicatePromise
-        // .then(isMedication => {
-        //     medication = isMedication;
-        // }).catch(error => {
-        //     err = error;
-        // }).finally(() => {
-        //     callback(medication, err);
-        // })
 
         const medicatePromise = new Promise(async (resolve, reject) => {
             const medication_t = await sequelize.transaction();

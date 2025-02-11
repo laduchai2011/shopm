@@ -19,6 +19,12 @@ const LOAD_STATE = {
 /**
  * @typedef {import('define/medication').selected_medication_toBuy} medselected_medication_toBuyicateOptions
 */
+/**
+ * @typedef {import('define/department').department__Options} department__Options
+*/
+/**
+ * @typedef {import('define/department').selected_department_toBuy__Options} selected_department_toBuy__Options
+*/
 
 const MedicationDepartment = () => { 
 
@@ -28,6 +34,7 @@ const MedicationDepartment = () => {
     const [loadDataState, setLoadDataState] = useState(undefined);
     const pageSize = 10;
     const [pageIndex, setPageIndex] = useState(1);
+    /** @type {[department__Options | undefined, React.Dispatch<React.SetStateAction<department__Options | undefined>>]} */
     const [departmentList, setDepartmentList] = useState();
     const columnsInfor = [
         { columnName: 'Name', fieldName: 'name'},
@@ -88,27 +95,27 @@ const MedicationDepartment = () => {
             isLog: true
         })
     } 
-    /** @type {[medselected_medication_toBuyicateOptions | undefined, React.Dispatch<React.SetStateAction<medselected_medication_toBuyicateOptions | undefined>>]} */
-    const [selectedDepartment_List, setSelectedDepartment_List] = useState();
+    /** @type {[selected_department_toBuy__Options[], React.Dispatch<React.SetStateAction<selected_department_toBuy__Options[]>>]} */
+    const [selectedDepartment_List, setSelectedDepartment_List] = useState([]);
     const selectedDepartmentInfor = [
         { columnName: 'Name', fieldName: 'name'},
-        { columnName: 'Amount', fieldName: 'amount'},
+        { columnName: 'Amount To Buy', fieldName: 'amountToBuy'},
     ]
     useEffect(() => {
         
     }, [departmentList])
 
     const onAmountInput = (TKS) => {
-        const inputValue = TKS.data;
-        console.log(11111111, inputValue)
+        const data = TKS.data;
+        console.log(11111111, data)
 
-        /** @type {medselected_medication_toBuyicateOptions} */
+        /** @type {selected_department_toBuy__Options} */
         const selectedDepartment_List_ = {
-            // ...inputValue.rowData,
-            // amountToBuy: Number(inputValue)
+            ...data.rowData,
+            amountToBuy: Number(data.inputValue)
         };
 
-        // setSelectedDepartment_List(selectedDepartment_List_);
+        setSelectedDepartment_List(pre => [...pre, selectedDepartment_List_]);
     }
 
 
@@ -150,16 +157,17 @@ const MedicationDepartment = () => {
                     }} /> }
                 </div>
                 <div>
-                    {/* {selectedDepartment_List && <Table1 table1={{
+                    {selectedDepartment_List.length>0 && <Table1 table1={{
+                        config: {
+                            columnInfor: selectedDepartmentInfor
+                        },
+                        data: {values: selectedDepartment_List},
+                    }}/> }
+                    {/* <Table1 table1={{
                         config: {
                             columnInfor: selectedDepartmentInfor
                         }
-                    }}/>} */}
-                    <Table1 table1={{
-                        config: {
-                            columnInfor: selectedDepartmentInfor
-                        }
-                    }}/>
+                    }}/> */}
                 </div>
                 <div className="MedicationDepartment-total">
                     <div>

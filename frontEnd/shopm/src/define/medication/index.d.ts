@@ -1,4 +1,7 @@
 export type medicateOptions = {
+    id: integer,
+    uuid_medication: string,
+    name: string,
     title: string,
     avatar: text,
     subject: string,

@@ -39,6 +39,7 @@ const HomeBottom = () => {
                 pageSize: pageSize
             }).then(res => {
                 const resData = res.data;
+                console.log(resData)
                 if (resData.success) {
                     setMedications(resData.medications.rows)
                 } else {

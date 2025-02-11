@@ -28,7 +28,7 @@ const Table: FC<MyTable1Props> = ({table1, className, ...props}) => {
         cell_element: cell_element
     })
 
-    const contextValue: Table1_Context_Props =  useMemo(() => ({
+    const contextValue: Table1_Context_Props = useMemo(() => ({
         table1,
         elements
     }), [table1]);
@@ -129,8 +129,6 @@ const Table: FC<MyTable1Props> = ({table1, className, ...props}) => {
             {...props}
         >
             <div>
-                {/* <Row />
-                <Row /> */}
                 { list_row }
             </div>
         </div>
