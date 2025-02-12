@@ -71,7 +71,7 @@ const CalculateMoney: FC<{rowIndex: number}> = ({rowIndex}) => {
     const [title, setTitle] = useState<string>('');
     const isNumberStringRef = useRef<boolean>(true);
 
-    const values: Table_Data_CustomColumn_DataIn_Type[] | undefined = data.customColumn?.values;
+    const customColumn_values: Table_Data_CustomColumn_DataIn_Type[][] | undefined = data.customColumn_values;
 
     const beforeInput = useRef<string>('0');
     useEffect(() => {
@@ -82,7 +82,8 @@ const CalculateMoney: FC<{rowIndex: number}> = ({rowIndex}) => {
                 id: id.current,
                 data: {
                     inputValue: input,
-                    rowData: dataTable[rowIndex-1]
+                    rowData: dataTable[rowIndex-1],
+                    rowIndex: rowIndex
                 }
             }
             event.customColumn?.onInput && event.customColumn.onInput(TKS);
@@ -91,11 +92,23 @@ const CalculateMoney: FC<{rowIndex: number}> = ({rowIndex}) => {
     }, [input, event.customColumn, rowIndex, dataTable])
 
     const input_change = (e: React.ChangeEvent<HTMLInputElement>) => {
-        event.customColumn?.onInputChange && event.customColumn?.onInputChange(e)
-        const value = e.target.value;
-        setInput(value);
-        setTitle(cluster_for_string({string: value}));
-        isNumberStringRef.current = isNumberString({string: input, isLog: true});
+        if ((dataTable!==undefined) && (dataTable[rowIndex-1]!==undefined)) {
+            const TKS: TKSProps = {
+                ...TKS_Init,
+                name: undefined,
+                id: id.current,
+                data: {
+                    inputValue: e.target.value,
+                    rowData: dataTable[rowIndex-1],
+                    rowIndex: rowIndex
+                }
+            }
+            event.customColumn?.onInputChange && event.customColumn?.onInputChange(TKS)
+            const value = e.target.value;
+            setInput(value);
+            setTitle(cluster_for_string({string: value}));
+            isNumberStringRef.current = isNumberString({string: input, isLog: true});
+        }
     }
 
     const input_click = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
@@ -105,67 +118,76 @@ const CalculateMoney: FC<{rowIndex: number}> = ({rowIndex}) => {
     const handleSub = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
         e.stopPropagation();
         let isRemoveDefaultFunction = false;
-        const TKS: TKSProps = {
-            ...TKS_Init,
-            name: undefined,
-            id: id.current,
-            event: {
-                defaultEvent: e
-            },
-            data: {
-                inputValue: input,
-            },
-            removeDefaultFunction(): void {
-                isRemoveDefaultFunction = true;
-            },
-        }
-        event.customColumn?.onSubButton && event.customColumn.onSubButton(TKS);
-        if (!isRemoveDefaultFunction) {
-            if (isNumberStringRef.current) {
-                const input_ = Number(input);
-                if (!is_amount_input_negative) { // input can't is a negative number
-                    if (input_ >= 1) {
+        if ((dataTable!==undefined) && (dataTable[rowIndex-1]!==undefined)) {
+            const TKS: TKSProps = {
+                ...TKS_Init,
+                name: undefined,
+                id: id.current,
+                event: {
+                    defaultEvent: e
+                },
+                data: {
+                    inputValue: input,
+                    rowData: dataTable[rowIndex-1],
+                    rowIndex: rowIndex
+                },
+                removeDefaultFunction(): void {
+                    isRemoveDefaultFunction = true;
+                },
+            }
+            event.customColumn?.onSubButton && event.customColumn.onSubButton(TKS);
+            if (!isRemoveDefaultFunction) {
+                if (isNumberStringRef.current) {
+                    const input_ = Number(input);
+                    if (!is_amount_input_negative) { // input can't is a negative number
+                        if (input_ >= 1) {
+                            setInput((input_ - 1).toString());
+                        }
+                    } else {
                         setInput((input_ - 1).toString());
                     }
                 } else {
-                    setInput((input_ - 1).toString());
+                    console.warn('Your input is NOT string number !');
                 }
-            } else {
-                console.warn('Your input is NOT string number !');
             }
         }
+        
     }
 
     const handleAdd = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
         e.stopPropagation();
         let isRemoveDefaultFunction = false;
-        const TKS: TKSProps = {
-            ...TKS_Init,
-            name: undefined,
-            id: id.current,
-            event: {
-                defaultEvent: e
-            },
-            data: {
-                inputValue: input,
-            },
-            removeDefaultFunction(): void {
-                isRemoveDefaultFunction = true;
-            },
-        }
-        event.customColumn?.onAddButton && event.customColumn.onAddButton(TKS);
-        if (!isRemoveDefaultFunction) {
-            if (isNumberStringRef.current) {
-                const input_ = Number(input);
-                if (amount_input_max) {
-                    if (input_ < amount_input_max - 1) {
+        if ((dataTable!==undefined) && (dataTable[rowIndex-1]!==undefined)) {
+            const TKS: TKSProps = {
+                ...TKS_Init,
+                name: undefined,
+                id: id.current,
+                event: {
+                    defaultEvent: e
+                },
+                data: {
+                    inputValue: input,
+                    rowData: dataTable[rowIndex-1],
+                    rowIndex: rowIndex
+                },
+                removeDefaultFunction(): void {
+                    isRemoveDefaultFunction = true;
+                },
+            }
+            event.customColumn?.onAddButton && event.customColumn.onAddButton(TKS);
+            if (!isRemoveDefaultFunction) {
+                if (isNumberStringRef.current) {
+                    const input_ = Number(input);
+                    if (amount_input_max) {
+                        if (input_ < amount_input_max - 1) {
+                            setInput((input_ + 1).toString());
+                        }
+                    } else {
                         setInput((input_ + 1).toString());
                     }
                 } else {
-                    setInput((input_ + 1).toString());
+                    console.warn('Your input is NOT string number !');
                 }
-            } else {
-                console.warn('Your input is NOT string number !');
             }
         }
     }
@@ -177,10 +199,11 @@ const CalculateMoney: FC<{rowIndex: number}> = ({rowIndex}) => {
             field: field,
             data: '0'
         };
-        if (values) {
-            for (let i: number = 0; i < values.length; i++) {
-                if (value.field===values[i].field) {
-                    value.data = values[i].data;
+        if (customColumn_values && customColumn_values[rowIndex-1]) {
+            const customColumn_values_thisRow: Table_Data_CustomColumn_DataIn_Type[] = customColumn_values[rowIndex-1];
+            for (let i: number = 0; i < customColumn_values_thisRow.length; i++) {
+                if (value.field===customColumn_values_thisRow[i].field) {
+                    value.data = customColumn_values_thisRow[i].data;
                 }
             }
         }

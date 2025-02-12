@@ -44,14 +44,15 @@ export interface Table_Config_CustomColumn_Props {
 export interface Table_Data_Props {
     values?: {[key: string]: any}[],
     all_values?: {[key: string]: any}[],
-    customColumn?: Table_Data_CustomColumn_Props
+    customColumn_values?: Table_Data_CustomColumn_DataIn_Type[][]
 }
+// export interface Table_Data_CustomColumn_Props { 
+//     values?: Table_Data_CustomColumn_DataIn_Type
+//     rowIndex?: number
+// }
 export type Table_Data_CustomColumn_DataIn_Type = {
     field: string,
     data: string
-}
-export interface Table_Data_CustomColumn_Props { 
-    values?: Table_Data_CustomColumn_DataIn_Type[]
 }
 export interface Table_Control_Props {
     pageIndex?: number,
@@ -67,7 +68,7 @@ export interface Table_Event_Props {
 // }
 export interface Table_Event_CustomColumn_Props {
     // onData?: (Table_Data_CustomColumn_DataOut: Table_Event_CustomColumn_DataOut_Type) => void,
-    onInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    onInputChange?: (TKS: TKSProps) => void,
     onAddButton?: (TKS: TKSProps) => void,
     onSubButton?: (TKS: TKSProps) => void,
     onInput?: (TKS: TKSProps) => void

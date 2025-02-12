@@ -25,6 +25,9 @@ const LOAD_STATE = {
 /**
  * @typedef {import('define/department').selected_department_toBuy__Options} selected_department_toBuy__Options
 */
+/**
+ * @typedef {import('./type').Table_Data_CustomColumn_DataIn_Type} Table_Data_CustomColumn_DataIn_Type
+*/
 
 const MedicationDepartment = () => { 
 
@@ -35,7 +38,7 @@ const MedicationDepartment = () => {
     const pageSize = 10;
     const [pageIndex, setPageIndex] = useState(1);
     /** @type {[department__Options | undefined, React.Dispatch<React.SetStateAction<department__Options | undefined>>]} */
-    const [departmentList, setDepartmentList] = useState();
+    const [departmentList, setDepartmentList] = useState(undefined);
     const columnsInfor = [
         { columnName: 'Name', fieldName: 'name'},
         { columnName: 'Title', fieldName: 'title'},
@@ -49,6 +52,27 @@ const MedicationDepartment = () => {
         { columnName: 'Discount', fieldName: 'discount'},
         { columnName: 'Note', fieldName: 'note'}
     ]
+
+    const fields_customColumn = useRef(['PRICE', 'COST', 'SALE', 'VAT']);
+    /** @type {[Table_Data_CustomColumn_DataIn_Type[][], React.Dispatch<React.SetStateAction<Table_Data_CustomColumn_DataIn_Type[][]>>]} */
+    const [datas_customColumn, set__datas_customColumn] = useState([]);
+    // init datas_customColumn
+    useEffect(() => {
+        /** @type {Table_Data_CustomColumn_DataIn_Type[][]} */
+        const datas_customColumn_ = [];
+        for (let i = 0; i < pageSize; i++) {
+            /** @type {Table_Data_CustomColumn_DataIn_Type[]} */
+            const data_customColumn = [];
+            for (let j = 0; j < fields_customColumn.current.length; j++) { 
+                /** @type {Table_Data_CustomColumn_DataIn_Type} */
+                const table_Data_CustomColumn_DataIn = {field: fields_customColumn.current[j], data: '0'};
+                data_customColumn.push(table_Data_CustomColumn_DataIn);
+            }
+            datas_customColumn_.push(data_customColumn);
+        }
+
+        set__datas_customColumn(datas_customColumn_);
+    }, [])
 
     const {
         data: data_departmentList, 
@@ -95,29 +119,58 @@ const MedicationDepartment = () => {
             isLog: true
         })
     } 
+
     /** @type {[selected_department_toBuy__Options[], React.Dispatch<React.SetStateAction<selected_department_toBuy__Options[]>>]} */
     const [selectedDepartment_List, setSelectedDepartment_List] = useState([]);
     const selectedDepartmentInfor = [
         { columnName: 'Name', fieldName: 'name'},
         { columnName: 'Amount To Buy', fieldName: 'amountToBuy'},
     ]
-    useEffect(() => {
-        
-    }, [departmentList])
 
     const onAmountInput = (TKS) => {
         const data = TKS.data;
         console.log(11111111, data)
+        const amountToBuy = Number(data.inputValue);
+        const rowIndex = data.rowIndex;
+        /** @type {department__Options} */
+        const rowData = data.rowData;
 
+        //----------------set-up for Table 1----------------//
         /** @type {selected_department_toBuy__Options} */
-        const selectedDepartment_List_ = {
-            ...data.rowData,
-            amountToBuy: Number(data.inputValue)
+        const selectedDepartment_List_new = {
+            ...rowData,
+            amountToBuy: amountToBuy
         };
 
-        setSelectedDepartment_List(pre => [...pre, selectedDepartment_List_]);
+        /** @type {selected_department_toBuy__Options[]} */
+        const selectedDepartment_List_cp = [...selectedDepartment_List];
+
+        let exist_selectedDepartment = false;
+        for (let i = 0; i < selectedDepartment_List_cp.length; i++) {
+            if (selectedDepartment_List_cp[i].uuid_department===selectedDepartment_List_new.uuid_department) {
+                selectedDepartment_List_cp[i].amountToBuy = selectedDepartment_List_new.amountToBuy;
+                exist_selectedDepartment = true;
+                break;
+            }
+        }
+        if (!exist_selectedDepartment) {
+            selectedDepartment_List_cp.push(selectedDepartment_List_new);
+        }
+
+        setSelectedDepartment_List(selectedDepartment_List_cp);
+        //---------------------------------------------------------//
+
+        //--------------------calculateMoney for row-----------------//
+        const price_w_amount = rowData.price * amountToBuy;
+        const cost_w_amount = rowData.consultantCost * amountToBuy;
+        const sale_w_amount = rowData.discount * amountToBuy;
+        const vat_w_amount = rowData.discount * amountToBuy;
     }
 
+
+    // const calculateMoneyWhenChangedInput = () => {
+        
+    // }
 
     return (
         <div className="MedicationDepartment" ref={thisElement}>
@@ -125,14 +178,17 @@ const MedicationDepartment = () => {
             <div className="MedicationDepartment-body">
                 <div>
                     { departmentList && <Table className="MedicationDepartment-table" table={{
-                        data: {values: departmentList.rows},
+                        data: {
+                            values: departmentList.rows,
+                            customColumn: datas_customColumn
+                        },
                         config: {
                             columnsInfor: columnsInfor, 
                             pageSize: pageSize, maxRow: 
                             departmentList.count,
                             customColumn: {
                                 type: 'calculateMoney',
-                                fields: ['PRICE', 'COST', 'SALE', 'VAT'],
+                                fields: fields_customColumn.current,
                                 max_width: customColumn_max_width.current
                             }
                         },
@@ -163,11 +219,6 @@ const MedicationDepartment = () => {
                         },
                         data: {values: selectedDepartment_List},
                     }}/> }
-                    {/* <Table1 table1={{
-                        config: {
-                            columnInfor: selectedDepartmentInfor
-                        }
-                    }}/> */}
                 </div>
                 <div className="MedicationDepartment-total">
                     <div>
