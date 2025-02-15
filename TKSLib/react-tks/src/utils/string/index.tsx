@@ -21,11 +21,6 @@ export const handleCutPXInString = (s: string): string => {
     return s_new.trim();
 }
 
-// type cluster_for_string_Props = {
-//     string: string, 
-//     amount_of_a_cluster?: number,
-//     isStringTrim?: boolean
-// }
 export const cluster_for_string = (cluster_for_string_parameter: cluster_for_string_Props): string => {
     // default
     const amount_of_a_cluster_default: number = 3;
@@ -41,25 +36,25 @@ export const cluster_for_string = (cluster_for_string_parameter: cluster_for_str
     let cluster_for_string_: string = '';
     let count_amount_of_cluster = 0;
 
-    for (let i: number = 0; i < len; i++) {
-        let currentElement: string = string[len - 1 - i];
-
-        if (count_amount_of_cluster < amount_of_a_cluster) {
-            cluster_for_string_ = currentElement + cluster_for_string_;
-            count_amount_of_cluster = count_amount_of_cluster + 1;
-        } else {
-            cluster_for_string_ = currentElement + "." + cluster_for_string_;
-            count_amount_of_cluster = 1;
+    if (len > 3) {
+        for (let i: number = 0; i < len; i++) {
+            let currentElement: string = string[len - 1 - i];
+    
+            if (count_amount_of_cluster < amount_of_a_cluster) {
+                cluster_for_string_ = currentElement + cluster_for_string_;
+                count_amount_of_cluster = count_amount_of_cluster + 1;
+            } else {
+                cluster_for_string_ = currentElement + "." + cluster_for_string_;
+                count_amount_of_cluster = 1;
+            }
         }
+    } else {
+        cluster_for_string_ = string;
     }
+   
 
     return cluster_for_string_;
 }
-
-// type isNumberString_Props = {
-//     string: string, 
-//     isLog?: boolean | false
-// }
 
 export function isFloat(value: number): boolean {
     return typeof value === 'number' && Number.isFinite(value) && !Number.isInteger(value);
@@ -141,15 +136,6 @@ export const isNumberString = (isNumberStringProps: isNumberString_Props): boole
     return isNumberString_;
 }
 
-// type alias_for_string_Props = {
-//     string: string,
-//     alias_list: alias_for_string_alias_list_Props[],
-//     skip_with_amount_of_fullChar?: boolean
-// }
-// type alias_for_string_alias_list_Props = {
-//     alias: string,
-//     amount_of_char: number
-// }
 export const alias_for_string = (alias_for_string_parameter: alias_for_string_Props): alias_for_string_alias_list_Props => {
     const string: string = alias_for_string_parameter.string;
     const string_len: number = string.length;
@@ -186,35 +172,36 @@ export const alias_for_string = (alias_for_string_parameter: alias_for_string_Pr
     return alias_selected;
 }   
 
-// type round_numberString_Props = {
-//     numberString: string,
-//     fromIndex?: number,
-//     toIndex?: number
-// }
 export const round_numberString = (round_numberString_parameter: round_numberString_Props): string => {
     const numberString: string = round_numberString_parameter.numberString;
     const isNumberString_: boolean = isNumberString({string: numberString});
 
     const toIndex_default: number = 5;
+    const fromIndex_default: number = 0;
     const toIndex: number = round_numberString_parameter.toIndex ? round_numberString_parameter.toIndex : toIndex_default;
+    const fromIndex: number = round_numberString_parameter.fromIndex ? round_numberString_parameter.fromIndex : fromIndex_default;
     
     const len: number = numberString.length;
     let rounded_numberString: string = '';
 
     if (isNumberString_) {
-        for (let i: number = 0; i < len; i++) {
-            if (i < toIndex) {
-                if (i===(toIndex-1)) {
-                    const number_at_toIndex: number = Number(numberString[toIndex]);
-                    let number_at_i: number = Number(numberString[i]);
-                    if (number_at_toIndex >= 5) {
-                        number_at_i = number_at_i + 1;
+        if (fromIndex!==0) {
+            for (let i: number = 0; i < len; i++) {
+                if (i < toIndex) {
+                    if (i===(toIndex-1)) {
+                        const number_at_toIndex: number = Number(numberString[toIndex]);
+                        let number_at_i: number = Number(numberString[i]);
+                        if (number_at_toIndex >= 5) {
+                            number_at_i = number_at_i + 1;
+                        }
+                        rounded_numberString = rounded_numberString + number_at_i.toString();
+                    } else {
+                        rounded_numberString = rounded_numberString + numberString[i];
                     }
-                    rounded_numberString = rounded_numberString + number_at_i.toString();
-                } else {
-                    rounded_numberString = rounded_numberString + numberString[i];
-                }
-            } 
+                } 
+            }
+        } else {
+            rounded_numberString = numberString;
         }
     } else {
         if (REACT_APP_NODE_ENV===ENVIR_DEVELOPMENT) {

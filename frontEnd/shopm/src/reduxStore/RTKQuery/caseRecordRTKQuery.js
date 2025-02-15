@@ -11,7 +11,7 @@ import {
     SERVER_ADDRESS_CASERECORD_DELETE_IMAGE,
     SERVER_ADDRESS_CASERECORD_READ_IMAGEALL,
     SERVER_ADDRESS_CASERECORD_SAVE_PRESCRIPTION,
-    SERVER_ADDRESS_CASERECORD_ADD_MEDICATION,
+    // SERVER_ADDRESS_CASERECORD_ADD_MEDICATION,
     SERVER_ADDRESS_CASERECORD_EDIT_MEDICATION,
     SERVER_ADDRESS_CASERECORD_DELETE_MEDICATION,
     SERVER_ADDRESS_CASERECORD_COMPLETE_PRESCRIPTION,
@@ -278,25 +278,25 @@ export const caseRecordRTKQuery = createApi({
                 }
             }
         }),
-        addCaseRecordMedications: builder.mutation({
-            query: ({uuid_caseRecord, pageNumber, caseRecordMedicationOptions}) => ({
-                url: `${SERVER_ADDRESS_CASERECORD_ADD_MEDICATION}`,
-                method: 'POST',
-                body: { 
-                    uuid_caseRecord: uuid_caseRecord,
-                    pageNumber: pageNumber,
-                    caseRecordMedicationOptions: caseRecordMedicationOptions
-                },
-                credentials: "include"
-            }),
-            invalidatesTags: (result, error, arg) => {
-                if (error) {
-                    console.error(error);
-                } else {
-                    return [{type: 'CaseRecordMedicationsAll'}]
-                }
-            }
-        }),
+        // addCaseRecordMedications: builder.mutation({
+        //     query: ({uuid_caseRecord, pageNumber, caseRecordMedicationOptions}) => ({
+        //         url: `${SERVER_ADDRESS_CASERECORD_ADD_MEDICATION}`,
+        //         method: 'POST',
+        //         body: { 
+        //             uuid_caseRecord: uuid_caseRecord,
+        //             pageNumber: pageNumber,
+        //             caseRecordMedicationOptions: caseRecordMedicationOptions
+        //         },
+        //         credentials: "include"
+        //     }),
+        //     invalidatesTags: (result, error, arg) => {
+        //         if (error) {
+        //             console.error(error);
+        //         } else {
+        //             return [{type: 'CaseRecordMedicationsAll'}]
+        //         }
+        //     }
+        // }),
         editCaseRecordMedications: builder.mutation({
             query: ({uuid_caseRecord, pageNumber, uuid_caseRecordMedication, amount, note, cost}) => ({
                 url: `${SERVER_ADDRESS_CASERECORD_EDIT_MEDICATION}`,
@@ -471,7 +471,7 @@ export const caseRecordRTKQuery = createApi({
 export const { 
     useGetCaseRecordQuery,
     useGetCaseRecordLockQuery,
-    useLazyGetCaseRecordQuery,
+    // useLazyGetCaseRecordQuery,
     useGetCaseRecordDescriptionQuery,
     useLazyGetCaseRecordDescriptionQuery,
     useAddCaseRecordImageMutation,
@@ -488,7 +488,7 @@ export const {
     usePatchCaseRecordImageTitleMutation,
     useDeleteCaseRecordImageMutation,
     usePatchCaseRecordPrescriptionMutation,
-    useAddCaseRecordMedicationsMutation,
+    // useAddCaseRecordMedicationsMutation,
     useEditCaseRecordMedicationsMutation,
     useDeleteCaseRecordMedicationMutation,
     useDeleteCaseRecordLockMutation,

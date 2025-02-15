@@ -19,3 +19,5 @@
 11-02-2025	49:41:05--------Redis Client Error Error: Connection timeout
 12-02-2025	03:02:14--------Redis Client Error Error: Connection timeout
 12-02-2025	44:25:14--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---TokenExpiredError: jwt expired: token.verify-accessToken
+13-02-2025	13:22:23--------Redis Client Error Error: Connection timeout
+13-02-2025	27:55:23--------/TKSManagerGetLogAll?pageIndex=1&pageSize=20---GET---TokenExpiredError: jwt expired: token.verify-accessToken

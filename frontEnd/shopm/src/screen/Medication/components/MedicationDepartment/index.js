@@ -47,32 +47,37 @@ const MedicationDepartment = () => {
         { columnName: 'Remain', fieldName: 'remain'},
         { columnName: 'Recover', fieldName: 'recover'},
         { columnName: 'Return', fieldName: 'return'},
-        { columnName: 'Consultant Cost', fieldName: 'consultantCost'},
+        // { columnName: 'Consultant Cost', fieldName: 'consultantCost'},
         { columnName: 'Price', fieldName: 'price'},
         { columnName: 'Discount', fieldName: 'discount'},
         { columnName: 'Note', fieldName: 'note'}
     ]
 
-    const fields_customColumn = useRef(['PRICE', 'COST', 'SALE', 'VAT']);
+    const fields_customColumn = useRef(['PRICE', 'SALE', 'VAT']);
+    /** @type {React.MutableRefObject<Table_Data_CustomColumn_DataIn_Type[][]>} */
+    const datas_customColumn_full = useRef([]);
     /** @type {[Table_Data_CustomColumn_DataIn_Type[][], React.Dispatch<React.SetStateAction<Table_Data_CustomColumn_DataIn_Type[][]>>]} */
     const [datas_customColumn, set__datas_customColumn] = useState([]);
     // init datas_customColumn
     useEffect(() => {
-        /** @type {Table_Data_CustomColumn_DataIn_Type[][]} */
-        const datas_customColumn_ = [];
-        for (let i = 0; i < pageSize; i++) {
-            /** @type {Table_Data_CustomColumn_DataIn_Type[]} */
-            const data_customColumn = [];
-            for (let j = 0; j < fields_customColumn.current.length; j++) { 
-                /** @type {Table_Data_CustomColumn_DataIn_Type} */
-                const table_Data_CustomColumn_DataIn = {field: fields_customColumn.current[j], data: '0'};
-                data_customColumn.push(table_Data_CustomColumn_DataIn);
+        if (departmentList) {
+            /** @type {Table_Data_CustomColumn_DataIn_Type[][]} */
+            const datas_customColumn_ = [];
+            for (let i = 0; i < departmentList.rows.length; i++) {
+                /** @type {Table_Data_CustomColumn_DataIn_Type[]} */
+                const data_customColumn = [];
+                for (let j = 0; j < fields_customColumn.current.length; j++) { 
+                    /** @type {Table_Data_CustomColumn_DataIn_Type} */
+                    const table_Data_CustomColumn_DataIn = {field: fields_customColumn.current[j], data: '0'};
+                    data_customColumn.push(table_Data_CustomColumn_DataIn);
+                }
+                datas_customColumn_.push(data_customColumn);
             }
-            datas_customColumn_.push(data_customColumn);
-        }
 
-        set__datas_customColumn(datas_customColumn_);
-    }, [])
+            datas_customColumn_full.current = datas_customColumn_;
+            set__datas_customColumn(datas_customColumn_);
+        }
+    }, [departmentList])
 
     const {
         data: data_departmentList, 
@@ -104,7 +109,6 @@ const MedicationDepartment = () => {
 
     const [orderMoney, setOrderMoney] = useState({
         price: 0,
-        cost: 0,
         sale: 0,
         vat: 0
     });
@@ -129,7 +133,6 @@ const MedicationDepartment = () => {
 
     const onAmountInput = (TKS) => {
         const data = TKS.data;
-        console.log(11111111, data)
         const amountToBuy = Number(data.inputValue);
         const rowIndex = data.rowIndex;
         /** @type {department__Options} */
@@ -162,15 +165,48 @@ const MedicationDepartment = () => {
 
         //--------------------calculateMoney for row-----------------//
         const price_w_amount = rowData.price * amountToBuy;
-        const cost_w_amount = rowData.consultantCost * amountToBuy;
-        const sale_w_amount = rowData.discount * amountToBuy;
-        const vat_w_amount = rowData.discount * amountToBuy;
+        const sale_w_amount = rowData.price * rowData.discount * 0.01 * amountToBuy;
+        const vat_w_amount = (price_w_amount - sale_w_amount) * 10 * 0.01;
+
+        /** @type {Table_Data_CustomColumn_DataIn_Type[][]} */
+        const datas_customColumn_cp = [...datas_customColumn];
+        /** @type {Table_Data_CustomColumn_DataIn_Type[]} */
+        const data_customColumn_cp = datas_customColumn_cp[rowIndex-1];
+        for (let i = 0; i < data_customColumn_cp.length; i++) {
+            if (i===0) {
+                datas_customColumn_full.current[rowIndex-1][i].data = price_w_amount.toString();
+                data_customColumn_cp[i].data = Math.round(price_w_amount).toString();
+            }
+            if (i===1) {
+                datas_customColumn_full.current[rowIndex-1][i].data = sale_w_amount.toString();
+                data_customColumn_cp[i].data = Math.round(sale_w_amount).toString();
+            }
+            if (i===2) {
+                datas_customColumn_full.current[rowIndex-1][i].data = vat_w_amount.toString();
+                data_customColumn_cp[i].data = Math.round(vat_w_amount).toString();
+            }
+        } 
+        datas_customColumn_cp[rowIndex-1] = data_customColumn_cp;
+        set__datas_customColumn(datas_customColumn_cp)
+        //-----------------------------------------------------------//
+
+        //--------------------calculateMoney all-----------------//
+        const orderMoney_ = {
+            price: 0,
+            sale: 0,
+            vat: 0
+        }
+        for (let i = 0; i < datas_customColumn_full.current.length; i++) {
+            orderMoney_.price = orderMoney_.price + Number(datas_customColumn_full.current[i][0].data);
+            orderMoney_.sale = orderMoney_.sale + Number(datas_customColumn_full.current[i][1].data);
+            orderMoney_.vat = orderMoney_.vat + Number(datas_customColumn_full.current[i][2].data);
+        }
+        setOrderMoney(orderMoney_);
+        setShipCost(10);
+        const total_ = orderMoney_.price - orderMoney_.sale + orderMoney_.vat + 10;
+        setTotal(total_);
+        //-----------------------------------------------------------//
     }
-
-
-    // const calculateMoneyWhenChangedInput = () => {
-        
-    // }
 
     return (
         <div className="MedicationDepartment" ref={thisElement}>
@@ -180,7 +216,7 @@ const MedicationDepartment = () => {
                     { departmentList && <Table className="MedicationDepartment-table" table={{
                         data: {
                             values: departmentList.rows,
-                            customColumn: datas_customColumn
+                            customColumn_values: datas_customColumn
                         },
                         config: {
                             columnsInfor: columnsInfor, 
@@ -223,15 +259,15 @@ const MedicationDepartment = () => {
                 <div className="MedicationDepartment-total">
                     <div>
                         <div><strong>Order:</strong></div>
-                        <div>{`${moneyString_(orderMoney.price.toString()).full_with_round} - ${moneyString_(orderMoney.cost.toString()).full_with_round} - ${moneyString_(orderMoney.sale.toString()).full_with_round} - ${moneyString_(orderMoney.vat.toString()).full_with_round}`}</div>
+                        <div title={`${orderMoney.price} - ${orderMoney.sale} - ${orderMoney.vat}`}>{`${moneyString_(Math.round(orderMoney.price).toString()).full_with_round} - ${moneyString_(Math.round(orderMoney.sale).toString()).full_with_round} - ${moneyString_(Math.round(orderMoney.vat).toString()).full_with_round}`}</div>
                     </div>
                     <div>
                         <div><strong>Ship:</strong></div>
-                        <div>{moneyString_(shipCost.toString()).full_with_round}</div>
+                        <div title={shipCost}>{moneyString_(shipCost.toString()).full_with_round}</div>
                     </div>
                     <div>
                         <div><strong>Total:</strong></div>
-                        <div>{moneyString_(total.toString()).full_with_round}</div>
+                        <div title={total}>{moneyString_(total.toString()).full_with_round}</div>
                     </div>
                 </div>
                 <div className="MedicationDepartment-buttom">

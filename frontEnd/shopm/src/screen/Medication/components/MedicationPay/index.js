@@ -81,16 +81,6 @@ const MedicationPay = () => {
     }
 
     const handleBuy = () => {
-        // const orderFinalMedicationOptions = {
-        //     medicateList: JSON.stringify({medications: [medicationSate.uuid_medication]}), 
-        //     note: 'thuoc ho',
-        //     history: '10000',
-        //     payments: 'cash',
-        //     total: buyNow.priceTotal + medicationPayState.transportCost,
-        //     transportCost: medicationPayState.transportCost,
-        //     uuid_doctorOrPharmacist: null,
-        //     uuid_user: ''
-        // }
         const orderFinalMedicationOptions = {
             orderAllMedicationOptions: {
                 title: '',
@@ -135,7 +125,6 @@ const MedicationPay = () => {
             }
         }).then(res => {
             const resData = res.data;
-            // console.log(resData)
             if (resData.success) {
                 setMedicationPayState(pre => {
                     return {

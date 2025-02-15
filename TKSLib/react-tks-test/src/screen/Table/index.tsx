@@ -18,7 +18,12 @@ const TableScreen: FC<{}> = () => {
     const [loadDataState, setLoadDataState] = useState<string | undefined>(undefined);
     const [page, setPage] = useState<number>(1);
     // const [customColumnData, setCustomColumnData] = useState<Table_Data_CustomColumn_DataIn_Type>({field: 'test', data: ''});
-    const [customColumnDatas, setCustomColumnDatas] = useState<Table_Data_CustomColumn_DataIn_Type[][]>([]);
+    const [customColumnDatas, setCustomColumnDatas] = useState<Table_Data_CustomColumn_DataIn_Type[][]>([
+        [{field: 'PRICE', data: '800'}, {field: 'SALE', data: '110'}, {field: 'VAT', data: '110'}],
+        [{field: 'PRICE', data: '110'}, {field: 'SALE', data: '110'}, {field: 'VAT', data: '110'}],
+        [{field: 'PRICE', data: '110'}, {field: 'SALE', data: '110'}, {field: 'VAT', data: '110'}],
+        [{field: 'PRICE', data: '110'}, {field: 'SALE', data: '110'}, {field: 'VAT', data: '110'}]
+    ]);
 
     const columnsInfor: ColumnsInforProps[] = [
         { columnName: 'Name', fieldName: 'name'},
@@ -82,7 +87,7 @@ const TableScreen: FC<{}> = () => {
                     cell: {width: '250px', height: '30px'},
                     customColumn: {
                         type: 'calculateMoney',
-                        fields: ['COST', 'VAT', 'SALE']
+                        fields: ['PRICE', 'SALE', 'VAT']
                     }
                 },
                 control: {loadDataState: loadDataState, pageIndex: page},
@@ -100,14 +105,20 @@ const TableScreen: FC<{}> = () => {
                         onInputChange(TKS) {
                             const inputValue = TKS.data.inputValue;
                             setCustomColumnDatas([
-                                [{field: 'COST', data: inputValue}, {field: 'VAT', data: inputValue}, {field: 'SALE', data: inputValue}],
-                                [{field: 'COST', data: inputValue}, {field: 'VAT', data: inputValue}, {field: 'SALE', data: inputValue}],
-                                [{field: 'COST', data: inputValue}, {field: 'VAT', data: inputValue}, {field: 'SALE', data: inputValue}],
-                                [{field: 'COST', data: inputValue}, {field: 'VAT', data: inputValue}, {field: 'SALE', data: inputValue}]
+                                [{field: 'PRICE', data: inputValue}, {field: 'SALE', data: inputValue}, {field: 'VAT', data: inputValue}],
+                                [{field: 'PRICE', data: inputValue}, {field: 'SALE', data: inputValue}, {field: 'VAT', data: inputValue}],
+                                [{field: 'PRICE', data: inputValue}, {field: 'SALE', data: inputValue}, {field: 'VAT', data: inputValue}],
+                                [{field: 'PRICE', data: inputValue}, {field: 'SALE', data: inputValue}, {field: 'VAT', data: inputValue}]
                             ])
                         },
                         onInput(TKS) {
-                            console.log(111, TKS.data)
+                            const inputValue = TKS.data.inputValue;
+                            setCustomColumnDatas([
+                                [{field: 'PRICE', data: inputValue}, {field: 'SALE', data: inputValue}, {field: 'VAT', data: inputValue}],
+                                [{field: 'PRICE', data: inputValue}, {field: 'SALE', data: inputValue}, {field: 'VAT', data: inputValue}],
+                                [{field: 'PRICE', data: inputValue}, {field: 'SALE', data: inputValue}, {field: 'VAT', data: inputValue}],
+                                [{field: 'PRICE', data: inputValue}, {field: 'SALE', data: inputValue}, {field: 'VAT', data: inputValue}]
+                            ])
                         },
                     }
                 }

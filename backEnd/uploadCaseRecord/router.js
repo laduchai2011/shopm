@@ -384,41 +384,41 @@ router.patch('/caseRecord/savePrescription',
     })
 })
 
-router.post('/caseRecord/addMedication', 
-    Authentication_SHOPM, 
-    getCaseRecordMid, 
-    doctorOrPharmacistRole, 
-    isCurrentPage, 
-    isNotCompleted, 
-    isNotCompletedPrescription, 
-    currentCart, 
-    caseRecordCheckLock, 
-    (req, res) => {
-    const currentCart = req.currentCart;
-    const caseRecordMedicationOptions = req.body.caseRecordMedicationOptions;
-    caseRecordMedicationOptions.pageNumber = currentCart.pageNumber;
-    caseRecordMedicationOptions.uuid_caseRecord = currentCart.uuid_caseRecord;
-    caseRecordMedicationCRUD.create(caseRecordMedicationOptions, (caseRecordMedication, err) => {
-        if (err) {
-            logEvents(`${req.url}---${req.method}---${err}`);
-            return res.status(500).send(err);
-        } else {
-            if (caseRecordMedication === null) {
-                return res.status(200).json({
-                    caseRecordMedication: caseRecordMedication,
-                    success: false,
-                    message: 'Add medication NOT successly !'
-                });
-            } else {
-                return res.status(200).json({
-                    caseRecordMedication: caseRecordMedication,
-                    success: true,
-                    message: 'Add medication successly !'
-                });
-            }
-        }
-    })
-})
+// router.post('/caseRecord/addMedication', 
+//     Authentication_SHOPM, 
+//     getCaseRecordMid, 
+//     doctorOrPharmacistRole, 
+//     isCurrentPage, 
+//     isNotCompleted, 
+//     isNotCompletedPrescription, 
+//     currentCart, 
+//     caseRecordCheckLock, 
+//     (req, res) => {
+//     const currentCart = req.currentCart;
+//     const caseRecordMedicationOptions = req.body.caseRecordMedicationOptions;
+//     caseRecordMedicationOptions.pageNumber = currentCart.pageNumber;
+//     caseRecordMedicationOptions.uuid_caseRecord = currentCart.uuid_caseRecord;
+//     caseRecordMedicationCRUD.create(caseRecordMedicationOptions, (caseRecordMedication, err) => {
+//         if (err) {
+//             logEvents(`${req.url}---${req.method}---${err}`);
+//             return res.status(500).send(err);
+//         } else {
+//             if (caseRecordMedication === null) {
+//                 return res.status(200).json({
+//                     caseRecordMedication: caseRecordMedication,
+//                     success: false,
+//                     message: 'Add medication NOT successly !'
+//                 });
+//             } else {
+//                 return res.status(200).json({
+//                     caseRecordMedication: caseRecordMedication,
+//                     success: true,
+//                     message: 'Add medication successly !'
+//                 });
+//             }
+//         }
+//     })
+// })
 
 router.patch('/caseRecord/editMedication', 
     Authentication_SHOPM, 
