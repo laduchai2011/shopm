@@ -24,3 +24,8 @@ export type department__Options = {
 export type selected_department_toBuy__Options = department__Options & {
     amountToBuy?: number
 } 
+
+export type selectedDepartments_toBuy_subGroup__Options = {
+    be_long_to_departmentGroup: string,
+    selected_departments_toBuy: selected_department_toBuy__Options[]
+}

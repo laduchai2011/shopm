@@ -1,5 +1,11 @@
-import { ADDRESS_DEPARTMENT } from "config/address";
-import { PORT_DEPARTMENT } from "config/port";
+import { 
+    ADDRESS_DEPARTMENT,
+    ADDRESS_ORDERMEDICATION
+} from "config/address";
+import { 
+    PORT_DEPARTMENT,
+    PORT_ORDERMEDICATION 
+} from "config/port";
 
 
 export const baseURL                                                           = 'http://shopm.tks.local';
@@ -88,4 +94,8 @@ export const SERVER_ADDRESS_DELETE_CURRENTCART                                 =
 
 export const SERVER_ADDRESS_DEPARTMENT = {
     GET_FROM_MEDICATION : `${ADDRESS_DEPARTMENT.SV_GET}:${PORT_DEPARTMENT.SV_GET}/api/${ADDRESS_DEPARTMENT.NAME_SV_GET}/SHOPM_getList_department_from_medicationScreen`
+}
+
+export const SERVER_ADDRESS_ORDERMEDICATION = {
+    Get_OrderGroup_In_CurrentSelected: `${ADDRESS_ORDERMEDICATION.SV_GET}:${PORT_ORDERMEDICATION.SV_GET}/api/${ADDRESS_ORDERMEDICATION.NAME_SV_GET}/SHOPM_get_OrderGroup_In_CurrentSelected`
 }

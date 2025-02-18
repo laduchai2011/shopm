@@ -8,6 +8,7 @@ import { moneyString } from 'react-tks/utils';
 
 import { useMedicationScreen_getList_departmentsQuery } from "reduxStore/RTKQuery/departmentRTKQuery";
 
+import MedicationDepartmentOrder from "./components/MedicationDepartmentOrder";
 
 const LOAD_STATE = {
     LOADING: 'LOADING',
@@ -24,6 +25,9 @@ const LOAD_STATE = {
 */
 /**
  * @typedef {import('define/department').selected_department_toBuy__Options} selected_department_toBuy__Options
+*/
+/**
+ * @typedef {import('define/department').selectedDepartments_toBuy_subGroup__Options} selectedDepartments_toBuy_subGroup__Options
 */
 /**
  * @typedef {import('./type').Table_Data_CustomColumn_DataIn_Type} Table_Data_CustomColumn_DataIn_Type
@@ -124,11 +128,14 @@ const MedicationDepartment = () => {
         })
     } 
 
+    /** @type {[selectedDepartments_toBuy_subGroup__Options[], React.Dispatch<React.SetStateAction<selectedDepartments_toBuy_subGroup__Options[]>>]} */
+    const [selectedDepartments_toBuy_subGroup, set_selectedDepartments_toBuy_subGroup] = useState([]);
     /** @type {[selected_department_toBuy__Options[], React.Dispatch<React.SetStateAction<selected_department_toBuy__Options[]>>]} */
     const [selectedDepartment_List, setSelectedDepartment_List] = useState([]);
     const selectedDepartmentInfor = [
         { columnName: 'Name', fieldName: 'name'},
         { columnName: 'Amount To Buy', fieldName: 'amountToBuy'},
+        // { columnName: 'Ship', fieldName: 'ship'},
     ]
 
     const onAmountInput = (TKS) => {
@@ -144,20 +151,31 @@ const MedicationDepartment = () => {
             ...rowData,
             amountToBuy: amountToBuy
         };
+        /** @type {selectedDepartments_toBuy_subGroup__Options} */
+        const selectedDepartment_toBuy_new = {
+            selected_departments_toBuy: [selectedDepartment_List_new],
+            be_long_to_departmentGroup: selectedDepartment_List_new.uuid_departmentGroup
+        };
 
         /** @type {selected_department_toBuy__Options[]} */
         const selectedDepartment_List_cp = [...selectedDepartment_List];
 
         let exist_selectedDepartment = false;
+        let index_selectedDepartment_List;
         for (let i = 0; i < selectedDepartment_List_cp.length; i++) {
             if (selectedDepartment_List_cp[i].uuid_department===selectedDepartment_List_new.uuid_department) {
                 selectedDepartment_List_cp[i].amountToBuy = selectedDepartment_List_new.amountToBuy;
                 exist_selectedDepartment = true;
+                index_selectedDepartment_List = i;
                 break;
             }
         }
         if (!exist_selectedDepartment) {
             selectedDepartment_List_cp.push(selectedDepartment_List_new);
+        } else {
+            if (selectedDepartment_List_new.amountToBuy===0) {
+                selectedDepartment_List_cp.splice(index_selectedDepartment_List, 1);
+            }
         }
 
         setSelectedDepartment_List(selectedDepartment_List_cp);
@@ -206,7 +224,62 @@ const MedicationDepartment = () => {
         const total_ = orderMoney_.price - orderMoney_.sale + orderMoney_.vat + 10;
         setTotal(total_);
         //-----------------------------------------------------------//
+
+        //---------------------------selectedDepartments__toBuy_subGroup--------------------------------//
+        /** @type {selectedDepartments_toBuy_subGroup__Options[]} */
+        const selectedDepartments_toBuy_subGroup_cp = [...selectedDepartments_toBuy_subGroup];
+        let exist_selectedDepartment_toBuy_subGroup = false;
+        let index_selectedDepartment_List_toBuy_subGroup;
+        for (let i = 0; i < selectedDepartments_toBuy_subGroup_cp.length; i++) {
+            if (selectedDepartment_List_new.uuid_departmentGroup===selectedDepartments_toBuy_subGroup_cp[i].be_long_to_departmentGroup) {
+                /** @type {selected_department_toBuy__Options[]} */
+                const selected_departments_toBuy_cp = [...selectedDepartments_toBuy_subGroup_cp[i].selected_departments_toBuy];
+                let exist_selectedDepartment_toBuy = false;
+                let index_selectedDepartment_List_toBuy;
+                for (let i1 = 0; i1 < selected_departments_toBuy_cp.length; i1++) {
+                    if (selected_departments_toBuy_cp[i1].uuid_department===selectedDepartment_List_new.uuid_department) {
+                        selected_departments_toBuy_cp[i1].amountToBuy = selectedDepartment_List_new.amountToBuy;
+                        exist_selectedDepartment_toBuy = true;
+                        index_selectedDepartment_List_toBuy = i;
+                        break;
+                    }
+                }
+                if (!exist_selectedDepartment_toBuy) {
+                    selected_departments_toBuy_cp.push(selectedDepartment_List_new);
+                } else {
+                    if (selectedDepartment_List_new.amountToBuy===0) {
+                        selected_departments_toBuy_cp.splice(index_selectedDepartment_List_toBuy, 1);
+                    }
+                }
+
+                selectedDepartments_toBuy_subGroup_cp[i].selected_departments_toBuy = selected_departments_toBuy_cp;
+
+                exist_selectedDepartment_toBuy_subGroup = true;
+                index_selectedDepartment_List_toBuy_subGroup = i;
+                break;
+            }
+        }
+        if (!exist_selectedDepartment_toBuy_subGroup) {
+            selectedDepartments_toBuy_subGroup_cp.push(selectedDepartment_toBuy_new);
+        } else {
+            if (selectedDepartments_toBuy_subGroup_cp[index_selectedDepartment_List_toBuy_subGroup].selected_departments_toBuy.length===0) {
+                selectedDepartments_toBuy_subGroup_cp.splice(index_selectedDepartment_List_toBuy_subGroup, 1);
+            }
+        }
+
+        set_selectedDepartments_toBuy_subGroup(selectedDepartments_toBuy_subGroup_cp);
+        //----------------------------------------------------------------------------------------------//
     }
+
+    // useEffect(() => {
+    //     console.log(selectedDepartments_toBuy_subGroup)
+    // }, [selectedDepartments_toBuy_subGroup])
+
+    const list_selectedDepartments_toBuy_subGroup = selectedDepartments_toBuy_subGroup.map((data, index) => {
+        return (
+            <MedicationDepartmentOrder key={index} data={data}/>
+        )
+    })
 
     return (
         <div className="MedicationDepartment" ref={thisElement}>
@@ -248,6 +321,7 @@ const MedicationDepartment = () => {
                         }
                     }} /> }
                 </div>
+                { list_selectedDepartments_toBuy_subGroup }
                 <div>
                     {selectedDepartment_List.length>0 && <Table1 table1={{
                         config: {

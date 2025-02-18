@@ -49,7 +49,7 @@ const MedicationCommonInfor = () => {
         error: error_currentCart
     } = useGetCurrentCartQuery();
     useEffect(() => {
-        isError_currentCart && console.log(error_currentCart);
+        isError_currentCart && console.error('MedicationCommonInfor Component Screen: ', error_currentCart);
     }, [isError_currentCart, error_currentCart])
     useEffect(() => {
         // console.log('MedicationCommonInfor', data_currentCart)
@@ -61,15 +61,11 @@ const MedicationCommonInfor = () => {
         error: error_medicationImageList
     } = useGetMedicationImageListQuery({uuid_medication: medicationSate.uuid_medication});
     useEffect(() => {
-        isError_medicationImageList && console.log(error_medicationImageList);
+        isError_medicationImageList && console.error('MedicationCommonInfor Component Screen: ', error_medicationImageList);
     }, [isError_medicationImageList, error_medicationImageList])
     useEffect(() => {
         const resData = data_medicationImageList;
         if (resData?.success) {
-            // setImgs({
-            //     ...imgs,
-            //     list: resData.medicationImages
-            // })
             setImgs(pre => {
                 return {
                     ...pre,

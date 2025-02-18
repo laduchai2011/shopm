@@ -1,5 +1,7 @@
 import { ENVIR_DEVELOPMENT, ENVIR_PRODUCTTION } from "constant/environment"
 
+
+//---------------------DEPARTMENT--------------------------//
 const PORT_DEPARTMENT_INIT = {
     SV_GET: 0,
     SV_UPLOAD: 0
@@ -18,3 +20,26 @@ export const PORT_DEPARTMENT = {
     SV_GET: PORT_DEPARTMENT_INIT.SV_GET,
     SV_UPLOAD: PORT_DEPARTMENT_INIT.SV_UPLOAD
 };
+
+//---------------------------------------------------------//
+
+//---------------------ORDERMEDICATION--------------------------//
+const PORT_ORDERMEDICATION_INIT = {
+    SV_GET: 0,
+    SV_UPLOAD: 0
+}
+
+if (process.env.NODE_ENV===ENVIR_DEVELOPMENT) {
+    PORT_ORDERMEDICATION_INIT.SV_GET = 8400;
+    PORT_ORDERMEDICATION_INIT.SV_UPLOAD = 7400
+}
+if (process.env.NODE_ENV===ENVIR_PRODUCTTION) {
+    PORT_ORDERMEDICATION_INIT.SV_GET = process.env.REACT_APP_BACK_END_SHOPM_SV_GET_ORDERMEDICATION_PORT;
+    PORT_ORDERMEDICATION_INIT.SV_UPLOAD = process.env.REACT_APP_BACK_END_SHOPM_SV_UPLOAD_ORDERMEDICATION_PORT
+}
+
+export const PORT_ORDERMEDICATION = {
+    SV_GET: PORT_ORDERMEDICATION_INIT.SV_GET,
+    SV_UPLOAD: PORT_ORDERMEDICATION_INIT.SV_UPLOAD
+};
+//--------------------------------------------------------------//

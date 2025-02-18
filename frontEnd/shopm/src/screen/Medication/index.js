@@ -32,13 +32,12 @@ const Medication = () => {
 
     const {
         data: data_medicationSate, 
-        // isFetching: isFetching_medicationSate, 
         isError: isError_medicationSate, 
         error: error_medicationSate
     } = useGetMedicationQuery({uuid_medication: uuid_medication});
 
     useEffect(() => {
-        isError_medicationSate && console.log(error_medicationSate);
+        isError_medicationSate && console.error(error_medicationSate);
     }, [isError_medicationSate, error_medicationSate])
     useEffect(() => {
         const resData = data_medicationSate;

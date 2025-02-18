@@ -24,11 +24,15 @@ export const currentCartRTKQuery = createApi({
                 url: `${SERVER_ADDRESS_GET_CURRENTCART}`,
                 credentials: "include"
             }),
-            providesTags: (result, error) => {
+            providesTags: (result, error, arg) => {
                 if (error) {
                     console.error(error);
                 } else {
-                    return [{type: 'CurrentCart'}];
+                    if (result?.success) {
+                        return [...result.map(({ id }) => ({ type: 'CurrentCart', id })), 'CurrentCart']
+                    } else {
+                        return ['CurrentCart']
+                    }
                 }
             }
         }),

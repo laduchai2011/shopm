@@ -18,9 +18,10 @@ import {
     usePatchNotificationStatusMutation 
 } from 'reduxStore/RTKQuery/notificationRTKQuery';
 import { 
-    useGetCurrentCartQuery,
+    // useGetCurrentCartQuery,
     useDeleteCurrentCartMutation
 } from 'reduxStore/RTKQuery/currentCartRTKQuery';
+import { useGet_OrderGroup_In_CurrentSelectedQuery } from 'reduxStore/RTKQuery/orderMedicationRTKQuery';
 
 import HeaderNotification from './components/HeaderNotification';
 
@@ -73,15 +74,28 @@ const Header = () => {
     const [patchNotificationStatus] = usePatchNotificationStatusMutation();
     const [deleteCurrentCart] = useDeleteCurrentCartMutation();
 
+    // const { 
+    //     data: data_currentCart,
+    //     isError: isError_currentCart,
+    //     error: error_currentCart
+    // } = useGetCurrentCartQuery();
+    // useEffect(() => {
+    //     isError_currentCart && console.log('Header Component Screen: ', error_currentCart);    
+    // }, [isError_currentCart, error_currentCart])
+    // useEffect(() => {
+    //     console.log('data_currentCart', data_currentCart);     
+    // }, [data_currentCart])
     const { 
-        data: data_currentCart,
-        isError: isError_currentCart,
-        error: error_currentCart
-    } = useGetCurrentCartQuery();
-
+        data: data_OrderGroup_In_CurrentSelected,
+        isError: isError_OrderGroup_In_CurrentSelected,
+        error: error_OrderGroup_In_CurrentSelected
+    } = useGet_OrderGroup_In_CurrentSelectedQuery();
     useEffect(() => {
-        console.log('data_currentCart', data_currentCart);     
-    }, [data_currentCart])
+        isError_OrderGroup_In_CurrentSelected && console.error('Header Component Screen: ', error_OrderGroup_In_CurrentSelected);    
+    }, [isError_OrderGroup_In_CurrentSelected, error_OrderGroup_In_CurrentSelected])
+    useEffect(() => {
+        console.log('data_OrderGroup_In_CurrentSelected', data_OrderGroup_In_CurrentSelected);     
+    }, [data_OrderGroup_In_CurrentSelected])
 
     useEffect(() => {
         return () => {
@@ -90,7 +104,7 @@ const Header = () => {
     }, [clickDocument])
 
     useEffect(() => {
-        isError_notifyNormalCount && console.log(error_notifyNormalCount);
+        isError_notifyNormalCount && console.log('Header Component Screen: ', error_notifyNormalCount);
     }, [isError_notifyNormalCount, error_notifyNormalCount])
     useEffect(() => {
         // const resData = data_notifyNormalCount;
@@ -215,13 +229,9 @@ const Header = () => {
     }, [resultNotificationList])
 
     useEffect(() => {
-        resultNotificationList?.isError && console.log('Header', resultNotificationList?.error);
-        isError_currentCart && console.log('Header', error_currentCart);
+        resultNotificationList?.isError && console.log('Header Component Screen: ', resultNotificationList?.error);
     }, [resultNotificationList?.isError,
-        resultNotificationList?.error,
-
-        isError_currentCart,
-        error_currentCart
+        resultNotificationList?.error
     ])
 
     const getStatus = (index) => {
@@ -314,10 +324,10 @@ const Header = () => {
             </div>
             <div className="Header-iconContainer">
                 { loginInfor!==null && <div className='Header-iconBox' onClick={(e) => handleShowCartCaseRecord(e)}>
-                    { data_currentCart?.success && <BsFillCartPlusFill size={30} /> }
+                    { data_OrderGroup_In_CurrentSelected?.success && <BsFillCartPlusFill size={30} /> }
                     {/* { notification_live_data?.count > 0 && <p>{ notification_live_data?.count }</p> } */}
-                    { data_currentCart?.success ? <div className='Header-contentBox showCartCaseRecord'>
-                        <div className='Header-contentBox-header'>{ `You are adding case-record that page number is ${data_currentCart?.currentCart?.pageNumber}` }</div>
+                    { data_OrderGroup_In_CurrentSelected?.success ? <div className='Header-contentBox showCartCaseRecord'>
+                        <div className='Header-contentBox-header'>{ `You are adding case-record that page number is ${data_OrderGroup_In_CurrentSelected?.currentCart?.pageNumber}` }</div>
                         <div className='Header-contentBox-content'>
                             {/* { list_contentBox } */}
                             <div>Ban co 1 cart <button onClick={(e) => handleDeleteCurrentCart(e)}>Cancel</button> </div>

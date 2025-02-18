@@ -6,7 +6,8 @@ import {
     SERVER_ADDRESS_ORDERMEDICATION_GET_HISTORIES_WITH_FK,
     SERVER_ADDRESS_ORDERMEDICATION_GETLIST_FROM_PROFILE,
     SERVER_ADDRESS_ORDERMEDICATION_GET_TRANSPORT_WITH_FK,
-    SERVER_ADDRESS_ORDERMEDICATION_GET_PAYMENTMEDICATION_WITH_FK
+    SERVER_ADDRESS_ORDERMEDICATION_GET_PAYMENTMEDICATION_WITH_FK,
+    SERVER_ADDRESS_ORDERMEDICATION
 } from 'config/server';
 
 /**
@@ -70,6 +71,13 @@ export const orderMedicationRTKQuery = createApi({
     ],
     endpoints: (builder) => ({
         // query
+        get_OrderGroup_In_CurrentSelected: builder.query({
+            query: () => ({
+                url: `${SERVER_ADDRESS_ORDERMEDICATION.Get_OrderGroup_In_CurrentSelected}`,
+                credentials: "include"
+            }),
+            // providesTags: [{type: 'orderMedications'}]
+        }),
         getOrderMedicationsFromProfile: builder.query({
             query: ({uuid_user, pageIndex, pageSize}) => ({
                 url: `${SERVER_ADDRESS_ORDERMEDICATION_GETLIST_FROM_PROFILE}?uuid_user=${ uuid_user }&pageIndex=${ pageIndex }&pageSize=${ pageSize }`,
@@ -138,6 +146,7 @@ export const orderMedicationRTKQuery = createApi({
 })
 
 export const { 
+    useGet_OrderGroup_In_CurrentSelectedQuery,
     useLazyGetOrderMedicationsFromProfileQuery,
     useGetOrderMedicationWithUuidQuery,
     useGetHistoriesWithFKQuery,

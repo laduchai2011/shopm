@@ -199,5 +199,27 @@ router.get('/getCurrentCart',
     })
 })
 
+router.get('/SHOPM_get_OrderGroup_In_CurrentSelected', 
+    Authentication_SHOPM, 
+    (req, res) => {
+    const userOptions = req.decodedToken.data;
+    const currentCartKey = `get_OrderGroup_In_CurrentSelected-${userOptions.uuid}`;
+    serviceRedis.getData(currentCartKey, (orderGroup_In_CurrentSelected) => {
+        if (orderGroup_In_CurrentSelected && orderGroup_In_CurrentSelected!==null) {
+            return res.status(200).send({
+                orderGroup_In_CurrentSelected: orderGroup_In_CurrentSelected,
+                message: 'get_OrderGroup_In_CurrentSelected success',
+                success: true
+            })
+        } else {
+            return res.status(200).send({
+                orderGroup_In_CurrentSelected: orderGroup_In_CurrentSelected,
+                message: 'get_OrderGroup_In_CurrentSelected NOT success',
+                success: false
+            })
+        }
+    })
+})
+
 
 module.exports = router;

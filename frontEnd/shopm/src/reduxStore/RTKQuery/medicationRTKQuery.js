@@ -41,10 +41,14 @@ export const medicationRTKQuery = createApi({
                 credentials: "include"
             }),
             providesTags: (result, error, arg) => {
-                if (result?.success) {
-                    return [...result?.medicationImages.map(({ id }) => ({ type: 'Medication', id })), 'Medication'];
+                if (error) {
+                    console.log(error)
                 } else {
-                    return ['Medication'];
+                    if (result?.success) {
+                        return [...result?.medicationImages.map(({ id }) => ({ type: 'Medication', id })), 'Medication'];
+                    } else {
+                        return ['Medication'];
+                    }
                 }
             }      
         }),
