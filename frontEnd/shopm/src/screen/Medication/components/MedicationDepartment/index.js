@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import './styles.css';
 
 import { useParams } from "react-router-dom";
 
-import { Table, Table1 } from 'react-tks/components';
+import { Table } from 'react-tks/components';
 import { moneyString } from 'react-tks/utils';
 
 import { useMedicationScreen_getList_departmentsQuery } from "reduxStore/RTKQuery/departmentRTKQuery";
@@ -111,12 +111,12 @@ const MedicationDepartment = () => {
         }
     }, [])
 
-    const [orderMoney, setOrderMoney] = useState({
-        price: 0,
-        sale: 0,
-        vat: 0
-    });
-    const [shipCost, setShipCost] = useState(0);
+    // const [orderMoney, setOrderMoney] = useState({
+    //     price: 0,
+    //     sale: 0,
+    //     vat: 0
+    // });
+    // const [shipCost, setShipCost] = useState(0);
     const [total, setTotal] = useState(0);
 
     const moneyString_ = (numberString) => {
@@ -130,13 +130,13 @@ const MedicationDepartment = () => {
 
     /** @type {[selectedDepartments_toBuy_subGroup__Options[], React.Dispatch<React.SetStateAction<selectedDepartments_toBuy_subGroup__Options[]>>]} */
     const [selectedDepartments_toBuy_subGroup, set_selectedDepartments_toBuy_subGroup] = useState([]);
-    /** @type {[selected_department_toBuy__Options[], React.Dispatch<React.SetStateAction<selected_department_toBuy__Options[]>>]} */
-    const [selectedDepartment_List, setSelectedDepartment_List] = useState([]);
-    const selectedDepartmentInfor = [
-        { columnName: 'Name', fieldName: 'name'},
-        { columnName: 'Amount To Buy', fieldName: 'amountToBuy'},
-        // { columnName: 'Ship', fieldName: 'ship'},
-    ]
+    // /** @type {[selected_department_toBuy__Options[], React.Dispatch<React.SetStateAction<selected_department_toBuy__Options[]>>]} */
+    // const [selectedDepartment_List, setSelectedDepartment_List] = useState([]);
+    // const selectedDepartmentInfor = [
+    //     { columnName: 'Name', fieldName: 'name'},
+    //     { columnName: 'Amount To Buy', fieldName: 'amountToBuy'},
+    //     // { columnName: 'Ship', fieldName: 'ship'},
+    // ]
 
     const onAmountInput = (TKS) => {
         const data = TKS.data;
@@ -157,28 +157,28 @@ const MedicationDepartment = () => {
             be_long_to_departmentGroup: selectedDepartment_List_new.uuid_departmentGroup
         };
 
-        /** @type {selected_department_toBuy__Options[]} */
-        const selectedDepartment_List_cp = [...selectedDepartment_List];
+        // /** @type {selected_department_toBuy__Options[]} */
+        // const selectedDepartment_List_cp = [...selectedDepartment_List];
 
-        let exist_selectedDepartment = false;
-        let index_selectedDepartment_List;
-        for (let i = 0; i < selectedDepartment_List_cp.length; i++) {
-            if (selectedDepartment_List_cp[i].uuid_department===selectedDepartment_List_new.uuid_department) {
-                selectedDepartment_List_cp[i].amountToBuy = selectedDepartment_List_new.amountToBuy;
-                exist_selectedDepartment = true;
-                index_selectedDepartment_List = i;
-                break;
-            }
-        }
-        if (!exist_selectedDepartment) {
-            selectedDepartment_List_cp.push(selectedDepartment_List_new);
-        } else {
-            if (selectedDepartment_List_new.amountToBuy===0) {
-                selectedDepartment_List_cp.splice(index_selectedDepartment_List, 1);
-            }
-        }
+        // let exist_selectedDepartment = false;
+        // let index_selectedDepartment_List;
+        // for (let i = 0; i < selectedDepartment_List_cp.length; i++) {
+        //     if (selectedDepartment_List_cp[i].uuid_department===selectedDepartment_List_new.uuid_department) {
+        //         selectedDepartment_List_cp[i].amountToBuy = selectedDepartment_List_new.amountToBuy;
+        //         exist_selectedDepartment = true;
+        //         index_selectedDepartment_List = i;
+        //         break;
+        //     }
+        // }
+        // if (!exist_selectedDepartment) {
+        //     selectedDepartment_List_cp.push(selectedDepartment_List_new);
+        // } else {
+        //     if (selectedDepartment_List_new.amountToBuy===0) {
+        //         selectedDepartment_List_cp.splice(index_selectedDepartment_List, 1);
+        //     }
+        // }
 
-        setSelectedDepartment_List(selectedDepartment_List_cp);
+        // setSelectedDepartment_List(selectedDepartment_List_cp);
         //---------------------------------------------------------//
 
         //--------------------calculateMoney for row-----------------//
@@ -209,20 +209,20 @@ const MedicationDepartment = () => {
         //-----------------------------------------------------------//
 
         //--------------------calculateMoney all-----------------//
-        const orderMoney_ = {
-            price: 0,
-            sale: 0,
-            vat: 0
-        }
-        for (let i = 0; i < datas_customColumn_full.current.length; i++) {
-            orderMoney_.price = orderMoney_.price + Number(datas_customColumn_full.current[i][0].data);
-            orderMoney_.sale = orderMoney_.sale + Number(datas_customColumn_full.current[i][1].data);
-            orderMoney_.vat = orderMoney_.vat + Number(datas_customColumn_full.current[i][2].data);
-        }
-        setOrderMoney(orderMoney_);
-        setShipCost(10);
-        const total_ = orderMoney_.price - orderMoney_.sale + orderMoney_.vat + 10;
-        setTotal(total_);
+        // const orderMoney_ = {
+        //     price: 0,
+        //     sale: 0,
+        //     vat: 0
+        // }
+        // for (let i = 0; i < datas_customColumn_full.current.length; i++) {
+        //     orderMoney_.price = orderMoney_.price + Number(datas_customColumn_full.current[i][0].data);
+        //     orderMoney_.sale = orderMoney_.sale + Number(datas_customColumn_full.current[i][1].data);
+        //     orderMoney_.vat = orderMoney_.vat + Number(datas_customColumn_full.current[i][2].data);
+        // }
+        // setOrderMoney(orderMoney_);
+        // setShipCost(10);
+        // const total_ = orderMoney_.price - orderMoney_.sale + orderMoney_.vat + 10;
+        // setTotal(total_);
         //-----------------------------------------------------------//
 
         //---------------------------selectedDepartments__toBuy_subGroup--------------------------------//
@@ -271,15 +271,35 @@ const MedicationDepartment = () => {
         //----------------------------------------------------------------------------------------------//
     }
 
-    // useEffect(() => {
-    //     console.log(selectedDepartments_toBuy_subGroup)
-    // }, [selectedDepartments_toBuy_subGroup])
+    // const handleTotal = (data1) => {
+    //     const orderMoney_data1 = data1.orderMoney;
+    //     const orderMoney_ = {...orderMoney};
+    //     orderMoney_.price = orderMoney_.price + orderMoney_data1.price;
+    //     orderMoney_.sale = orderMoney_.sale + orderMoney_data1.sale;
+    //     orderMoney_.vat = orderMoney_.vat + orderMoney_data1.vat;
+    //     setOrderMoney(orderMoney_)
+    // }
 
-    const list_selectedDepartments_toBuy_subGroup = selectedDepartments_toBuy_subGroup.map((data, index) => {
-        return (
-            <MedicationDepartmentOrder key={index} data={data}/>
-        )
-    })
+    // const list_selectedDepartments_toBuy_subGroup = selectedDepartments_toBuy_subGroup.map((data, index) => {
+    //     return (
+    //         <MedicationDepartmentOrder key={index} data={data} onData={(data1) => handleTotal(data1)}/>
+    //     )
+    // })
+
+    const handleTotal = useCallback((data1) => {
+        const orderMoney_data1 = data1.orderMoney;
+        const shipCost_data1 = data1.shipCost;
+        const total_ = orderMoney_data1.price - orderMoney_data1.sale + orderMoney_data1.vat + shipCost_data1;
+        setTotal(total_);
+    }, [])
+
+    const list_selectedDepartments_toBuy_subGroup = useMemo(() => {
+        return selectedDepartments_toBuy_subGroup.map((data, index) => {
+            return (
+                <MedicationDepartmentOrder key={index} index={index} data={data} onData={(data1) => handleTotal(data1)}/>
+            )
+        })
+    }, [selectedDepartments_toBuy_subGroup, handleTotal])
 
     return (
         <div className="MedicationDepartment" ref={thisElement}>
@@ -322,26 +342,26 @@ const MedicationDepartment = () => {
                     }} /> }
                 </div>
                 { list_selectedDepartments_toBuy_subGroup }
-                <div>
+                {/* <div>
                     {selectedDepartment_List.length>0 && <Table1 table1={{
                         config: {
                             columnInfor: selectedDepartmentInfor
                         },
                         data: {values: selectedDepartment_List},
                     }}/> }
-                </div>
+                </div> */}
                 <div className="MedicationDepartment-total">
-                    <div>
+                    {/* <div>
                         <div><strong>Order:</strong></div>
                         <div title={`${orderMoney.price} - ${orderMoney.sale} - ${orderMoney.vat}`}>{`${moneyString_(Math.round(orderMoney.price).toString()).full_with_round} - ${moneyString_(Math.round(orderMoney.sale).toString()).full_with_round} - ${moneyString_(Math.round(orderMoney.vat).toString()).full_with_round}`}</div>
                     </div>
                     <div>
                         <div><strong>Ship:</strong></div>
-                        <div title={shipCost}>{moneyString_(shipCost.toString()).full_with_round}</div>
-                    </div>
+                        <div title={shipCost}>{moneyString_(Math.round(shipCost).toString()).full_with_round}</div>
+                    </div> */}
                     <div>
                         <div><strong>Total:</strong></div>
-                        <div title={total}>{moneyString_(total.toString()).full_with_round}</div>
+                        <div title={total}>{moneyString_(Math.round(total).toString()).full_with_round}</div>
                     </div>
                 </div>
                 <div className="MedicationDepartment-buttom">
