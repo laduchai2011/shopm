@@ -25,7 +25,16 @@ export type selected_department_toBuy__Options = department__Options & {
     amountToBuy?: number
 } 
 
+export type calculate_money__Options = {
+    price: float,
+    sale: float,
+    vat: float,
+    ship: float,
+    total: float
+}
+
 export type selectedDepartments_toBuy_subGroup__Options = {
     be_long_to_departmentGroup: string,
-    selected_departments_toBuy: selected_department_toBuy__Options[]
+    selected_departments_toBuy: selected_department_toBuy__Options[],
+    calculate_money: calculate_money__Options
 }

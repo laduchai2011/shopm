@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import './styles.css';
 
 import { useParams } from "react-router-dom";
@@ -28,6 +28,9 @@ const LOAD_STATE = {
 */
 /**
  * @typedef {import('define/department').selectedDepartments_toBuy_subGroup__Options} selectedDepartments_toBuy_subGroup__Options
+*/
+/**
+ * @typedef {import('define/department').calculate_money__Options} calculate_money__Options
 */
 /**
  * @typedef {import('./type').Table_Data_CustomColumn_DataIn_Type} Table_Data_CustomColumn_DataIn_Type
@@ -111,12 +114,6 @@ const MedicationDepartment = () => {
         }
     }, [])
 
-    // const [orderMoney, setOrderMoney] = useState({
-    //     price: 0,
-    //     sale: 0,
-    //     vat: 0
-    // });
-    // const [shipCost, setShipCost] = useState(0);
     const [total, setTotal] = useState(0);
 
     const moneyString_ = (numberString) => {
@@ -130,13 +127,6 @@ const MedicationDepartment = () => {
 
     /** @type {[selectedDepartments_toBuy_subGroup__Options[], React.Dispatch<React.SetStateAction<selectedDepartments_toBuy_subGroup__Options[]>>]} */
     const [selectedDepartments_toBuy_subGroup, set_selectedDepartments_toBuy_subGroup] = useState([]);
-    // /** @type {[selected_department_toBuy__Options[], React.Dispatch<React.SetStateAction<selected_department_toBuy__Options[]>>]} */
-    // const [selectedDepartment_List, setSelectedDepartment_List] = useState([]);
-    // const selectedDepartmentInfor = [
-    //     { columnName: 'Name', fieldName: 'name'},
-    //     { columnName: 'Amount To Buy', fieldName: 'amountToBuy'},
-    //     // { columnName: 'Ship', fieldName: 'ship'},
-    // ]
 
     const onAmountInput = (TKS) => {
         const data = TKS.data;
@@ -151,35 +141,22 @@ const MedicationDepartment = () => {
             ...rowData,
             amountToBuy: amountToBuy
         };
+        const price_new = amountToBuy * selectedDepartment_List_new.price;
+        const sale_new = amountToBuy * selectedDepartment_List_new.price * selectedDepartment_List_new.discount * 0.01;
+        const vat_new = (price_new - sale_new) * 10 * 0.01;
+        const ship_new = 10000;
         /** @type {selectedDepartments_toBuy_subGroup__Options} */
         const selectedDepartment_toBuy_new = {
             selected_departments_toBuy: [selectedDepartment_List_new],
-            be_long_to_departmentGroup: selectedDepartment_List_new.uuid_departmentGroup
+            be_long_to_departmentGroup: selectedDepartment_List_new.uuid_departmentGroup,
+            calculate_money: {
+                price: price_new,
+                sale: sale_new,
+                vat: vat_new,
+                ship: ship_new,
+                total: price_new + vat_new + ship_new
+            }
         };
-
-        // /** @type {selected_department_toBuy__Options[]} */
-        // const selectedDepartment_List_cp = [...selectedDepartment_List];
-
-        // let exist_selectedDepartment = false;
-        // let index_selectedDepartment_List;
-        // for (let i = 0; i < selectedDepartment_List_cp.length; i++) {
-        //     if (selectedDepartment_List_cp[i].uuid_department===selectedDepartment_List_new.uuid_department) {
-        //         selectedDepartment_List_cp[i].amountToBuy = selectedDepartment_List_new.amountToBuy;
-        //         exist_selectedDepartment = true;
-        //         index_selectedDepartment_List = i;
-        //         break;
-        //     }
-        // }
-        // if (!exist_selectedDepartment) {
-        //     selectedDepartment_List_cp.push(selectedDepartment_List_new);
-        // } else {
-        //     if (selectedDepartment_List_new.amountToBuy===0) {
-        //         selectedDepartment_List_cp.splice(index_selectedDepartment_List, 1);
-        //     }
-        // }
-
-        // setSelectedDepartment_List(selectedDepartment_List_cp);
-        //---------------------------------------------------------//
 
         //--------------------calculateMoney for row-----------------//
         const price_w_amount = rowData.price * amountToBuy;
@@ -208,36 +185,26 @@ const MedicationDepartment = () => {
         set__datas_customColumn(datas_customColumn_cp)
         //-----------------------------------------------------------//
 
-        //--------------------calculateMoney all-----------------//
-        // const orderMoney_ = {
-        //     price: 0,
-        //     sale: 0,
-        //     vat: 0
-        // }
-        // for (let i = 0; i < datas_customColumn_full.current.length; i++) {
-        //     orderMoney_.price = orderMoney_.price + Number(datas_customColumn_full.current[i][0].data);
-        //     orderMoney_.sale = orderMoney_.sale + Number(datas_customColumn_full.current[i][1].data);
-        //     orderMoney_.vat = orderMoney_.vat + Number(datas_customColumn_full.current[i][2].data);
-        // }
-        // setOrderMoney(orderMoney_);
-        // setShipCost(10);
-        // const total_ = orderMoney_.price - orderMoney_.sale + orderMoney_.vat + 10;
-        // setTotal(total_);
-        //-----------------------------------------------------------//
-
         //---------------------------selectedDepartments__toBuy_subGroup--------------------------------//
         /** @type {selectedDepartments_toBuy_subGroup__Options[]} */
         const selectedDepartments_toBuy_subGroup_cp = [...selectedDepartments_toBuy_subGroup];
         let exist_selectedDepartment_toBuy_subGroup = false;
         let index_selectedDepartment_List_toBuy_subGroup;
+        let offset_amountToBuy = 0;
         for (let i = 0; i < selectedDepartments_toBuy_subGroup_cp.length; i++) {
             if (selectedDepartment_List_new.uuid_departmentGroup===selectedDepartments_toBuy_subGroup_cp[i].be_long_to_departmentGroup) {
                 /** @type {selected_department_toBuy__Options[]} */
                 const selected_departments_toBuy_cp = [...selectedDepartments_toBuy_subGroup_cp[i].selected_departments_toBuy];
+                /** @type {calculate_money__Options} */
+                const calculate_money_cp = {...selectedDepartments_toBuy_subGroup_cp[i].calculate_money};
                 let exist_selectedDepartment_toBuy = false;
                 let index_selectedDepartment_List_toBuy;
+
+                offset_amountToBuy = selectedDepartment_List_new.amountToBuy;
+
                 for (let i1 = 0; i1 < selected_departments_toBuy_cp.length; i1++) {
                     if (selected_departments_toBuy_cp[i1].uuid_department===selectedDepartment_List_new.uuid_department) {
+                        offset_amountToBuy = selectedDepartment_List_new.amountToBuy - selected_departments_toBuy_cp[i1].amountToBuy;
                         selected_departments_toBuy_cp[i1].amountToBuy = selectedDepartment_List_new.amountToBuy;
                         exist_selectedDepartment_toBuy = true;
                         index_selectedDepartment_List_toBuy = i;
@@ -253,7 +220,26 @@ const MedicationDepartment = () => {
                 }
 
                 selectedDepartments_toBuy_subGroup_cp[i].selected_departments_toBuy = selected_departments_toBuy_cp;
-
+                
+                //-------------------begin calculate money--------------------------//
+                const price_ = calculate_money_cp.price;
+                const sale_ = calculate_money_cp.sale;
+                // const vat_ = calculate_money_cp.vat;
+                const ship_ = calculate_money_cp.ship;
+                // const total_ = calculate_money_cp.total;
+                const price_update = price_ + offset_amountToBuy * selectedDepartment_List_new.price;
+                const sale_update = sale_ + offset_amountToBuy * selectedDepartment_List_new.price * selectedDepartment_List_new.discount * 0.01;
+                const vat_update = (price_update - sale_update) * 10 * 0.01;
+                const ship_update = ship_ + 0;
+                const total_update = price_update + vat_update + ship_update;
+                calculate_money_cp.price = price_update;
+                calculate_money_cp.sale = sale_update;
+                calculate_money_cp.vat = vat_update;
+                calculate_money_cp.ship = ship_update;
+                calculate_money_cp.total = total_update;
+                selectedDepartments_toBuy_subGroup_cp[i].calculate_money = calculate_money_cp;
+                //-------------------end calculate money--------------------------//
+ 
                 exist_selectedDepartment_toBuy_subGroup = true;
                 index_selectedDepartment_List_toBuy_subGroup = i;
                 break;
@@ -271,35 +257,29 @@ const MedicationDepartment = () => {
         //----------------------------------------------------------------------------------------------//
     }
 
-    // const handleTotal = (data1) => {
-    //     const orderMoney_data1 = data1.orderMoney;
-    //     const orderMoney_ = {...orderMoney};
-    //     orderMoney_.price = orderMoney_.price + orderMoney_data1.price;
-    //     orderMoney_.sale = orderMoney_.sale + orderMoney_data1.sale;
-    //     orderMoney_.vat = orderMoney_.vat + orderMoney_data1.vat;
-    //     setOrderMoney(orderMoney_)
-    // }
-
-    // const list_selectedDepartments_toBuy_subGroup = selectedDepartments_toBuy_subGroup.map((data, index) => {
-    //     return (
-    //         <MedicationDepartmentOrder key={index} data={data} onData={(data1) => handleTotal(data1)}/>
-    //     )
-    // })
-
-    const handleTotal = useCallback((data1) => {
-        const orderMoney_data1 = data1.orderMoney;
-        const shipCost_data1 = data1.shipCost;
-        const total_ = orderMoney_data1.price - orderMoney_data1.sale + orderMoney_data1.vat + shipCost_data1;
+    useEffect(() => {
+        //---------------------total--------------------------//
+        let total_ = 0;
+        for (let i = 0; i < selectedDepartments_toBuy_subGroup.length; i++) {
+            total_ = total_ + selectedDepartments_toBuy_subGroup[i].calculate_money.total;
+        }
         setTotal(total_);
-    }, [])
+        //---------------------------------------------------=//
+    }, [selectedDepartments_toBuy_subGroup])
 
-    const list_selectedDepartments_toBuy_subGroup = useMemo(() => {
-        return selectedDepartments_toBuy_subGroup.map((data, index) => {
-            return (
-                <MedicationDepartmentOrder key={index} index={index} data={data} onData={(data1) => handleTotal(data1)}/>
-            )
-        })
-    }, [selectedDepartments_toBuy_subGroup, handleTotal])
+    const list_selectedDepartments_toBuy_subGroup = selectedDepartments_toBuy_subGroup.map((data, index) => {
+        return (
+            <MedicationDepartmentOrder key={index} data={data} />
+        )
+    })
+
+    // const list_selectedDepartments_toBuy_subGroup = useMemo(() => {
+    //     return selectedDepartments_toBuy_subGroup.map((data, index) => {
+    //         return (
+    //             <MedicationDepartmentOrder key={index} index={index} data={data} />
+    //         )
+    //     })
+    // }, [selectedDepartments_toBuy_subGroup]) 
 
     return (
         <div className="MedicationDepartment" ref={thisElement}>
