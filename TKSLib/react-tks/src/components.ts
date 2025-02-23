@@ -11,5 +11,7 @@ export { default as ErrorCircle } from './components/Icon/ErrorCircle';
 export { default as DeleteCircle } from './components/Icon/DeleteCircle';
 export { default as BigLeftArrow } from './components/Icon/BigLeftArrow';
 export { default as BigRightArrow } from './components/Icon/BigRightArrow';
+export { default as BigDownArrow } from './components/Icon/BigDownArrow'
+export { default as BigUpArrow } from './components/Icon/BigUpArrow';
 export { default as AddCircle } from './components/Icon/AddCircle';
 export { default as SubCircle } from './components/Icon/SubCircle';

@@ -36,7 +36,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "rollup": "rollup -c --bundleConfigAsCjs",
-    "rollup_debug": "rollup -c --verbose"
+    "rollup_debug": "rollup -c --verbose",
+    "rollup_debug1": "rollup -c --logLevel debug --bundleConfigAsCjs"
   },
   "keywords": [],
   "author": "",

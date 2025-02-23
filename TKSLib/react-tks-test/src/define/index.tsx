@@ -228,6 +228,18 @@ export interface BigRightArrowProps {
     stroke_width?: number
 }
 
+export interface BigDownArrowProps {
+    fill?: string,
+    stroke?: string,
+    stroke_width?: number
+}
+
+export interface BigUpArrowProps {
+    fill?: string,
+    stroke?: string,
+    stroke_width?: number
+}
+
 // message
 export interface ToastMessageProps {
     config?: ToastMessage_Config_Props,

@@ -1,0 +1,60 @@
+.MedicationDepartmentOrder-total > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.MedicationDepartmentOrder-selecte_ship_method {
+    width: 100%;
+    /* height: 35px; */
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 1px solid red;
+}
+
+.MedicationDepartmentOrder-selecte_ship_method > div:nth-child(1) {
+    box-sizing: border-box;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    height: 35px;
+    width: 100%;
+    justify-content: space-between;
+    background-color: rgb(255, 78, 78);
+    color: white;
+}
+
+.MedicationDepartmentOrder-selecte_ship_method > div:nth-child(1) > svg {
+    height: 100%;
+    background-color: rgb(255, 78, 78);
+}
+
+.MedicationDepartmentOrder-selecte_ship_method > div:nth-child(1) > svg:hover {
+    cursor: pointer;
+}
+
+.MedicationDepartmentOrder-show_ship_method {
+    height: 30px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+    font-size: 0.8rem;
+    font-style: italic;
+    color: rgb(38, 0, 255);
+    overflow: hidden;
+
+    transition: height 0.3s linear;
+}
+
+.MedicationDepartmentOrder-show_ship_method.show {
+    height: 180px;
+}
+
+.MedicationDepartmentOrder-show_ship_method > div:nth-child(2) {
+    margin-top: 15px;
+}
+
+.MedicationDepartmentOrder-show_ship_method > div:nth-child(2) > div {
+    display: flex;
+    align-items: center;
+}

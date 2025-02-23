@@ -151,6 +151,16 @@ interface BigRightArrowProps {
     stroke?: string;
     stroke_width?: number;
 }
+interface BigDownArrowProps {
+    fill?: string;
+    stroke?: string;
+    stroke_width?: number;
+}
+interface BigUpArrowProps {
+    fill?: string;
+    stroke?: string;
+    stroke_width?: number;
+}
 interface ToastMessageProps {
     config?: ToastMessage_Config_Props;
     data?: ToastMessage_Data_Props;
@@ -258,73 +268,85 @@ interface MyTableProps extends React.HTMLProps<HTMLDivElement> {
     table?: TableProps;
     [key: string]: any;
 }
-declare const _default$d: React.NamedExoticComponent<MyTableProps>;
+declare const _default$f: React.NamedExoticComponent<MyTableProps>;
 
 interface MyTable1Props extends React.HTMLProps<HTMLDivElement> {
     table1?: Table1_Props;
     [key: string]: any;
 }
-declare const _default$c: React.NamedExoticComponent<MyTable1Props>;
+declare const _default$e: React.NamedExoticComponent<MyTable1Props>;
 
 interface MyDialogProps extends React.HTMLProps<HTMLDivElement> {
     dialog?: DialogProps;
     [key: string]: any;
 }
-declare const _default$b: React.NamedExoticComponent<MyDialogProps>;
+declare const _default$d: React.NamedExoticComponent<MyDialogProps>;
 
 interface MyLoadProps extends React.HTMLProps<HTMLDivElement> {
     load: LoadProps;
     [key: string]: any;
 }
-declare const _default$a: React.NamedExoticComponent<MyLoadProps>;
+declare const _default$c: React.NamedExoticComponent<MyLoadProps>;
 
 interface MyOverlayProps extends React.HTMLProps<HTMLDivElement> {
     overlay?: OverlayProps;
     [key: string]: any;
 }
-declare const _default$9: React.NamedExoticComponent<MyOverlayProps>;
+declare const _default$b: React.NamedExoticComponent<MyOverlayProps>;
 
 interface MyToastMessageProps extends React.HTMLProps<HTMLDivElement> {
     toastMessage?: ToastMessageProps;
     [key: string]: any;
 }
-declare const _default$8: React.NamedExoticComponent<MyToastMessageProps>;
+declare const _default$a: React.NamedExoticComponent<MyToastMessageProps>;
 
 interface MyTickSymbolProps extends React.HTMLProps<SVGSVGElement> {
     tickSymbol?: TickSymbolProps;
     [key: string]: any;
 }
-declare const _default$7: React.NamedExoticComponent<MyTickSymbolProps>;
+declare const _default$9: React.NamedExoticComponent<MyTickSymbolProps>;
 
 interface MyWarnTriangleProps extends React.HTMLProps<SVGSVGElement> {
     warnTriangle?: WarnTriangleProps;
     [key: string]: any;
 }
-declare const _default$6: React.NamedExoticComponent<MyWarnTriangleProps>;
+declare const _default$8: React.NamedExoticComponent<MyWarnTriangleProps>;
 
 interface MyErrorCircleProps extends React.HTMLProps<SVGSVGElement> {
     errorCircle?: ErrorCircleProps;
     [key: string]: any;
 }
-declare const _default$5: React.NamedExoticComponent<MyErrorCircleProps>;
+declare const _default$7: React.NamedExoticComponent<MyErrorCircleProps>;
 
 interface MyDeleteCircleProps extends React.HTMLProps<SVGSVGElement> {
     deleteCircle?: DeleteCircleProps;
     [key: string]: any;
 }
-declare const _default$4: React.NamedExoticComponent<MyDeleteCircleProps>;
+declare const _default$6: React.NamedExoticComponent<MyDeleteCircleProps>;
 
 interface MyBigLeftArrowProps extends React.HTMLProps<SVGSVGElement> {
     bigLeftArrow?: BigLeftArrowProps;
     [key: string]: any;
 }
-declare const _default$3: React.NamedExoticComponent<MyBigLeftArrowProps>;
+declare const _default$5: React.NamedExoticComponent<MyBigLeftArrowProps>;
 
 interface MyBigRightArrowProps extends React.HTMLProps<SVGSVGElement> {
     bigRightArrow?: BigRightArrowProps;
     [key: string]: any;
 }
-declare const _default$2: React.NamedExoticComponent<MyBigRightArrowProps>;
+declare const _default$4: React.NamedExoticComponent<MyBigRightArrowProps>;
+
+interface MyBigDownArrowProps extends React.HTMLProps<SVGSVGElement> {
+    bigDownArrow?: BigDownArrowProps;
+    [key: string]: any;
+}
+declare const _default$3: React.NamedExoticComponent<MyBigDownArrowProps>;
+
+interface MyBigUpArrowProps extends React.HTMLProps<SVGSVGElement> {
+    bigUpArrow?: BigUpArrowProps;
+    [key: string]: any;
+}
+declare const _default$2: React.NamedExoticComponent<MyBigUpArrowProps>;
 
 interface MyAddCircleProps extends React.HTMLProps<SVGSVGElement> {
     addCircle?: AddCircleProps;
@@ -338,4 +360,4 @@ interface MySubCircleProps extends React.HTMLProps<SVGSVGElement> {
 }
 declare const _default: React.NamedExoticComponent<MySubCircleProps>;
 
-export { _default$1 as AddCircle, _default$3 as BigLeftArrow, _default$2 as BigRightArrow, _default$4 as DeleteCircle, _default$b as Dialog, _default$5 as ErrorCircle, _default$a as Loading, _default$9 as OverLay, _default as SubCircle, _default$d as Table, _default$c as Table1, _default$7 as TickSymbol, _default$8 as ToastMessage, _default$6 as WarnTriangle };
+export { _default$1 as AddCircle, _default$3 as BigDownArrow, _default$5 as BigLeftArrow, _default$4 as BigRightArrow, _default$2 as BigUpArrow, _default$6 as DeleteCircle, _default$d as Dialog, _default$7 as ErrorCircle, _default$c as Loading, _default$b as OverLay, _default as SubCircle, _default$f as Table, _default$e as Table1, _default$9 as TickSymbol, _default$a as ToastMessage, _default$8 as WarnTriangle };

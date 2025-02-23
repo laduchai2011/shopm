@@ -273,14 +273,6 @@ const MedicationDepartment = () => {
         )
     })
 
-    // const list_selectedDepartments_toBuy_subGroup = useMemo(() => {
-    //     return selectedDepartments_toBuy_subGroup.map((data, index) => {
-    //         return (
-    //             <MedicationDepartmentOrder key={index} index={index} data={data} />
-    //         )
-    //     })
-    // }, [selectedDepartments_toBuy_subGroup]) 
-
     return (
         <div className="MedicationDepartment" ref={thisElement}>
             <div className="MedicationDepartment-header">Department List</div>
@@ -322,23 +314,7 @@ const MedicationDepartment = () => {
                     }} /> }
                 </div>
                 { list_selectedDepartments_toBuy_subGroup }
-                {/* <div>
-                    {selectedDepartment_List.length>0 && <Table1 table1={{
-                        config: {
-                            columnInfor: selectedDepartmentInfor
-                        },
-                        data: {values: selectedDepartment_List},
-                    }}/> }
-                </div> */}
                 <div className="MedicationDepartment-total">
-                    {/* <div>
-                        <div><strong>Order:</strong></div>
-                        <div title={`${orderMoney.price} - ${orderMoney.sale} - ${orderMoney.vat}`}>{`${moneyString_(Math.round(orderMoney.price).toString()).full_with_round} - ${moneyString_(Math.round(orderMoney.sale).toString()).full_with_round} - ${moneyString_(Math.round(orderMoney.vat).toString()).full_with_round}`}</div>
-                    </div>
-                    <div>
-                        <div><strong>Ship:</strong></div>
-                        <div title={shipCost}>{moneyString_(Math.round(shipCost).toString()).full_with_round}</div>
-                    </div> */}
                     <div>
                         <div><strong>Total:</strong></div>
                         <div title={total}>{moneyString_(Math.round(total).toString()).full_with_round}</div>
