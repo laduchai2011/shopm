@@ -11,6 +11,8 @@ import BigLeftArrow from 'src/components/Icon/BigLeftArrow';
 import BigRightArrow from 'src/components/Icon/BigRightArrow';
 import BigDownArrow from 'src/components/Icon/BigDownArrow';
 import BigUpArrow from 'src/components/Icon/BigUpArrow';
+import ThreeDotHorizontal from 'src/components/Icon/ThreeDotHorizontal';
+import ThreeDotVertical from 'src/components/Icon/ThreeDotVertical';
 
 const IconScreen: FC<{}> = () => {
 
@@ -29,7 +31,8 @@ const IconScreen: FC<{}> = () => {
         }}>
             <BigUpArrow />
         </div>
-        
+        <div><ThreeDotHorizontal /></div>
+        <div><ThreeDotVertical /></div>
     </div>;
 };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import './styles.css';
 
 import { useParams } from "react-router-dom";
@@ -257,6 +257,10 @@ const MedicationDepartment = () => {
         //----------------------------------------------------------------------------------------------//
     }
 
+    const set_ship_cost = useCallback(() => { 
+        const selectedDepartments_toBuy_subGroup_ = [...selectedDepartments_toBuy_subGroup]
+    }, [selectedDepartments_toBuy_subGroup])
+
     useEffect(() => {
         //---------------------total--------------------------//
         let total_ = 0;
@@ -269,7 +273,7 @@ const MedicationDepartment = () => {
 
     const list_selectedDepartments_toBuy_subGroup = selectedDepartments_toBuy_subGroup.map((data, index) => {
         return (
-            <MedicationDepartmentOrder key={index} data={data} />
+            <MedicationDepartmentOrder key={index} data={data} onSetShipCost={set_ship_cost} />
         )
     })
 

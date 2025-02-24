@@ -24,7 +24,7 @@ const ErrorCircle: FC<MyErrorCircleProps> = ({errorCircle, className, ...props})
     }, [errorCircle])
 
     return <svg 
-        className={`TKS-ErrorCircle ${className  || ''}`}
+        className={`TKS-ErrorCircle ${className || ''}`}
         ref={errorCircleElement}
         viewBox="0 0 24 24" 
         xmlns="http://www.w3.org/2000/svg"

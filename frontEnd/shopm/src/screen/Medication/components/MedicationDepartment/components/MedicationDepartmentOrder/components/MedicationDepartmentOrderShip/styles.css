@@ -1,0 +1,45 @@
+.MedicationDepartmentOrderShip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: black;
+}
+
+.MedicationDepartmentOrderShip > div:nth-child(1) {
+    display: flex;
+    align-items: center;
+}
+
+.MedicationDepartmentOrderShip > div:nth-child(2) > svg {
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.MedicationDepartmentOrderShip > div:nth-child(2) {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.MedicationDepartmentOrderShip > div:nth-child(2) > svg:hover {
+    background-color: rgb(219, 219, 219);
+}
+
+.MedicationDepartmentOrderShip > div:nth-child(2) > div {
+    background-color: white;
+    box-sizing: border-box;
+    border: 1px solid gray;
+    padding: 5px;
+    border-radius: 15px;
+    position: absolute;
+    margin-top: 30px;
+    cursor: pointer;
+    display: none;
+}
+
+.MedicationDepartmentOrderShip > div:nth-child(2) > div.show {
+    display: block;
+}
+
+.MedicationDepartmentOrderShip > div:nth-child(2) > div:hover {
+    background-color: rgb(240, 240, 240);
+}

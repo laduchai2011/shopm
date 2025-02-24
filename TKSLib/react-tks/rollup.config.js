@@ -99,7 +99,7 @@ export default [
       }),
     ],
     external: ["react", "react-dom"],
-    treeshake: false,
+    // treeshake: false,
   },
   {
     input: "src/components.ts",

@@ -240,6 +240,18 @@ export interface BigUpArrowProps {
     stroke_width?: number
 }
 
+export interface ThreeDotHorizontalProps {
+    // fill?: string,
+    // stroke?: string,
+    // stroke_width?: number
+}
+
+export interface ThreeDotVerticalProps {
+    // fill?: string,
+    // stroke?: string,
+    // stroke_width?: number
+}
+
 // message
 export interface ToastMessageProps {
     config?: ToastMessage_Config_Props,

@@ -22,7 +22,7 @@ const BigRightArrow: FC<MyBigRightArrowProps> = ({bigRightArrow, className, ...p
     }, [bigRightArrow])
 
     return <svg 
-        className={`TKS-BigRightArrow ${className  || ''}`}
+        className={`TKS-BigRightArrow ${className || ''}`}
         ref={bigRightArrowElement}
         viewBox="0 0 24 24" 
         xmlns="http://www.w3.org/2000/svg"  

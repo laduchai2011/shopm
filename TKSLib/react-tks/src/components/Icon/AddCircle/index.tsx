@@ -25,7 +25,7 @@ const AddCircle: FC<MyAddCircleProps> = ({addCircle, className, ...props}) => {
     }, [addCircle])
 
     return <svg 
-        className={`TKS-AddCircle ${className  || ''}`}
+        className={`TKS-AddCircle ${className || ''}`}
         ref={addCircleElement}
         viewBox="0 0 24 24" 
         xmlns="http://www.w3.org/2000/svg"

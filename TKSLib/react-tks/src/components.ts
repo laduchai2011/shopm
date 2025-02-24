@@ -15,3 +15,5 @@ export { default as BigDownArrow } from './components/Icon/BigDownArrow'
 export { default as BigUpArrow } from './components/Icon/BigUpArrow';
 export { default as AddCircle } from './components/Icon/AddCircle';
 export { default as SubCircle } from './components/Icon/SubCircle';
+export { default as ThreeDotHorizontal } from './components/Icon/ThreeDotHorizontal';
+export { default as ThreeDotVertical } from './components/Icon/ThreeDotVertical';

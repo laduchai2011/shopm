@@ -47,14 +47,20 @@
 }
 
 .MedicationDepartmentOrder-show_ship_method.show {
-    height: 180px;
+    height: 170px;
 }
 
 .MedicationDepartmentOrder-show_ship_method > div:nth-child(2) {
     margin-top: 15px;
 }
 
-.MedicationDepartmentOrder-show_ship_method > div:nth-child(2) > div {
+/* .MedicationDepartmentOrder-show_ship_method > div:nth-child(2) > div {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
+
+.MedicationDepartmentOrder-show_ship_method > div:nth-child(2) > div > div {
+    display: flex;
+    align-items: center;
+} */

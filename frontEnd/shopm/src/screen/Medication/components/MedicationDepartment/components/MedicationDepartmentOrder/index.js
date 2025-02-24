@@ -1,13 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useCallback, useEffect } from "react";
 import './styles.css';
 
 import { 
     Table1, 
-    BigDownArrow,
-    BigUpArrow 
+    BigDownArrow
 } from "react-tks/components";
 import { moneyString } from 'react-tks/utils';
- 
+
+import MedicationDepartmentOrderShip from "./components/MedicationDepartmentOrderShip";
+
+import { getCookie } from "auth/cookie";
 
 /**
  * @typedef {import('define/department').selected_department_toBuy__Options} selected_department_toBuy__Options
@@ -16,7 +18,7 @@ import { moneyString } from 'react-tks/utils';
  * @typedef {import('define/department').calculate_money__Options} calculate_money__Options
 */
 
-const MedicationDepartmentOrder = ({index, data}) => { 
+const MedicationDepartmentOrder = ({index, data, onSetShipCost}) => { 
     const selectedDepartmentInfor = [
         { columnName: 'Name', fieldName: 'name'},
         { columnName: 'Amount To Buy', fieldName: 'amountToBuy'},
@@ -38,18 +40,41 @@ const MedicationDepartmentOrder = ({index, data}) => {
     const calculate_money = data.calculate_money;
 
     //----------------handle ship-----------------------//
+    const ship_type_default = getCookie('ship_type_default');
     const show_ship_method_element = useRef(null);
-    const [ship_type, set_ship_type] = useState('normal');
-
+    const [ship_type, set_ship_type] = useState(() => {
+        if (ship_type_default.length > 0) {
+            return ship_type_default;
+        } else {
+            return 'normal';
+        }
+    });
+    const [default_text, set_default_text] = useState('');
+    useEffect(() => {
+        let default_text_;
+        if (ship_type_default===ship_type) {
+            default_text_ = ' (default)';
+        } else { 
+            if (ship_type_default.length > 0) {
+                default_text_ = '';
+            } else {
+                if (ship_type==='normal') {
+                    default_text_ = ' (default)';
+                } else {
+                    default_text_ = '';
+                }
+            }
+        }
+        set_default_text(default_text_);
+    }, [ship_type, ship_type_default])
     const handleShow_shipMethod = () => {
         if (show_ship_method_element.current) {
             show_ship_method_element.current.classList.toggle('show');
         }
     }
-
-    const handleShipType = (type) => {
+    const handleShipType = useCallback((type) => {
         set_ship_type(type);
-    }
+    }, [])
     //---------------------------------------//
 
     return (
@@ -70,24 +95,11 @@ const MedicationDepartmentOrder = ({index, data}) => {
                     <BigDownArrow onClick={() => handleShow_shipMethod()} />
                 </div>
                 <div className="MedicationDepartmentOrder-show_ship_method" ref={show_ship_method_element}>
+                    <div>{`You selected ${ship_type} ship${default_text}`}</div>
                     <div>
-                        You selected normal ship (default)
-                    </div>
-                    <div>
-                        <div>
-                            <div>
-                                <input type="checkbox" checked={ship_type==='normal'} onChange={() => handleShipType('normal')} />
-                                <p>Ship normal</p>
-                            </div>
-                        </div>
-                        <div>
-                            <input type="checkbox" checked={ship_type==='now'} onChange={() => handleShipType('now')} />
-                            <p>Ship now</p>
-                        </div>
-                        <div>
-                            <input type="checkbox" checked={ship_type==='slow'} onChange={() => handleShipType('slow')} />
-                            <p>Ship slow</p>
-                        </div>
+                        <MedicationDepartmentOrderShip type={'normal'} ship_type={ship_type} onSelected={handleShipType} />
+                        <MedicationDepartmentOrderShip type={'now'} ship_type={ship_type} onSelected={handleShipType} />
+                        <MedicationDepartmentOrderShip type={'economize'} ship_type={ship_type} onSelected={handleShipType} />
                     </div>
                 </div>
             </div>

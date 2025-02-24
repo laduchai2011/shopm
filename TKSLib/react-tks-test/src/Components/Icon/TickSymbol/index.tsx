@@ -24,7 +24,7 @@ const TickSymbol: FC<MyTickSymbolProps> = ({tickSymbol, className, ...props}) =>
     }, [tickSymbol])
 
     return <svg 
-        className={`TKS-TickSymbol ${className  || ''}`}
+        className={`TKS-TickSymbol ${className || ''}`}
         ref={tickSymbolElement}
         viewBox="0 0 24 24" 
         xmlns="http://www.w3.org/2000/svg"

@@ -24,7 +24,7 @@ const WarnTriangle: FC<MyWarnTriangleProps> = ({warnTriangle, className, ...prop
     }, [warnTriangle])
 
     return <svg 
-        className={`TKS-WarnTriangle ${className  || ''}`}
+        className={`TKS-WarnTriangle ${className || ''}`}
         ref={warnTriangleElement}
         viewBox="0 0 24 24" 
         xmlns="http://www.w3.org/2000/svg"
