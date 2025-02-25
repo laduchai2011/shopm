@@ -40,7 +40,7 @@
     justify-content: space-between;
 }
 
-.MedicationDepartment-total > div:nth-child(1) {
+/* .MedicationDepartment-total > div:nth-child(1) {
     box-sizing: border-box;
     border: 1px solid rgb(77, 77, 255);
 }
@@ -61,9 +61,9 @@
     height: 100%;
     background-color: rgb(77, 77, 255);
     cursor: pointer;
-}
+} */
 
-.MedicationDepartment-total > div:nth-child(1) > div:nth-child(2) {
+/* .MedicationDepartment-total > div:nth-child(1) > div:nth-child(2) {
     height: 30px;
     width: 100%;
     box-sizing: border-box;
@@ -77,8 +77,8 @@
 }
 
 .MedicationDepartment-total > div:nth-child(1) > div:nth-child(2).show {
-    height: 170px;
-}
+    height: 70px;
+} */
 
 .MedicationDepartment-buttom {
     display: flex;

@@ -1,0 +1,53 @@
+.MedicationDepartmentPay {
+    box-sizing: border-box;
+    border: 1px solid rgb(77, 77, 255);
+}
+
+.MedicationDepartmentPay > div:nth-child(1) {
+    box-sizing: border-box;
+    background-color: rgb(77, 77, 255);
+    height: 35px;
+    width: 100%;
+    padding: 5px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.MedicationDepartmentPay > div:nth-child(1) > svg {
+    height: 100%;
+    background-color: rgb(77, 77, 255);
+    cursor: pointer;
+}
+
+.MedicationDepartmentPay > div:nth-child(2) {
+    height: 30px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+    font-size: 0.8rem;
+    font-style: italic;
+    color: rgb(255, 67, 67);
+    overflow: hidden;
+
+    transition: height 0.3s linear;
+}
+
+.MedicationDepartmentPay > div:nth-child(2).show {
+    height: 100px;
+}
+
+.MedicationDepartmentPay > div:nth-child(2) > div:nth-child(2) {
+    margin-top: 20px;
+    color: black;
+}
+
+.MedicationDepartmentPay > div:nth-child(2) > div:nth-child(2) > div {
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.MedicationDepartmentPay > div:nth-child(2) > div:nth-child(2) > div:hover {
+    color: blue;
+}

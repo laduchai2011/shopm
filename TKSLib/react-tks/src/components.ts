@@ -2,7 +2,7 @@ export { default as Table } from './components/Table';
 export { default as Table1 } from './components/Table1';
 export { default as Dialog } from './components/Dialog';
 export { default as Loading } from './components/Loading';
-export { default as OverLay } from './components/OverLay';
+export { default as Overlay } from './components/Overlay';
 export { default as ToastMessage } from './components/ToastMessage';
 
 export { default as TickSymbol } from './components/Icon/TickSymbol';

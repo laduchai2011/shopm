@@ -14,10 +14,7 @@ interface MyDialogProps extends React.HTMLProps<HTMLDivElement> {
     [key: string]: any
 }
 
-const Dialog: FC<MyDialogProps> = ({
-    dialog,
-    ...props
-}) => {
+const Dialog: FC<MyDialogProps> = ({dialog, className, ...props}) => {
 
     const id = useRef<string>(`Dialog__T: ${useId()}`);
 
@@ -172,7 +169,12 @@ const Dialog: FC<MyDialogProps> = ({
         dialog?.event?.onClickButton3 && dialog?.event?.onClickButton3(TKS);
     }
 
-    return <div className="TKS-Dialog" {...props} ref={dialogElement} id={id.current}>
+    return <div
+        className={`TKS-Dialog ${className || ''}`}
+        ref={dialogElement} 
+        id={id.current}
+        {...props} 
+    >
         <div>
             <DeleteCircle deleteCircle={{size: 22}} onClick={(e) => handleDelete(e)} />
         </div>

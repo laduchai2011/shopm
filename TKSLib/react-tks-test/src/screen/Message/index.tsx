@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import './styles.css';
 
 import ToastMessage from 'src/components/ToastMessage';
-import Overlay from 'src/components/OverLay';
+import Overlay from 'src/components/Overlay';
 import Dialog from 'src/components/Dialog';
 
 import { ToastMessageProps } from 'src/define';

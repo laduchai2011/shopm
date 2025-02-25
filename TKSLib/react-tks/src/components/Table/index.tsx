@@ -188,7 +188,7 @@ const Table: FC<MyTableProps> = ({table, className, ...props}) => {
 
     return <ContextTable.Provider value={contextValue}>
         {isRender && <div 
-            className={`TKS-Table ${className  || ''}`}
+            className={`TKS-Table ${className || ''}`}
             {...props}
         >
             { handleControlPos()!=='bottom' && <div className='TKS-Table--Control'><Control /></div>}

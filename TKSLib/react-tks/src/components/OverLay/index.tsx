@@ -133,7 +133,7 @@ const Overlay: FC<MyOverlayProps> = ({overlay, className, ...props}) => {
     }
 
     return <div 
-        className={`TKS-Overlay ${className  || ''}`}
+        className={`TKS-Overlay ${className || ''}`}
         ref={overlayElement}
         onClick={(e) => handleClose(e)}
         {...props}

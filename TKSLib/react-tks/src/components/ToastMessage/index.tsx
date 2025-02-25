@@ -99,7 +99,7 @@ const ToastMessage: FC<MyToastMessageProps> = ({toastMessage, className, ...prop
     }
 
     return <div 
-        className={`TKS-ToastMessage ${className  || ''}`}
+        className={`TKS-ToastMessage ${className || ''}`}
         ref={toastMessageElement} 
         id={id.current}
         {...props} 
