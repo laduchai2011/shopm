@@ -3,7 +3,8 @@ import './styles.css';
 
 import { 
     Table1, 
-    BigDownArrow
+    BigDownArrow, 
+    BigUpArrow
 } from "react-tks/components";
 import { moneyString } from 'react-tks/utils';
 
@@ -42,6 +43,7 @@ const MedicationDepartmentOrder = ({index, data, onSetShipCost}) => {
     //----------------handle ship-----------------------//
     const ship_type_default = getCookie('ship_type_default');
     const show_ship_method_element = useRef(null);
+    const [isShow_methodShip, set_isShow_methodShip] = useState(false);
     const [ship_type, set_ship_type] = useState(() => {
         if (ship_type_default.length > 0) {
             return ship_type_default;
@@ -68,13 +70,25 @@ const MedicationDepartmentOrder = ({index, data, onSetShipCost}) => {
         set_default_text(default_text_);
     }, [ship_type, ship_type_default])
     const handleShow_shipMethod = () => {
+        let isShow = isShow_methodShip;
         if (show_ship_method_element.current) {
-            show_ship_method_element.current.classList.toggle('show');
+            if (show_ship_method_element.current.classList.contains('show')) {
+                show_ship_method_element.current.classList.remove('show');
+                isShow = false;
+            } else {
+                show_ship_method_element.current.classList.add('show');
+                isShow = true;
+            }
         }
+
+        setTimeout(() => {
+            set_isShow_methodShip(isShow);
+        }, 300)
     }
-    const handleShipType = useCallback((type) => {
+    const handleShipType = useCallback((type, newShipCost) => {
         set_ship_type(type);
-    }, [])
+        onSetShipCost(index, newShipCost);
+    }, [index, onSetShipCost])
     //---------------------------------------//
 
     return (
@@ -92,7 +106,11 @@ const MedicationDepartmentOrder = ({index, data, onSetShipCost}) => {
                     <div>
                         Ship Method
                     </div>
-                    <BigDownArrow onClick={() => handleShow_shipMethod()} />
+                    {
+                        isShow_methodShip ?
+                        <BigUpArrow onClick={() => handleShow_shipMethod()} /> :
+                        <BigDownArrow onClick={() => handleShow_shipMethod()} />
+                    }  
                 </div>
                 <div className="MedicationDepartmentOrder-show_ship_method" ref={show_ship_method_element}>
                     <div>{`You selected ${ship_type} ship${default_text}`}</div>

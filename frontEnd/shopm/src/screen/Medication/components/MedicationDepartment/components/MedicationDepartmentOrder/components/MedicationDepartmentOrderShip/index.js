@@ -12,7 +12,7 @@ const MedicationDepartmentOrderShip = ({type, ship_type, onSelected}) => {
     const settingDialogElement = useRef(null);
 
     const handleShipType = (type) => {
-        onSelected(type)
+        onSelected(type, 5000)
     }
 
     const handleShowSetting = () => {

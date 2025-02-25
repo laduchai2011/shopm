@@ -3,7 +3,11 @@ import './styles.css';
 
 import { useParams } from "react-router-dom";
 
-import { Table } from 'react-tks/components';
+import { 
+    Table,
+    BigDownArrow,
+    BigUpArrow
+} from 'react-tks/components';
 import { moneyString } from 'react-tks/utils';
 
 import { useMedicationScreen_getList_departmentsQuery } from "reduxStore/RTKQuery/departmentRTKQuery";
@@ -257,8 +261,14 @@ const MedicationDepartment = () => {
         //----------------------------------------------------------------------------------------------//
     }
 
-    const set_ship_cost = useCallback(() => { 
-        const selectedDepartments_toBuy_subGroup_ = [...selectedDepartments_toBuy_subGroup]
+    const set_ship_cost = useCallback((indexOfGroup, newShipCost) => { 
+        const selectedDepartments_toBuy_subGroup_ = [...selectedDepartments_toBuy_subGroup];
+        const oldShipCost = selectedDepartments_toBuy_subGroup_[indexOfGroup].calculate_money.ship
+        const oldTotal = selectedDepartments_toBuy_subGroup_[indexOfGroup].calculate_money.total;
+        const offsetShipCost = newShipCost - oldShipCost;
+        selectedDepartments_toBuy_subGroup_[indexOfGroup].calculate_money.ship = newShipCost;
+        selectedDepartments_toBuy_subGroup_[indexOfGroup].calculate_money.total = oldTotal + offsetShipCost;
+        set_selectedDepartments_toBuy_subGroup(selectedDepartments_toBuy_subGroup_);
     }, [selectedDepartments_toBuy_subGroup])
 
     useEffect(() => {
@@ -271,9 +281,28 @@ const MedicationDepartment = () => {
         //---------------------------------------------------=//
     }, [selectedDepartments_toBuy_subGroup])
 
+    const [isShow_methodPay, set_isShow_methodPay] = useState(false);
+    const show_pay_method_element = useRef(null);
+    const handleShow_shipMethod = () => {
+        let isShow = isShow_methodPay;
+        if (show_pay_method_element.current) {
+            if (show_pay_method_element.current.classList.contains('show')) {
+                show_pay_method_element.current.classList.remove('show');
+                isShow = false;
+            } else {
+                show_pay_method_element.current.classList.add('show');
+                isShow = true;
+            }
+        }
+
+        setTimeout(() => {
+            set_isShow_methodPay(isShow);
+        }, 300)
+    }
+
     const list_selectedDepartments_toBuy_subGroup = selectedDepartments_toBuy_subGroup.map((data, index) => {
         return (
-            <MedicationDepartmentOrder key={index} data={data} onSetShipCost={set_ship_cost} />
+            <MedicationDepartmentOrder key={index} index={index} data={data} onSetShipCost={set_ship_cost} />
         )
     })
 
@@ -319,6 +348,17 @@ const MedicationDepartment = () => {
                 </div>
                 { list_selectedDepartments_toBuy_subGroup }
                 <div className="MedicationDepartment-total">
+                    <div>
+                        <div>
+                            <div>Pay Method</div>
+                            {
+                                isShow_methodPay ?
+                                <BigUpArrow onClick={() => handleShow_shipMethod()} /> :
+                                <BigDownArrow onClick={() => handleShow_shipMethod()} />
+                            }  
+                        </div>
+                        <div ref={show_pay_method_element}>sdfsdfdsf</div>
+                    </div>
                     <div>
                         <div><strong>Total:</strong></div>
                         <div title={total}>{moneyString_(Math.round(total).toString()).full_with_round}</div>
