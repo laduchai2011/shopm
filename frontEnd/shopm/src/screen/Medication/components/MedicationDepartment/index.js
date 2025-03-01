@@ -4,9 +4,7 @@ import './styles.css';
 import { useParams } from "react-router-dom";
 
 import { 
-    Table,
-    // BigDownArrow,
-    // BigUpArrow
+    Table
 } from 'react-tks/components';
 import { moneyString } from 'react-tks/utils';
 
@@ -282,24 +280,9 @@ const MedicationDepartment = () => {
         //---------------------------------------------------=//
     }, [selectedDepartments_toBuy_subGroup])
 
-    // const [isShow_methodPay, set_isShow_methodPay] = useState(false);
-    // const show_pay_method_element = useRef(null);
-    // const handleShow_payMethod = () => {
-    //     let isShow = isShow_methodPay;
-    //     if (show_pay_method_element.current) {
-    //         if (show_pay_method_element.current.classList.contains('show')) {
-    //             show_pay_method_element.current.classList.remove('show');
-    //             isShow = false;
-    //         } else {
-    //             show_pay_method_element.current.classList.add('show');
-    //             isShow = true;
-    //         }
-    //     }
+    const add_into_order_group = () => {
 
-    //     setTimeout(() => {
-    //         set_isShow_methodPay(isShow);
-    //     }, 300)
-    // }
+    }
 
     const list_selectedDepartments_toBuy_subGroup = selectedDepartments_toBuy_subGroup.map((data, index) => {
         return (
@@ -349,21 +332,7 @@ const MedicationDepartment = () => {
                 </div>
                 { list_selectedDepartments_toBuy_subGroup }
                 <div className="MedicationDepartment-total">
-                    <MedicationDepartmentPay />
-                    {/* <div>
-                        <div>
-                            <div>Pay Method</div>
-                            {
-                                isShow_methodPay ?
-                                <BigUpArrow onClick={() => handleShow_payMethod()} /> :
-                                <BigDownArrow onClick={() => handleShow_payMethod()} />
-                            }  
-                        </div>
-                        <div ref={show_pay_method_element}>
-                            <div>Cash (default)</div>
-                            <div></div>
-                        </div>
-                    </div> */}
+                    <MedicationDepartmentPay selectedDepartments_toBuy_subGroup={selectedDepartments_toBuy_subGroup} total={total} />
                     <div>
                         <div><strong>Total:</strong></div>
                         <div title={total}>{moneyString_(Math.round(total).toString()).full_with_round}</div>
@@ -372,7 +341,7 @@ const MedicationDepartment = () => {
                 <div className="MedicationDepartment-buttom">
                    <div>
                         <button>Buy Now</button>
-                        <button> Add Cart</button>
+                        <button onClick={() => add_into_order_group()}>Add into order group</button>
                     </div>
                 </div>
             </div>

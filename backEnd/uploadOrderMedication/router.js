@@ -122,4 +122,26 @@ router.delete('/deleteCurrentCart',
     }
 })
 
+router.post('/SHOPM_add_order_into_current_order_group', 
+    Authentication_SHOPM, 
+    (req, res) => {
+    const userOptions = req.decodedToken.data;
+    const currentCartKey = `SHOPM_current_order_group_of_${userOptions.uuid},_orderMedicationGroup`;
+    serviceRedis.getData(currentCartKey, (orderGroup_In_CurrentSelected) => {
+        if (orderGroup_In_CurrentSelected && orderGroup_In_CurrentSelected!==null) {
+            return res.status(200).send({
+                current_order_group: current_order_group,
+                message: 'Get current_order_group success',
+                success: true
+            })
+        } else {
+            return res.status(200).send({
+                current_order_group: current_order_group,
+                message: 'Get current_order_group NOT success',
+                success: false
+            })
+        }
+    })
+})
+
 module.exports = router;

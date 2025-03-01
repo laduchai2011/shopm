@@ -136,10 +136,10 @@ const MedicationDepartmentOrder = ({index, data, onSetShipCost}) => {
                     </div>
                 </div>
                 <div className="MedicationDepartment-buttom">
-                   <div>
+                   {/* <div>
                         <button>Buy Now</button>
                         <button> Add Cart</button>
-                    </div>
+                    </div> */}
                 </div>
         </div>
     )
